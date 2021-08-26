@@ -1,0 +1,27 @@
+package:
+  name: qiime2-core
+  version: {{ env.GITHUB_HEAD_REF.replace('-', '.') }}
+
+requirements:
+  host:
+{#- NOTE:
+add this list to data.yaml as an escape hatch to force exclusion of a package,
+if necessary:
+```yaml
+ignore:
+  - package1
+  - package2
+```
+#}
+{%- for pkg in data['run'] %}
+  {%- if ('ignore' not in data) or (data['ignore'] == none) or (pkg not in data['ignore']) %}
+    - {{ pkg }} {{ '{{' }} {{ pkg.replace('-', '_') }} {{ '}}' }}
+  {%- endif %}
+{%- endfor %}
+
+  run:
+{%- raw %}
+  {% for package in resolved_packages('host') %}
+    - {{ package }}
+  {% endfor %}
+{%- endraw %}

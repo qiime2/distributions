@@ -1,0 +1,107 @@
+name: ci
+
+on:
+  pull_request:
+    paths:
+      - 2021.8/staged/**
+
+jobs:
+  integrate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+        distro:
+          - core
+        epoch:
+          - '2021.8'
+    env:
+      BUILD_DIR: build/
+    steps:
+      - name: set host helper env vars
+        run: |
+          case "${{ matrix.os }}" in
+            'ubuntu-latest') echo 'PLATFORM=linux' >> $GITHUB_ENV ;;
+            'macos-latest') echo 'PLATFORM=osx' >> $GITHUB_ENV ;;
+          esac
+
+      - name: checkout source
+        uses: actions/checkout@v2
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install 'jinja2<3' pyyaml
+
+      - name: template recipe
+        env:
+          TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
+        run: python .github/workflows/bin/template.py $TEMPLATE_PATH
+
+      - name: debug recipe
+        run: cat ${{ matrix.epoch }}/staged/${{ matrix.distro }}/meta.yaml
+
+      - name: configure conda
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda config --set always_yes yes --set changeps1 no
+          sudo conda upgrade -n base -q -y -c defaults --override-channels conda
+          sudo conda install -n base -q -y -c defaults --override-channels conda-build conda-verify
+          conda info -a
+
+      - name: build recipe
+        env:
+          Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/tested/
+          RECIPE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
+        run: |
+          sudo conda build \
+            -c $Q2_CHANNEL \
+            -c conda-forge \
+            -c bioconda \
+            -c defaults \
+            --override-channels \
+            --output-folder $BUILD_DIR \
+            --no-anaconda-upload \
+            $RECIPE_PATH
+
+      - name: upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.distro }}-${{ env.PLATFORM }}
+          path: ${{ env.BUILD_DIR }}/*/**
+
+      - name: phone home
+        env:
+          PACKAGE_NAME: ${{ matrix.distro }}-${{ env.PLATFORM }}
+          LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
+        run: |
+          package_version=$(sudo conda search -c $BUILD_DIR $PACKAGE_NAME --json | \
+                            jq --arg PKG "$PACKAGE_NAME" -r '.[$PKG][0].version')
+          resp=$(curl \
+            --silent \
+            --include \
+            --data "token=$LIBRARY_TOKEN" \
+            --data "version=$package_version" \
+            --data "run_id=$GITHUB_RUN_ID" \
+            --data "distro=${{ matrix.distro }}" \
+            --data "epoch=${{ matrix.epoch }}" \
+            --data "artifact_name=${{ matrix.distro }}-${{ env.PLATFORM }}" \
+            --data "pr_number=${{ github.event.pull_request.number }}" \
+            --header "Content-Type: application/x-www-form-urlencoded" \
+            --request POST \
+            https://library.qiime2.org/api/v1/packages/finalize/
+          )
+          code=$(echo $resp | grep HTTP | awk '{print $2}')
+          if [[ $code -ne 200 ]]
+          then
+            echo "whoops"
+            echo $resp
+            exit 1
+          fi

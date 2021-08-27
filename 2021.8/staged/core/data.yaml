@@ -1,4 +1,5 @@
 meta:
   auto_merge: true
 run:
+- q2cli
 - qiime2

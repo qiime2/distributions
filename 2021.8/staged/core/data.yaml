@@ -1,3 +1,4 @@
 meta:
-  auto_merge: True
-run: []
+  auto_merge: true
+run:
+- qiime2

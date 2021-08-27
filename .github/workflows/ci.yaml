@@ -87,8 +87,8 @@ jobs:
           resp=$(curl \
             --silent \
             --include \
-            --data "token=$LIBRARY_TOKEN" \
-            --data "version=$package_version" \
+            --data-urlencode "token=$LIBRARY_TOKEN" \
+            --data-urlencode "version=$package_version" \
             --data "run_id=$GITHUB_RUN_ID" \
             --data "distro=${{ matrix.distro }}" \
             --data "epoch=${{ matrix.epoch }}" \

@@ -1,4 +1,4 @@
 python:
 - 3.8
 qiime2:
-- 2021.8.0.dev0 8.g8c82f7d
+- 2021.8.0.dev0+8.g8c82f7d

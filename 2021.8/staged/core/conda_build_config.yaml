@@ -1,5 +1,7 @@
 python:
 - 3.8
+q2_types:
+- 2021.8.0.dev0+3.gcd1e2e1
 q2cli:
 - 2021.8.0.dev0+6.g568b8a2
 q2templates:

@@ -2,4 +2,5 @@ meta:
   auto_merge: true
 run:
 - q2cli
+- q2templates
 - qiime2

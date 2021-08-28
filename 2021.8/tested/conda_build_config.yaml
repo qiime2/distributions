@@ -1,5 +1,7 @@
 python:
 - 3.8
+q2_demux:
+- 2021.8.0.dev0+3.gbc3c5cf
 q2_types:
 - 2021.8.0.dev0+3.gcd1e2e1
 q2cli:

@@ -1,5 +1,7 @@
 python:
 - 3.8
+q2_dada2:
+- 2021.8.0.dev0+6.g2564c58
 q2_deblur:
 - 2021.8.0.dev0+4.g5808d97
 q2_demux:

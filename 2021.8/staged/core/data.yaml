@@ -1,6 +1,9 @@
 meta:
   auto_merge: true
 run:
+- q2-dada2
+- q2-deblur
+- q2-demux
 - q2-types
 - q2cli
 - q2templates

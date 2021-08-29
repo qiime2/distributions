@@ -14,6 +14,8 @@ q2_deblur:
 - 2021.8.0.dev0+4.g5808d97
 q2_demux:
 - 2021.8.0.dev0+3.gbc3c5cf
+q2_diversity:
+- 2021.8.0.dev0+5.g7381575
 q2_diversity_lib:
 - 2021.8.0.dev0+4.g59456f9
 q2_emperor:

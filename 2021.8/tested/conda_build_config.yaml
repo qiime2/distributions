@@ -10,6 +10,8 @@ q2_demux:
 - 2021.8.0.dev0+3.gbc3c5cf
 q2_emperor:
 - 2021.8.0.dev0+3.g0657213
+q2_feature_table:
+- 2021.8.0.dev0+4.g7856273
 q2_types:
 - 2021.8.0.dev0+3.gcd1e2e1
 q2cli:

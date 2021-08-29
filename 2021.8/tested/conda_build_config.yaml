@@ -2,6 +2,8 @@ hdf5:
 - 1.10.6
 python:
 - 3.8
+q2_alignment:
+- 2021.8.0.dev0+3.gca6330e
 q2_composition:
 - 2021.8.0.dev0+4.g2345bd8
 q2_dada2:

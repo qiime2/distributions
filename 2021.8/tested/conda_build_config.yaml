@@ -14,6 +14,8 @@ q2_feature_table:
 - 2021.8.0.dev0+4.g7856273
 q2_metadata:
 - 2021.8.0.dev0+3.g0c444b1
+q2_taxa:
+- 2021.8.0.dev0+3.gf15c6d1
 q2_types:
 - 2021.8.0.dev0+3.gcd1e2e1
 q2cli:

@@ -18,7 +18,7 @@ jobs:
         epoch:
           - '2021.8'
     env:
-      BUILD_DIR: build/
+      BUILD_DIR: ./build/
     steps:
       - name: set host helper env vars
         run: |
@@ -79,7 +79,7 @@ jobs:
 
       - name: phone home
         env:
-          PACKAGE_NAME: ${{ matrix.distro }}-${{ env.PLATFORM }}
+          PACKAGE_NAME: qiime2-${{ matrix.distro }}
           LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
         run: |
           package_version=$(sudo conda search -c $BUILD_DIR $PACKAGE_NAME --json | \

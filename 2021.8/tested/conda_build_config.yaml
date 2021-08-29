@@ -24,6 +24,8 @@ q2_gneiss:
 - 2021.8.0.dev0+3.gc785ad9
 q2_metadata:
 - 2021.8.0.dev0+3.g0c444b1
+q2_mystery_stew:
+- 2021.8.0.dev0+3.g3a86a07
 q2_quality_control:
 - 2021.8.0.dev0+3.g59f53bd
 q2_quality_filter:

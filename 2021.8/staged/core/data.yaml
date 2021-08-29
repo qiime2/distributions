@@ -5,6 +5,7 @@ run:
 - q2-dada2
 - q2-deblur
 - q2-demux
+- q2-diversity-lib
 - q2-emperor
 - q2-feature-table
 - q2-metadata

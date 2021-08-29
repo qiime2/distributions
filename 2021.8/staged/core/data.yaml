@@ -1,9 +1,14 @@
 meta:
   auto_merge: true
 run:
+- q2-composition
 - q2-dada2
 - q2-deblur
 - q2-demux
+- q2-emperor
+- q2-feature-table
+- q2-metadata
+- q2-taxa
 - q2-types
 - q2cli
 - q2templates

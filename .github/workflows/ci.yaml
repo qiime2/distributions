@@ -6,7 +6,19 @@ on:
       - 2021.8/staged/**
 
 jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.cut_version.outputs.version }}
+    steps:
+      - name: create version identifier
+        id: cut_version
+        run: |
+          version=$(python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))")
+          echo "::set-output name=version::$version"
+
   integrate:
+    needs: version
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -43,6 +55,7 @@ jobs:
       - name: template recipe
         env:
           TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
+          VERSION: ${{ needs.version.outputs.version }}
         run: python .github/workflows/bin/template.py $TEMPLATE_PATH
 
       - name: debug recipe

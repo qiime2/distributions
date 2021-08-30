@@ -1,6 +1,6 @@
 package:
   name: qiime2-core
-  version: {{ env.GITHUB_HEAD_REF.replace('-', '.') }}
+  version: {{ env.VERSION}}
 
 requirements:
   host:
@@ -35,3 +35,6 @@ test:
     {%- endif %}
   {%- endfor %}
 {% endif %}
+
+extra:
+  integration_git_ref: {{ env.GITHUB_HEAD_REF }}

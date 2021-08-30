@@ -31,6 +31,7 @@ jobs:
           - '2021.8'
     env:
       BUILD_DIR: ./build/
+      TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
     steps:
       - name: set host helper env vars
         run: |
@@ -54,7 +55,6 @@ jobs:
 
       - name: template recipe
         env:
-          TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
           VERSION: ${{ needs.version.outputs.version }}
         run: python .github/workflows/bin/template.py $TEMPLATE_PATH
 
@@ -95,13 +95,16 @@ jobs:
           PACKAGE_NAME: qiime2-${{ matrix.distro }}
           LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
         run: |
-          package_version=$(sudo conda search -c $BUILD_DIR $PACKAGE_NAME --json | \
-                            jq --arg PKG "$PACKAGE_NAME" -r '.[$PKG][0].version')
+          metapackage_version=$(sudo conda search -c $BUILD_DIR $PACKAGE_NAME --json | \
+                                jq --arg PKG "$PACKAGE_NAME" -r '.[$PKG][0].version')
+          package_versions=$(python .github/workflows/bin/integration_versions.py $TEMPLATE_PATH | \
+                             jq -aRs .)
           resp=$(curl \
             --silent \
             --include \
             --data-urlencode "token=$LIBRARY_TOKEN" \
-            --data-urlencode "version=$package_version" \
+            --data-urlencode "version=$metapackage_version" \
+            --data-urlencode "package_versions=$package_versions" \
             --data "run_id=$GITHUB_RUN_ID" \
             --data "distro=${{ matrix.distro }}" \
             --data "epoch=${{ matrix.epoch }}" \

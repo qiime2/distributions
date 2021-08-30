@@ -14,6 +14,7 @@ run:
 - q2-feature-table
 - q2-fragment-insertion
 - q2-gneiss
+- q2-longitudinal
 - q2-metadata
 - q2-mystery-stew
 - q2-phylogeny

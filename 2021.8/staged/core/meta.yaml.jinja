@@ -25,3 +25,13 @@ ignore:
     - {{ package }}
   {% endfor %}
 {%- endraw %}
+
+{% if include_tests %}
+test:
+  downstreams:
+  {%- for pkg in data['run'] %}
+    {%- if ('ignore' not in data) or (data['ignore'] == none) or (pkg not in data['ignore']) %}
+    - {{ pkg }} {{ '{{' }} {{ pkg.replace('-', '_') }} {{ '}}' }}
+    {%- endif %}
+  {%- endfor %}
+{% endif %}

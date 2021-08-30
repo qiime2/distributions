@@ -10,10 +10,13 @@ run:
 - q2-diversity
 - q2-diversity-lib
 - q2-emperor
+- q2-feature-classifier
 - q2-feature-table
+- q2-fragment-insertion
 - q2-gneiss
 - q2-metadata
 - q2-mystery-stew
+- q2-phylogeny
 - q2-quality-control
 - q2-quality-filter
 - q2-sample-classifier

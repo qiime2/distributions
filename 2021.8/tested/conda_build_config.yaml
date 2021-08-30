@@ -1,5 +1,7 @@
 hdf5:
 - 1.10.6
+pandas:
+- 1.2.*
 python:
 - 3.8
 q2_alignment:

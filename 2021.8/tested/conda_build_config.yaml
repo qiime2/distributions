@@ -22,6 +22,8 @@ q2_emperor:
 - 2021.8.0.dev0+3.g0657213
 q2_feature_table:
 - 2021.8.0.dev0+4.g7856273
+q2_fragment_insertion:
+- 2021.8.0.dev0+3.g028a1f5
 q2_gneiss:
 - 2021.8.0.dev0+3.gc785ad9
 q2_metadata:

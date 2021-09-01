@@ -97,8 +97,7 @@ jobs:
         run: |
           metapackage_version=$(sudo conda search -c $BUILD_DIR $PACKAGE_NAME --json | \
                                 jq --arg PKG "$PACKAGE_NAME" -r '.[$PKG][0].version')
-          package_versions=$(python .github/workflows/bin/integration_versions.py $TEMPLATE_PATH | \
-                             jq -aRs .)
+          package_versions=$(python .github/workflows/bin/integration_versions.py $TEMPLATE_PATH)
           resp=$(curl \
             --silent \
             --include \

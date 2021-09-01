@@ -56,3 +56,5 @@ q2templates:
 - 2021.8.0.dev0+3.gd744b4d
 qiime2:
 - 2021.8.0.dev0+8.g8c82f7d
+qiime2_epoch:
+- 2021.8

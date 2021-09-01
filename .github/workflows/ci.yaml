@@ -104,7 +104,7 @@ jobs:
             --include \
             --data-urlencode "token=$LIBRARY_TOKEN" \
             --data-urlencode "version=$metapackage_version" \
-            --data-urlencode "package_versions=$package_versions" \
+            --data "package_versions=$package_versions" \
             --data "run_id=$GITHUB_RUN_ID" \
             --data "distro=${{ matrix.distro }}" \
             --data "epoch=${{ matrix.epoch }}" \

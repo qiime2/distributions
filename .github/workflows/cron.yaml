@@ -6,19 +6,7 @@ on:
     - cron: '0 */4 * * *'
 
 jobs:
-  version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.cut_version.outputs.version }}
-    steps:
-      - name: create version identifier
-        id: cut_version
-        run: |
-          version=$(python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))")
-          echo "::set-output name=version::$version"
-
   integrate:
-    needs: version
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -31,6 +19,8 @@ jobs:
           - '2021.8'
     env:
       BUILD_DIR: ./build/
+      TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
+      Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/tested/
     steps:
       - name: set host helper env vars
         run: |
@@ -53,13 +43,10 @@ jobs:
           pip install 'jinja2<3' pyyaml
 
       - name: template recipe
-        env:
-          TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
-          VERSION: ${{ needs.version.outputs.version }}
         run: python .github/workflows/bin/template.py $TEMPLATE_PATH --tests
 
       - name: debug recipe
-        run: cat ${{ matrix.epoch }}/staged/${{ matrix.distro }}/meta.yaml
+        run: cat $TEMPLATE_PATH/meta.yaml
 
       - name: configure conda
         run: |
@@ -70,9 +57,6 @@ jobs:
           conda info -a
 
       - name: build recipe
-        env:
-          Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/tested/
-          RECIPE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
         run: |
           sudo conda build \
             -c $Q2_CHANNEL \
@@ -82,4 +66,4 @@ jobs:
             --override-channels \
             --output-folder $BUILD_DIR \
             --no-anaconda-upload \
-            $RECIPE_PATH
+            $TEMPLATE_PATH

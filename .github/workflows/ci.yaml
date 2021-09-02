@@ -6,19 +6,7 @@ on:
       - 2021.8/staged/**
 
 jobs:
-  version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.cut_version.outputs.version }}
-    steps:
-      - name: create version identifier
-        id: cut_version
-        run: |
-          version=$(python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))")
-          echo "::set-output name=version::$version"
-
   integrate:
-    needs: version
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -32,6 +20,7 @@ jobs:
     env:
       BUILD_DIR: ./build/
       TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
+      Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/tested/
     steps:
       - name: set host helper env vars
         run: |
@@ -54,25 +43,20 @@ jobs:
           pip install 'jinja2<3' pyyaml
 
       - name: template recipe
-        env:
-          VERSION: ${{ needs.version.outputs.version }}
         run: python .github/workflows/bin/template.py $TEMPLATE_PATH
 
       - name: debug recipe
-        run: cat ${{ matrix.epoch }}/staged/${{ matrix.distro }}/meta.yaml
+        run: cat $TEMPLATE_PATH/meta.yaml
 
-      - name: configure conda
+      - name: configure conda and friends
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
           conda config --set always_yes yes --set changeps1 no
           sudo conda upgrade -n base -q -y -c defaults --override-channels conda
-          sudo conda install -n base -q -y -c defaults --override-channels conda-build conda-verify
+          sudo conda install -n base -q -y -c defaults --override-channels conda-build conda-verify yq
           conda info -a
 
       - name: build recipe
-        env:
-          Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/tested/
-          RECIPE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
         run: |
           sudo conda build \
             -c $Q2_CHANNEL \
@@ -82,7 +66,7 @@ jobs:
             --override-channels \
             --output-folder $BUILD_DIR \
             --no-anaconda-upload \
-            $RECIPE_PATH
+            $TEMPLATE_PATH
 
       - name: upload build artifact
         uses: actions/upload-artifact@v2
@@ -95,6 +79,13 @@ jobs:
           PACKAGE_NAME: qiime2-${{ matrix.distro }}
           LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
         run: |
+          phone_home=$(yq eval ".meta.phone_home|false" $TEMPLATE_PATH/data.yaml)
+          if [[ $phone_home == "false" ]]
+          then
+              echo "skipping library upload due to disabled phone_home"
+              exit 0
+          fi
+
           metapackage_version=$(sudo conda search -c $BUILD_DIR $PACKAGE_NAME --json | \
                                 jq --arg PKG "$PACKAGE_NAME" -r '.[$PKG][0].version')
           package_versions=$(python .github/workflows/bin/integration_versions.py $TEMPLATE_PATH)

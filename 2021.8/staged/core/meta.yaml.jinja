@@ -1,9 +1,9 @@
 package:
   name: qiime2-core
-  version: {{ env.VERSION}}
+  version: {{ data['version'] or 'placehold' }}
 
 requirements:
-  host:
+  build:
 {#- NOTE:
 add this list to data.yaml as an escape hatch to force exclusion of a package,
 if necessary:
@@ -21,20 +21,11 @@ ignore:
 
   run:
 {%- raw %}
-  {% for package in resolved_packages('host') %}
-    - {{ package }}
+  {%- for package in resolved_packages('build') %}
+    - {{ package.split(' ')[:2] | join(' ') }}.*
   {% endfor %}
 {%- endraw %}
 
-{% if include_tests %}
-test:
-  downstreams:
-  {%- for pkg in data['run'] %}
-    {%- if ('ignore' not in data) or (data['ignore'] == none) or (pkg not in data['ignore']) %}
-    - {{ pkg }} {{ '{{' }} {{ pkg.replace('-', '_') }} {{ '}}' }}
-    {%- endif %}
-  {%- endfor %}
-{% endif %}
-
 extra:
-  integration_git_ref: {{ env.GITHUB_HEAD_REF }}
+  qiime2:
+    integration_git_head_ref: {{ env.GITHUB_HEAD_REF or 'placehold' }}

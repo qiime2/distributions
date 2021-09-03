@@ -81,8 +81,8 @@ jobs:
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
           conda activate base
-          phone_home=$(yq ".meta.phone_home|false" $TEMPLATE_PATH/data.yaml)
-          if [[ $phone_home == "false" ]]
+          phone_home=$(yq ".meta.phone_home" $TEMPLATE_PATH/data.yaml)
+          if [ "$phone_home" = "false" ]
           then
               echo "skipping library upload due to disabled phone_home"
               exit 0

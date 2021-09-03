@@ -104,7 +104,7 @@ jobs:
             --data "pr_number=${{ github.event.pull_request.number }}" \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --request POST \
-            https://library.qiime2.org/api/v1/packages/finalize/
+            https://library.qiime2.org/api/v1/packages/stage/
           )
           code=$(echo $resp | grep HTTP | awk '{print $2}')
           if [[ $code -ne 200 ]]

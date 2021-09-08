@@ -55,6 +55,6 @@ q2cli:
 q2templates:
 - 2021.8.0.dev0+3.gd744b4d
 qiime2:
-- 2021.8.0.dev0+9.g1858eef
+- 2021.8.0.dev0+10.g022cb7b
 qiime2_epoch:
 - 2021.8

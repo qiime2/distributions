@@ -138,6 +138,7 @@ jobs:
           LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
           DATA_FILE:  ${{ env.epoch }}/staged/${{ env.distro }}/data.yaml
           BUILD_FILE: ${{ env.epoch }}/staged/${{ env.distro }}/conda_build_config.yaml
+          META_FILE: ${{ env.epoch }}/staged/${{ env.distro }}/meta.yaml.jinja
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
           conda activate base
@@ -148,9 +149,10 @@ jobs:
               exit 0
           fi
           metapackage_version=$(yq -r .version $DATA_FILE)
-          package_versions=$(jq -cs '[.[1] as $build | .[0].run[] | {(.): $build[. | split("-") | join("_")][0]}] | add' \
+          package_versions=$(jq -cs '.[1] as $build | .[0] as $data | .[2] as $meta | [$data.run[] | {(.): $build[. | split("-") | join("_")][0]}] | add + {($meta.name):$data.version}' \
                               <(yq -cj '.' $DATA_FILE) \
-                              <(yq -cj '.' $BUILD_FILE))
+                              <(yq -cj '.' $BUILD_FILE) \
+                              <(head -n 2 $META_FILE | yq -cj '.package'))
           resp=$(curl \
             --silent \
             --include \

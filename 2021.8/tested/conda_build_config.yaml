@@ -37,7 +37,7 @@ q2_metadata:
 q2_mystery_stew:
 - 2021.8.0.dev0+4.ga7c672d
 q2_phylogeny:
-- 2021.8.0.dev0+8.g725ed1f
+- 2021.8.0
 q2_quality_control:
 - 2021.8.0.dev0+4.gbc8eb92
 q2_quality_filter:

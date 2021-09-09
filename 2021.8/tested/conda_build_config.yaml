@@ -51,7 +51,7 @@ q2_types:
 q2_vsearch:
 - 2021.8.0
 q2cli:
-- 2021.8.0.dev0+7.gca76eea
+- 2021.8.0
 q2galaxy:
 - 2021.8.0.dev0+2.g6f9519d
 q2templates:

@@ -11,7 +11,7 @@ q2_composition:
 q2_cutadapt:
 - 2021.8.0
 q2_dada2:
-- 2021.8.0.dev0+7.ge7dd0b7
+- 2021.8.0
 q2_deblur:
 - 2021.8.0
 q2_demux:

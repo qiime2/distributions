@@ -25,6 +25,7 @@ run:
 - q2-types
 - q2-vsearch
 - q2cli
+- q2galaxy
 - q2templates
 - qiime2
-version: 2021.09.09.00.23.01
+version: 2021.09.09.15.23.01

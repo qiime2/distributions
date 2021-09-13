@@ -4,6 +4,8 @@ pandas:
 - 1.2.*
 python:
 - 3.8
+q2_types:
+- 2021.10.0.dev0
 q2cli:
 - 2021.10.0.dev0
 q2templates:

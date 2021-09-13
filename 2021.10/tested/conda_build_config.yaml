@@ -6,6 +6,8 @@ python:
 - 3.8
 q2_composition:
 - 2021.10.0.dev0
+q2_dada2:
+- 2021.10.0.dev0
 q2_mystery_stew:
 - 2021.10.0.dev0
 q2_types:

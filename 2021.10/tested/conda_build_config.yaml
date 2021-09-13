@@ -4,5 +4,7 @@ pandas:
 - 1.2.*
 python:
 - 3.8
+q2templates:
+- 2021.10.0.dev0
 qiime2_epoch:
-- 2021.10
+- 2021.1

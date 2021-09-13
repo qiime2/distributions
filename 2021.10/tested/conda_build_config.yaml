@@ -14,6 +14,8 @@ q2_demux:
 - 2021.10.0.dev0
 q2_feature_table:
 - 2021.10.0.dev0
+q2_metadata:
+- 2021.10.0.dev0
 q2_mystery_stew:
 - 2021.10.0.dev0
 q2_types:

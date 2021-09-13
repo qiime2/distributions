@@ -9,4 +9,4 @@ q2templates:
 qiime2:
 - 2021.10.0.dev0
 qiime2_epoch:
-- 2021.1
+- '2021.10'

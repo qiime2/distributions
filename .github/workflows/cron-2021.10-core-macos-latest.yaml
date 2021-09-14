@@ -1,18 +1,18 @@
-name: cron-2021.8-core-macos-latest
+name: cron-2021.10-core-macos-latest
 
 env:
   os: macos-latest
   distro: core
-  epoch: '2021.8'
+  epoch: '2021.10'
 
 on:
   schedule:
-    # every other day
-    - cron: '37 3 */2 * *'
+    # evey 2 hrs
+    - cron: '37 */2 * * *'
 
 jobs:
   install_env:
-    name: "install qiime2-core=2021.8 (macos-latest)"
+    name: "install qiime2-core=2021.10 (macos-latest)"
     runs-on: macos-latest
     outputs:
       pkgs: ${{ steps.collect_urls.outputs.pkgs }}

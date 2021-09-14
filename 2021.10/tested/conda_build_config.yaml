@@ -42,6 +42,8 @@ q2_taxa:
 - 2021.10.0.dev0
 q2_types:
 - 2021.10.0.dev0
+q2_vsearch:
+- 2021.10.0.dev0
 q2cli:
 - 2021.10.0.dev0
 q2galaxy:

@@ -1,19 +1,19 @@
-name: cron-2021.8-core-macos-latest
+name: cron-2021.10-core-ubuntu-latest
 
 env:
-  os: macos-latest
+  os: ubuntu-latest
   distro: core
-  epoch: '2021.8'
+  epoch: '2021.10'
 
 on:
   schedule:
-    # every other day
-    - cron: '37 3 */2 * *'
+    # evey 2 hrs
+    - cron: '37 */2 * * *'
 
 jobs:
   install_env:
-    name: "install qiime2-core=2021.8 (macos-latest)"
-    runs-on: macos-latest
+    name: "install qiime2-core=2021.10 (ubuntu-latest)"
+    runs-on: ubuntu-latest
     outputs:
       pkgs: ${{ steps.collect_urls.outputs.pkgs }}
       metapackage_spec: ${{ steps.metapackage.outputs.spec }}
@@ -87,7 +87,7 @@ jobs:
   test_package:
     name: test ${{ matrix.pkg.name }}
     needs: install_env
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -162,7 +162,7 @@ jobs:
             --data "run_id=$GITHUB_RUN_ID" \
             --data "distro=${{ env.distro }}" \
             --data "epoch=${{ env.epoch }}" \
-            --data "artifact_name=${{ env.distro }}-osx" \
+            --data "artifact_name=${{ env.distro }}-linux" \
             --data "pr_number=0" \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --request POST \

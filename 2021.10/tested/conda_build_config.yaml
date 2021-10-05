@@ -35,7 +35,7 @@ q2_longitudinal:
 q2_metadata:
 - 2021.10.0.dev0
 q2_mystery_stew:
-- 2021.10.0.dev0
+- 2021.10.0.dev0+1.g64ca4bf
 q2_phylogeny:
 - 2021.10.0.dev0
 q2_quality_control:

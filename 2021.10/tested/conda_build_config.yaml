@@ -57,6 +57,6 @@ q2galaxy:
 q2templates:
 - 2021.10.0.dev0
 qiime2:
-- 2021.10.0.dev0
+- 2021.10.0.dev0+1.g8d8d27b
 qiime2_epoch:
 - '2021.10'

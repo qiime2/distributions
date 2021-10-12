@@ -60,3 +60,5 @@ qiime2:
 - 2021.10.0.dev0+1.g8d8d27b
 qiime2_epoch:
 - '2021.10'
+rescript:
+- 2021.8.0.dev0+8.gb1549a1

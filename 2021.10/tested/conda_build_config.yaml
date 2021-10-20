@@ -25,7 +25,7 @@ q2_emperor:
 q2_feature_classifier:
 - 2021.10.0.dev0
 q2_feature_table:
-- 2021.10.0.dev0+1.g9f8ef29
+- 2021.10.0.dev0+2.gb44b653
 q2_fragment_insertion:
 - 2021.10.0.dev0
 q2_gneiss:

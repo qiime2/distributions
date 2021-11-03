@@ -1,9 +1,9 @@
-name: cron-2021.10-core-ubuntu-latest
+name: cron-2021.11-core-ubuntu-latest
 
 env:
   os: ubuntu-latest
   distro: core
-  epoch: '2021.10'
+  epoch: '2021.11'
 
 on:
   schedule:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   install_env:
-    name: "install qiime2-core=2021.10 (ubuntu-latest)"
+    name: "install qiime2-core=2021.11 (ubuntu-latest)"
     runs-on: ubuntu-latest
     outputs:
       pkgs: ${{ steps.collect_urls.outputs.pkgs }}

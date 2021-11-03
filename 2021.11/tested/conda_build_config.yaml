@@ -26,3 +26,5 @@ qiime2:
 - 2021.11.0.dev0
 qiime2_epoch:
 - '2021.11'
+scikit_learn:
+- 0.24.1

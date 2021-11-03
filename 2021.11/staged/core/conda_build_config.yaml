@@ -6,3 +6,5 @@ python:
 - '3.8'
 qiime2_epoch:
 - '2021.11'
+scikit_learn:
+- 0.24.1

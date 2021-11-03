@@ -34,6 +34,8 @@ q2_metadata:
 - 2021.11.0.dev0
 q2_mystery_stew:
 - 2021.11.0.dev0
+q2_phylogeny:
+- 2021.11.0.dev0
 q2_quality_control:
 - 2021.11.0.dev0
 q2_quality_filter:

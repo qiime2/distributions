@@ -174,3 +174,15 @@ jobs:
             echo $resp
             exit 1
           fi
+
+  comment_on_any_failure:
+    runs-on: ubuntu-latest
+    if: always() && (needs.install_env.result == 'failure' || needs.test_package.result == 'failure' || needs.phone_home.result == 'failure')
+    steps:
+      - name: comment on failure
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: 71
+          body: |
+            - 🥺  GHA run # ${{ github.run_number }} for ${{ env.epoch }} on ${{ env.os }} failed.
+            - See https://github.com/qiime2/package-integration/actions/runs/${{ github.run_id }} for more.

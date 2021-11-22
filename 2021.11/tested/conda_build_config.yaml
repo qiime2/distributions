@@ -39,7 +39,7 @@ q2_mystery_stew:
 q2_phylogeny:
 - 2021.11.0.dev0
 q2_quality_control:
-- 2021.11.0.dev0
+- 2021.11.0
 q2_quality_filter:
 - 2021.11.0.dev0
 q2_sample_classifier:

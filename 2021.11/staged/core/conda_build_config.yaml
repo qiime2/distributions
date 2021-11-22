@@ -63,4 +63,4 @@ qiime2_epoch:
 scikit_learn:
 - 0.24.1
 unifrac:
-- >=0.10.0,<0.20.3
+- >=0.20.0,<0.20.3

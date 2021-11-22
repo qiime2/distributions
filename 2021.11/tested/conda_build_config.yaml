@@ -64,3 +64,5 @@ rescript:
 - 2021.8.0+1.ge5a2628
 scikit_learn:
 - 0.24.1
+unifrac:
+- >=0.10.0,<0.20.3

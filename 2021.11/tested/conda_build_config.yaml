@@ -55,7 +55,7 @@ q2cli:
 q2galaxy:
 - 2021.11.0.dev0
 q2templates:
-- 2021.11.0.dev0
+- 2021.11.0
 qiime2:
 - 2021.11.0
 qiime2_epoch:

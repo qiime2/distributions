@@ -23,7 +23,7 @@ q2_diversity_lib:
 q2_emperor:
 - 2021.11.0
 q2_feature_classifier:
-- 2021.11.0.dev0
+- 2021.11.0
 q2_feature_table:
 - 2021.11.0
 q2_fragment_insertion:

@@ -1,0 +1,12 @@
+hdf5:
+- 1.10.6
+pandas:
+- 1.2.*
+python:
+- '3.8'
+qiime2_epoch:
+- '2022.2'
+scikit_learn:
+- 0.24.1
+unifrac:
+- 0.20.2

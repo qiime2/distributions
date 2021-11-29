@@ -3,7 +3,7 @@ name: ci
 on:
   pull_request:
     paths:
-      - 2021.11/staged/**
+      - 2022.2/staged/**
 
 jobs:
   integrate:
@@ -16,7 +16,7 @@ jobs:
         distro:
           - core
         epoch:
-          - '2021.11'
+          - '2022.2'
     env:
       BUILD_DIR: ./build/
       TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/

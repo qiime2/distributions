@@ -14,6 +14,8 @@ q2_feature_table:
 - 2022.2.0.dev0
 q2_mystery_stew:
 - 2022.2.0.dev0
+q2_sample_classifier:
+- 2022.2.0.dev0
 q2_taxa:
 - 2022.2.0.dev0
 q2_types:

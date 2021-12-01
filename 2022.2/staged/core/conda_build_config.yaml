@@ -4,6 +4,60 @@ pandas:
 - 1.2.*
 python:
 - '3.8'
+q2_alignment:
+- 2022.2.0.dev0
+q2_composition:
+- 2022.2.0.dev0
+q2_cutadapt:
+- 2022.2.0.dev0
+q2_dada2:
+- 2022.2.0.dev0+1.gae2607f
+q2_deblur:
+- 2022.2.0.dev0
+q2_demux:
+- 2022.2.0.dev0
+q2_diversity:
+- 2022.2.0.dev0
+q2_diversity_lib:
+- 2022.2.0.dev0
+q2_emperor:
+- 2022.2.0.dev0
+q2_feature_classifier:
+- 2022.2.0.dev0
+q2_feature_table:
+- 2022.2.0.dev0
+q2_fragment_insertion:
+- 2022.2.0.dev0
+q2_gneiss:
+- 2022.2.0.dev0
+q2_longitudinal:
+- 2022.2.0.dev0
+q2_metadata:
+- 2022.2.0.dev0
+q2_mystery_stew:
+- 2022.2.0.dev0
+q2_phylogeny:
+- 2022.2.0.dev0
+q2_quality_control:
+- 2022.2.0.dev0
+q2_quality_filter:
+- 2022.2.0.dev0
+q2_sample_classifier:
+- 2022.2.0.dev0
+q2_taxa:
+- 2022.2.0.dev0
+q2_types:
+- 2022.2.0.dev0
+q2_vsearch:
+- 2022.2.0.dev0
+q2cli:
+- 2022.2.0.dev0
+q2galaxy:
+- 2022.2.0.dev0
+q2templates:
+- 2022.2.0.dev0
+qiime2:
+- 2022.2.0.dev0
 qiime2_epoch:
 - '2022.2'
 scikit_learn:

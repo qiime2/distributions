@@ -7,8 +7,8 @@ env:
 
 on:
   schedule:
-    # evey 2 hrs
-    - cron: '37 */2 * * *'
+    # evey other day
+    - cron: '37 3 */2 * *'
 
 jobs:
   install_env:

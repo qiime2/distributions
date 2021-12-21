@@ -19,13 +19,13 @@ q2_demux:
 q2_diversity:
 - 2022.2.0.dev0+1.g6d7e723
 q2_diversity_lib:
-- 2022.2.0.dev0
+- 2022.2.0.dev0+1.gb149232
 q2_emperor:
 - 2022.2.0.dev0
 q2_feature_classifier:
 - 2022.2.0.dev0
 q2_feature_table:
-- 2022.2.0.dev0
+- 2022.2.0.dev0+1.g81852b2
 q2_fragment_insertion:
 - 2022.2.0.dev0
 q2_gneiss:

@@ -49,7 +49,7 @@ q2_taxa:
 q2_types:
 - 2022.2.0.dev0+1.g4483766
 q2_vsearch:
-- 2022.2.0.dev0
+- 2022.2.0.dev0+1.g7ca48b8
 q2cli:
 - 2022.2.0.dev0+3.gbee9b88
 q2galaxy:

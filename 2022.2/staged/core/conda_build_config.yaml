@@ -51,13 +51,13 @@ q2_types:
 q2_vsearch:
 - 2022.2.0.dev0+1.g7ca48b8
 q2cli:
-- 2022.2.0.dev0+3.gbee9b88
+- 2022.2.0.dev0+4.g7ce22d2
 q2galaxy:
 - 2022.2.0.dev0+4.g948283c
 q2templates:
 - 2022.2.0.dev0+1.g80b6c1e
 qiime2:
-- 2022.2.0.dev0+1.g6ef6df7
+- 2022.2.0.dev0+2.g3906f67
 qiime2_epoch:
 - '2022.2'
 scikit_learn:

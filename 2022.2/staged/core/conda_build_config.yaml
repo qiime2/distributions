@@ -53,7 +53,7 @@ q2_vsearch:
 q2cli:
 - 2022.2.0.dev0+4.g7ce22d2
 q2galaxy:
-- 2022.2.0.dev0+4.g948283c
+- 2022.2.0.dev0+5.g17e2768
 q2templates:
 - 2022.2.0.dev0+1.g80b6c1e
 qiime2:

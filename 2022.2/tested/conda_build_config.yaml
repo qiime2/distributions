@@ -60,6 +60,8 @@ qiime2:
 - 2022.2.0.dev0+3.g40f412f
 qiime2_epoch:
 - '2022.2'
+rescript:
+- 2021.11.0+1.ge73ade0
 scikit_learn:
 - 0.24.1
 unifrac:

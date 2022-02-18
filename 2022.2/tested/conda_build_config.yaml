@@ -7,7 +7,7 @@ python:
 q2_alignment:
 - 2022.2.0
 q2_composition:
-- 2022.2.0.dev0+1.g8137569
+- 2022.2.0
 q2_cutadapt:
 - 2022.2.0.dev0+1.gb6c2624
 q2_dada2:

@@ -29,7 +29,7 @@ q2_feature_table:
 q2_fragment_insertion:
 - 2022.2.0.dev0+1.g10207fb
 q2_gneiss:
-- 2022.2.0.dev0+1.g1addb7d
+- 2022.2.0
 q2_longitudinal:
 - 2022.2.0.dev0+2.g639ced8
 q2_metadata:

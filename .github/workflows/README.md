@@ -2,7 +2,7 @@
 
 This directory contains all of the scripts used for generating the Github workflow files for each epoch.
 
-# Generage cron workflows
+# Generate cron workflows
 
 This script will generate cron workflow files for the provided epoch for both Mac OS and Linux.
 It should be run within .github/workflows/bin in the following format:

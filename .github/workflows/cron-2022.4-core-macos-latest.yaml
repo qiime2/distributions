@@ -1,0 +1,183 @@
+name: cron-2022.4-core-macos-latest
+
+env:
+  os: macos-latest
+  distro: core
+  epoch: '2022.4'
+
+on:
+  schedule:
+    # dev - every 2 hours
+    - cron: '37 */2 * * *'
+    # rel - every other day
+    # - cron: '37 3 */2 * *'
+
+jobs:
+  install_env:
+    name: "install qiime2-core=2022.4 (macos-latest)"
+    runs-on: macos-latest
+    outputs:
+      pkgs: ${{ steps.collect_urls.outputs.pkgs }}
+      metapackage_spec: ${{ steps.metapackage.outputs.spec }}
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v2
+
+      - name: configure conda and friends
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          conda config --set always_yes yes
+          conda config --set changeps1 no
+          conda config --set quiet true
+          sudo conda upgrade -n base -q -y -c defaults --override-channels conda
+          sudo conda install -n base -q -y -c defaults --override-channels conda-build yq
+          conda info -a
+          conda config --show
+      - name: identify metapackage
+        id: metapackage
+        env:
+          DATA_FILE:  ${{ env.epoch }}/staged/${{ env.distro }}/data.yaml
+          META_FILE: ${{ env.epoch }}/staged/${{ env.distro }}/meta.yaml.jinja
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          echo "::set-output name=spec::$(head -n 2 $META_FILE | yq -r .package.name)=$(yq -r .version $DATA_FILE)"
+      - name: install metapackage
+        env:
+          Q2_CHANNEL:  https://packages.qiime2.org/qiime2/${{ env.epoch }}/staged/${{ env.distro }}
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          sudo conda create -q -n test-env -c $Q2_CHANNEL -c conda-forge -c bioconda -c defaults ${{ steps.metapackage.outputs.spec }}
+          sudo conda run -n test-env python -c 'import qiime2'
+      - name: check repo consistency
+        env:
+          BUILD_FILE: ${{ env.epoch }}/staged/${{ env.distro }}/conda_build_config.yaml
+          DATA_FILE:  ${{ env.epoch }}/staged/${{ env.distro }}/data.yaml
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          consistent=$(jq -cs '[([.[1] as $build | .[0].run[] | {(.): $build[. | split("-") | join("_")][0]}] | add) as $lookup | .[2][] | select(.name | in($lookup)) | .version == $lookup[.name]] | all' \
+                        <(yq -cj '.' $DATA_FILE) \
+                        <(yq -cj '.' $BUILD_FILE) \
+                        <(conda list -n test-env --json))
+          if [[ $consistent == "false" ]]
+          then
+              echo "conda_build_config.yaml is inconsistent with the metapackage"
+              jq -s '([.[1] as $build | .[0].run[] | {(.): $build[. | split("-") | join("_")][0]}] | add) as $lookup | .[2][] | select(.name | in($lookup)) | select(.version != $lookup[.name]) | {package: .name, version: .version, conda_build_config: $lookup[.name] }' \
+                                <(yq -cj '.' $DATA_FILE) \
+                                <(yq -cj '.' $BUILD_FILE) \
+                                <(conda list -n test-env --json)
+              exit 1
+          fi
+      - name: collect tar.bz2's
+        id: collect_urls
+        env:
+          DATA_FILE:  ${{ env.epoch }}/staged/${{ env.distro }}/data.yaml
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          pkgs=$(jq -cs '[ .[0].run[] as $packages | .[1][] | select(.name | IN($packages)) | {url: (.base_url + "/" + .platform + "/" + .dist_name + ".tar.bz2"), name: .name} ]' \
+                  <(yq -cj '.' $DATA_FILE) \
+                  <(conda list -n test-env --json))
+          echo "::set-output name=pkgs::$pkgs"
+  test_package:
+    name: test ${{ matrix.pkg.name }}
+    needs: install_env
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pkg: ${{ fromJson(needs.install_env.outputs.pkgs) }}
+    steps:
+      - name: configure conda and friends
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          conda config --set always_yes yes
+          conda config --set changeps1 no
+          conda config --set quiet true
+          sudo conda upgrade -n base -q -y -c defaults --override-channels conda
+          sudo conda install -n base -q -y -c defaults --override-channels conda-build
+          conda info -a
+          conda config --show
+      - name: run test
+        env:
+          Q2_CHANNEL:  https://packages.qiime2.org/qiime2/${{ env.epoch }}/staged/${{ env.distro }}
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          wget ${{ matrix.pkg.url }}
+          sudo conda build -q -c $Q2_CHANNEL -c conda-forge -c bioconda -c defaults --extra-deps ${{ needs.install_env.outputs.metapackage_spec }} -t "*.tar.bz2"
+  phone_home:
+    needs: test_package
+    runs-on: macos-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v2
+
+      - name: configure conda and friends
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          conda config --set always_yes yes
+          conda config --set changeps1 no
+          conda config --set quiet true
+          sudo conda upgrade -n base -q -y -c defaults --override-channels conda
+          sudo conda install -n base -q -y -c defaults --override-channels conda-build yq
+          conda info -a
+          conda config --show
+      - name: phone home
+        env:
+          LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
+          DATA_FILE:  ${{ env.epoch }}/staged/${{ env.distro }}/data.yaml
+          BUILD_FILE: ${{ env.epoch }}/staged/${{ env.distro }}/conda_build_config.yaml
+          META_FILE: ${{ env.epoch }}/staged/${{ env.distro }}/meta.yaml.jinja
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
+          phone_home=$(yq ".meta.phone_home" $DATA_FILE)
+          if [ "$phone_home" = "false" ]
+          then
+              echo "skipping library upload due to disabled phone_home"
+              exit 0
+          fi
+          metapackage_version=$(yq -r .version $DATA_FILE)
+          package_versions=$(jq -cs '.[1] as $build | .[0] as $data | .[2] as $meta | [$data.run[] | {(.): $build[. | split("-") | join("_")][0]}] | add + {($meta.name):$data.version}' \
+                              <(yq -cj '.' $DATA_FILE) \
+                              <(yq -cj '.' $BUILD_FILE) \
+                              <(head -n 2 $META_FILE | yq -cj '.package'))
+          resp=$(curl \
+            --silent \
+            --include \
+            --data-urlencode "token=$LIBRARY_TOKEN" \
+            --data-urlencode "version=$metapackage_version" \
+            --data-urlencode "package_versions=$package_versions" \
+            --data "run_id=$GITHUB_RUN_ID" \
+            --data "distro=${{ env.distro }}" \
+            --data "epoch=${{ env.epoch }}" \
+            --data "artifact_name=${{ env.distro }}-osx" \
+            --header "Content-Type: application/x-www-form-urlencoded" \
+            --request POST \
+            https://library.qiime2.org/api/v1/packages/pass/
+          )
+          code=$(echo $resp | grep HTTP | awk '{print $2}')
+          if [[ $code -ne 200 ]]
+          then
+            echo "whoops"
+            echo $resp
+            exit 1
+          fi
+
+  comment_on_any_failure:
+    runs-on: macos-latest
+    needs: [install_env, test_package, phone_home]
+    if: always() && (needs.install_env.result == 'failure' || needs.test_package.result == 'failure' || needs.phone_home.result == 'failure')
+    steps:
+      - name: comment on failure
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: 71
+          body: |
+            - 🥺  GHA run # ${{ github.run_number }} for ${{ env.epoch }} on ${{ env.os }} failed.
+            - See https://github.com/qiime2/package-integration/actions/runs/${{ github.run_id }} for more.

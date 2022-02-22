@@ -4,6 +4,8 @@ pandas:
 - 1.2.*
 python:
 - '3.8'
+q2_diversity_lib:
+- 2022.4.0.dev0
 q2_feature_table:
 - 2022.4.0.dev0
 q2_metadata:

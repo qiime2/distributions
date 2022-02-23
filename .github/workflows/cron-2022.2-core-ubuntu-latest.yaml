@@ -8,9 +8,9 @@ env:
 on:
   schedule:
     # dev - every 2 hours
-    - cron: '37 */2 * * *'
+    # - cron: '37 */2 * * *'
     # rel - every other day
-    # - cron: '37 3 */2 * *'
+    - cron: '37 3 */2 * *'
 
 jobs:
   install_env:

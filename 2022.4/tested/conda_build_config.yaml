@@ -44,6 +44,8 @@ q2_taxa:
 - 2022.4.0.dev0
 q2_types:
 - 2022.4.0.dev0
+q2cli:
+- 2022.4.0.dev0
 q2templates:
 - 2022.4.0.dev0
 qiime2:

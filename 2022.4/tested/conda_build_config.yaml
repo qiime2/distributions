@@ -6,6 +6,8 @@ python:
 - '3.8'
 q2_alignment:
 - 2022.4.0.dev0
+q2_composition:
+- 2022.4.0.dev0
 q2_diversity_lib:
 - 2022.4.0.dev0
 q2_emperor:

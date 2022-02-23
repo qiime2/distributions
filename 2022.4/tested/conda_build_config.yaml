@@ -26,6 +26,8 @@ q2_feature_table:
 - 2022.4.0.dev0
 q2_fragment_insertion:
 - 2022.4.0.dev0
+q2_longitudinal:
+- 2022.4.0.dev0
 q2_metadata:
 - 2022.4.0.dev0
 q2_mystery_stew:

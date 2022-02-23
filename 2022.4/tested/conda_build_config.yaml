@@ -50,6 +50,8 @@ q2_vsearch:
 - 2022.4.0.dev0
 q2cli:
 - 2022.4.0.dev0
+q2galaxy:
+- 2022.4.0.dev0
 q2templates:
 - 2022.4.0.dev0
 qiime2:

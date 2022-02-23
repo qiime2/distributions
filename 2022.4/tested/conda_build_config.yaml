@@ -16,6 +16,8 @@ q2_deblur:
 - 2022.4.0.dev0
 q2_demux:
 - 2022.4.0.dev0
+q2_diversity:
+- 2022.4.0.dev0
 q2_diversity_lib:
 - 2022.4.0.dev0
 q2_emperor:

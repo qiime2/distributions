@@ -6,6 +6,7 @@ env:
   epoch: '2022.2'
 
 on:
+  workflow_dispatch: {}
   schedule:
     # dev - every 2 hours
     # - cron: '37 */2 * * *'

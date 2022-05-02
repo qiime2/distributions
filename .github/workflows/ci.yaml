@@ -8,7 +8,7 @@ on:
 
 jobs:
   integrate:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
         epoch:

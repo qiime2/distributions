@@ -1,6 +1,7 @@
 name: ci
 
 on:
+  workflow_dispatch: {}
   pull_request:
     paths:
       - 2022.4/staged/**
@@ -10,13 +11,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-        distro:
-          - core
         epoch:
           - '2022.4'
+        distro:
+          - core
+        platform:
+          - ubuntu-latest
+          - macos-latest
     env:
       BUILD_DIR: ./build/
       TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
@@ -24,40 +25,25 @@ jobs:
     steps:
       - name: set host helper env vars
         run: |
-          case "${{ matrix.os }}" in
-            'ubuntu-latest') echo 'PLATFORM=linux' >> $GITHUB_ENV ;;
-            'macos-latest') echo 'PLATFORM=osx' >> $GITHUB_ENV ;;
+          case "${{ matrix.platform }}" in
+            'ubuntu-latest') echo 'CONDA_PLATFORM=linux' >> $GITHUB_ENV ;;
+            'macos-latest') echo 'CONDA_PLATFORM=osx' >> $GITHUB_ENV ;;
           esac
 
-      - name: checkout source
-        uses: actions/checkout@v2
-
-      - name: set up python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install 'jinja2' pyyaml
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/configure-conda
 
       - name: template recipe
-        run: python .github/workflows/bin/template.py $TEMPLATE_PATH
+        run: |
+          source "$CONDA/etc/profile.d/conda.sh"
+          python .github/workflows/bin/template.py $TEMPLATE_PATH
 
       - name: debug recipe
         run: cat $TEMPLATE_PATH/meta.yaml
 
-      - name: configure conda and friends
-        run: |
-          source "$CONDA/etc/profile.d/conda.sh"
-          conda config --set always_yes yes --set changeps1 no
-          sudo conda upgrade -n base -q -y -c defaults --override-channels conda
-          sudo conda install -n base -q -y -c defaults --override-channels conda-build conda-verify yq
-          conda info -a
-
       - name: build recipe
         run: |
+          source "$CONDA/etc/profile.d/conda.sh"
           sudo conda build \
             -c $Q2_CHANNEL \
             -c conda-forge \
@@ -100,7 +86,7 @@ jobs:
             --data "run_id=$GITHUB_RUN_ID" \
             --data "distro=${{ matrix.distro }}" \
             --data "epoch=${{ matrix.epoch }}" \
-            --data "artifact_name=${{ matrix.distro }}-${{ env.PLATFORM }}" \
+            --data "artifact_name=${{ matrix.distro }}-${{ env.CONDA_PLATFORM }}" \
             --data "pr_number=${{ github.event.pull_request.number }}" \
             --header "Content-Type: application/x-www-form-urlencoded" \
             --request POST \

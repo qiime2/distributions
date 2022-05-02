@@ -1,0 +1,28 @@
+name: 'Test an extracted package from a metapackage'
+description: 'test an extracted package from a metapackage'
+inputs:
+  pkg-url:
+    description: 'extracted package conda url'
+    required: true
+  q2-channel:
+    description: 'package channel url'
+    required: true
+  metapackage-spec:
+    description: 'metapackage specification'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: run test
+      shell: bash
+      run: |
+        source "$CONDA/etc/profile.d/conda.sh"
+        conda activate base
+        wget ${{ inputs.pkg-url }}
+        sudo conda build -q \
+          -c ${{ inputs.q2-channel }} \
+          -c conda-forge \
+          -c bioconda \
+          -c defaults \
+          --extra-deps ${{ inputs.metapackage-spec }} \
+          -t "*.tar.bz2"

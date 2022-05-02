@@ -1,0 +1,77 @@
+name: 'Phone home to Library'
+description: 'phone home to library'
+inputs:
+  token:
+    description: 'Library token'
+    required: true
+  epoch:
+    description: 'QIIME 2 epoch label'
+    required: true
+  distro:
+    description: 'QIIME 2 distribution name'
+    required: true
+  platform:
+    description: 'GHA computation platform'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: prepare variables
+      shell: bash
+      run: |
+        echo "LIBRARY_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+        echo "DATA_FILE=${{ inputs.epoch }}/staged/${{ inputs.distro }}/data.yaml" >> $GITHUB_ENV
+        echo "META_FILE=${{ inputs.epoch }}/staged/${{ inputs.distro }}/meta.yaml.jinja" >> $GITHUB_ENV
+        echo "BUILD_FILE=${{ inputs.epoch }}/staged/${{ inputs.distro }}/conda_build_config.yaml" >> $GITHUB_ENV
+        case "${{ inputs.platform }}" in
+          'ubuntu-latest') echo 'CONDA_PLATFORM=linux' >> $GITHUB_ENV ;;
+          'macos-latest') echo 'CONDA_PLATFORM=osx' >> $GITHUB_ENV ;;
+        esac
+
+    - name: phone home
+      shell: bash
+      run: |
+        source "$CONDA/etc/profile.d/conda.sh"
+        conda activate base
+        phone_home=$(yq ".meta.phone_home" $DATA_FILE)
+        if [ "$phone_home" = "false" ]
+        then
+            echo "skipping library upload due to disabled phone_home"
+            exit 0
+        fi
+        metapackage_version=$(yq -r .version $DATA_FILE)
+        package_versions=$(jq -cs \
+                             '.[1] as $build |
+                              .[0] as $data |
+                              .[2] as $meta |
+                              [
+                               $data.run[] |
+                               {(.): $build[. | split("-") | join("_")][0]}
+                              ] |
+                              add +
+                              {($meta.name): $data.version}' \
+                             <(yq -cj '.' $DATA_FILE) \
+                             <(yq -cj '.' $BUILD_FILE) \
+                             <(head -n 2 $META_FILE | yq -cj '.package'))
+        resp=$(curl \
+          --silent \
+          --include \
+          --data-urlencode "token=$LIBRARY_TOKEN" \
+          --data-urlencode "version=$metapackage_version" \
+          --data-urlencode "package_versions=$package_versions" \
+          --data "run_id=$GITHUB_RUN_ID" \
+          --data "distro=${{ inputs.distro }}" \
+          --data "epoch=${{ inputs.epoch }}" \
+          --data "artifact_name=${{ inputs.distro }}-$CONDA_PLATFORM" \
+          --header "Content-Type: application/x-www-form-urlencoded" \
+          --request POST \
+          https://library.qiime2.org/api/v1/packages/pass/
+        )
+        code=$(echo $resp | grep HTTP | awk '{print $2}')
+        if [[ $code -ne 200 ]]
+        then
+          echo "whoops"
+          echo $resp
+          exit 1
+        fi

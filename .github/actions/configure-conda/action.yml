@@ -18,8 +18,6 @@ runs:
           -c defaults \
           --override-channels \
           conda-build \
-          yq \
-          jinja2 \
-          pyyaml
+          yq
         conda info -a
         conda config --show

@@ -36,6 +36,9 @@ jobs:
       - name: template recipe
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
+          which pip
+          which python
+          pip install 'jinja2' pyyaml
           python .github/workflows/bin/template.py $TEMPLATE_PATH
 
       - name: debug recipe

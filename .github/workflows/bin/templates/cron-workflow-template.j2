@@ -91,7 +91,8 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ needs.conf.outputs.issue-number }}
-          body: |
+          body: >
             [GHA run](https://github.com/qiime2/package-integration/actions/runs/${{ github.run_id }})
-            ${{ github.run_number }} for ${{ env.epoch }} on ${{ env.os }} failed.
+            ${{ github.run_number }} for ${{ needs.conf.outputs.epoch }}
+            on ${{ needs.conf.outputs.platform }} failed.
 

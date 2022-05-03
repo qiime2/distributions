@@ -90,7 +90,7 @@ jobs:
       - name: comment on failure
         uses: peter-evans/create-or-update-comment@v1
         with:
-          issue-number: ${{ needs.conf.issue-number }}
+          issue-number: ${{ needs.conf.outputs.issue-number }}
           body: |
             [GHA run](https://github.com/qiime2/package-integration/actions/runs/${{ github.run_id }})
             ${{ github.run_number }} for ${{ env.epoch }} on ${{ env.os }} failed.

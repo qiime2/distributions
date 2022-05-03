@@ -27,6 +27,7 @@ runs:
         echo "META_FILE=${{ inputs.epoch }}/staged/${{ inputs.distro }}/meta.yaml.jinja" >> $GITHUB_ENV
         echo "BUILD_FILE=${{ inputs.epoch }}/staged/${{ inputs.distro }}/conda_build_config.yaml" >> $GITHUB_ENV
         echo "Q2_CHANNEL=https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/staged/${{ inputs.distro }}" >> $GITHUB_ENV
+        echo "ENV_FILE=conda-env.yml" >> $GITHUB_ENV
 
     - name: configure conda and friends
       uses: ./.github/actions/configure-conda
@@ -124,3 +125,31 @@ runs:
                  <(conda list -n test-env --json))
         echo "::set-output name=pkgs::$pkgs"
         echo "::set-output name=channel::$Q2_CHANNEL"
+
+    - name: create convenience env file
+      shell: bash
+      run: |
+        source "$CONDA/etc/profile.d/conda.sh"
+        conda activate base
+        conda env export \
+          --no-builds \
+          -n test-env \
+          | yq -y '
+          {
+           channels: [
+            "https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/passed/${{ inputs.distro }}/",
+            "qiime2/label/r${{ inputs.epoch }}",
+            "conda-forge",
+            "bioconda",
+            "defaults"
+           ],
+           dependencies: .dependencies |
+             map(select(. | startswith("qiime2-${{ inputs.distro }}") | not))
+          }' > $ENV_FILE
+        echo "::notice file=${{ env.ENV_FILE }}::This env file will only work after Library uploads the metapackage to packages.qiime2.org"
+
+    - name: upload convenience env file
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.ENV_FILE }}.zip
+        path: ${{ env.ENV_FILE }}

@@ -1,18 +1,43 @@
 name: ci
 
+# Edit this variable as necessary and the `paths` list below, everything else should work as-is
+env:
+  # space-delimited epochs
+  CONF_EPOCHS: '2022.2 2022.4'
+
 on:
   workflow_dispatch: {}
   pull_request:
     paths:
+      - 2022.2/staged/**
       - 2022.4/staged/**
 
 jobs:
+  conf:
+    runs-on: ubuntu-latest  # this job is always run on linux
+    outputs:
+      epochs: ${{ steps.set-vars.outputs.epochs }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: tj-actions/changed-files@v19
+        id: changed
+
+      - name: set-vars
+        id: set-vars
+        run: |
+          # Parse the git changes to figure out which epoch triggered this workflow.
+          CHANGED="${{ steps.changed.outputs.all_changed_files }}"
+          EPOCHS=$(python .github/workflows/bin/determine_epochs.py "$CONF_EPOCHS" "$CHANGED")
+          echo "::set-output name=epochs::$EPOCHS"
+
   integrate:
     runs-on: ${{ matrix.platform }}
+    needs: [conf]
     strategy:
       matrix:
-        epoch:
-          - '2022.4'
+        epoch: ${{ fromJson(needs.conf.outputs.epochs) }}
         distro:
           - core
         platform:
@@ -30,12 +55,13 @@ jobs:
             'macos-latest') echo 'CONDA_PLATFORM=osx' >> $GITHUB_ENV ;;
           esac
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/configure-conda
 
       - name: template recipe
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
+          conda activate base
           pip install 'jinja2' pyyaml
           python .github/workflows/bin/template.py $TEMPLATE_PATH
 
@@ -45,7 +71,8 @@ jobs:
       - name: build recipe
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
-          sudo conda build \
+          conda activate base
+          sudo conda mambabuild \
             -c $Q2_CHANNEL \
             -c conda-forge \
             -c bioconda \

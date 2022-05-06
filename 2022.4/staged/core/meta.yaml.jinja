@@ -5,8 +5,12 @@ package:
 requirements:
   build:
 {#- NOTE:
-add this list to data.yaml as an escape hatch to force exclusion of a package,
-if necessary:
+add any dependency-specific override pins here
+    - foo 1.2.3
+#}
+{#- NOTE:
+add the following list to data.yaml as an escape hatch to force exclusion of
+a package, if necessary:
 ```yaml
 ignore:
   - package1

@@ -31,7 +31,7 @@ q2_feature_classifier:
 q2_feature_table:
 - 2022.4.0.dev0
 q2_fragment_insertion:
-- 2022.4.0.dev0
+- 2022.4.0.dev0+1.g90258f5
 q2_gneiss:
 - 2022.4.0.dev0
 q2_longitudinal:

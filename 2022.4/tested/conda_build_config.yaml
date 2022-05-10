@@ -35,7 +35,7 @@ q2_fragment_insertion:
 q2_gneiss:
 - 2022.4.0.dev0+1.g6353a1e
 q2_longitudinal:
-- 2022.4.0.dev0
+- 2022.4.0.dev0+1.gdea62f5
 q2_metadata:
 - 2022.4.0.dev0+1.g43b32d0
 q2_mystery_stew:

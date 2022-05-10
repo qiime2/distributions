@@ -51,7 +51,7 @@ q2_sample_classifier:
 q2_taxa:
 - 2022.4.0.dev0+1.gaa0749a
 q2_types:
-- 2022.4.0.dev0+1.ge977363
+- 2022.4.0.dev0+2.g28aca95
 q2_types_genomics:
 - 2022.4.0.dev0
 q2_vsearch:

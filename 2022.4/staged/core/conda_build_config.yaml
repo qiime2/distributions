@@ -17,11 +17,11 @@ q2_dada2:
 q2_deblur:
 - 2022.4.0.dev0+1.gf4b5fb0
 q2_demux:
-- 2022.4.0.dev0
+- 2022.4.0.dev0+1.gc0b29ea
 q2_diversity:
 - 2022.4.0.dev0+3.g059ef2b
 q2_diversity_lib:
-- 2022.4.0.dev0
+- 2022.4.0.dev0+1.gfe479e4
 q2_emperor:
 - 2022.4.0.dev0+1.gfe04904
 q2_feature_classifier:
@@ -41,7 +41,7 @@ q2_mystery_stew:
 q2_phylogeny:
 - 2022.4.0.dev0
 q2_quality_control:
-- 2022.4.0.dev0+1.gc0ede4d
+- 2022.4.0.dev0+3.g27d62e9
 q2_quality_filter:
 - 2022.4.0.dev0+1.gcae1001
 q2_sample_classifier:

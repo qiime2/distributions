@@ -21,7 +21,7 @@ q2_demux:
 q2_diversity:
 - 2022.4.0.dev0+3.g059ef2b
 q2_diversity_lib:
-- 2022.4.0.dev0+1.gfe479e4
+- 2022.4.0.dev0+2.g93957d8
 q2_emperor:
 - 2022.4.0.dev0+1.gfe04904
 q2_feature_classifier:

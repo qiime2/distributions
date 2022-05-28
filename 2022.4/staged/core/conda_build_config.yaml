@@ -39,7 +39,7 @@ q2_metadata:
 q2_mystery_stew:
 - 2022.4.0.dev0
 q2_phylogeny:
-- 2022.4.0.dev0+1.g45d0ff7
+- 2022.4.0.dev0+2.g6d70e3d
 q2_quality_control:
 - 2022.4.0.dev0+3.g27d62e9
 q2_quality_filter:

@@ -11,8 +11,6 @@ runs:
         conda config --set always_yes yes
         conda config --set changeps1 no
         conda config --set quiet true
-        # TODO: uncomment this whenever conda-forge sorts itself out
-        # sudo conda upgrade -n base -q -y -c defaults --override-channels conda
         sudo conda install -n base \
           -q -y \
           -c conda-forge \
@@ -21,5 +19,6 @@ runs:
           boa \
           conda-build \
           yq
+        sudo conda upgrade -n base -q -y -c defaults --override-channels conda
         conda info -a
         conda config --show

@@ -71,7 +71,7 @@ jobs:
         run: |
           source "$CONDA/etc/profile.d/conda.sh"
           conda activate base
-          sudo conda build \
+          sudo conda mambabuild \
             -c $Q2_CHANNEL \
             -c conda-forge \
             -c bioconda \

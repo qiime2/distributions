@@ -1,5 +1,5 @@
 meta:
-  phone_home: true
+  phone_home: false
 run:
 - q2-alignment
 - q2-composition

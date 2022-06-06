@@ -16,9 +16,11 @@ runs:
           -c conda-forge \
           -c defaults \
           --override-channels \
+          --update-all \
+          conda \
           boa \
           conda-build \
+          conda-verify \
           yq
-        sudo conda upgrade -n base -q -y -c defaults --override-channels conda
         conda info -a
         conda config --show

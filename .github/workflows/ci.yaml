@@ -1,4 +1,4 @@
-name: ci-core
+name: ci
 
 # Edit this variable as necessary and the `paths` list below, everything else should work as-is
 env:
@@ -9,8 +9,8 @@ on:
   workflow_dispatch: {}
   pull_request:
     paths:
-      - 2022.2/staged/core/*
-      - 2022.4/staged/core/*
+      - 2022.2/staged/**
+      - 2022.4/staged/**
 
 jobs:
   conf:

@@ -10,11 +10,7 @@ if __name__ == '__main__':
     except Exception:
         raise ValueError('Missing required parameter. Epoch must be provided.')
 
-    try:
-        distro = sys.argv[2]
-    except Exception:
-        raise ValueError('Missing required parameter.'
-                         ' Distro must be provided.')
+    distro = 'core'
 
     for platform in ['macos-latest', 'ubuntu-latest']:
         filename = 'cron-%s-%s-%s.yaml' % (epoch, distro, platform)

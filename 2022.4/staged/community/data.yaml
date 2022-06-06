@@ -2,7 +2,6 @@ meta:
   phone_home: true
 run:
 - q2-alignment
-- q2-assembly
 - q2-composition
 - q2-cutadapt
 - q2-dada2
@@ -13,7 +12,6 @@ run:
 - q2-emperor
 - q2-feature-classifier
 - q2-feature-table
-- q2-fondue
 - q2-fragment-insertion
 - q2-gneiss
 - q2-longitudinal
@@ -23,9 +21,8 @@ run:
 - q2-quality-control
 - q2-quality-filter
 - q2-sample-classifier
-- q2-stats
+- q2-taxa
 - q2-types
-- q2-types-genomics
 - q2-vsearch
 - q2cli
 - q2galaxy

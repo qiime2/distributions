@@ -2,6 +2,7 @@ meta:
   phone_home: false
 run:
 - q2-alignment
+- q2-assembly
 - q2-composition
 - q2-cutadapt
 - q2-dada2

@@ -1,5 +1,5 @@
 meta:
-  phone_home: false
+  phone_home: true
 run:
 - q2-alignment
 - q2-assembly

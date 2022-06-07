@@ -23,6 +23,7 @@ run:
 - q2-sample-classifier
 - q2-taxa
 - q2-types
+- q2-types-genomics
 - q2-vsearch
 - q2cli
 - q2galaxy

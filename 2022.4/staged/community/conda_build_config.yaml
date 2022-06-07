@@ -60,6 +60,8 @@ q2templates:
 - 2022.4.0.dev0+1.g88b73c6
 qiime2:
 - 2022.4.0.dev0+4.g34f918f
+rescript:
+- 2021.11.0+3.g8aa880e
 qiime2_epoch:
 - '2022.4'
 scikit_bio:

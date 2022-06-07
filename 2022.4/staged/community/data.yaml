@@ -21,6 +21,7 @@ run:
 - q2-quality-control
 - q2-quality-filter
 - q2-sample-classifier
+- q2-stats
 - q2-taxa
 - q2-types
 - q2-types-genomics

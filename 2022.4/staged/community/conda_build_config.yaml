@@ -15,13 +15,13 @@ q2_composition:
 q2_cutadapt:
 - 2022.4.0.dev0+1.g5e6a984
 q2_dada2:
-- 2022.4.0.dev0+1.g48d2458
+- 2022.4.0.dev0+2.g617d41d
 q2_deblur:
 - 2022.4.0.dev0+1.gf4b5fb0
 q2_demux:
 - 2022.4.0.dev0+3.g200e91b
 q2_diversity:
-- 2022.4.0.dev0+3.g059ef2b
+- 2022.4.0.dev0+4.g1c0d9e3
 q2_diversity_lib:
 - 2022.4.0.dev0+3.g6347cff
 q2_emperor:
@@ -67,13 +67,13 @@ q2cli:
 q2galaxy:
 - 2022.4.0.dev0
 q2templates:
-- 2022.4.0.dev0+1.g88b73c6
+- 2022.4.0.dev0+3.ge173fd9
 qiime2:
 - 2022.4.0.dev0+4.g34f918f
-rescript:
-- 2021.11.0+3.g8aa880e
 qiime2_epoch:
 - '2022.4'
+rescript:
+- 2021.11.0+3.g8aa880e
 scikit_bio:
 - 0.5.6
 scikit_learn:

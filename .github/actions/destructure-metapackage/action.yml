@@ -143,10 +143,9 @@ runs:
             "bioconda",
             "defaults"
            ],
-           dependencies: .dependencies |
-             map(select(. | startswith("qiime2-${{ inputs.distro }}") | not))
+           dependencies: .dependencies
           }' > $ENV_FILE
-        echo "::notice file=${{ env.ENV_FILE }}::This env file will only work after Library uploads the metapackage to packages.qiime2.org"
+        echo "::notice file=${{ env.ENV_FILE }}::This env file will only work after Library uploads the metapackage to packages.qiime2.org and it contains the metapackage"
 
     - name: upload convenience env file
       uses: actions/upload-artifact@v2

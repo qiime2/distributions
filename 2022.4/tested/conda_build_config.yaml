@@ -31,7 +31,7 @@ q2_feature_classifier:
 q2_feature_table:
 - 2022.4.0.dev0+1.g5128da6
 q2_fmt:
-- 0.1.dev0+30.gc3bd2bd
+- 0.1.dev0+33.g73d0207
 q2_fondue:
 - 2022.4.0.dev0+5.g8afd9f6.dirty
 q2_fragment_insertion:

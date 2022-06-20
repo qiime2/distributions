@@ -7,7 +7,7 @@ pandas:
 python:
 - '3.8'
 q2_alignment:
-- 2022.4.0.dev0+1.g47021f3
+- 2022.4.0.dev0+2.gad02719
 q2_assembly:
 - 2022.4.0.dev0+4.gf294746
 q2_composition:

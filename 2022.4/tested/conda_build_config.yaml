@@ -81,4 +81,6 @@ scikit_bio:
 scikit_learn:
 - 0.24.1
 unifrac:
-- '*'
+- 1.1.1
+unifrac_binaries:
+- 1.1.1

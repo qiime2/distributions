@@ -1,5 +1,3 @@
-ignore:
-- q2-assembly
 meta:
   phone_home: true
 run:
@@ -36,4 +34,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.06.20.04.31.37
+version: 2022.06.20.14.28.19

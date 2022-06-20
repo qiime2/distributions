@@ -3,7 +3,7 @@ biom_format:
 hdf5:
 - '*'
 pandas:
-- 1.2.*
+- '>=1.2.5'
 python:
 - '3.8'
 q2_alignment:

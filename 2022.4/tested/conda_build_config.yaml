@@ -47,7 +47,7 @@ q2_moshpit:
 q2_mystery_stew:
 - 2022.4.0.dev0
 q2_phylogeny:
-- 2022.4.0.dev0+2.g6d70e3d
+- 2022.4.0.dev0+3.gd33a013
 q2_quality_control:
 - 2022.4.0.dev0+5.g7018fcd
 q2_quality_filter:

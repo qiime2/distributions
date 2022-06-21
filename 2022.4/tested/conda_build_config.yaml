@@ -15,7 +15,7 @@ q2_composition:
 q2_cutadapt:
 - 2022.4.0.dev0+1.g5e6a984
 q2_dada2:
-- 2022.4.0.dev0+3.g2bf6939
+- 2022.4.0.dev0+4.g84f4c78
 q2_deblur:
 - 2022.4.0.dev0+3.g0bbcdc8
 q2_demux:

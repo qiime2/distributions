@@ -51,7 +51,7 @@ q2_phylogeny:
 q2_quality_control:
 - 2022.4.0.dev0+5.g7018fcd
 q2_quality_filter:
-- 2022.4.0.dev0+1.gcae1001
+- 2022.4.0.dev0+2.g9ae247e
 q2_sample_classifier:
 - 2022.4.0.dev0+3.gd991f16
 q2_stats:

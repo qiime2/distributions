@@ -11,7 +11,7 @@ q2_alignment:
 q2_assembly:
 - 2022.4.0.dev0+4.gf294746
 q2_composition:
-- 2022.4.0.dev0+1.g7843f0a
+- 2022.4.0.dev0+2.gc8b20a6
 q2_cutadapt:
 - 2022.4.0.dev0+2.ga6c7b6a
 q2_dada2:

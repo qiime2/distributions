@@ -1,7 +1,5 @@
 ignore:
 - rescript
-- q2-types-genomics
-- q2-fondue
 - q2-moshpit
 meta:
   phone_home: true
@@ -39,4 +37,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.06.22.16.16.33
+version: 2022.06.22.16.47.31

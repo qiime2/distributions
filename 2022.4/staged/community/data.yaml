@@ -1,5 +1,4 @@
 ignore:
-- rescript
 - q2-moshpit
 meta:
   phone_home: true

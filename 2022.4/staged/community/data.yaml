@@ -1,5 +1,9 @@
 ignore:
 - q2-assembly
+- rescript
+- q2-types-genomics
+- q2-fondue
+- q2-moshpit
 meta:
   phone_home: true
 run:
@@ -21,6 +25,7 @@ run:
 - q2-gneiss
 - q2-longitudinal
 - q2-metadata
+- q2-moshpit
 - q2-mystery-stew
 - q2-phylogeny
 - q2-quality-control
@@ -36,4 +41,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.06.20.04.31.37
+version: 2022.06.22.15.37.58

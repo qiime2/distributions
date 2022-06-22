@@ -1,9 +1,9 @@
 biom_format:
-- '>=2.1.7,<2.1.12'
+- '>=2.1.12'
 hdf5:
 - '*'
 pandas:
-- 1.2.*
+- '>=1.2.5'
 python:
 - '3.8'
 q2_alignment:
@@ -77,8 +77,10 @@ qiime2_epoch:
 rescript:
 - 2021.11.0+4.g3797818
 scikit_bio:
-- 0.5.6
+- 0.5.7
 scikit_learn:
 - 0.24.1
 unifrac:
-- '*'
+- 1.1.1
+unifrac_binaries:
+- 1.1.1

@@ -19,7 +19,6 @@ run:
 - q2-emperor
 - q2-feature-classifier
 - q2-feature-table
-- q2-fmt
 - q2-fondue
 - q2-fragment-insertion
 - q2-gneiss

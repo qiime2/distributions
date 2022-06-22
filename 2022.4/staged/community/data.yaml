@@ -1,5 +1,4 @@
 ignore:
-- q2-assembly
 - rescript
 - q2-types-genomics
 - q2-fondue
@@ -40,4 +39,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.06.22.15.37.58
+version: 2022.06.22.16.16.33

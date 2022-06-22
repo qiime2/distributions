@@ -1,5 +1,4 @@
 ignore:
-- rescript
 - q2-moshpit
 meta:
   phone_home: true
@@ -37,4 +36,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.06.22.16.47.31
+version: 2022.06.22.19.23.00

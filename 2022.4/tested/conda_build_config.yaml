@@ -35,7 +35,7 @@ q2_feature_table:
 q2_fmt:
 - 0.1.dev0+34.gde2007c
 q2_fondue:
-- 2022.4.0.dev0+7.g89a59dd.dirty
+- 2022.4.0.dev0+9.g5d2f02b.dirty
 q2_fragment_insertion:
 - 2022.4.0.dev0+2.g46fc22f
 q2_gneiss:

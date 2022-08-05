@@ -4,13 +4,10 @@ hdf5:
 - '*'
 pandas:
 - '>=1.2.5'
-# Pinning scipy due to scikit bio conflict w/scipy 1.9
-# This will be updated and pin will be removed when scikit bio is updated
-# ~Oct 2022
-scipy:
-- '>=1.7,<1.9'
 python:
 - '3.8'
+qiime2:
+- 2022.8.0.dev0
 qiime2_epoch:
 - '2022.8'
 rescript:
@@ -19,6 +16,8 @@ scikit_bio:
 - 0.5.7
 scikit_learn:
 - 0.24.1
+scipy:
+- '>=1.7,<1.9'
 unifrac:
 - 1.1.1
 unifrac_binaries:

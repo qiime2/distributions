@@ -3,14 +3,13 @@ name: ci-core
 # Edit this variable as necessary and the `paths` list below, everything else should work as-is
 env:
   # space-delimited epochs
-  CONF_EPOCHS: '2022.2 2022.4'
+  CONF_EPOCHS: '2022.8'
 
 on:
   workflow_dispatch: {}
   pull_request:
     paths:
-      - 2022.2/staged/core/*
-      - 2022.4/staged/core/*
+      - 2022.8/staged/core/*
 
 jobs:
   conf:

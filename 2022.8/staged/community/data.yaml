@@ -1,0 +1,7 @@
+ignore:
+- q2-moshpit
+meta:
+  phone_home: false
+run: []
+# python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))"
+version: 2022.08.05.18.50.10

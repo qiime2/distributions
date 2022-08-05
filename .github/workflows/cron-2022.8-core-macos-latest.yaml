@@ -1,10 +1,10 @@
-name: cron-2022.4-core-macos-latest
+name: cron-2022.8-core-macos-latest
 
 # Edit these four variables as necessary, everything else should work as-is
 env:
   CONF_PLATFORM: macos-latest
   CONF_DISTRO: core
-  CONF_EPOCH: '2022.4'
+  CONF_EPOCH: '2022.8'
   CONF_ISSUE_NUM: 71
 
 on:

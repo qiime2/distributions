@@ -3,13 +3,13 @@ name: ci-community
 # Edit this variable as necessary and the `paths` list below, everything else should work as-is
 env:
   # space-delimited epochs
-  CONF_EPOCHS: '2022.4'
+  CONF_EPOCHS: '2022.8'
 
 on:
   workflow_dispatch: {}
   pull_request:
     paths:
-      - 2022.4/staged/community/*
+      - 2022.8/staged/community/*
 
 jobs:
   conf:

@@ -6,6 +6,8 @@ pandas:
 - '>=1.2.5'
 python:
 - '3.8'
+q2_emperor:
+- 2022.8.0.dev0
 q2_feature_table:
 - 2022.8.0.dev0
 q2_metadata:

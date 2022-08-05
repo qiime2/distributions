@@ -18,6 +18,8 @@ q2_metadata:
 - 2022.8.0.dev0
 q2_mystery_stew:
 - 2022.8.0.dev0
+q2_sample_classifier:
+- 2022.8.0.dev0
 q2_taxa:
 - 2022.8.0.dev0
 q2_types:

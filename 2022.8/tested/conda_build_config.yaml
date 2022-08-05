@@ -10,6 +10,8 @@ q2_alignment:
 - 2022.8.0.dev0
 q2_composition:
 - 2022.8.0.dev0
+q2_cutadapt:
+- 2022.8.0.dev0
 q2_diversity_lib:
 - 2022.8.0.dev0
 q2_emperor:

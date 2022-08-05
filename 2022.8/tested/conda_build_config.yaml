@@ -46,6 +46,8 @@ q2_types:
 - 2022.8.0.dev0+1.g6812297
 q2_vsearch:
 - 2022.8.0.dev0
+q2cli:
+- 2022.8.0.dev0
 q2templates:
 - 2022.8.0.dev0
 qiime2:

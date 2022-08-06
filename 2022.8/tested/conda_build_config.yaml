@@ -28,6 +28,8 @@ q2_feature_classifier:
 - 2022.8.0.dev0
 q2_feature_table:
 - 2022.8.0.dev0
+q2_fmt:
+- 0.1.dev0+35.ga59f432
 q2_fragment_insertion:
 - 2022.8.0.dev0
 q2_gneiss:

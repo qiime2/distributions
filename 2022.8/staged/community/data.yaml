@@ -13,8 +13,8 @@ run:
 - q2-diversity-lib
 - q2-emperor
 - q2-feature-classifier
-- q2-fmt
 - q2-feature-table
+- q2-fmt
 - q2-fragment-insertion
 - q2-gneiss
 - q2-longitudinal
@@ -32,5 +32,4 @@ run:
 - q2galaxy
 - q2templates
 - qiime2
-# python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))"
-version: 2022.08.08.17.40.21
+version: 2022.08.10.21.23.00

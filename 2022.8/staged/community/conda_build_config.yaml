@@ -65,7 +65,7 @@ q2galaxy:
 q2templates:
 - 2022.8.0
 qiime2:
-- 2022.8.0
+- 2022.8.1
 qiime2_epoch:
 - '2022.8'
 scikit_bio:

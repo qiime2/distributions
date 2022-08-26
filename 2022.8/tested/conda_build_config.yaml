@@ -73,7 +73,7 @@ qiime2:
 qiime2_epoch:
 - '2022.8'
 rescript:
-- 2021.11.0+6.g9006bf7
+- 2021.11.0+7.g0a7c822
 scikit_bio:
 - 0.5.7
 scikit_learn:

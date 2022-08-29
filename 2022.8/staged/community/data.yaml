@@ -4,6 +4,7 @@ meta:
   phone_home: true
 run:
 - q2-alignment
+- q2-assembly
 - q2-composition
 - q2-cutadapt
 - q2-dada2
@@ -34,4 +35,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.08.26.15.23.00
+version: 2022.08.29.13.23.00

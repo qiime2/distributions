@@ -8,6 +8,8 @@ python:
 - '3.8'
 q2_alignment:
 - 2022.8.0
+q2_assembly:
+- 2022.4.0.dev0+9.g828ddec
 q2_checkm:
 - 0+untagged.5.gcb9fa18
 q2_composition:

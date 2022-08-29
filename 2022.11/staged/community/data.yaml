@@ -1,0 +1,6 @@
+ignore:
+- q2-moshpit
+meta:
+  phone_home: false
+run: []
+version: 2022.08.29.22.12.02

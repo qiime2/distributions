@@ -1,0 +1,22 @@
+biom_format:
+- '>=2.1.12'
+hdf5:
+- '*'
+pandas:
+- '>=1.2.5'
+python:
+- '3.8'
+qiime2_epoch:
+- '2022.11'
+rescript:
+- 2021.11.0+7.g0a7c822
+scikit_bio:
+- 0.5.7
+scikit_learn:
+- 0.24.1
+scipy:
+- '>=1.7,<1.9'
+unifrac:
+- 1.1.1
+unifrac_binaries:
+- 1.1.1

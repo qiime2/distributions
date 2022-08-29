@@ -1,19 +1,19 @@
-name: cron-2022.8-community-ubuntu-latest
+name: cron-2022.11-core-ubuntu-latest
 
 # Edit these four variables as necessary, everything else should work as-is
 env:
   CONF_PLATFORM: ubuntu-latest
-  CONF_DISTRO: community
-  CONF_EPOCH: '2022.8'
+  CONF_DISTRO: core
+  CONF_EPOCH: '2022.11'
   CONF_ISSUE_NUM: 71
 
 on:
   workflow_dispatch: {}
   schedule:
-    # dev - every 8 hours, starting at the second hour
-    # - cron: '37 2,10,18 * * *'
+    # dev - every 8 hours, starting at the zeroth hour
+    - cron: '37 0,8,16 * * *'
     # rel - every other day
-    - cron: '37 3 */2 * *'
+    # - cron: '37 3 */2 * *'
 
 jobs:
   conf:

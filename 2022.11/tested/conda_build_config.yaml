@@ -34,6 +34,8 @@ q2_mystery_stew:
 - 2022.11.0.dev0
 q2_quality_control:
 - 2022.11.0.dev0
+q2_quality_filter:
+- 2022.11.0.dev0
 q2_sample_classifier:
 - 2022.11.0.dev0
 q2_taxa:

@@ -10,8 +10,13 @@ env:
 on:
   workflow_dispatch: {}
   schedule:
-    # dev - every 2 hours
-    - cron: '37 */2 * * *'
+    {% if 'core' == distro -%}
+    # dev - every 8 hours, starting at the zeroth hour
+    - cron: '37 0,8,16 * * *'
+    {%- else -%}
+    # dev - every 8 hours, starting at the fourth hour
+    - cron: '37 4,12,20 * * *'
+    {% endif %}
     # rel - every other day
     # - cron: '37 3 */2 * *'
 
@@ -95,4 +100,3 @@ jobs:
             [GHA run](https://github.com/qiime2/package-integration/actions/runs/${{ github.run_id }})
             ${{ github.run_number }} for ${{ needs.conf.outputs.epoch }}
             on ${{ needs.conf.outputs.platform }} failed.
-

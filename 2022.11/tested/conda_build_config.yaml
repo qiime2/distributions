@@ -8,6 +8,8 @@ python:
 - '3.8'
 q2_alignment:
 - 2022.11.0.dev0
+q2_composition:
+- 2022.11.0.dev0
 q2_cutadapt:
 - 2022.11.0.dev0
 q2_diversity_lib:

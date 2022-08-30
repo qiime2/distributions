@@ -48,6 +48,8 @@ q2_types:
 - 2022.11.0.dev0
 q2_vsearch:
 - 2022.11.0.dev0
+q2cli:
+- 2022.11.0.dev0
 q2galaxy:
 - 2022.11.0.dev0
 q2templates:

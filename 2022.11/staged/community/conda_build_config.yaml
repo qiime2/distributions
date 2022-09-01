@@ -8,6 +8,8 @@ python:
 - '3.8'
 q2_alignment:
 - 2022.11.0.dev0
+q2_assembly:
+- 2022.8.0
 q2_composition:
 - 2022.11.0.dev0
 q2_cutadapt:
@@ -30,6 +32,8 @@ q2_feature_table:
 - 2022.11.0.dev0
 q2_fmt:
 - 2022.11.0.dev0
+q2_fondue:
+- 2022.11.0.dev0+1.gb92f3e2
 q2_fragment_insertion:
 - 2022.11.0.dev0
 q2_gneiss:
@@ -54,6 +58,8 @@ q2_taxa:
 - 2022.11.0.dev0
 q2_types:
 - 2022.11.0.dev0
+q2_types_genomics:
+- 2022.11.0.dev0
 q2_vsearch:
 - 2022.11.0.dev0
 q2cli:
@@ -63,7 +69,7 @@ q2galaxy:
 q2templates:
 - 2022.11.0.dev0
 qiime2:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g4edeff4
 qiime2_epoch:
 - '2022.11'
 rescript:

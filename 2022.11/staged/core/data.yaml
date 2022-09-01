@@ -10,8 +10,8 @@ run:
 - q2-diversity
 - q2-diversity-lib
 - q2-emperor
-- q2-feature-table
 - q2-feature-classifier
+- q2-feature-table
 - q2-fragment-insertion
 - q2-gneiss
 - q2-longitudinal
@@ -28,4 +28,4 @@ run:
 - q2galaxy
 - q2templates
 - qiime2
-version: 2022.08.30.20.16.05
+version: 2022.09.01.17.23.00

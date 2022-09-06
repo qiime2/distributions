@@ -32,8 +32,6 @@ q2_feature_table:
 - 2022.11.0.dev0
 q2_fmt:
 - 2022.11.0.dev0
-q2_fondue:
-- 2022.11.0.dev0+2.gc56a024
 q2_fragment_insertion:
 - 2022.11.0.dev0
 q2_gneiss:

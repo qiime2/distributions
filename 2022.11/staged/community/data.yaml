@@ -1,5 +1,6 @@
 ignore:
 - q2-moshpit
+- q2-fondue
 meta:
   phone_home: true
 run:
@@ -16,7 +17,6 @@ run:
 - q2-feature-classifier
 - q2-feature-table
 - q2-fmt
-- q2-fondue
 - q2-fragment-insertion
 - q2-gneiss
 - q2-longitudinal

@@ -29,7 +29,7 @@ q2_emperor:
 q2_feature_classifier:
 - 2022.8.0
 q2_feature_table:
-- 2022.8.0
+- 2022.8.1
 q2_fmt:
 - 0.1.dev0+35.ga59f432
 q2_fondue:
@@ -67,7 +67,7 @@ q2galaxy:
 q2templates:
 - 2022.8.0
 qiime2:
-- 2022.8.1
+- 2022.8.2
 qiime2_epoch:
 - '2022.8'
 rescript:

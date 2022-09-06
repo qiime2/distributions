@@ -27,7 +27,7 @@ q2_emperor:
 q2_feature_classifier:
 - 2022.8.0
 q2_feature_table:
-- 2022.8.0
+- 2022.8.1
 q2_fragment_insertion:
 - 2022.8.0
 q2_gneiss:
@@ -59,7 +59,7 @@ q2galaxy:
 q2templates:
 - 2022.8.0
 qiime2:
-- 2022.8.1
+- 2022.8.2
 qiime2_epoch:
 - '2022.8'
 scikit_bio:

@@ -17,6 +17,7 @@ run:
 - q2-feature-classifier
 - q2-feature-table
 - q2-fmt
+- q2-fondue
 - q2-fragment-insertion
 - q2-gneiss
 - q2-longitudinal
@@ -35,4 +36,4 @@ run:
 - q2galaxy
 - q2templates
 - qiime2
-version: 2022.09.07.18.23.00
+version: 2022.09.08.14.23.00

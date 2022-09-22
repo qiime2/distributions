@@ -58,8 +58,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='determine what changed')
     parser.add_argument('changed_files', type=str,
                         help='space-separated list of changed files')
-    parser.add_argument('--epoch', action=argparse.BooleanOptionalAction)
-    parser.add_argument('--distro', action=argparse.BooleanOptionalAction)
+    parser.add_argument('--epoch', action='store_true')
+    parser.add_argument('--distro', action='store_true')
 
     args = parser.parse_args()
     changed_files = args.changed_files.split(' ')

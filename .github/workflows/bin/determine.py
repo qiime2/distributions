@@ -19,7 +19,7 @@ def main(changed_files, epoch, distro):
 def identify_epoch(changed_files):
     epochs = set()
     for rel_path in changed_files:
-        base = os.path.sep.split(rel_path)[0]
+        base = rel_path.split(os.path.sep)[0]
         if base.startswith('2') and '.' in base:
             epochs.add(base)
 
@@ -36,7 +36,7 @@ def identify_epoch(changed_files):
 def identify_distro(changed_files):
     distros = set()
     for rel_path in changed_files:
-        segments = os.path.sep.split(rel_path)
+        segments = rel_path.split(os.path.sep)
         if len(segments) < 3:
             continue
 
@@ -47,7 +47,6 @@ def identify_distro(changed_files):
     if len(distros) > 1:
         raise Exception('Multiple distros cannot be changed simultaneously.'
                         ' distros: %s' % distros)
-
     if not distros:
         raise Exception('No distros modified')
 

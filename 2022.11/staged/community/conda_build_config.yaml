@@ -19,7 +19,7 @@ q2_dada2:
 q2_deblur:
 - 2022.11.0.dev0
 q2_demux:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g04046f3
 q2_diversity:
 - 2022.11.0.dev0
 q2_diversity_lib:
@@ -67,9 +67,9 @@ q2cli:
 q2galaxy:
 - 2022.11.0.dev0
 q2templates:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g55ba9a5
 qiime2:
-- 2022.11.0.dev0+5.gb0c6302
+- 2022.11.0.dev0+6.g0073e2e
 qiime2_epoch:
 - '2022.11'
 rescript:

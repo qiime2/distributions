@@ -17,15 +17,15 @@ q2_cutadapt:
 q2_dada2:
 - 2022.11.0.dev0+2.g9a293b5
 q2_deblur:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g383c17d
 q2_demux:
 - 2022.11.0.dev0+2.g80ee28f
 q2_diversity:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g2c6a78b
 q2_diversity_lib:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g0e92354
 q2_emperor:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g85f7472
 q2_feature_classifier:
 - 2022.11.0.dev0+1.gbf759c1
 q2_feature_table:
@@ -35,15 +35,15 @@ q2_fmt:
 q2_fondue:
 - 2022.11.0.dev0+4.g0a4582d
 q2_fragment_insertion:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g6b7ab31
 q2_gneiss:
 - 2022.11.0.dev0+1.gb1a5138
 q2_longitudinal:
 - 2022.11.0.dev0+1.g60dee69
 q2_metadata:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g092d181
 q2_mystery_stew:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g9e56157
 q2_phylogeny:
 - 2022.11.0.dev0+1.g128a931
 q2_quality_control:

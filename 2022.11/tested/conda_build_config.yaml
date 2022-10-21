@@ -35,7 +35,7 @@ q2_fmt:
 q2_fondue:
 - 2022.11.0.dev0+4.g0a4582d
 q2_fragment_insertion:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g6b7ab31
 q2_gneiss:
 - 2022.11.0.dev0+1.gb1a5138
 q2_longitudinal:

@@ -29,7 +29,7 @@ q2_emperor:
 q2_feature_classifier:
 - 2022.11.0.dev0+1.gbf759c1
 q2_feature_table:
-- 2022.11.0.dev0+3.g15c7a28
+- 2022.11.0.dev0+4.g6fc9b30
 q2_fmt:
 - 2022.11.0.dev0+6.gf456997
 q2_fondue:

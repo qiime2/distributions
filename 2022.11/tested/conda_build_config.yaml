@@ -17,7 +17,7 @@ q2_cutadapt:
 q2_dada2:
 - 2022.11.0.dev0+2.g9a293b5
 q2_deblur:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g383c17d
 q2_demux:
 - 2022.11.0.dev0+2.g80ee28f
 q2_diversity:

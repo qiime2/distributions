@@ -25,7 +25,7 @@ q2_diversity:
 q2_diversity_lib:
 - 2022.11.0.dev0+2.g90fdd35
 q2_emperor:
-- 2022.11.0.dev0+2.g5753636
+- 2022.11.0.dev0+3.g67ab702
 q2_feature_classifier:
 - 2022.11.0.dev0+3.ga1396fe
 q2_feature_table:

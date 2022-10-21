@@ -49,7 +49,7 @@ q2_phylogeny:
 q2_quality_control:
 - 2022.11.0.dev0+3.g5e8409e
 q2_quality_filter:
-- 2022.11.0.dev0+2.g2a2ae9f
+- 2022.11.0.dev0+3.ga8b5a7b
 q2_sample_classifier:
 - 2022.11.0.dev0+3.g27c3de1
 q2_stats:

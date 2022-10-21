@@ -39,7 +39,7 @@ q2_fragment_insertion:
 q2_gneiss:
 - 2022.11.0.dev0+1.gb1a5138
 q2_longitudinal:
-- 2022.11.0.dev0
+- 2022.11.0.dev0+1.g60dee69
 q2_metadata:
 - 2022.11.0.dev0
 q2_mystery_stew:

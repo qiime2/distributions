@@ -67,7 +67,7 @@ q2cli:
 q2galaxy:
 - 2022.11.0.dev0+3.g4821f74
 q2templates:
-- 2022.11.0.dev0+3.g1422c5b
+- 2022.11.0.dev0+4.g8990a9c
 qiime2:
 - 2022.11.0.dev0+13.g37ddcb1
 qiime2_epoch:

@@ -69,7 +69,7 @@ q2galaxy:
 q2templates:
 - 2022.11.0.dev0+3.g1422c5b
 qiime2:
-- 2022.11.0.dev0+11.gf6b08f2
+- 2022.11.0.dev0+12.g2d38bf5
 qiime2_epoch:
 - '2022.11'
 rescript:

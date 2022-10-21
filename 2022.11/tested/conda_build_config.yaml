@@ -61,7 +61,7 @@ q2_types:
 q2_types_genomics:
 - 2022.11.0.dev0
 q2_vsearch:
-- 2022.11.0.dev0+2.gbdea97d
+- 2022.11.0.dev0+3.g27d501d
 q2cli:
 - 2022.11.0.dev0+3.ge3f4c6c
 q2galaxy:

@@ -9,7 +9,7 @@ python:
 q2_alignment:
 - 2022.11.0.dev0+1.gcd53548
 q2_composition:
-- 2022.11.0.dev0+1.g14a2442
+- 2022.11.0.dev0+2.g11e164e
 q2_cutadapt:
 - 2022.11.0.dev0+1.gceff2c8
 q2_dada2:
@@ -59,7 +59,7 @@ q2galaxy:
 q2templates:
 - 2022.11.0.dev0+2.gd4c9219
 qiime2:
-- 2022.11.0.dev0+10.g8df50f6
+- 2022.11.0.dev0+11.gf6b08f2
 qiime2_epoch:
 - '2022.11'
 scikit_bio:

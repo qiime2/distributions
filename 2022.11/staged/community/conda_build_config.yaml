@@ -31,7 +31,7 @@ q2_feature_classifier:
 q2_feature_table:
 - 2022.11.0.dev0+4.g6fc9b30
 q2_fmt:
-- 2022.11.0.dev0+7.g965b723
+- 2022.11.0.dev0+10.gc8ad59e
 q2_fondue:
 - 2022.11.0.dev0+5.g3ede75c
 q2_fragment_insertion:
@@ -69,7 +69,7 @@ q2galaxy:
 q2templates:
 - 2022.11.0.dev0+2.gd4c9219
 qiime2:
-- 2022.11.0.dev0+14.g05c515b
+- 2022.11.0.dev0+15.ga0071b5
 qiime2_epoch:
 - '2022.11'
 rescript:

@@ -59,7 +59,7 @@ q2galaxy:
 q2templates:
 - 2022.11.0.dev0+4.g8990a9c
 qiime2:
-- 2022.11.0.dev0+14.g05c515b
+- 2022.11.0.dev0+15.ga0071b5
 qiime2_epoch:
 - '2022.11'
 scikit_bio:

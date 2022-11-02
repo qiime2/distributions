@@ -19,7 +19,7 @@ runs:
         source "$CONDA/etc/profile.d/conda.sh"
         conda activate base
         wget ${{ inputs.pkg-url }}
-        sudo conda build -q \
+        sudo conda mambabuild -q \
           -c ${{ inputs.q2-channel }} \
           -c conda-forge \
           -c bioconda \

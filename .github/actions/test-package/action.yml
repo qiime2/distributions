@@ -16,13 +16,13 @@ runs:
     - name: run test
       shell: bash
       run: |
-        source "$CONDA/etc/profile.d/conda.sh"
-        conda activate base
         wget ${{ inputs.pkg-url }}
-        sudo conda build -q \
+        source "$CONDA/etc/profile.d/conda.sh"
+        conda create -n test-env -y -q
           -c ${{ inputs.q2-channel }} \
           -c conda-forge \
           -c bioconda \
           -c defaults \
-          --extra-deps ${{ inputs.metapackage-spec }} \
-          -t "*.tar.bz2"
+          ${{ inputs.metapackage-spec }}
+        conda activate test-env
+        ${{ github.action_path }}/.github/actions/test-package/bin/run_tests.py *.tar.bz2

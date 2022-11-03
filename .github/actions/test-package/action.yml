@@ -25,4 +25,4 @@ runs:
           -c bioconda \
           -c defaults \
           --extra-deps ${{ inputs.metapackage-spec }} \
-          -t $(ls *.tar.bz2)
+          -t *.tar.bz2

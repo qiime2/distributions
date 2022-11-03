@@ -18,7 +18,7 @@ runs:
       run: |
         wget ${{ inputs.pkg-url }}
         source "$CONDA/etc/profile.d/conda.sh"
-        conda create -n test-env -y -q
+        conda create -n test-env -y -q \
           -c ${{ inputs.q2-channel }} \
           -c conda-forge \
           -c bioconda \

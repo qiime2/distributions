@@ -15,20 +15,22 @@ def find_tests(conda_pkg):
 
 def run_imports(imports):
     for imp in imports:
-        print(f'Importing: {imp}')
+        print(f'Importing: {imp}', flush=True)
         importlib.import_module(imp)
 
 
 def run_commands(commands):
     for cmd in commands:
-        print(f'Running: {cmd}')
+        print(f'Running: {cmd}', flush=True)
         subprocess.run(cmd, shell=True, check=True)
 
 
 def main(conda_pkg):
     tests = find_tests(conda_pkg)
-    run_imports(tests['imports'])
-    run_commands(tests['commands'])
+    if 'imports' in tests:
+        run_imports(tests['imports'])
+    if 'commands' in tests:
+        run_commands(tests['commands'])
 
 
 if __name__ == '__main__':

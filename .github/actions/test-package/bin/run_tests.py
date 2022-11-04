@@ -13,6 +13,12 @@ def find_tests(conda_pkg):
     return tests
 
 
+def install_requires(reqs):
+    print(f'Installing: {" ".join(reqs)}', flush=True)
+    subprocess.run(['conda', 'install', '-c', 'conda-forge', '-c', 'bioconda',
+                    '-y', '-q', *reqs], check=True)
+
+
 def run_imports(imports):
     for imp in imports:
         print(f'Importing: {imp}', flush=True)
@@ -27,6 +33,8 @@ def run_commands(commands):
 
 def main(conda_pkg):
     tests = find_tests(conda_pkg)
+    if 'requires' in tests:
+        install_requires(tests['requires'])
     if 'imports' in tests:
         run_imports(tests['imports'])
     if 'commands' in tests:

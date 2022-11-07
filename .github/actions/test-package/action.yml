@@ -18,11 +18,11 @@ runs:
       run: |
         wget ${{ inputs.pkg-url }}
         source "$CONDA/etc/profile.d/conda.sh"
-        sudo conda create -n test-env -y -q \
+        conda create -n test-env -y -q \
           -c ${{ inputs.q2-channel }} \
           -c conda-forge \
           -c bioconda \
           -c defaults \
           ${{ inputs.metapackage-spec }}
-        sudo conda activate test-env
-        sudo ${{ github.action_path }}/bin/run_tests.py *.tar.bz2
+        conda activate test-env
+        ${{ github.action_path }}/bin/run_tests.py *.tar.bz2

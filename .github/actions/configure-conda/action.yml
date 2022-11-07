@@ -23,5 +23,6 @@ runs:
           conda-build \
           conda-verify \
           yq
+        sudo chown -R 501:20 /usr/local/miniconda
         conda info -a
         conda config --show

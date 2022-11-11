@@ -44,6 +44,8 @@ q2_longitudinal:
 - 2022.11.0.dev0+3.g3bf9069
 q2_metadata:
 - 2022.11.0.dev0+3.gd45815e
+q2_moshpit:
+- 2022.11.0.dev0+1.g24e2030
 q2_mystery_stew:
 - 2022.11.0.dev0+3.g041e9b4
 q2_phylogeny:

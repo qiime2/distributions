@@ -22,6 +22,7 @@ run:
 - q2-gneiss
 - q2-longitudinal
 - q2-metadata
+- q2-moshpit
 - q2-mystery-stew
 - q2-phylogeny
 - q2-quality-control
@@ -37,4 +38,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.11.07.19.23.00
+version: 2022.11.11.17.23.00

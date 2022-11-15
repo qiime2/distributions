@@ -15,8 +15,8 @@ def find_tests(conda_pkg):
 
 def install_requires(reqs):
     print(f'Installing: {" ".join(reqs)}', flush=True)
-    subprocess.run(['conda', 'install', '-c', 'conda-forge', '-c', 'bioconda',
-                    '-y', '-q', *reqs], check=True)
+    subprocess.run(['conda', 'install', '-c', sys.argv[2], '-c', 'conda-forge',
+                    '-c', 'bioconda', '-y', '-q', *reqs], check=True)
 
 
 def run_imports(imports):

@@ -25,4 +25,4 @@ runs:
           -c defaults \
           ${{ inputs.metapackage-spec }}
         conda activate test-env
-        ${{ github.action_path }}/bin/run_tests.py *.tar.bz2
+        ${{ github.action_path }}/bin/run_tests.py *.tar.bz2 ${{ inputs.q2-channel }}

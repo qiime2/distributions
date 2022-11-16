@@ -6,7 +6,8 @@ runs:
     - name: configure conda and friends
       shell: bash
       run: |
-        if [ "$RUNNER_OS" == "macOS"]; then
+        if [ "$RUNNER_OS" == "macOS" ]; then
+          echo "running on macOS**************"
           sudo chown -R 501:20 /usr/local/miniconda
         fi
         source "$CONDA/etc/profile.d/conda.sh"
@@ -25,7 +26,7 @@ runs:
           conda-build \
           conda-verify \
           yq
-        if [ "$RUNNER_OS" == "macOS"]; then
+        if [ "$RUNNER_OS" == "macOS" ]; then
           sudo chown -R 501:20 /usr/local/miniconda
         fi
         conda info -a

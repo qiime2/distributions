@@ -6,6 +6,9 @@ runs:
     - name: configure conda and friends
       shell: bash
       run: |
+        if [ "$RUNNER_OS" == "macOS"]; then
+          sudo chown -R 501:20 /usr/local/miniconda
+        fi
         source "$CONDA/etc/profile.d/conda.sh"
         conda activate base
         conda config --set always_yes yes

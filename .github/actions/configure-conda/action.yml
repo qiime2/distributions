@@ -7,7 +7,6 @@ runs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "macOS" ]; then
-          echo "running on macOS**************"
           sudo chown -R 501:20 /usr/local/miniconda
         fi
         source "$CONDA/etc/profile.d/conda.sh"

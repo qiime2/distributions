@@ -42,7 +42,7 @@ jobs:
     env:
       BUILD_DIR: ./build/
       TEMPLATE_PATH: ${{ matrix.epoch }}/staged/${{ matrix.distro }}/
-      Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/staged/${{ matrix.distro }}/
+      Q2_CHANNEL: https://packages.qiime2.org/qiime2/${{ matrix.epoch }}/tested/
     steps:
       - name: set host helper env vars
         run: |

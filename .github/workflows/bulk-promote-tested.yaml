@@ -1,0 +1,36 @@
+name: Create PR that promotes latest tested to staged
+
+on:
+  workflow_dispatch:
+    inputs:
+      distro:
+        required: true
+        type: choice
+        options:
+         - core
+         - community
+      epoch:
+        required: true
+        type: choice
+        options:
+         - '2022.11'
+
+jobs:
+  update_versions:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v3
+       with:
+        fetch-depth: 2
+     - name: update
+       run: |
+         python .github/workflows/bin/bulk_promote.py ${{ inputs.epoch }} ${{ inputs.distro }}
+     - name: create PR
+       uses: peter-evans/create-pull-request@v3
+       with:
+         branch: create-pull-request/${{ inputs.epoch }}/${{ inputs.distro }}
+         token: ${{ secrets.Q2D2_TOKEN }}
+         commit-message: Bulk version update of ${{ inputs.epoch }}-${{ inputs.distro }} distro
+         committer: q2d2 <q2d2.noreply@gmail.com>
+         author: q2d2 <q2d2.noreply@gmail.com>
+         title: Bulk version update of ${{ inputs.epoch }}-${{ inputs.distro }} distro

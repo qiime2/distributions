@@ -1,5 +1,4 @@
-name: Create PR that promotes latest tested to staged
-
+name: bulk-promote-tested
 on:
   workflow_dispatch:
     inputs:
@@ -26,7 +25,7 @@ jobs:
        run: |
          python .github/workflows/bin/bulk_promote.py ${{ inputs.epoch }} ${{ inputs.distro }}
      - name: create PR
-       uses: peter-evans/create-pull-request@v3
+       uses: qiime2/create-pull-request@v3
        with:
          branch: create-pull-request/${{ inputs.epoch }}/${{ inputs.distro }}
          token: ${{ secrets.Q2D2_TOKEN }}

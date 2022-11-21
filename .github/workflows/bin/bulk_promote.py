@@ -18,13 +18,13 @@ def main(epoch, distro):
 
     with open(data_path) as fh:
         package_data = yaml.safe_load(fh)
-        packages = package_data['run']
+        packages = [x.replace('-', '_') for x in package_data['run']]
 
     with urlopen(conda_channel_repodata) as fh:
         repodata = json.loads(fh.read())
 
     latest_versions = {}
-    for _, value in repodata['packages']:
+    for value in repodata['packages'].values():
         name = value['name'].replace('-', '_')
         version = pkg_resources.parse_version(value['version'])
 
@@ -44,11 +44,10 @@ def main(epoch, distro):
     # update included package versions to latest
     with open(conda_build_config_path, 'r') as fh:
         conda_build_config = yaml.safe_load(fh)
-        for package in conda_build_config:
-            if package in packages:
-                conda_build_config[package] = [packages[package]]
+        for package in packages:
+            conda_build_config[package] = [str(latest_versions[package])]
 
-    with open(conda_build_config, 'w') as fh:
+    with open(conda_build_config_path, 'w') as fh:
         yaml.dump(conda_build_config, fh)
 
 

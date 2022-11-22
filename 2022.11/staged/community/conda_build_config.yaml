@@ -15,13 +15,13 @@ q2_composition:
 q2_cutadapt:
 - 2022.11.0.dev0+3.g376d24e
 q2_dada2:
-- 2022.11.0.dev0+4.g6f2ffbb
+- 2022.11.0.dev0+6.gcbb5fc0
 q2_deblur:
 - 2022.11.0.dev0+3.gcf69449
 q2_demux:
 - 2022.11.0.dev0+4.gf17ce91
 q2_diversity:
-- 2022.11.0.dev0+5.gca26f55
+- 2022.11.0.dev0+7.gf197f62
 q2_diversity_lib:
 - 2022.11.0.dev0+3.g143b937
 q2_emperor:

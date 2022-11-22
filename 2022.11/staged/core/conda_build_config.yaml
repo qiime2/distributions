@@ -62,8 +62,6 @@ qiime2:
 - 2022.11.0.dev0+16.g77df12a
 qiime2_epoch:
 - '2022.11'
-r-base:
-- '>=4.2.0'
 scikit_bio:
 - 0.5.7
 scikit_learn:

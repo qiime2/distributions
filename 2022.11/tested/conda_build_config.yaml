@@ -76,6 +76,8 @@ qiime2:
 - 2022.11.0.dev0+16.g77df12a
 qiime2_epoch:
 - '2022.11'
+r_base:
+- '>=4.2.0'
 rescript:
 - 2021.11.0+9.gadb941c
 scikit_bio:

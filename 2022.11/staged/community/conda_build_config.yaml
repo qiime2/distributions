@@ -29,7 +29,7 @@ q2_emperor:
 q2_feature_classifier:
 - 2022.11.0.dev0+3.ga1396fe
 q2_feature_table:
-- 2022.11.0.dev0+5.g1b895c0
+- 2022.11.0.dev0+6.gfe2ee3c
 q2_fmt:
 - 2022.11.0.dev0+10.gc8ad59e
 q2_fondue:
@@ -65,7 +65,7 @@ q2_types_genomics:
 q2_vsearch:
 - 2022.11.0.dev0+5.ge4885c4
 q2cli:
-- 2022.11.0.dev0+3.ge3f4c6c
+- 2022.11.0.dev0+4.g81d27b8
 q2galaxy:
 - 2022.11.0.dev0+3.g4821f74
 q2templates:

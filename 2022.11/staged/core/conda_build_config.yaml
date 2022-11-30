@@ -23,7 +23,7 @@ q2_diversity:
 q2_diversity_lib:
 - 2022.11.0.dev0+3.g143b937
 q2_emperor:
-- 2022.11.0.dev0+3.g67ab702
+- 2022.11.0.dev0+4.g5ec8e77
 q2_feature_classifier:
 - 2022.11.0.dev0+3.ga1396fe
 q2_feature_table:
@@ -35,7 +35,7 @@ q2_gneiss:
 q2_longitudinal:
 - 2022.11.0.dev0+3.g3bf9069
 q2_metadata:
-- 2022.11.0.dev0+3.gd45815e
+- 2022.11.0.dev0+4.g9495ac1
 q2_mystery_stew:
 - 2022.11.0.dev0+3.g041e9b4
 q2_phylogeny:
@@ -43,11 +43,11 @@ q2_phylogeny:
 q2_quality_control:
 - 2022.11.0.dev0+3.g5e8409e
 q2_quality_filter:
-- 2022.11.0.dev0+3.ga8b5a7b
+- 2022.11.0.dev0+4.g85c16d8
 q2_sample_classifier:
 - 2022.11.0.dev0+3.g27c3de1
 q2_taxa:
-- 2022.11.0.dev0+3.g8071d5e
+- 2022.11.0.dev0+4.g498a994
 q2_types:
 - 2022.11.0.dev0+6.gbd3f447
 q2_vsearch:

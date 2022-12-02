@@ -49,7 +49,7 @@ q2_sample_classifier:
 q2_taxa:
 - 2022.11.0.dev0+4.g498a994
 q2_types:
-- 2022.11.0.dev0+6.gbd3f447
+- 2022.11.0.dev0+8.gcdac8c3
 q2_vsearch:
 - 2022.11.0.dev0+5.ge4885c4
 q2cli:

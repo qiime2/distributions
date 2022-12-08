@@ -22,9 +22,9 @@ runs:
           --update-all \
           conda \
           boa \
+          yq \
           conda-build \
-          conda-verify \
-          yq
+          conda-verify
         if [ "$RUNNER_OS" == "macOS" ]; then
           sudo chown -R 501:20 /usr/local/miniconda
         fi

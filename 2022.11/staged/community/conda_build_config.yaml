@@ -13,7 +13,7 @@ q2_assembly:
 q2_composition:
 - 2022.11.0.dev0+3.g954fb4a
 q2_cutadapt:
-- 2022.11.0.dev0+4.g0f5049b
+- 2022.11.0.dev0+5.g52a5410
 q2_dada2:
 - 2022.11.0.dev0+7.gcfa58ef
 q2_deblur:
@@ -59,7 +59,7 @@ q2_stats:
 q2_taxa:
 - 2022.11.0.dev0+4.g498a994
 q2_types:
-- 2022.11.0.dev0+8.gcdac8c3
+- 2022.11.0.dev0+9.g9cff6bb
 q2_types_genomics:
 - 2022.11.0.dev0+1.gf9bc552
 q2_vsearch:

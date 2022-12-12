@@ -81,11 +81,11 @@ r_base:
 rescript:
 - 2021.11.0+9.gadb941c
 scikit_bio:
-- 0.5.7
+- 0.5.8
 scikit_learn:
 - 0.24.1
 scipy:
-- '>=1.7,<1.9'
+- '>=1.7'
 unifrac:
 - 1.1.1
 unifrac_binaries:

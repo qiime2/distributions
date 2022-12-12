@@ -38,4 +38,4 @@ run:
 - q2templates
 - qiime2
 - rescript
-version: 2022.12.12.17.23.00
+version: 2022.12.12.18.17.21

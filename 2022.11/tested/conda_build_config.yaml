@@ -87,6 +87,6 @@ scikit_learn:
 scipy:
 - '>=1.7'
 unifrac:
-- '*'
+- 1.1.1
 unifrac_binaries:
-- '*'
+- 1.1.1

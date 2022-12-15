@@ -57,7 +57,7 @@ q2_quality_filter:
 q2_sample_classifier:
 - 2022.11.0.dev0+5.gfd205ec
 q2_stats:
-- 2022.11.0.dev0+9.g80320e5
+- 2022.11.0.dev0+10.gffa68a6
 q2_taxa:
 - 2022.11.0.dev0+5.g87a7b4c
 q2_types:

@@ -1,7 +1,7 @@
 biom_format:
 - 2.1.12
 hdf5:
-- '*'
+- '1.12.1'
 pandas:
 - '>=1.2.5'
 python:

@@ -51,7 +51,7 @@ q2_mystery_stew:
 q2_phylogeny:
 - 2022.11.0.dev0+6.g594e529
 q2_quality_control:
-- 2022.11.0.dev0+3.g5e8409e
+- 2022.11.0
 q2_quality_filter:
 - 2022.11.0.dev0+4.g85c16d8
 q2_sample_classifier:

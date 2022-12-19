@@ -7,13 +7,13 @@ pandas:
 python:
 - '3.8'
 q2_alignment:
-- 2022.11.0.dev0+5.g5d134dc
+- 2022.11.0.dev0+3.g741d22f
 q2_assembly:
 - 2022.11.0.dev0+2.g0fda6d9
 q2_checkm:
-- 2022.11.0+1.g3745138
+- 2022.11.0.dev0+1.g55d9e1c
 q2_composition:
-- 2022.11.0.dev0+8.gbdf4e8e
+- 2022.11.0.dev0+3.g954fb4a
 q2_cutadapt:
 - 2022.11.0.dev0+5.g52a5410
 q2_dada2:
@@ -21,59 +21,59 @@ q2_dada2:
 q2_deblur:
 - 2022.11.0.dev0+5.gb64b2a4
 q2_demux:
-- 2022.11.0.dev0+7.g6f7dc6c
+- 2022.11.0.dev0+5.gefe87f8
 q2_diversity:
 - 2022.11.0.dev0+8.gc59f58e
 q2_diversity_lib:
 - 2022.11.0.dev0+3.g143b937
 q2_emperor:
-- 2022.11.0.dev0+6.g9144c4b
+- 2022.11.0.dev0+4.g5ec8e77
 q2_feature_classifier:
-- 2022.11.0.dev0+5.gdf87e97
+- 2022.11.0.dev0+3.ga1396fe
 q2_feature_table:
-- 2022.11.0.dev0+10.g0e348be
+- 2022.11.0.dev0+7.g4bb4b48
 q2_fmt:
 - 2022.11.0.dev0+10.gc8ad59e
 q2_fondue:
-- 2022.11.0
+- 2022.11.0.dev0+5.g3ede75c
 q2_fragment_insertion:
 - 2022.11.0.dev0+4.g3384472
 q2_gneiss:
-- 2022.11.0.dev0+5.g80b39d7
+- 2022.11.0.dev0+3.geb94ca0
 q2_longitudinal:
-- 2022.11.0.dev0+5.g475616f
+- 2022.11.0.dev0+3.g3bf9069
 q2_metadata:
-- 2022.11.0.dev0+6.gbac77f4
+- 2022.11.0.dev0+4.g9495ac1
 q2_moshpit:
 - 2022.11.0.dev0+1.g24e2030
 q2_mystery_stew:
 - 2022.11.0.dev0+3.g041e9b4
 q2_phylogeny:
-- 2022.11.0.dev0+5.gae4d8eb
+- 2022.11.0.dev0+3.g982f5bc
 q2_quality_control:
 - 2022.11.0.dev0+3.g5e8409e
 q2_quality_filter:
 - 2022.11.0.dev0+4.g85c16d8
 q2_sample_classifier:
-- 2022.11.0.dev0+5.gfd205ec
+- 2022.11.0.dev0+3.g27c3de1
 q2_stats:
-- 2022.11.0.dev0+10.gffa68a6
+- 2022.11.0.dev0+7.ge4ae41d
 q2_taxa:
-- 2022.11.0.dev0+5.g87a7b4c
+- 2022.11.0.dev0+4.g498a994
 q2_types:
-- 2022.11.0.dev0+10.gaae4269
+- 2022.11.0.dev0+9.g9cff6bb
 q2_types_genomics:
 - 2022.11.0.dev0+1.gf9bc552
 q2_vsearch:
-- 2022.11.0.dev0+7.gd44b9f9
+- 2022.11.0.dev0+5.ge4885c4
 q2cli:
-- 2022.11.0.dev0+11.g53eebc3
+- 2022.11.0.dev0+6.g70b9da8
 q2galaxy:
 - 2022.11.0.dev0+3.g4821f74
 q2templates:
-- 2022.11.0.dev0+5.g2c40e4f
+- 2022.11.0.dev0+4.g8990a9c
 qiime2:
-- 2022.11.0.dev0+23.g7116f5f
+- 2022.11.0.dev0+20.gfe03a82
 qiime2_epoch:
 - '2022.11'
 r_base:

@@ -89,4 +89,4 @@ scipy:
 unifrac:
 - 1.1.1
 unifrac_binaries:
-- 1.1.1
+- 1.1.3

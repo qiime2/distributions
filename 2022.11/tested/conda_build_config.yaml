@@ -3,7 +3,7 @@ biom_format:
 h5py:
 - '>=2.10.0,<3.0a0'
 hdf5:
-- 1.12.2
+- 1.10.6
 pandas:
 - '>=1.2.5'
 python:

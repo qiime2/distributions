@@ -1,7 +1,9 @@
 biom_format:
 - 2.1.13
 h5py:
-- 2.10.0
+- 3.7.0
+hdf5:
+- 1.12.2
 pandas:
 - '>=1.2.5'
 python:

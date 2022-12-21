@@ -59,7 +59,7 @@ q2_quality_control:
 q2_quality_filter:
 - 2022.11.1
 q2_sample_classifier:
-- 2022.11.0
+- 2022.11.1
 q2_stats:
 - 2022.11.0.dev0+7.ge4ae41d
 q2_taxa:

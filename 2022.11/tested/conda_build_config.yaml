@@ -11,7 +11,7 @@ pandas:
 python:
 - '3.8'
 q2_alignment:
-- 2022.11.0
+- 2022.11.1
 q2_assembly:
 - 2022.11.0.dev0+2.g0fda6d9
 q2_checkm:

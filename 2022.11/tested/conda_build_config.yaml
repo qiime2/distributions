@@ -83,7 +83,7 @@ qiime2_epoch:
 r_base:
 - '>=4.2.0'
 rescript:
-- 2021.11.0+9.gadb941c
+- 2021.11.0+10.g026061f
 scikit_bio:
 - 0.5.7
 scikit_learn:

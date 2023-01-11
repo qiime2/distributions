@@ -67,7 +67,7 @@ q2_taxa:
 q2_types:
 - 2022.11.1
 q2_types_genomics:
-- 2022.11.0.dev0+2.g23891de
+- 2022.11.0.dev0+3.g97e3d03
 q2_vsearch:
 - 2022.11.1
 q2cli:

@@ -17,7 +17,7 @@ q2_assembly:
 q2_checkm:
 - 2022.11.0.dev0+1.g55d9e1c
 q2_composition:
-- 2022.11.1
+- 2022.11.2
 q2_cutadapt:
 - 2022.11.1
 q2_dada2:

@@ -34,6 +34,8 @@ q2_metadata:
 - 2023.2.0.dev0+1.g9a3f2cb
 q2_mystery_stew:
 - 2023.2.0.dev0
+q2_quality_control:
+- 2023.2.0.dev0
 q2_quality_filter:
 - 2023.2.0.dev0
 q2_taxa:

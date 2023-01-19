@@ -18,6 +18,8 @@ q2_diversity_lib:
 - 2023.2.0.dev0
 q2_mystery_stew:
 - 2023.2.0.dev0
+q2_quality_filter:
+- 2023.2.0.dev0
 q2_types:
 - 2023.2.0.dev0
 q2templates:

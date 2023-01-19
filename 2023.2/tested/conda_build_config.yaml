@@ -14,6 +14,8 @@ q2_mystery_stew:
 - 2023.2.0.dev0
 q2_types:
 - 2023.2.0.dev0
+q2templates:
+- 2023.2.0.dev0
 qiime2:
 - 2023.2.0.dev0+2.g32040a3
 qiime2_epoch:

@@ -22,6 +22,8 @@ q2_diversity_lib:
 - 2023.2.0.dev0
 q2_emperor:
 - 2023.2.0.dev0+1.gc79b39a
+q2_feature_table:
+- 2023.2.0.dev0+1.gecdd7ce
 q2_fragment_insertion:
 - 2023.2.0.dev0
 q2_gneiss:

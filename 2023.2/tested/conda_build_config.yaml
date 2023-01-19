@@ -28,6 +28,8 @@ q2_quality_filter:
 - 2023.2.0.dev0
 q2_types:
 - 2023.2.0.dev0
+q2galaxy:
+- 2023.2.0.dev0
 q2templates:
 - 2023.2.0.dev0
 qiime2:

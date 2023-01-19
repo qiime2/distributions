@@ -10,6 +10,8 @@ pandas:
 - '>=1.2.5'
 python:
 - '3.8'
+q2_types:
+- 2023.2.0.dev0
 qiime2:
 - 2023.2.0.dev0+2.g32040a3
 qiime2_epoch:

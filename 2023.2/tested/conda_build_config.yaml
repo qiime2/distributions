@@ -10,6 +10,8 @@ pandas:
 - '>=1.2.5'
 python:
 - '3.8'
+q2_cutadapt:
+- 2023.2.0.dev0
 q2_mystery_stew:
 - 2023.2.0.dev0
 q2_types:

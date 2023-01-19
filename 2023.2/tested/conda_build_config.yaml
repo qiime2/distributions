@@ -42,6 +42,8 @@ q2_taxa:
 - 2023.2.0.dev0+1.g730cd5d
 q2_types:
 - 2023.2.0.dev0
+q2_vsearch:
+- 2023.2.0.dev0
 q2cli:
 - 2023.2.0.dev0
 q2galaxy:

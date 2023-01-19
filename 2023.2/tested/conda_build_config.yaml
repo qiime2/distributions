@@ -16,6 +16,8 @@ q2_cutadapt:
 - 2023.2.0.dev0
 q2_diversity_lib:
 - 2023.2.0.dev0
+q2_fragment_insertion:
+- 2023.2.0.dev0
 q2_mystery_stew:
 - 2023.2.0.dev0
 q2_quality_filter:

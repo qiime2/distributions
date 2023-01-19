@@ -32,6 +32,8 @@ q2_fragment_insertion:
 - 2023.2.0.dev0
 q2_gneiss:
 - 2023.2.0.dev0
+q2_longitudinal:
+- 2023.2.0.dev0
 q2_metadata:
 - 2023.2.0.dev0+1.g9a3f2cb
 q2_mystery_stew:

@@ -29,7 +29,7 @@ q2_feature_classifier:
 q2_feature_table:
 - 2023.2.0.dev0+1.gecdd7ce
 q2_fmt:
-- 2022.11.0.dev0
+- 2023.2.0.dev0
 q2_fragment_insertion:
 - 2023.2.0.dev0
 q2_gneiss:
@@ -49,7 +49,7 @@ q2_quality_filter:
 q2_sample_classifier:
 - 2023.2.0.dev0
 q2_stats:
-- 2022.11.0.dev0
+- 2023.2.0.dev0
 q2_taxa:
 - 2023.2.0.dev0+1.g730cd5d
 q2_types:

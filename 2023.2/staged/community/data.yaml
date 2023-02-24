@@ -14,8 +14,9 @@ run:
 - q2-diversity-lib
 - q2-emperor
 - q2-feature-classifier
-- q2-fmt
 - q2-feature-table
+- q2-fmt
+- q2-fondue
 - q2-fragment-insertion
 - q2-gneiss
 - q2-longitudinal
@@ -33,4 +34,5 @@ run:
 - q2galaxy
 - q2templates
 - qiime2
-version: 2023.02.20.22.31.57
+- rescript
+version: 2023.02.24.21.23.00

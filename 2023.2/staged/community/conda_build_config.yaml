@@ -9,7 +9,7 @@ python:
 q2_alignment:
 - 2023.2.0.dev0
 q2_composition:
-- 2023.2.0.dev0+30.g311505a
+- 2023.2.0.dev0+35.gab6c8b8
 q2_cutadapt:
 - 2023.2.0.dev0
 q2_dada2:
@@ -27,9 +27,11 @@ q2_emperor:
 q2_feature_classifier:
 - 2023.2.0.dev0
 q2_feature_table:
-- 2023.2.0.dev0+1.gecdd7ce
+- 2023.2.0.dev0+2.g225e0d1
 q2_fmt:
 - 2023.2.0.dev0+66.g08d5dcc
+q2_fondue:
+- 2023.2.0.dev0+2.gd5167a9
 q2_fragment_insertion:
 - 2023.2.0.dev0
 q2_gneiss:

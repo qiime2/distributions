@@ -9,7 +9,7 @@ python:
 q2_alignment:
 - 2023.2.0.dev0
 q2_composition:
-- 2023.2.0.dev0
+- 2023.2.0.dev0+35.gab6c8b8
 q2_cutadapt:
 - 2023.2.0.dev0
 q2_dada2:
@@ -27,7 +27,7 @@ q2_emperor:
 q2_feature_classifier:
 - 2023.2.0.dev0
 q2_feature_table:
-- 2023.2.0.dev0+1.gecdd7ce
+- 2023.2.0.dev0+2.g225e0d1
 q2_fragment_insertion:
 - 2023.2.0.dev0
 q2_gneiss:
@@ -35,7 +35,7 @@ q2_gneiss:
 q2_longitudinal:
 - 2023.2.0.dev0
 q2_metadata:
-- 2023.2.0.dev0+1.g9a3f2cb
+- 2023.2.0.dev0+2.g61fd0e9
 q2_mystery_stew:
 - 2023.2.0.dev0
 q2_phylogeny:
@@ -49,7 +49,7 @@ q2_sample_classifier:
 q2_taxa:
 - 2023.2.0.dev0+1.g730cd5d
 q2_types:
-- 2023.2.0.dev0
+- 2023.2.0.dev0+1.gd3afb6c
 q2_vsearch:
 - 2023.2.0.dev0
 q2cli:
@@ -59,7 +59,7 @@ q2galaxy:
 q2templates:
 - 2023.2.0.dev0
 qiime2:
-- 2023.2.0.dev0+2.g32040a3
+- 2023.2.0.dev0+3.g43a8324
 qiime2_epoch:
 - '2023.2'
 r_base:

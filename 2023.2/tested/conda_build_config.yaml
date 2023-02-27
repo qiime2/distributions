@@ -29,7 +29,7 @@ q2_diversity_lib:
 q2_emperor:
 - 2023.2.0
 q2_feature_classifier:
-- 2023.2.0.dev0
+- 2023.2.0
 q2_feature_table:
 - 2023.2.0
 q2_fmt:

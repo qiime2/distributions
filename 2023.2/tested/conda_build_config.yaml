@@ -11,7 +11,7 @@ pandas:
 python:
 - '3.8'
 q2_alignment:
-- 2023.2.0.dev0
+- 2023.2.0
 q2_composition:
 - 2023.2.0
 q2_cutadapt:

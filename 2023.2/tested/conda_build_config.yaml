@@ -15,7 +15,7 @@ q2_alignment:
 q2_composition:
 - 2023.2.0.dev0+35.gab6c8b8
 q2_cutadapt:
-- 2023.2.0.dev0
+- 2023.2.0
 q2_dada2:
 - 2023.2.0.dev0
 q2_deblur:

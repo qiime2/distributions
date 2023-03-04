@@ -11,9 +11,9 @@ on:
   workflow_dispatch: {}
   schedule:
     # dev - every 8 hours, starting at the fourth hour
-    - cron: '37 4,12,20 * * *'
+    # - cron: '37 4,12,20 * * *'
     # rel - every other day
-    # - cron: '37 3 */2 * *'
+    - cron: '37 3 */2 * *'
 
 jobs:
   conf:

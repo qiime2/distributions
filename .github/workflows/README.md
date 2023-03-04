@@ -5,12 +5,12 @@ workflow files for each epoch.
 
 # Generate cron workflows
 
-This script will generate cron workflow files for the provided epoch for both
+This script will generate cron workflow files for the provided epoch and distro for both
 macOS and linux. It should be run from `.github/workflows/bin` with the
 following invocation:
 
 ```bash
-python generate_cron_workflows.py 20XX.XX
+python generate_cron_workflows.py 20XX.XX EPOCH
 ```
 
 When these cron workflow files are generated, they should be manually moved to

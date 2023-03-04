@@ -1,19 +1,19 @@
-name: cron-2022.11-core-macos-latest
+name: cron-2023.5-core-ubuntu-latest
 
 # Edit these four variables as necessary, everything else should work as-is
 env:
-  CONF_PLATFORM: macos-latest
+  CONF_PLATFORM: ubuntu-latest
   CONF_DISTRO: core
-  CONF_EPOCH: '2022.11'
+  CONF_EPOCH: '2023.5'
   CONF_ISSUE_NUM: 71
 
 on:
   workflow_dispatch: {}
   schedule:
     # dev - every 8 hours, starting at the zeroth hour
-    # - cron: '37 0,8,16 * * *'
+    - cron: '37 0,8,16 * * *'
     # rel - every other day
-    - cron: '37 3 */2 * *'
+    # - cron: '37 3 */2 * *'
 
 jobs:
   conf:

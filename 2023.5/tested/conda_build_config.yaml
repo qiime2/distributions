@@ -20,6 +20,8 @@ q2_demux:
 - 2023.5.0.dev0
 q2_emperor:
 - 2023.5.0.dev0
+q2_feature_table:
+- 2023.5.0.dev0
 q2_mystery_stew:
 - 2023.5.0.dev0
 q2_types:

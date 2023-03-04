@@ -1,7 +1,0 @@
-ignore:
-- q2-moshpit
-- q2-fondue
-meta:
-  phone_home: false
-run: []
-version: 2023.03.04.16.33.57

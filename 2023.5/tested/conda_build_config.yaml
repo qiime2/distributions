@@ -28,6 +28,8 @@ q2_feature_table:
 - 2023.5.0.dev0
 q2_gneiss:
 - 2023.5.0.dev0
+q2_metadata:
+- 2023.5.0.dev0
 q2_mystery_stew:
 - 2023.5.0.dev0
 q2_types:

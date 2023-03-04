@@ -12,6 +12,8 @@ python:
 - '3.8'
 q2_alignment:
 - 2023.5.0.dev0
+q2_cutadapt:
+- 2023.5.0.dev0
 q2_mystery_stew:
 - 2023.5.0.dev0
 q2_types:

@@ -16,6 +16,8 @@ q2_composition:
 - 2023.5.0.dev0
 q2_cutadapt:
 - 2023.5.0.dev0
+q2_deblur:
+- 2023.5.0.dev0
 q2_demux:
 - 2023.5.0.dev0
 q2_emperor:

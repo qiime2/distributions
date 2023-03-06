@@ -32,6 +32,8 @@ q2_feature_classifier:
 - 2023.5.0.dev0
 q2_feature_table:
 - 2023.5.0.dev0
+q2_fondue:
+- 2023.5.0.dev0
 q2_fragment_insertion:
 - 2023.5.0.dev0
 q2_gneiss:

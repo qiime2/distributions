@@ -1,6 +1,7 @@
 ignore:
 - q2-moshpit
 - q2-fondue
+- rescript
 meta:
   phone_home: true
 run:

@@ -14,6 +14,8 @@ q2_alignment:
 - 2023.5.0.dev0
 q2_assembly:
 - 2023.2.0.dev0+1.gebab25d
+q2_checkm:
+- 2023.2.0.dev0+1.gfa69ead
 q2_composition:
 - 2023.5.0.dev0
 q2_cutadapt:

@@ -39,7 +39,7 @@ q2_feature_table:
 q2_fmt:
 - 2023.5.0.dev0
 q2_fondue:
-- 2023.5.0.dev0
+- 2023.5.0.dev0+1.g1ed64bf
 q2_fragment_insertion:
 - 2023.5.0.dev0
 q2_gneiss:

@@ -191,3 +191,43 @@ flowchart TB
   replace -->|once free| workflow_start
   workflow_start --> workflow_report
 ```
+
+##### Process and necessary steps/scripts for ci_distro_trial.yml workflow
+```mermaid
+flowchart TB
+  start(["conda_build_config.yml"])
+  alt_start(["$REF(ish)"])
+  find_diff{"1. find_diff.py"}
+  pkg_diffs>"[PKG1, PKG2, etc...]"]
+  make_dag{"2. make_dag.py"}
+  job_sum(["GHA Job Summary"])
+  pkg_diff_vers>"{ 'PKG1 version': [...], 'PKG2 version': [...] }"]
+  make_channel{"3. make_channel.py"}
+  channel_dir1(["local/conda/channel"])
+  patch_channel{"4. patch_channel.py"}
+  os_paths>"{ osx: path/to/patch, linux: path/to/patch }"]
+  channel_dir2(["local/conda/channel"])
+  render_meta["5. render_metapackage"]
+  install["6. install"]
+  test["7. test"]
+  publish["8. publish"]
+
+  start --> find_diff
+  alt_start --> find_diff
+  find_diff --> pkg_diffs
+  pkg_diffs --> make_dag
+  start --> make_dag
+  make_dag --> job_sum
+  make_dag --> pkg_diff_vers
+  start --> make_channel
+  make_channel --> channel_dir1
+  pkg_diff_vers --> patch_channel
+  channel_dir1 --> patch_channel
+  patch_channel --> os_paths
+  patch_channel --> channel_dir2
+  channel_dir2 --> render_meta
+  render_meta --> install
+  install --> test
+  test --> publish
+  os_paths --> publish
+```

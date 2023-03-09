@@ -197,20 +197,20 @@ flowchart TB
 flowchart TB
   start(["conda_build_config.yml"])
   alt_start(["$REF(ish)"])
-  find_diff{"1. find_diff.py"}
+  find_diff["1. find_diff.py"]
   pkg_diffs>"[PKG1, PKG2, etc...]"]
-  make_dag{"2. make_dag.py"}
+  make_dag["2. make_dag.py"]
   job_sum(["GHA Job Summary"])
   pkg_diff_vers>"{ 'PKG1 version': [...], 'PKG2 version': [...] }"]
-  make_channel{"3. make_channel.py"}
-  channel_dir1(["local/conda/channel"])
-  patch_channel{"4. patch_channel.py"}
+  make_channel["3. make_channel.py"]
+  channel_dir1>"local/conda/channel"]
+  patch_channel["4. patch_channel.py"]
   os_paths>"{ osx: path/to/patch, linux: path/to/patch }"]
-  channel_dir2(["local/conda/channel"])
-  render_meta["5. render_metapackage"]
-  install["6. install"]
-  test["7. test"]
-  publish["8. publish"]
+  channel_dir2>"local/conda/channel"]
+  render_meta["render_metapackage"]
+  install["install"]
+  test["test"]
+  publish(["publish"])
 
   start --> find_diff
   alt_start --> find_diff

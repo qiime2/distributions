@@ -214,17 +214,17 @@ flowchart TB
 
   start --> find_diff
   alt_start --> find_diff
-  find_diff --> pkg_diffs
+  find_diff -->|list of pkgs changed in a given distro| pkg_diffs
   pkg_diffs --> make_dag
   start --> make_dag
-  make_dag --> job_sum
+  make_dag -->|mermaid diagram with pkg deps to update| job_sum
   make_dag --> pkg_diff_vers
   start --> make_channel
-  make_channel --> channel_dir1
+  make_channel -->|create local conda channel| channel_dir1
   pkg_diff_vers --> patch_channel
   channel_dir1 --> patch_channel
   patch_channel --> os_paths
-  patch_channel --> channel_dir2
+  patch_channel -->|creates repodata_patch.json file| channel_dir2
   channel_dir2 --> render_meta
   render_meta --> install
   install --> test

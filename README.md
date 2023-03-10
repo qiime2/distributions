@@ -205,7 +205,7 @@ flowchart TB
   make_channel["3. make_channel.py"]
   channel_dir1>"local/conda/channel"]
   patch_channel["4. patch_channel.py"]
-  os_paths>"{ osx: path/to/patch, linux: path/to/patch }"]
+  os_paths>"{osx: path/to/patch, linux: path/to/patch}"]
   channel_dir2>"local/conda/channel"]
   render_meta["render_metapackage"]
   install["install"]

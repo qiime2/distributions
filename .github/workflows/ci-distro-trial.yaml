@@ -3,12 +3,12 @@ description: Produce a new configuration for a distribution
 
 # Any env variables we need to run this workflow
 env:
-  CONF_PLATFORM: # {{ os }}
-  CONF_DISTRO: # {{ distro }}
-  CONF_EPOCH: # {{ epoch }}
+  CONF_EPOCH: '2023.2'
 
 on:
-  workflow_dispatch: {}
+  push:
+    # change me to main when done testing!
+    branches: [ci-v2]
   pull_request:
     paths:
       - 20*.*/tested/conda_build_config.yaml
@@ -17,56 +17,34 @@ jobs:
   conf:
     runs-on: ubuntu-latest # this job is always run on linux
     outputs:
-      platform: ${{ steps.set-vars.outputs.platform }}
-      distro: ${{ steps.set-vars.outputs.distro }}
       epoch: ${{ steps.set-vars.outputs.epoch }}
     steps:
       - name: set-vars
         id: set-vars
           run: |
-            echo "::set-output name=platform::$CONF_PLATFORM"
-            echo "::set-output name=distro::$CONF_DISTRO"
             echo "::set-output name=epoch::$CONF_EPOCH"
 
-  make-dag:
+  # this job will parse a diff from cbc, and use that to generate a DAG
+  integrate:
     needs: conf
-    runs-on: ${{ needs.conf.outputs.platform }}
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/make-dag
+      - name: checkout source
+        uses: actions/checkout@v2
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v1
         with:
+          python-version: 3.8
 
+      - name: set up dependencies
+        run: pip install networkx mermaid
 
-####################
+      - name: get diff
+        run: git diff ci-v2 -- ${{ needs.conf.outputs.epoch }}/tested/conda_build_config.yaml > diff.txt
 
-# jobs:
+      - name: parse diff and generate dag
+        run: python .github/workflows/bin/generate_dag.py diff.txt ${{ needs.conf.outputs.epoch }} 'linux-64'
 
-#   test-package:
-#     name: test ${{ matrix.pkg.name }}
-#     needs: [conf, integrate]
-#     runs-on: ${{ needs.conf.outputs.platform }}
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         pkg: ${{ fromJson(needs.integrate.outputs.pkgs) }}
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: ./.github/actions/configure-conda
-#       - uses: ./.github/actions/test-package
-#         with:
-#           pkg-url: ${{ matrix.pkg.url }}
-#           q2-channel: ${{ needs.integrate.outputs.q2-channel }}
-#           metapackage-spec: ${{ needs.integrate.outputs.metapackage-spec }}
-
-#   phone-home:
-#     needs: [conf, test-package]
-#     runs-on: ${{ needs.conf.outputs.platform }}
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: ./.github/actions/configure-conda
-#       - uses: ./.github/actions/phone-home-pass
-#         with:
-#           token: ${{ secrets.LIBRARY_TOKEN }}
-#           epoch: ${{ needs.conf.outputs.epoch }}
-#           distro: ${{ needs.conf.outputs.distro }}
-#           platform: ${{ needs.conf.outputs.platform }}
+      - name: primary dag summary
+        run: cat mermaid_primary.txt >> $GITHUB_STEP_SUMMARY

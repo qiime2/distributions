@@ -3,6 +3,7 @@ import yaml
 import urllib
 import json
 import re
+import sys
 import networkx as nx
 from yaml import SafeLoader
 
@@ -279,3 +280,40 @@ def to_mermaid(G, highlight_from=None):
             f'class {",".join([lookup[parent] for parent in highlight_from])} '
             'origin')
     return '\n'.join(lines)
+
+
+def create_markdown_mermaid(mermaid_str):
+    return rf'```mermaid\n{mermaid_str}\n```'
+
+
+if __name__ == '__main__':
+    diff = find_diff(sys.argv[1])
+    epoch = sys.argv[2]
+    os = sys.argv[3]
+
+    new_pkgs = diff['added_pkgs']
+    changed_pkgs = diff['changed_pkgs']
+    removed_pkgs = diff['removed_pkgs']
+
+    cbc_yaml, pkg_ver_list = get_cbc_info(epoch=epoch)
+    q2_dep_dict = get_distro_deps(epoch=epoch, os=os)
+
+    q2_pkg_dict = get_pkg_dict(q2_dep_dict=q2_dep_dict,
+                               pkg_ver_list=pkg_ver_list)
+
+    core_dag = make_dag(pkg_dict=q2_pkg_dict)
+    core_sub = _get_subgraph(cbc_yaml=cbc_yaml, dag=core_dag)
+
+    filtered_dict, versioned_filtered_dict = \
+        get_changed_pkgs_downstream_deps(changed_pkgs=changed_pkgs,
+                                         epoch=epoch,
+                                         q2_pkg_dict=q2_pkg_dict)
+
+    filtered_dag = make_dag(pkg_dict=filtered_dict)
+    filtered_sub = _get_subgraph(cbc_yaml=cbc_yaml, dag=filtered_dag)
+
+    core_mermaid = to_mermaid(core_sub)
+    filtered_mermaid = to_mermaid(filtered_sub)
+
+    with open('mermaid_primary.txt', 'w') as fh:
+        fh.write(create_markdown_mermaid(core_mermaid))

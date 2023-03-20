@@ -1,0 +1,50 @@
+name: ci-distro-trial
+description: Produce a new configuration for a distribution
+
+# Any env variables we need to run this workflow
+env:
+  CONF_EPOCH: '2023.2'
+
+on:
+  push:
+    # change me to main when done testing!
+    branches: [ci-v2]
+  pull_request:
+    paths:
+      - 20*.*/tested/conda_build_config.yaml
+
+jobs:
+  conf:
+    runs-on: ubuntu-latest # this job is always run on linux
+    outputs:
+      epoch: ${{ steps.set-vars.outputs.epoch }}
+    steps:
+      - name: set-vars
+        id: set-vars
+          run: |
+            echo "::set-output name=epoch::$CONF_EPOCH"
+
+  # this job will parse a diff from cbc, and use that to generate a DAG
+  integrate:
+    needs: conf
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v2
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: set up dependencies
+        run: pip install networkx mermaid
+
+      - name: get diff
+        run: git diff ci-v2 -- ${{ needs.conf.outputs.epoch }}/tested/conda_build_config.yaml > diff.txt
+
+      - name: parse diff and generate dag
+        run: python .github/workflows/bin/generate_dag.py diff.txt ${{ needs.conf.outputs.epoch }} 'linux-64'
+
+      - name: primary dag summary
+        run: cat mermaid_primary.txt >> $GITHUB_STEP_SUMMARY

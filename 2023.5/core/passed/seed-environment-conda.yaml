@@ -1,0 +1,7 @@
+channels:
+  - https://packages.qiime2.org/qiime2/2023.5/passed/core
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies: []
+

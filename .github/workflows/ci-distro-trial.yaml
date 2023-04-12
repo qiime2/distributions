@@ -1,50 +1,193 @@
 name: ci-distro-trial
-description: Produce a new configuration for a distribution
 
 # Any env variables we need to run this workflow
 env:
   CONF_EPOCH: '2023.2'
 
 on:
-  push:
-    # change me to main when done testing!
-    branches: [ci-v2]
   pull_request:
+    branches: [ci-v2]
+    # TODO: rename tested -> staged and staged -> passed
     paths:
-      - 20*.*/tested/conda_build_config.yaml
+      - 20*.*/staged/*/conda_build_config.yaml
 
 jobs:
+
   conf:
-    runs-on: ubuntu-latest # this job is always run on linux
+    runs-on: ubuntu-latest  # this job is always run on linux
     outputs:
       epoch: ${{ steps.set-vars.outputs.epoch }}
+      distro: ${{ steps.set-vars.outputs.distro }}
+      cbc_yml: ${{ steps.set-vars.outputs.cbc_yml }}
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: tj-actions/changed-files@v35
+        id: changed
+
       - name: set-vars
         id: set-vars
-          run: |
-            echo "::set-output name=epoch::$CONF_EPOCH"
+        run: |
+          # Parse the git changes to figure out which epoch triggered this workflow.
+          CHANGED="${{ steps.changed.outputs.all_changed_files }}"
+          EPOCH=$(python .github/workflows/bin/determine.py --epoch "$CHANGED")
+          echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
+          DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
+          echo "distro=$DISTRO" >> $GITHUB_OUTPUT
+          echo "cbc_yml=$EPOCH/staged/$DISTRO/conda_build_config.yaml" >> $GITHUB_OUTPUT
 
   # this job will parse a diff from cbc, and use that to generate a DAG
-  integrate:
+  prepare:
     needs: conf
     runs-on: ubuntu-latest
+    outputs:
+      patched_channel_key: ${{ steps.patched-base-restore.outputs.cache-primary-key }}
+      generation_matrix: ${{ steps.store-generations.outputs.generation_matrix }}
+
     steps:
       - name: checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+
+      - name: get diff
+        run: |
+          git fetch origin ci-v2:ci-v2
+          git diff ci-v2 -- ${{ needs.conf.outputs.cbc_yml }} > diff.txt
+          cat diff.txt
 
       - name: set up python 3.8
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
 
-      - name: set up dependencies
-        run: pip install networkx mermaid
+      - name: install dependencies
+        run: |
+          pip install pyyaml jinja2 networkx conda-mirror ghapi
+          conda install conda-build
 
-      - name: get diff
-        run: git diff ci-v2 -- ${{ needs.conf.outputs.epoch }}/tested/conda_build_config.yaml > diff.txt
+      - name: make matrix dir
+        run: mkdir matrix
 
       - name: parse diff and generate dag
-        run: python .github/workflows/bin/generate_dag.py diff.txt ${{ needs.conf.outputs.epoch }} 'linux-64'
+        env:
+          GITHUB_TOKEN: ${{ secrets.Q2D2_TOKEN }}
+        run: |
+          python .github/workflows/bin/generate_dag.py \
+          '${{ needs.conf.outputs.epoch }}' \
+          '${{ needs.conf.outputs.distro }}' \
+          '${{ needs.conf.outputs.cbc_yml }}' \
+          diff.txt \
+          'linux-64' \
+          $GITHUB_STEP_SUMMARY \
+          'matrix/rebuild_matrix.json' \
+          'matrix/retest_matrix.json' \
+          'packages_in_distro.json' \
+          'full_distro.json' \
+          'revdeps_of_sources.json'
 
-      - name: primary dag summary
-        run: cat mermaid_primary.txt >> $GITHUB_STEP_SUMMARY
+      - uses: actions/cache/restore@v3
+        id: patched-base-restore
+        with:
+          path: ./patched-base/
+          key: "patched-base-${{ hashFiles('full_distro.json') }}"
+
+      - name: create base channel
+        if: steps.patched-base-restore.outputs.cache-hit != 'true'
+        run: |
+          python .github/workflows/bin/create_patched_channel.py \
+          '${{ needs.conf.outputs.epoch }}' \
+          '${{ needs.conf.outputs.distro }}' \
+          'packages_in_distro.json' \
+          'full_distro.json' \
+          'revdeps_of_sources.json' \
+          './patched-base/'
+
+      - uses: actions/cache/save@v3
+        id: patched-base-save
+        if: steps.patched-base-restore.outputs.cache-hit != 'true'
+        with:
+          path: ./patched-base/
+          key: ${{ steps.patched-base-restore.outputs.cache-primary-key }}
+
+      - name: store matrices
+        uses: actions/upload-artifact@v3
+        with:
+          name: matrix
+          path: ./matrix
+
+      - name: store generations
+        id: store-generations
+        run: |
+          echo "generation_matrix=$(cat matrix/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+
+      - name: copy repodata patches
+        run: |
+          mkdir -p ./repodata_patches/linux-64
+          mkdir -p ./repodata_patches/osx-64
+          mkdir -p ./repodata_patches/noarch
+          cp ./patched-base/linux-64/patch_instructions.json ./repodata_patches/linux-64/patch_instructions.json
+          cp ./patched-base/osx-64/patch_instructions.json ./repodata_patches/osx-64/patch_instructions.json
+          cp ./patched-base/noarch/patch_instructions.json ./repodata_patches/noarch/patch_instructions.json
+
+      - name: store repodata patches
+        uses: actions/upload-artifact@v3
+        with:
+          name: repodata-patches
+          path: ./repodata_patches
+
+
+  build_generation_0:
+    needs: [prepare]
+    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[0] != null }}
+    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
+    with:
+      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
+      matrix_key: "matrix"
+      matrix_index: 0
+
+  build_generation_1:
+    needs: [prepare, build_generation_0]
+    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[1] != null }}
+    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
+    with:
+      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
+      matrix_key: "matrix"
+      matrix_index: 1
+
+  build_generation_2:
+    needs: [prepare, build_generation_1]
+    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[2] != null }}
+    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
+    with:
+      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
+      matrix_key: "matrix"
+      matrix_index: 2
+
+  build_generation_3:
+    needs: [prepare, build_generation_2]
+    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[3] != null }}
+    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
+    with:
+      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
+      matrix_key: "matrix"
+      matrix_index: 3
+
+  build_generation_4:
+    needs: [prepare, build_generation_3]
+    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[4] != null }}
+    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
+    with:
+      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
+      matrix_key: "matrix"
+      matrix_index: 4
+
+  build_generation_5:
+    needs: [prepare, build_generation_4]
+    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[5] != null }}
+    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
+    with:
+      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
+      matrix_key: "matrix"
+      matrix_index: 5

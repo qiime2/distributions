@@ -1,0 +1,35 @@
+on:
+  workflow_call:
+    inputs:
+      cache_key:
+        required: true
+        type: string
+      matrix_key:
+        required: true
+        type: string
+      matrix_index:
+        required: true
+        type: number
+
+jobs:
+  configure_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.matrix_key }}
+          path: ./matrix/
+      - id: set-matrix
+        run: |
+          echo "matrix=$(cat ./matrix/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+
+  run_matrix:
+    needs: configure_matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix_index] }}
+    steps:
+      - run: echo ${{ matrix.package }}

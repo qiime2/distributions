@@ -1,41 +1,41 @@
 #!/usr/bin/env python
-import yaml
-import urllib
+import urllib.request
 import json
 import re
 import sys
+
+import yaml
+import jinja2
 import networkx as nx
 from yaml import SafeLoader
-
+from jinja2 import FileSystemLoader
+from ghapi.all import GhApi, paged
 
 # Helper methods ##
 
 # Helper for parsing CBC and tested channel URLs
-def _parse_url(url):
+def _fetch_url(url):
     http_response = urllib.request.urlopen(url)
     obj = http_response.read().decode('utf-8')
 
     return obj
 
+def _pkg_name_fixer(conda_build_var):
+    return conda_build_var.replace('_', '-')
 
 # Helper method to deal with pkg version formats
-def _pkg_ver_helper(pkg, ver):
-    ver_str = ""
-    pkg_ver = pkg.replace('_', '-') + '-' + ver_str.join(ver)
+def _pkg_ver_helper(pkg, ver_list):
+    pkg_name = _pkg_name_fixer(pkg)
+    pkg_ver = ''.join(ver_list)
 
-    return pkg_ver
-
-
-# Helper method to simplify DAG to only first order deps
-def _get_subgraph(cbc_yaml, dag):
-    pkg_list = list(cbc_yaml.keys())
-    pkgs = [x.replace('_', '-') for x in pkg_list]
-    sub = nx.subgraph(dag, pkgs)
-
-    return sub
+    return pkg_name, pkg_ver
 
 
-# DAG generation methods ##
+def get_library_packages():
+    response = urllib.request.urlopen(
+        'https://library.qiime2.org/api/v2/packages')
+    return json.load(response)['packages']
+
 
 # Parses the cmd line diff into a dict with pkgs added, changed, and removed
 def find_diff(diff):
@@ -71,11 +71,11 @@ def find_diff(diff):
         removed_dependency_matches = re.findall(removed_dependency_pattern,
                                                 contents)
 
-    changed_pkgs = [match.split(':')[0].strip()
+    changed_pkgs = [_pkg_name_fixer(match.split(':')[0].strip())
                     for match in version_change_matches]
-    added_pkgs = [match.split(':')[0].strip().strip('+')
+    added_pkgs = [_pkg_name_fixer(match.split(':')[0].strip().strip('+'))
                   for match in added_dependency_matches]
-    removed_pkgs = [match.split(':')[0].strip().strip('-')
+    removed_pkgs = [_pkg_name_fixer(match.split(':')[0].strip().strip('-'))
                     for match in removed_dependency_matches]
 
     pkgs = {
@@ -88,23 +88,15 @@ def find_diff(diff):
 
 
 # Pull CBC structure and pkg list from our tested CBC.yml for a given epoch
-def get_cbc_info(epoch):
-    cbc_url = ('https://raw.githubusercontent.com/qiime2/package-integration'
-               f'/main/{epoch}/tested/conda_build_config.yaml')
+def get_cbc_info(cbc_yaml_path):
+    with open(cbc_yaml_path) as fh:
+        cbc_yaml = yaml.load(fh, Loader=SafeLoader)
 
-    # Convert HTTP response to a YAML-friendly format
-    cbc_obj = _parse_url(cbc_url)
+    relevant_pkgs = dict([
+        _pkg_ver_helper(*args) for args in cbc_yaml.items()
+    ])
 
-    # Convert to YAML object
-    cbc_yaml = yaml.load(cbc_obj, Loader=SafeLoader)
-
-    # Create pkg list that includes pkg versions from CBC dict
-    pkg_ver_list = []
-    for pkg, ver in cbc_yaml.items():
-        pkg_ver = _pkg_ver_helper(pkg, ver)
-        pkg_ver_list.append(pkg_ver)
-
-    return cbc_yaml, pkg_ver_list
+    return cbc_yaml, relevant_pkgs
 
 
 # Filter down CBC list of pkgs based on diff results with only changed pkgs
@@ -128,105 +120,78 @@ def filter_cbc_from_diff(changed_pkgs, epoch):
 
 
 # Get current distro dep structure from repodata.json under tested channel
-def get_distro_deps(epoch, os):
+def get_distro_deps(epoch, conda_subdir, relevant_pkgs):
     q2_pkg_channel_url = (f'https://packages.qiime2.org/qiime2/{epoch}/'
-                          f'tested/{os}/repodata.json')
-    q2_obj = _parse_url(q2_pkg_channel_url)
-    q2_json = json.loads(q2_obj)
+                          f'tested/{conda_subdir}/repodata.json')
+    response = _fetch_url(q2_pkg_channel_url)
+    repodata = json.loads(response)
 
     # this is what's pulled from our tested channel on packages.qiime2.org
     q2_dep_dict = {}
 
-    for name, info in q2_json['packages'].items():
-        # stripping this segment for exact matching with the pkg list from CBC
-        name = name.replace('-py38_0.tar.bz2', '')
-        q2_dep_dict[name] = info['depends']
-
-    dep_list = []
-    for pkg, deps in q2_dep_dict.items():
-        for dep in deps:
-            if dep not in dep_list:
-                dep = dep.split(' ')[0]
-                dep_list.append(dep)
-        q2_dep_dict[pkg] = dep_list
-        dep_list = []
+    for info in repodata['packages'].values():
+        name = info['name']
+        if (name not in relevant_pkgs
+                or relevant_pkgs[name] != info['version']):
+            if name == 'q2-stats':
+                print(info)
+                print(relevant_pkgs[name])
+            continue
+        q2_dep_dict[name] = [dep.split(' ')[0] for dep in info['depends']]
 
     return q2_dep_dict
 
 
-# Get pkg dict with deps for pkgs on our tested channel
-# that match the exact version from CBC.yml
-# When used with a filtered pkg version list
-# this will be the output that's used to generate repodata.patch
-def get_pkg_dict(q2_dep_dict, pkg_ver_list):
-
-    q2_pkg_dict = {}
-
-    for q2_pkg, q2_deps in q2_dep_dict.items():
-        for pkg in pkg_ver_list:
-            # only selecting pkgs that match the exact ver from CBC vers
-            if pkg == q2_pkg and q2_pkg not in q2_pkg_dict:
-                q2_pkg_dict[q2_pkg] = q2_deps
-
-    q2_pkg_dict = \
-        {pkg.split('-2')[0]: deps for pkg, deps in q2_pkg_dict.items()}
-
-    return q2_pkg_dict
+def get_packages_to_rebuild(relevant_pkgs, library_pkgs):
+    api = GhApi()
+    repos = lookup_repos(relevant_pkgs, library_pkgs)
+    return find_packages_to_build(api, repos, 'test-pr')
 
 
-# Generates both required outputs for the DAG:
-# versioned downstream dep dict for patching purposes
-# and a non-versioned downstream dep dict for DAG visualization
-def get_changed_pkgs_downstream_deps(changed_pkgs, epoch, q2_pkg_dict):
-    filtered_cbc_yaml, filtered_cbc_list = filter_cbc_from_diff(
-        changed_pkgs=changed_pkgs, epoch=epoch)
-    filtered_downstream_dict = {}
+def lookup_repos(packages, repo_map):
+    packages_to_check = {
+        pkg: tuple(repo_map[pkg].split('/'))
+        for pkg in repo_map.keys() & set(packages)
+    }
+    return packages_to_check
 
-    for pkg in filtered_cbc_yaml.keys():
-        dep_list = []
-        for q2_pkg, deps in q2_pkg_dict.items():
-            if pkg in deps:
-                dep_list.append(q2_pkg)
 
-        filtered_downstream_dict[pkg] = dep_list
+def is_branch_in_pager(pager, branch):
+    for page in pager:
+        for page_branch in page:
+            if branch == page_branch['name']:
+                return True
+    return False
 
-    versioned_downstream_dict = \
-        {versioned_pkg: filtered_downstream_dict[pkg]
-         for pkg, versioned_pkg in zip(filtered_downstream_dict.keys(),
-                                       filtered_cbc_list)}
 
-    return filtered_downstream_dict, versioned_downstream_dict
+def find_packages_to_build(api, repos, branch):
+    to_build = {}
+    for name, repo in repos.items():
+        pager = paged(api.repos.list_branches, *repo)
+        if is_branch_in_pager(pager, branch):
+            to_build[name] = repo
+    return to_build
+
+
+def get_source_revdeps(dag, distro_dep_dict, all_changes):
+    src_revdeps = {}
+    for pkg in all_changes:
+        revdeps = [edge[1] for edge in dag.out_edges(pkg)]
+        src_revdeps[pkg] = revdeps
+
+    return src_revdeps
 
 
 # Create new DiGraph object & add list of pkgs from a given pkg dict as nodes
 def make_dag(pkg_dict):
-
+    print(pkg_dict)
     dag = nx.DiGraph()
-    dag.add_nodes_from(list(pkg_dict.keys()))
-
     # Add edges connecting each pkg to their list of deps
     for pkg, deps in pkg_dict.items():
         for dep in deps:
             dag.add_edge(dep, pkg)
 
     return dag
-
-
-def draw_dag(G, edge_alpha=0.3):
-    import matplotlib.pyplot as plt
-    for layer, nodes in enumerate(nx.topological_generations(G)):
-        # `multipartite_layout` expects the layer as a node attribute, so add
-        # the numeric layer value as a node attribute
-        for node in nodes:
-            G.nodes[node]["layer"] = layer
-
-    # Compute the multipartite_layout using the "layer" node attribute
-    pos = nx.multipartite_layout(G, subset_key="layer", scale=800)
-
-    fig, ax = plt.subplots(figsize=(18, 10))
-    nx.draw_networkx_labels(G, pos=pos, font_weight='bold', ax=ax)
-    nx.draw_networkx_edges(G, pos=pos, alpha=edge_alpha, ax=ax)
-    fig.tight_layout()
 
 
 # Convert DAG subplot to mermaid diagram for use in job summary
@@ -282,38 +247,90 @@ def to_mermaid(G, highlight_from=None):
     return '\n'.join(lines)
 
 
-def create_markdown_mermaid(mermaid_str):
-    return rf'```mermaid\n{mermaid_str}\n```'
+def main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
+         gh_summary_path, rebuild_matrix_path, retest_matrix_path,
+         packages_in_distro_path, full_distro_path, revdeps_of_sources_path):
 
+    library_pkgs = get_library_packages()
 
-if __name__ == '__main__':
-    diff = find_diff(sys.argv[1])
-    epoch = sys.argv[2]
-    os = sys.argv[3]
+    diff = find_diff(diff_path)
 
     new_pkgs = diff['added_pkgs']
     changed_pkgs = diff['changed_pkgs']
     removed_pkgs = diff['removed_pkgs']
+    all_changes = [*new_pkgs, *changed_pkgs, *removed_pkgs]
+    # TODO: don't test a source which was removed, since it isn't there.
+    # TODO: if the removed is a terminal node in the dag, we need to change the
+    # test plan/skip doing anything interesting at all
 
-    cbc_yaml, pkg_ver_list = get_cbc_info(epoch=epoch)
-    q2_dep_dict = get_distro_deps(epoch=epoch, os=os)
+    cbc_yaml, relevant_pkgs = get_cbc_info(cbc_yaml_path)
+    distro_deps = get_distro_deps(epoch, conda_subdir, relevant_pkgs)
 
-    q2_pkg_dict = get_pkg_dict(q2_dep_dict=q2_dep_dict,
-                               pkg_ver_list=pkg_ver_list)
+    core_dag = make_dag(pkg_dict=distro_deps)
+    core_sub = nx.subgraph(core_dag, relevant_pkgs)
 
-    core_dag = make_dag(pkg_dict=q2_pkg_dict)
-    core_sub = _get_subgraph(cbc_yaml=cbc_yaml, dag=core_dag)
+    pkgs_to_rebuild = get_packages_to_rebuild(relevant_pkgs, library_pkgs)
+    all_changes.extend(list(pkgs_to_rebuild))
 
-    filtered_dict, versioned_filtered_dict = \
-        get_changed_pkgs_downstream_deps(changed_pkgs=changed_pkgs,
-                                         epoch=epoch,
-                                         q2_pkg_dict=q2_pkg_dict)
+    rebuild_generations = list(nx.topological_generations(
+        nx.induced_subgraph(core_sub, pkgs_to_rebuild)
+    ))
 
-    filtered_dag = make_dag(pkg_dict=filtered_dict)
-    filtered_sub = _get_subgraph(cbc_yaml=cbc_yaml, dag=filtered_dag)
+    if len(rebuild_generations) > 6:
+        raise Exception(f"Too many generations: {rebuild_generations}")
 
-    core_mermaid = to_mermaid(core_sub)
-    filtered_mermaid = to_mermaid(filtered_sub)
+    src_revdeps = get_source_revdeps(core_dag, distro_deps, all_changes)
 
-    with open('mermaid_primary.txt', 'w') as fh:
-        fh.write(create_markdown_mermaid(core_mermaid))
+    pkgs_to_test = list(set.union(set(src_revdeps),
+                                  *(nx.descendants(core_dag, pkg)
+                                    for pkg in src_revdeps)))
+
+    core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
+
+    environment = jinja2.Environment(
+        loader=FileSystemLoader(".github/workflows/bin/templates"))
+    template = environment.get_template("job-summary-template.j2")
+
+    with open(gh_summary_path, 'w') as fh:
+        fh.write(template.render(epoch=epoch,
+                                 distro=distro,
+                                 core_mermaid=core_mermaid,
+                                 source_dep_dict=src_revdeps,
+                                 pkgs_to_test=pkgs_to_test))
+
+    with open(rebuild_matrix_path, 'w') as fh:
+        json.dump(rebuild_generations, fh)
+
+    with open(retest_matrix_path, 'w') as fh:
+        json.dump(pkgs_to_test, fh)
+
+    with open(packages_in_distro_path, 'w') as fh:
+        pkgs_in_distro = {
+            k:v for k, v in relevant_pkgs.items()
+            if k in library_pkgs
+        }
+        json.dump(pkgs_in_distro, fh)
+
+    with open(full_distro_path, 'w') as fh:
+        json.dump(relevant_pkgs, fh)
+
+    with open(revdeps_of_sources_path, 'w') as fh:
+        json.dump(src_revdeps, fh)
+
+
+if __name__ == '__main__':
+    epoch = sys.argv[1]
+    distro = sys.argv[2]
+    cbc_yaml_path = sys.argv[3]
+    diff_path = sys.argv[4]
+    conda_subdir = sys.argv[5]
+    gh_summary_path = sys.argv[6]
+    rebuild_matrix_path = sys.argv[7]
+    retest_matrix_path = sys.argv[8]
+    packages_in_distro_path = sys.argv[9]
+    full_distro_path = sys.argv[10]
+    revdeps_of_sources_path = sys.argv[11]
+
+    main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
+         gh_summary_path, rebuild_matrix_path, retest_matrix_path,
+         packages_in_distro_path, full_distro_path, revdeps_of_sources_path)

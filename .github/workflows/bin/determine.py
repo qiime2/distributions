@@ -12,7 +12,7 @@ def main(changed_files, epoch, distro):
     if distro:
         seen = identify_distro(changed_files)
 
-    seen = json.dumps(list(seen))
+    seen = list(seen)[0]
     print(seen, end='')
 
 

@@ -3,6 +3,7 @@ name: ci-build-metapackage
 on:
   workflow_dispatch: {}
   pull_request:
+    branches: [main]
     paths:
       - 20*.*/staged/**/*
 

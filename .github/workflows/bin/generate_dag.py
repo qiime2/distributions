@@ -7,11 +7,11 @@ import sys
 import yaml
 import jinja2
 import networkx as nx
-from yaml import SafeLoader
 from jinja2 import FileSystemLoader
 from ghapi.all import GhApi, paged
 
 # Helper methods ##
+
 
 # Helper for parsing CBC and tested channel URLs
 def _fetch_url(url):
@@ -19,16 +19,6 @@ def _fetch_url(url):
     obj = http_response.read().decode('utf-8')
 
     return obj
-
-def _pkg_name_fixer(conda_build_var):
-    return conda_build_var.replace('_', '-')
-
-# Helper method to deal with pkg version formats
-def _pkg_ver_helper(pkg, ver_list):
-    pkg_name = _pkg_name_fixer(pkg)
-    pkg_ver = ''.join(ver_list)
-
-    return pkg_name, pkg_ver
 
 
 def get_library_packages():
@@ -71,11 +61,11 @@ def find_diff(diff):
         removed_dependency_matches = re.findall(removed_dependency_pattern,
                                                 contents)
 
-    changed_pkgs = [_pkg_name_fixer(match.split(':')[0].strip())
+    changed_pkgs = [match.split('=')[0].strip()
                     for match in version_change_matches]
-    added_pkgs = [_pkg_name_fixer(match.split(':')[0].strip().strip('+'))
+    added_pkgs = [match.split('=')[0].strip().strip('+')
                   for match in added_dependency_matches]
-    removed_pkgs = [_pkg_name_fixer(match.split(':')[0].strip().strip('-'))
+    removed_pkgs = [match.split('=')[0].strip().strip('-')
                     for match in removed_dependency_matches]
 
     pkgs = {
@@ -87,40 +77,19 @@ def find_diff(diff):
     return pkgs
 
 
-# Pull CBC structure and pkg list from our tested CBC.yml for a given epoch
-def get_cbc_info(cbc_yaml_path):
-    with open(cbc_yaml_path) as fh:
-        cbc_yaml = yaml.load(fh, Loader=SafeLoader)
+def get_minimal_env(seed_env_path):
+    with open(seed_env_path) as fh:
+        env = yaml.safe_load(fh)
 
-    relevant_pkgs = dict([
-        _pkg_ver_helper(*args) for args in cbc_yaml.items()
-    ])
-
-    return cbc_yaml, relevant_pkgs
-
-
-# Filter down CBC list of pkgs based on diff results with only changed pkgs
-def filter_cbc_from_diff(changed_pkgs, epoch):
-    cbc_yaml, _ = get_cbc_info(epoch)
-
-    changed_pkg_list = []
-    for changed_pkg in changed_pkgs:
-        changed_pkg_list.append(changed_pkg.replace('-', '_'))
-
-    filtered_cbc_list = []
-    filtered_cbc_yaml = {}
-    for cbc_pkg, cbc_ver in cbc_yaml.items():
-        for changed_pkg in changed_pkg_list:
-            if changed_pkg == cbc_pkg:
-                filtered_cbc_yaml[cbc_pkg.replace('_', '-')] = cbc_ver
-                pkg_ver = _pkg_ver_helper(cbc_pkg, cbc_ver)
-                filtered_cbc_list.append(pkg_ver)
-
-    return filtered_cbc_yaml, filtered_cbc_list
+    return dict(entry.split('=') for entry in env['dependencies'])
 
 
 # Get current distro dep structure from repodata.json under tested channel
 def get_distro_deps(epoch, conda_subdir, relevant_pkgs):
+    #HACK: TODO: undo this
+    epoch = 2023.2
+    missing_pkgs = relevant_pkgs.copy()
+    # TODO: update tested/ to staged/ once library does that also
     q2_pkg_channel_url = (f'https://packages.qiime2.org/qiime2/{epoch}/'
                           f'tested/{conda_subdir}/repodata.json')
     response = _fetch_url(q2_pkg_channel_url)
@@ -131,13 +100,15 @@ def get_distro_deps(epoch, conda_subdir, relevant_pkgs):
 
     for info in repodata['packages'].values():
         name = info['name']
-        if (name not in relevant_pkgs
-                or relevant_pkgs[name] != info['version']):
-            if name == 'q2-stats':
-                print(info)
-                print(relevant_pkgs[name])
+        if (name not in missing_pkgs
+                or missing_pkgs[name] != info['version']):
             continue
+        del missing_pkgs[name]
         q2_dep_dict[name] = [dep.split(' ')[0] for dep in info['depends']]
+
+    if missing_pkgs:
+        raise Exception(f'Missing the following packages in the channel'
+                        f' ({q2_pkg_channel_url}): {missing_pkgs}')
 
     return q2_dep_dict
 
@@ -247,7 +218,7 @@ def to_mermaid(G, highlight_from=None):
     return '\n'.join(lines)
 
 
-def main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
+def main(epoch, distro, seed_env_path, diff_path, conda_subdir,
          gh_summary_path, rebuild_matrix_path, retest_matrix_path,
          packages_in_distro_path, full_distro_path, revdeps_of_sources_path):
 
@@ -263,8 +234,9 @@ def main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
     # TODO: if the removed is a terminal node in the dag, we need to change the
     # test plan/skip doing anything interesting at all
 
-    cbc_yaml, relevant_pkgs = get_cbc_info(cbc_yaml_path)
-    distro_deps = get_distro_deps(epoch, conda_subdir, relevant_pkgs)
+    relevant_pkgs = get_minimal_env(seed_env_path)
+    plugin_pkgs = {k: v for k, v in relevant_pkgs.items() if k in library_pkgs}
+    distro_deps = get_distro_deps(epoch, conda_subdir, plugin_pkgs)
 
     core_dag = make_dag(pkg_dict=distro_deps)
     core_sub = nx.subgraph(core_dag, relevant_pkgs)
@@ -306,7 +278,7 @@ def main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
 
     with open(packages_in_distro_path, 'w') as fh:
         pkgs_in_distro = {
-            k:v for k, v in relevant_pkgs.items()
+            k: v for k, v in relevant_pkgs.items()
             if k in library_pkgs
         }
         json.dump(pkgs_in_distro, fh)
@@ -321,7 +293,7 @@ def main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
 if __name__ == '__main__':
     epoch = sys.argv[1]
     distro = sys.argv[2]
-    cbc_yaml_path = sys.argv[3]
+    seed_env_path = sys.argv[3]
     diff_path = sys.argv[4]
     conda_subdir = sys.argv[5]
     gh_summary_path = sys.argv[6]
@@ -331,6 +303,6 @@ if __name__ == '__main__':
     full_distro_path = sys.argv[10]
     revdeps_of_sources_path = sys.argv[11]
 
-    main(epoch, distro, cbc_yaml_path, diff_path, conda_subdir,
+    main(epoch, distro, seed_env_path, diff_path, conda_subdir,
          gh_summary_path, rebuild_matrix_path, retest_matrix_path,
          packages_in_distro_path, full_distro_path, revdeps_of_sources_path)

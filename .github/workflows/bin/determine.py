@@ -41,8 +41,8 @@ def identify_distro(changed_files):
             continue
 
         base = segments[0]
-        if base.startswith('2') and '.' in base and segments[1] == 'staged':
-            distros.add(segments[2])
+        if base.startswith('2') and '.' in base and segments[2] == 'passed':
+            distros.add(segments[1])
 
     if len(distros) > 1:
         raise Exception('Multiple distros cannot be changed simultaneously.'

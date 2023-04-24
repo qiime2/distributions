@@ -27,54 +27,27 @@ def get_library_packages():
     return json.load(response)['packages']
 
 
-# Parses the cmd line diff into a dict with pkgs added, changed, and removed
-def find_diff(diff):
-    dependency = r"\n?.*:\n"
-    # `\n?.*\n` -> matches any line that ends with colon,
-    #              will match dependency name line
-    added_dependency = r"\n?\+.*:\n"
-    # same as above but match when line begins with '+'
-    removed_dependency = r"\n?-.*:\n"
-    # same as above but match when line begins with '-'
+def find_diff(old, new):
+    old = get_minimal_env(old)
+    new = get_minimal_env(new)
 
-    removed_version = r"\n?-\t? *- '?[(<=)(>=)]?[0-9]+\..*'?"
-    # `\n?` -> optional newline
-    # `- ` -> diff syntax for line in old file
-    # `\t *` -> optional tab and any number of spaces (identation in yaml)
-    # `'?` -> optional quote in version line
-    # `[(<=)(>=)]?` -> optional '>=' or '<=' in version
-    # `[0-9]+\.` -> a version number followed by a dot followed by anything
-    #               else
-    # `'?` -> optional close quote
-    added_version = r"\n?\+\t? *- '?[(<=)(>=)]?[0-9]+\..*'?\n"
-    # same as above but line begins with '+'
+    old_keys = set(old)
+    new_keys = set(new)
 
-    version_change_pattern = rf"{dependency}{removed_version}{added_version}"
-    added_dependency_pattern = rf"{added_dependency}{added_version}"
-    removed_dependency_pattern = rf"{removed_dependency}{removed_version}"
+    removed_pkgs = list(old_keys - new_keys)
+    added_pkgs = list(new_keys - old_keys)
+    changed_pkgs = list()
 
-    with open(diff, 'r') as file:
-        contents = file.read()
-        version_change_matches = re.findall(version_change_pattern, contents)
-        added_dependency_matches = re.findall(added_dependency_pattern,
-                                              contents)
-        removed_dependency_matches = re.findall(removed_dependency_pattern,
-                                                contents)
+    maybe_changed = old_keys & new_keys
+    for key in maybe_changed:
+        if old[key] != new[key]:
+            changed_pkgs.append(key)
 
-    changed_pkgs = [match.split('=')[0].strip()
-                    for match in version_change_matches]
-    added_pkgs = [match.split('=')[0].strip().strip('+')
-                  for match in added_dependency_matches]
-    removed_pkgs = [match.split('=')[0].strip().strip('-')
-                    for match in removed_dependency_matches]
-
-    pkgs = {
+    return {
         'changed_pkgs': changed_pkgs,
         'added_pkgs': added_pkgs,
         'removed_pkgs': removed_pkgs,
     }
-
-    return pkgs
 
 
 def get_minimal_env(seed_env_path):
@@ -113,15 +86,15 @@ def get_distro_deps(epoch, conda_subdir, relevant_pkgs):
     return q2_dep_dict
 
 
-def get_packages_to_rebuild(relevant_pkgs, library_pkgs):
+def get_packages_to_rebuild(relevant_pkgs, library_pkgs, branch):
     api = GhApi()
     repos = lookup_repos(relevant_pkgs, library_pkgs)
-    return find_packages_to_build(api, repos, 'test-pr')
+    return find_packages_to_build(api, repos, branch)
 
 
 def lookup_repos(packages, repo_map):
     packages_to_check = {
-        pkg: tuple(repo_map[pkg].split('/'))
+        pkg: repo_map[pkg]
         for pkg in repo_map.keys() & set(packages)
     }
     return packages_to_check
@@ -138,7 +111,7 @@ def is_branch_in_pager(pager, branch):
 def find_packages_to_build(api, repos, branch):
     to_build = {}
     for name, repo in repos.items():
-        pager = paged(api.repos.list_branches, *repo)
+        pager = paged(api.repos.list_branches, *repo.split('/'))
         if is_branch_in_pager(pager, branch):
             to_build[name] = repo
     return to_build
@@ -218,13 +191,14 @@ def to_mermaid(G, highlight_from=None):
     return '\n'.join(lines)
 
 
-def main(epoch, distro, seed_env_path, diff_path, conda_subdir,
+def main(epoch, distro, seed_env_path, original_env_path, conda_subdir,
          gh_summary_path, rebuild_matrix_path, retest_matrix_path,
-         packages_in_distro_path, full_distro_path, revdeps_of_sources_path):
+         packages_in_distro_path, full_distro_path, revdeps_of_sources_path,
+         head_ref):
 
     library_pkgs = get_library_packages()
 
-    diff = find_diff(diff_path)
+    diff = find_diff(original_env_path, seed_env_path)
 
     new_pkgs = diff['added_pkgs']
     changed_pkgs = diff['changed_pkgs']
@@ -241,7 +215,8 @@ def main(epoch, distro, seed_env_path, diff_path, conda_subdir,
     core_dag = make_dag(pkg_dict=distro_deps)
     core_sub = nx.subgraph(core_dag, relevant_pkgs)
 
-    pkgs_to_rebuild = get_packages_to_rebuild(relevant_pkgs, library_pkgs)
+    pkgs_to_rebuild = get_packages_to_rebuild(
+        relevant_pkgs, library_pkgs, head_ref)
     all_changes.extend(list(pkgs_to_rebuild))
 
     rebuild_generations = list(nx.topological_generations(
@@ -271,7 +246,11 @@ def main(epoch, distro, seed_env_path, diff_path, conda_subdir,
                                  pkgs_to_test=pkgs_to_test))
 
     with open(rebuild_matrix_path, 'w') as fh:
-        json.dump(rebuild_generations, fh)
+        rebuild_repos = [
+            [pkgs_to_rebuild[key] for key in generation]
+            for generation in rebuild_generations
+        ]
+        json.dump(rebuild_repos, fh)
 
     with open(retest_matrix_path, 'w') as fh:
         json.dump(pkgs_to_test, fh)
@@ -294,7 +273,7 @@ if __name__ == '__main__':
     epoch = sys.argv[1]
     distro = sys.argv[2]
     seed_env_path = sys.argv[3]
-    diff_path = sys.argv[4]
+    original_env_path = sys.argv[4]
     conda_subdir = sys.argv[5]
     gh_summary_path = sys.argv[6]
     rebuild_matrix_path = sys.argv[7]
@@ -302,7 +281,9 @@ if __name__ == '__main__':
     packages_in_distro_path = sys.argv[9]
     full_distro_path = sys.argv[10]
     revdeps_of_sources_path = sys.argv[11]
+    head_ref = sys.argv[12]
 
-    main(epoch, distro, seed_env_path, diff_path, conda_subdir,
+    main(epoch, distro, seed_env_path, original_env_path, conda_subdir,
          gh_summary_path, rebuild_matrix_path, retest_matrix_path,
-         packages_in_distro_path, full_distro_path, revdeps_of_sources_path)
+         packages_in_distro_path, full_distro_path, revdeps_of_sources_path,
+         head_ref)

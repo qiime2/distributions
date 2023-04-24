@@ -1,35 +1,232 @@
 on:
   workflow_call:
     inputs:
-      cache_key:
+      patched-channel-key:
+        description: A cache key
         required: true
         type: string
-      matrix_key:
+      patched-channel-path:
+        description: A cache path
         required: true
         type: string
-      matrix_index:
+      rebuilt-channel-key:
+        description: An artifact key
+        required: true
+        type: string
+      seed-environment-key:
+        description: An artifact key
+        required: true
+        type: string
+      matrix-key:
+        description: An artifact key
+        required: true
+        type: string
+      matrix-index:
         required: true
         type: number
 
+env:
+  matrix_path: './matrix'
+  rebuilt_channel_path: './rebuilt-channel'
+  seed_environment_path: './seed-env'
+  plugin_path: './plugin'
+  version_key: '[Version Files] Rebuilt version info'
+  version_path: './version-info'
+
 jobs:
   configure_matrix:
+    name: 'Set up build matrix'
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+
       - uses: actions/download-artifact@v3
         with:
-          name: ${{ inputs.matrix_key }}
-          path: ./matrix/
+          name: ${{ inputs.matrix-key }}
+          path: '${{ env.matrix_path }}'
+
       - id: set-matrix
         run: |
-          echo "matrix=$(cat ./matrix/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+          echo "matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+
 
   run_matrix:
+    name: '${{ matrix.package }} (${{ matrix.os }})'
     needs: configure_matrix
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix_index] }}
+        package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - run: echo ${{ matrix.package }}
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - uses: actions/cache/restore@v3
+        name: 'Fetch base channel with patches'
+        id: patched-base-restore
+        with:
+          key: ${{ inputs.patched-channel-key }}
+          path: ${{ inputs.patched-channel-path }}
+          fail-on-cache-miss: true
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch seed environment.yml'
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - uses: actions/checkout@v3
+        name: 'Checkout ${{ matrix.package }} repository'
+        with:
+          repository: ${{ matrix.package }}
+          ref: ${{ github.head_ref }}
+          path: ${{ env.plugin_path }}
+          fetch-depth: 0
+
+      - id: debug
+        shell: bash
+        run: ls -R ${{ env.rebuilt_channel_path }}
+
+      - uses: qiime2/action-library-packaging/build-package@beta
+        name: 'Determine package data for ${{ matrix.package }}'
+        id: get-package-data
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          recipe-path: ${{ env.plugin_path }}/ci/recipe/
+          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+          output-channel: ${{ env.rebuilt_channel_path }}
+          dry-run: true
+
+      - uses: actions/cache/restore@v3
+        name: 'Try to fetch an existing build'
+        id: fetch-build
+        with:
+          key: "[Conda Package] ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ matrix.os }}) (${{ hashFiles(format('{0}/seed-environment-conda.yml', env.seed_environment_path)) }})"
+          path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Create conda build config'
+        id: make-cbc
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda.yml'
+          conda-build-config: 'conda_build_config.yml'
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ inputs.patched-channel-path }}"]'
+
+      - uses: qiime2/action-library-packaging/build-package@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Build ${{ matrix.package }}'
+        id: build-package
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          recipe-path: ${{ env.plugin_path }}/ci/recipe/
+          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+          output-channel: ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/cache/save@v3
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Cache build of ${{ matrix.package }}'
+        id: cache-build
+        with:
+          key: ${{ steps.fetch-build.outputs.cache-primary-key }}
+          path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
+
+      - uses: actions/upload-artifact@v3
+        name: 'Upload updated build to rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - id: setup-version-info
+        name: 'Capture info about package'
+        shell: bash
+        run: |
+          mkdir -p ${{ env.version_path }}
+          echo '${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }}' > '${{ env.version_path }}/${{ steps.get-package-data.outputs.package-name }}.txt'
+
+      - uses: actions/upload-artifact@v3
+        name: 'Upload info about package'
+        with:
+          name: ${{ env.version_key }}
+          path: ${{ env.version_path }}
+
+
+  finalize:
+    name: 'Finalize generation'
+    needs: [run_matrix]
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/download-artifact@v3
+        name: 'Collate rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: install pyyaml
+        shell: bash
+        run: pip install pyyaml
+
+      - name: install conda-build
+        run: conda install -q conda-build
+
+      - name: 'Reindex rebuilt channel'
+        shell: bash
+        run: conda index ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/upload-artifact@v3
+        name: 'Upload final rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch updated versions'
+        with:
+          name: ${{ env.version_key }}
+          path: ${{ env.version_path }}
+
+      - name: 'Collated updated versions'
+        shell: bash
+        run: cat ${{ env.version_path }}/*.txt > version_updates.txt
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch seed environment.yml'
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - uses: qiime2/action-library-packaging/patch-env@beta
+        name: 'Update seed environment file with new versions'
+        with:
+          environment-file: ${{ env.seed_environment_path }}/seed-environment-conda.yml
+          versions-file: version_updates.txt
+
+      - uses: actions/upload-artifact@v3
+        name: 'Update seed environment.yml'
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}

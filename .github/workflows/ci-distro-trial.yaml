@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ci-v2]
     paths:
-      - 20*.*/*/passed/seed-environment-conda.yaml
+      - 20*.*/*/passed/seed-environment-conda.yml
 
 jobs:
   conf:
@@ -29,15 +29,36 @@ jobs:
           echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
           DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
           echo "distro=$DISTRO" >> $GITHUB_OUTPUT
-          echo "seed-env=$EPOCH/$DISTRO/passed/seed-environment-conda.yaml" >> $GITHUB_OUTPUT
+          echo "seed-env=$EPOCH/$DISTRO/passed/seed-environment-conda.yml" >> $GITHUB_OUTPUT
 
   # this job will parse a diff from cbc, and use that to generate a DAG
   prepare:
     needs: conf
     runs-on: ubuntu-latest
+    env:
+      matrix_key: '[GHA Matrix] Packages to rebuild and test'
+      matrix_path: './matrix'
+
+      patched_channel_key: '[Conda Channel] Mirror with patches' # + (HASH)
+      patched_channel_path: './patched-channel'
+
+      repodata_patches_key: '[Repodata Patches] patch_instructions.json'
+      repodata_patches_path: './repodata-patches'
+
+      rebuilt_channel_key: '[Conda Channel] Rebuilt packages'
+      rebuilt_channel_path: './rebuilt-channel'
+
+      seed_environment_key: '[Environment File] Metapackage seed environment'
+      seed_environment_path: './seed-env'
+
     outputs:
-      patched_channel_key: ${{ steps.patched-base-restore.outputs.cache-primary-key }}
-      generation_matrix: ${{ steps.store-generations.outputs.generation_matrix }}
+      # patched-channel-key includes a hash which is calculated in this step
+      patched-channel-key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
+      patched-channel-path: ${{ env.patched_channel_path }}
+      rebuilt-channel-key: ${{ env.rebuilt_channel_key }}
+      seed-environment-key: ${{ env.seed_environment_key }}
+      matrix-key: ${{ env.matrix_key }}
+      generation-matrix: ${{ steps.store-generations.outputs.generation-matrix }}
 
     steps:
       - name: checkout source
@@ -48,8 +69,7 @@ jobs:
       - name: get diff
         run: |
           git fetch origin ci-v2:ci-v2
-          git diff ci-v2 -- ${{ needs.conf.outputs.seed-env }} > diff.txt
-          cat diff.txt
+          git show ci-v2:${{ needs.conf.outputs.seed-env }} > original-env.yml
 
       - name: set up python 3.8
         uses: actions/setup-python@v4
@@ -59,10 +79,10 @@ jobs:
       - name: install dependencies
         run: |
           pip install pyyaml jinja2 networkx conda-mirror ghapi
-          conda install conda-build
+          conda install -q conda-build
 
       - name: make matrix dir
-        run: mkdir matrix
+        run: mkdir ${{ env.matrix_path }}
 
       - name: parse diff and generate dag
         env:
@@ -72,116 +92,167 @@ jobs:
           '${{ needs.conf.outputs.epoch }}' \
           '${{ needs.conf.outputs.distro }}' \
           '${{ needs.conf.outputs.seed-env }}' \
-          diff.txt \
+          original-env.yml \
           'linux-64' \
           $GITHUB_STEP_SUMMARY \
-          'matrix/rebuild_matrix.json' \
-          'matrix/retest_matrix.json' \
+          '${{ env.matrix_path }}/rebuild_matrix.json' \
+          '${{ env.matrix_path }}/retest_matrix.json' \
           'packages_in_distro.json' \
           'full_distro.json' \
-          'revdeps_of_sources.json'
+          'revdeps_of_sources.json' \
+          ${{ github.head_ref }}
 
       - uses: actions/cache/restore@v3
-        id: patched-base-restore
+        id: patched-channel-restore
         with:
-          path: ./patched-base/
-          key: "patched-base-${{ hashFiles('full_distro.json') }}"
+          key: "${{ env.patched_channel_key }} (${{ hashFiles('full_distro.json') }})"
+          path: ${{ env.patched_channel_path }}
 
       - name: create base channel
-        if: steps.patched-base-restore.outputs.cache-hit != 'true'
+        if: steps.patched-channel-restore.outputs.cache-hit != 'true'
+        # TODO: switch `2023.2` back to `needs.conf.outputs.epoch`
         run: |
           python .github/workflows/bin/create_patched_channel.py \
-          '${{ needs.conf.outputs.epoch }}' \
+          '2023.2' \
           '${{ needs.conf.outputs.distro }}' \
           'packages_in_distro.json' \
           'full_distro.json' \
           'revdeps_of_sources.json' \
-          './patched-base/'
+          '${{ env.patched_channel_path }}'
 
       - uses: actions/cache/save@v3
-        id: patched-base-save
-        if: steps.patched-base-restore.outputs.cache-hit != 'true'
+        id: patched-channel-save
+        if: steps.patched-channel-restore.outputs.cache-hit != 'true'
         with:
-          path: ./patched-base/
-          key: ${{ steps.patched-base-restore.outputs.cache-primary-key }}
+          key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
+          path: ${{ env.patched_channel_path }}
 
       - name: store matrices
         uses: actions/upload-artifact@v3
         with:
-          name: matrix
-          path: ./matrix
+          name: ${{ env.matrix_key }}
+          path: ${{ env.matrix_path }}
 
       - name: store generations
         id: store-generations
         run: |
-          echo "generation_matrix=$(cat matrix/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+          echo "generation-matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
 
       - name: copy repodata patches
         run: |
-          mkdir -p ./repodata_patches/linux-64
-          mkdir -p ./repodata_patches/osx-64
-          mkdir -p ./repodata_patches/noarch
-          cp ./patched-base/linux-64/patch_instructions.json ./repodata_patches/linux-64/patch_instructions.json
-          cp ./patched-base/osx-64/patch_instructions.json ./repodata_patches/osx-64/patch_instructions.json
-          cp ./patched-base/noarch/patch_instructions.json ./repodata_patches/noarch/patch_instructions.json
+          mkdir -p ${{ env.repodata_patches_path }}/linux-64
+          mkdir -p ${{ env.repodata_patches_path }}/osx-64
+          mkdir -p ${{ env.repodata_patches_path }}/noarch
+
+          cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
+
+          cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
+
+          cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
 
       - name: store repodata patches
         uses: actions/upload-artifact@v3
         with:
-          name: repodata-patches
-          path: ./repodata_patches
+          name: ${{ env.repodata_patches_key }}
+          path: ${{ env.repodata_patches_path }}
+
+      - name: create rebuilt channel
+        id: rebuilt-channel
+        run: |
+          mkdir ${{ env.rebuilt_channel_path }}
+          conda index ${{ env.rebuilt_channel_path }}
+
+      - name: store rebuilt channel
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.rebuilt_channel_key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: create seed env dir
+        id: seed-env-dir
+        run: |
+          mkdir ${{ env.seed_environment_path }}
+          cp ${{ needs.conf.outputs.seed-env }} ${{ env.seed_environment_path }}
+
+      - name: store seed env
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.seed_environment_key }}
+          path: ${{ env.seed_environment_path }}
 
 
-  build_generation_0:
+  rebuild-0:
     needs: [prepare]
-    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[0] != null }}
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[0] != null }}
     uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
     with:
-      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
-      matrix_key: "matrix"
-      matrix_index: 0
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      # Path is needed as well as it is part of the Cache "Version"
+      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      matrix-index: 0
 
-  build_generation_1:
-    needs: [prepare, build_generation_0]
-    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[1] != null }}
+  rebuild-1:
+    needs: [prepare, rebuild-0]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[1] != null }}
     uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
     with:
-      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
-      matrix_key: "matrix"
-      matrix_index: 1
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      matrix-index: 1
 
-  build_generation_2:
-    needs: [prepare, build_generation_1]
-    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[2] != null }}
+  rebuild-2:
+    needs: [prepare, rebuild-1]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[2] != null }}
     uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
     with:
-      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
-      matrix_key: "matrix"
-      matrix_index: 2
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      matrix-index: 2
 
-  build_generation_3:
-    needs: [prepare, build_generation_2]
-    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[3] != null }}
+  rebuild-3:
+    needs: [prepare, rebuild-2]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[3] != null }}
     uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
     with:
-      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
-      matrix_key: "matrix"
-      matrix_index: 3
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      matrix-index: 3
 
-  build_generation_4:
-    needs: [prepare, build_generation_3]
-    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[4] != null }}
+  rebuild-4:
+    needs: [prepare, rebuild-3]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[4] != null }}
     uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
     with:
-      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
-      matrix_key: "matrix"
-      matrix_index: 4
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      matrix-index: 4
 
-  build_generation_5:
-    needs: [prepare, build_generation_4]
-    if: ${{ fromJSON(needs.prepare.outputs.generation_matrix)[5] != null }}
+  rebuild-5:
+    needs: [prepare, rebuild-4]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[5] != null }}
     uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
     with:
-      cache_key: ${{ needs.prepare.outputs.patched_channel_key }}
-      matrix_key: "matrix"
-      matrix_index: 5
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      matrix-index: 5

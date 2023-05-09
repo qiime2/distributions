@@ -43,4 +43,8 @@ dependencies:
   - unifrac=1.1.1
   - unifrac-binaries=1.1.1
   - r-base=4.2.2
+extras:
+  variant_override:
+    # This MUST be a string, lest the YAML dragon eat October
+    qiime2_epoch: '2023.2'
 

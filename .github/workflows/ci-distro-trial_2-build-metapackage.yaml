@@ -1,0 +1,99 @@
+on:
+  workflow_call:
+    inputs:
+      seed-environment-key:
+        required: true
+        type: string
+      solved-environment-key:
+        required: true
+        type: string
+      rebuilt-channel-key:
+        required: true
+        type: string
+      patched-channel-key:
+        required: true
+        type: string
+      distro-name:
+        required: true
+        type: string
+env:
+  patched_channel_path: './patched-channel'
+  rebuilt_channel_path: './rebuilt-channel'
+  seed_environment_path: './seed-env'
+  environment_prefix: './test-env/'
+
+jobs:
+  setup-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.create-version.outputs.version }}
+    steps:
+      - id: create-version
+        shell: bash
+        run: |
+          echo version=$(
+            python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))"
+          ) >> $GITHUB_OUTPUT
+
+  build-metapackage:
+    needs: [setup-version]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: fetch seed env
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: fetch rebuilt channel
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        id: build-env
+        name: "Set up build env"
+
+      - uses: qiime2/action-library-packaging/build-metapackage@beta
+        name: "Build metapackage"
+        id: build-meta
+        with:
+          conda-activate: ${{ steps.build-env.outputs.conda-activate }}
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+          metapackage-name: ${{ inputs.distro-name }}
+          metapackage-version: ${{ needs.setup-version.outputs.version }}
+          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda.yml'
+          output-channel: ${{ env.rebuilt_channel_path }}
+
+      - name: Install metapackage, create env file, and cache
+        id: cache-env
+        uses: qiime2/action-library-packaging/create-env@beta
+        with:
+          conda-prefix: ${{ env.environment_prefix }}
+          environment-file: 'environment-${{ runner.os }}-conda.yml'
+          channels: ${{ steps.build-meta.outputs.channels }}
+          package-name: ${{ inputs.distro-name }}
+          package-version: ${{ needs.setup-version.outputs.version }}
+
+      - name: upload rebuilt channel with metapackage
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: upload environment file
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.solved-environment-key }}
+          path: ${{ steps.cache-env.outputs.environment-file }}

@@ -1,10 +1,46 @@
-name: ci-distro-trial
+
+name: prepare-dev
 
 on:
-  pull_request:
-    branches: [ci-v2]
-    paths:
-      - 20*.*/*/passed/seed-environment-conda.yml
+  workflow_call:
+    outputs:
+      distro:
+        value: ${{ jobs.conf.outputs.distro }}
+      matrix-key:
+        value: ${{ jobs.prepare.outputs.matrix-key }}
+      rev-deps-key:
+        value: ${{ jobs.prepare.outputs.rev-deps-key }}
+      generation-matrix:
+        value: ${{ jobs.prepare.outputs.generation-matrix }}
+      patched-channel-key:
+        value: ${{ jobs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key:
+        value: ${{ jobs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key:
+        value: ${{ jobs.prepare.outputs.seed-environment-key }}
+      solved-environment-key:
+        value: ${{ jobs.prepare.outputs.solved-environment-key }}
+
+env:
+  matrix_key: '[GHA Matrix] Packages to rebuild and test'
+  matrix_path: './matrix'
+
+  partial_patched_channel_key: '[Conda Channel] Mirror with patches' # + (HASH)
+  patched_channel_path: './patched-channel'
+
+  rev_deps_key: '[Reverse Dependencies] Packages to rebuild and their reverse dependencies'
+  rev_deps_path: './rev-deps'
+
+  repodata_patches_key: '[Repodata Patches] patch_instructions.json'
+  repodata_patches_path: './repodata-patches'
+
+  rebuilt_channel_key: '[Conda Channel] Rebuilt packages'
+  rebuilt_channel_path: './rebuilt-channel'
+
+  seed_environment_key: '[Environment File] Metapackage seed environment'
+  seed_environment_path: './seed-env'
+
+  solved_environment_key: '[Environment File] Metapackage solved environment'
 
 jobs:
   conf:
@@ -35,28 +71,13 @@ jobs:
   prepare:
     needs: conf
     runs-on: ubuntu-latest
-    env:
-      matrix_key: '[GHA Matrix] Packages to rebuild and test'
-      matrix_path: './matrix'
-
-      patched_channel_key: '[Conda Channel] Mirror with patches' # + (HASH)
-      patched_channel_path: './patched-channel'
-
-      repodata_patches_key: '[Repodata Patches] patch_instructions.json'
-      repodata_patches_path: './repodata-patches'
-
-      rebuilt_channel_key: '[Conda Channel] Rebuilt packages'
-      rebuilt_channel_path: './rebuilt-channel'
-
-      seed_environment_key: '[Environment File] Metapackage seed environment'
-      seed_environment_path: './seed-env'
-
     outputs:
+      rev-deps-key: ${{ env.rev_deps_key }}
       # patched-channel-key includes a hash which is calculated in this step
       patched-channel-key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
-      patched-channel-path: ${{ env.patched_channel_path }}
       rebuilt-channel-key: ${{ env.rebuilt_channel_key }}
       seed-environment-key: ${{ env.seed_environment_key }}
+      solved-environment-key: ${{ env.solved_environment_key }}
       matrix-key: ${{ env.matrix_key }}
       generation-matrix: ${{ steps.store-generations.outputs.generation-matrix }}
 
@@ -84,9 +105,12 @@ jobs:
       - name: make matrix dir
         run: mkdir ${{ env.matrix_path }}
 
+      - name: make rev deps dir
+        run: mkdir ${{ env.rev_deps_path }}
+
       - name: parse diff and generate dag
         env:
-          GITHUB_TOKEN: ${{ secrets.Q2D2_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python .github/workflows/bin/generate_dag.py \
           '${{ needs.conf.outputs.epoch }}' \
@@ -99,13 +123,13 @@ jobs:
           '${{ env.matrix_path }}/retest_matrix.json' \
           'packages_in_distro.json' \
           'full_distro.json' \
-          'revdeps_of_sources.json' \
+          '${{ env.rev_deps_path }}/rev_deps.json' \
           ${{ github.head_ref }}
 
       - uses: actions/cache/restore@v3
         id: patched-channel-restore
         with:
-          key: "${{ env.patched_channel_key }} (${{ hashFiles('full_distro.json') }})"
+          key: "${{ env.partial_patched_channel_key }} (${{ hashFiles('full_distro.json') }})"
           path: ${{ env.patched_channel_path }}
 
       - name: create base channel
@@ -119,6 +143,18 @@ jobs:
           'full_distro.json' \
           'revdeps_of_sources.json' \
           '${{ env.patched_channel_path }}'
+
+      - name: upload reverse dependencies
+        uses: actions/upload-artifact@v3
+        with:
+          name: '${{ env.rev_deps_key }}'
+          path: ${{ env.rev_deps_path }}
+
+      - name: upload patched channel
+        uses: actions/upload-artifact@v3
+        with:
+          name: "${{ steps.patched-channel-restore.outputs.cache-primary-key }}"
+          path: ${{ env.patched_channel_path }}
 
       - uses: actions/cache/save@v3
         id: patched-channel-save
@@ -182,77 +218,3 @@ jobs:
         with:
           name: ${{ env.seed_environment_key }}
           path: ${{ env.seed_environment_path }}
-
-
-  rebuild-0:
-    needs: [prepare]
-    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[0] != null }}
-    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
-    with:
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      # Path is needed as well as it is part of the Cache "Version"
-      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
-      matrix-index: 0
-
-  rebuild-1:
-    needs: [prepare, rebuild-0]
-    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[1] != null }}
-    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
-    with:
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
-      matrix-index: 1
-
-  rebuild-2:
-    needs: [prepare, rebuild-1]
-    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[2] != null }}
-    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
-    with:
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
-      matrix-index: 2
-
-  rebuild-3:
-    needs: [prepare, rebuild-2]
-    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[3] != null }}
-    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
-    with:
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
-      matrix-index: 3
-
-  rebuild-4:
-    needs: [prepare, rebuild-3]
-    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[4] != null }}
-    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
-    with:
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
-      matrix-index: 4
-
-  rebuild-5:
-    needs: [prepare, rebuild-4]
-    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[5] != null }}
-    uses: ./.github/workflows/ci-distro-trial_build-generation.yaml
-    with:
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      patched-channel-path: ${{ needs.prepare.outputs.patched-channel-path }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
-      matrix-index: 5

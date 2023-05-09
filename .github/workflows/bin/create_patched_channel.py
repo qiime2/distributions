@@ -9,6 +9,7 @@ from collections import defaultdict
 
 SUBDIRS = ['linux-64', 'noarch', 'osx-64']
 
+
 def write_config(pkgs_in_distro, dest):
     config_yaml = {'blacklist': [{'name': '*'}]}
     whitelist = []
@@ -28,7 +29,7 @@ def create_channel(epoch, distro, channel_dir, config):
                     '--platform %s --config %s')
     for subdir in SUBDIRS:
         cmd = CMD_TEMPLATE % (REMOTE_CHANNEL, channel_dir, subdir, config)
-        process = subprocess.run(cmd.split(), check=True)
+        subprocess.run(cmd.split(), check=True)
 
 
 def _patch_repodata(repodata, changes):
@@ -90,7 +91,6 @@ if __name__ == '__main__':
      full_distro_path,
      revdeps_of_sources_path,
      local_channel) = sys.argv[1:]
-
 
     with open(packages_in_distro_path, 'r') as fh:
         pkgs_in_distro = json.load(fh)

@@ -1,24 +1,19 @@
 on:
   workflow_call:
     inputs:
-      patched-channel-key:
-        description: A cache key
+      rev-deps-key:
         required: true
         type: string
-      patched-channel-path:
-        description: A cache path
+      patched-channel-key:
         required: true
         type: string
       rebuilt-channel-key:
-        description: An artifact key
         required: true
         type: string
       seed-environment-key:
-        description: An artifact key
         required: true
         type: string
       matrix-key:
-        description: An artifact key
         required: true
         type: string
       matrix-index:
@@ -28,6 +23,8 @@ on:
 env:
   matrix_path: './matrix'
   rebuilt_channel_path: './rebuilt-channel'
+  patched_channel_path: './patched-channel'
+  rev_deps_path: './rev-deps'
   seed_environment_path: './seed-env'
   plugin_path: './plugin'
   version_key: '[Version Files] Rebuilt version info'
@@ -55,6 +52,7 @@ jobs:
     name: '${{ matrix.package }} (${{ matrix.os }})'
     needs: configure_matrix
     strategy:
+      fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
         os: [ubuntu-latest, macos-latest]
@@ -65,13 +63,14 @@ jobs:
         with:
           python-version: '3.8'
 
-      - uses: actions/cache/restore@v3
+      - shell: bash
+        run: pip install pyyaml
+
+      - uses: actions/download-artifact@v3
         name: 'Fetch base channel with patches'
-        id: patched-base-restore
         with:
-          key: ${{ inputs.patched-channel-key }}
-          path: ${{ inputs.patched-channel-path }}
-          fail-on-cache-miss: true
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
 
       - uses: actions/download-artifact@v3
         name: 'Fetch rebuilt channel'
@@ -101,7 +100,7 @@ jobs:
         name: 'Determine package data for ${{ matrix.package }}'
         id: get-package-data
         with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          conda-activate: ''
           recipe-path: ${{ env.plugin_path }}/ci/recipe/
           conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
           channels: ${{ steps.make-cbc.outputs.channels }}
@@ -230,3 +229,28 @@ jobs:
         with:
           name: ${{ inputs.seed-environment-key }}
           path: ${{ env.seed_environment_path }}
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - uses: actions/download-artifact@v3
+        name: 'Fetch rebuilt packages and their reverse dependencies'
+        with:
+          name: ${{ inputs.rev-deps-key }}
+          path: ${{ env.rev_deps_path }}
+
+      - name: 'Patch base channel'
+        uses: qiime2/action-library-packaging/patch-repodata@beta
+        with:
+          channel: ${{ env.patched_channel_path }}
+          rev-deps: ${{ env.rev_deps_path }}/rev_deps.json
+          versions-file: version_updates.txt
+
+      - uses: actions/upload-artifact@v3
+        name: 'Upload base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import urllib.request
 import json
-import re
 import sys
 
 import yaml
@@ -59,7 +58,7 @@ def get_minimal_env(seed_env_path):
 
 # Get current distro dep structure from repodata.json under tested channel
 def get_distro_deps(epoch, conda_subdir, relevant_pkgs):
-    #HACK: TODO: undo this
+    # HACK: TODO: undo this
     epoch = 2023.2
     missing_pkgs = relevant_pkgs.copy()
     # TODO: update tested/ to staged/ once library does that also
@@ -228,9 +227,9 @@ def main(epoch, distro, seed_env_path, original_env_path, conda_subdir,
 
     src_revdeps = get_source_revdeps(core_dag, distro_deps, all_changes)
 
-    pkgs_to_test = list(set.union(set(src_revdeps),
-                                  *(nx.descendants(core_dag, pkg)
-                                    for pkg in src_revdeps)))
+    pkgs_to_test = sorted(set.union(set(src_revdeps),
+                                    *(nx.descendants(core_dag, pkg)
+                                      for pkg in src_revdeps)))
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
 

@@ -1,0 +1,211 @@
+# name: prepare-release
+
+# on:
+#   workflow_call:
+#     outputs:
+#       distro: ${{ jobs.conf.outputs.distro }}
+#       matrix-key: ${{ jobs.prepare.outputs.matrix-key }}
+#       rev-deps-key: ${{ jobs.prepare.outputs.rev-deps-key }}
+#       generation-matrix: ${{ jobs.prepare.outputs.generation-matrix }}
+#       patched-channel-key: ${{ jobs.prepare.outputs.patched-channel-key }}
+#       rebuilt-channel-key: ${{ jobs.prepare.outputs.rebuilt-channel-key }}
+#       seed-environment-key: ${{ jobs.prepare.seed-environment-key }}
+#       solved-environment-key: ${{ jobs.prepare.outputs.solved-environment-key }}
+
+# env:
+#   matrix_key: '[GHA Matrix] Packages to rebuild and test'
+#   matrix_path: './matrix'
+
+#   partial_patched_channel_key: '[Conda Channel] Mirror with patches' # + (HASH)
+#   patched_channel_path: './patched-channel'
+
+#   rev_deps_key: '[Reverse Dependencies] Packages to rebuild and their reverse dependencies'
+#   rev_deps_path: './rev-deps'
+
+#   repodata_patches_key: '[Repodata Patches] patch_instructions.json'
+#   repodata_patches_path: './repodata-patches'
+
+#   rebuilt_channel_key: '[Conda Channel] Rebuilt packages'
+#   rebuilt_channel_path: './rebuilt-channel'
+
+#   seed_environment_key: '[Environment File] Metapackage seed environment'
+#   seed_environment_path: './seed-env'
+
+#   solved_environment_key: '[Environment File] Metapackage solved environment'
+
+# jobs:
+#   conf:
+#     runs-on: ubuntu-latest  # this job is always run on linux
+#     outputs:
+#       epoch: ${{ steps.set-vars.outputs.epoch }}
+#       distro: ${{ steps.set-vars.outputs.distro }}
+#       seed-env: ${{ steps.set-vars.outputs.seed-env }}
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 2
+#       - uses: tj-actions/changed-files@v35
+#         id: changed
+
+#       - name: set-vars
+#         id: set-vars
+#         run: |
+#           # Parse the git changes to figure out which epoch triggered this workflow.
+#           CHANGED="${{ steps.changed.outputs.all_changed_files }}"
+#           EPOCH=$(python .github/workflows/bin/determine.py --epoch "$CHANGED")
+#           echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
+#           DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
+#           echo "distro=$DISTRO" >> $GITHUB_OUTPUT
+#           echo "seed-env=$EPOCH/$DISTRO/passed/seed-environment-conda.yml" >> $GITHUB_OUTPUT
+
+#   # this job will parse a diff from cbc, and use that to generate a DAG
+#   prepare:
+#     needs: conf
+#     runs-on: ubuntu-latest
+#     outputs:
+#       rev-deps-key: ${{ env.rev_deps_key }}
+#       # patched-channel-key includes a hash which is calculated in this step
+#       patched-channel-key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
+#       rebuilt-channel-key: ${{ env.rebuilt_channel_key }}
+#       seed-environment-key: ${{ env.seed_environment_key }}
+#       solved-environment-key: ${{ env.solved_environment_key }}
+#       matrix-key: ${{ env.matrix_key }}
+#       generation-matrix: ${{ steps.store-generations.outputs.generation-matrix }}
+
+#     steps:
+#       - name: checkout source
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: '0'
+
+#       - name: get diff
+#         run: |
+#           git fetch origin ci-v2:ci-v2
+#           git show ci-v2:${{ needs.conf.outputs.seed-env }} > original-env.yml
+
+#       - name: set up python 3.8
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: 3.8
+
+#       - name: install dependencies
+#         run: |
+#           pip install pyyaml jinja2 networkx conda-mirror ghapi
+#           conda install -q conda-build
+
+#       - name: make matrix dir
+#         run: mkdir ${{ env.matrix_path }}
+
+#       - name: make rev deps dir
+#         run: mkdir ${{ env.rev_deps_path }}
+
+#       - name: parse diff and generate dag
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.Q2D2_TOKEN }}
+#         run: |
+#           python .github/workflows/bin/generate_dag.py \
+#           '${{ needs.conf.outputs.epoch }}' \
+#           '${{ needs.conf.outputs.distro }}' \
+#           '${{ needs.conf.outputs.seed-env }}' \
+#           original-env.yml \
+#           'linux-64' \
+#           $GITHUB_STEP_SUMMARY \
+#           '${{ env.matrix_path }}/rebuild_matrix.json' \
+#           '${{ env.matrix_path }}/retest_matrix.json' \
+#           'packages_in_distro.json' \
+#           'full_distro.json' \
+#           '${{ env.rev_deps_path }}/rev_deps.json' \
+#           ${{ github.head_ref }}
+
+#       - uses: actions/cache/restore@v3
+#         id: patched-channel-restore
+#         with:
+#           key: "${{ env.partial_patched_channel_key }} (${{ hashFiles('full_distro.json') }})"
+#           path: ${{ env.patched_channel_path }}
+
+#       - name: create base channel
+#         if: steps.patched-channel-restore.outputs.cache-hit != 'true'
+#         # TODO: switch `2023.2` back to `needs.conf.outputs.epoch`
+#         run: |
+#           python .github/workflows/bin/create_patched_channel.py \
+#           '2023.2' \
+#           '${{ needs.conf.outputs.distro }}' \
+#           'packages_in_distro.json' \
+#           'full_distro.json' \
+#           'revdeps_of_sources.json' \
+#           '${{ env.patched_channel_path }}'
+
+#       - name: upload reverse dependencies
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: '${{ env.rev_deps_key }}'
+#           path: ${{ env.rev_deps_path }}
+
+#       - name: upload patched channel
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: "${{ steps.patched-channel-restore.outputs.cache-primary-key }}"
+#           path: ${{ env.patched_channel_path }}
+
+#       - uses: actions/cache/save@v3
+#         id: patched-channel-save
+#         if: steps.patched-channel-restore.outputs.cache-hit != 'true'
+#         with:
+#           key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
+#           path: ${{ env.patched_channel_path }}
+
+#       - name: store matrices
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: ${{ env.matrix_key }}
+#           path: ${{ env.matrix_path }}
+
+#       - name: store generations
+#         id: store-generations
+#         run: |
+#           echo "generation-matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+
+#       - name: copy repodata patches
+#         run: |
+#           mkdir -p ${{ env.repodata_patches_path }}/linux-64
+#           mkdir -p ${{ env.repodata_patches_path }}/osx-64
+#           mkdir -p ${{ env.repodata_patches_path }}/noarch
+
+#           cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
+#              ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
+
+#           cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
+#              ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
+
+#           cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
+#              ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
+
+#       - name: store repodata patches
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: ${{ env.repodata_patches_key }}
+#           path: ${{ env.repodata_patches_path }}
+
+#       - name: create rebuilt channel
+#         id: rebuilt-channel
+#         run: |
+#           mkdir ${{ env.rebuilt_channel_path }}
+#           conda index ${{ env.rebuilt_channel_path }}
+
+#       - name: store rebuilt channel
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: ${{ env.rebuilt_channel_key }}
+#           path: ${{ env.rebuilt_channel_path }}
+
+#       - name: create seed env dir
+#         id: seed-env-dir
+#         run: |
+#           mkdir ${{ env.seed_environment_path }}
+#           cp ${{ needs.conf.outputs.seed-env }} ${{ env.seed_environment_path }}
+
+#       - name: store seed env
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: ${{ env.seed_environment_key }}
+#           path: ${{ env.seed_environment_path }}

@@ -1,10 +1,7 @@
-name: ci-distro-trial_dev
+name: dev
 
 on:
-  pull_request:
-    branches: [ci-v2]
-    paths:
-      - 20*.*/*/passed/seed-environment-conda.yml
+  workflow_call:
 
 jobs:
   prepare:

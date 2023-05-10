@@ -3,14 +3,22 @@ name: prepare-release
 on:
   workflow_call:
     outputs:
-      distro: ${{ jobs.conf.outputs.distro }}
-      matrix-key: ${{ jobs.prepare.outputs.matrix-key }}
-      rev-deps-key: ${{ jobs.prepare.outputs.rev-deps-key }}
-      generation-matrix: ${{ jobs.prepare.outputs.generation-matrix }}
-      patched-channel-key: ${{ jobs.prepare.outputs.patched-channel-key }}
-      rebuilt-channel-key: ${{ jobs.prepare.outputs.rebuilt-channel-key }}
-      seed-environment-key: ${{ jobs.prepare.seed-environment-key }}
-      solved-environment-key: ${{ jobs.prepare.outputs.solved-environment-key }}
+      distro:
+        value: ${{ jobs.conf.outputs.distro }}
+      matrix-key:
+        value: ${{ jobs.prepare.outputs.matrix-key }}
+      rev-deps-key:
+        value: ${{ jobs.prepare.outputs.rev-deps-key }}
+      generation-matrix:
+        value: ${{ jobs.prepare.outputs.generation-matrix }}
+      patched-channel-key:
+        value: ${{ jobs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key:
+        value: ${{ jobs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key:
+        value: ${{ jobs.prepare.outputs.seed-environment-key }}
+      solved-environment-key:
+        value: ${{ jobs.prepare.outputs.solved-environment-key }}
 
 env:
   matrix_key: '[GHA Matrix] Packages to rebuild and test'

@@ -12,6 +12,7 @@ from alp.common import ActionAdapter
 # Convert DAG subplot to mermaid diagram for use in job summary
 def to_mermaid(G, highlight_from=None):
     lookup = {n: f'{i:x}' for i, n in enumerate(sorted(G.nodes, reverse=True))}
+    print(lookup)
 
     if highlight_from is None:
         highlight_from = set()

@@ -179,7 +179,7 @@ jobs:
 
       - name: collect versions for patches
         if: ${{ needs.detect-vars.outputs.is-release != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
-        uses: ./.github/actions/collect-versions@beta
+        uses: ./.github/actions/collect-versions
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
           changed: ${{ steps.changed-plugins.outputs.all-changes }}

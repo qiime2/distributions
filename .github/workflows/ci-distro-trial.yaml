@@ -5,6 +5,7 @@ on:
     branches: [ci-v2]
     paths:
       - 20*.*/*/passed/seed-environment-conda.yml
+      - 20*.*/*/released/seed-environment-conda.yml
 
 jobs:
   prepare:

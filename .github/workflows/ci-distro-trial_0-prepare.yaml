@@ -157,7 +157,6 @@ jobs:
           rm full_distro.json
 
       - uses: actions/cache/restore@v3
-        if: ${{ !needs.detect-vars.outputs.is-release }}
         id: patched-channel-restore
         with:
           key: "${{ env.partial_patched_channel_key }} (${{ steps.distro-hash.outputs.hash }})"
@@ -197,13 +196,13 @@ jobs:
       - name: upload reverse dependencies
         uses: actions/upload-artifact@v3
         with:
-          name: '${{ env.rev_deps_key }}'
+          name: ${{ env.rev_deps_key }}
           path: ${{ env.rev_deps_path }}
 
       - name: upload patched channel
         uses: actions/upload-artifact@v3
         with:
-          name: "${{ steps.patched-channel-restore.outputs.cache-primary-key }}"
+          name: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
           path: ${{ env.patched_channel_path }}
 
       - uses: actions/cache/save@v3

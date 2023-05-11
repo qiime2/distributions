@@ -1,0 +1,23 @@
+name: 'Find difference between seed environment files'
+inputs:
+  old-seed-env:
+    required: true
+  new-seed-env:
+    required: true
+outputs:
+  all-changes:
+    value: ${{ steps.find-diff.outputs.all-changes }}
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'find-diff'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | find-diff.py
+        ${{ toJSON(inputs) }}
+        EOF

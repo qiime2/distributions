@@ -1,0 +1,23 @@
+name: 'Collate version changes'
+inputs:
+  packages:
+    required: true
+  changed:
+    required: true
+  versions-path:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'collect'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | collect.py
+        ${{ toJSON(inputs) }}
+        EOF

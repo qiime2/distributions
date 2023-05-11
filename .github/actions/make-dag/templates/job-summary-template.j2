@@ -1,0 +1,31 @@
+<h1>Distro Trial Report</h1>
+
+<h3>List of changed packages and their immediate reverse dependencies</h3>
+<table>
+    <tr><th>Changed Package</th><th>Reverse Dependencies</th></tr>
+    {%- for pkg, deps in source_dep_dict|dictsort -%}
+    <tr>
+        <td> {{ pkg }} </td>
+        <td>
+            <ul>
+            {%- for dep in deps|sort -%}
+                <li>{{ dep }}</li>
+            {%- endfor -%}
+            </ul>
+        </td>
+    </tr>
+    {%- endfor -%}
+</table>
+
+<h3>List of all packages that require a re-test due to the changes above</h3>
+    <ul>
+    {%- for pkg in pkgs_to_test|sort -%}
+        <li>{{ pkg }}</li>
+    {%- endfor -%}
+    </ul>
+
+<h3>DAG for {{ distro }} distro for {{ epoch }} with changed packages and their reverse dependencies highlighted</h3>
+
+```mermaid
+{{ core_mermaid }}
+```

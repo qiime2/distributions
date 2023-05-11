@@ -1,0 +1,23 @@
+name: 'Find packages in a distro'
+inputs:
+  seed-env:
+    required: true
+outputs:
+  repos:
+    value: ${{ steps.find-distro.outputs.repos }}
+  versions:
+    value: ${{ steps.find-distros.outputs.versions }}
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'find-distro'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | find-distro.py
+        ${{ toJSON(inputs) }}
+        EOF

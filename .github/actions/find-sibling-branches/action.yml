@@ -1,0 +1,23 @@
+name: 'Find sibling branches'
+inputs:
+  repos:
+    required: true
+  is-release:
+    required: true
+outputs:
+  repos:
+    value: ${{ steps.siblings.outputs.repos }}
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'siblings'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | find-sibling-branches.py
+        ${{ toJSON(inputs) }}
+        EOF

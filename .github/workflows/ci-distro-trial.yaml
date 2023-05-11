@@ -1,14 +1,14 @@
-name: release
+name: ci-distro-trial
 
 on:
   pull_request:
     branches: [ci-v2]
     paths:
-      - 20*.*/*/released/seed-environment-conda.yml
+      - 20*.*/*/passed/seed-environment-conda.yml
 
 jobs:
   prepare:
-    uses: ./.github/workflows/ci-distro-trial_0-prepare-release.yaml
+    uses: ./.github/workflows/ci-distro-trial_0-prepare.yaml
 
   rebuild-0:
     needs: [prepare]

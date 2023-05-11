@@ -1,0 +1,271 @@
+# TODO: find all other todos, and correct them
+name: prepare-release
+
+on:
+  workflow_call:
+    outputs:
+      distro:
+        value: ${{ jobs.detect-vars.outputs.distro }}
+      matrix-key:
+        value: ${{ jobs.prepare.outputs.matrix-key }}
+      rev-deps-key:
+        value: ${{ jobs.prepare.outputs.rev-deps-key }}
+      generation-matrix:
+        value: ${{ jobs.prepare.outputs.generation-matrix }}
+      patched-channel-key:
+        value: ${{ jobs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key:
+        value: ${{ jobs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key:
+        value: ${{ jobs.prepare.outputs.seed-environment-key }}
+      solved-environment-key:
+        value: ${{ jobs.prepare.outputs.solved-environment-key }}
+
+env:
+  #TODO: change this
+  base_branch: 'ci-v2'
+
+  matrix_key: '[GHA Matrix] Packages to rebuild and test'
+  matrix_path: './matrix'
+
+  partial_patched_channel_key: '[Conda Channel] Mirror with patches' # + (HASH)
+  patched_channel_path: './patched-channel'
+
+  rev_deps_key: '[Reverse Dependencies] Packages to rebuild and their reverse dependencies'
+  rev_deps_path: './rev-deps'
+
+  repodata_patches_key: '[Repodata Patches] patch_instructions.json'
+  repodata_patches_path: './repodata-patches'
+
+  rebuilt_channel_key: '[Conda Channel] Rebuilt packages'
+  rebuilt_channel_path: './rebuilt-channel'
+
+  seed_environment_key: '[Environment File] Metapackage seed environment'
+  seed_environment_path: './seed-env'
+
+  solved_environment_key: '[Environment File] Metapackage solved environment'
+
+jobs:
+  detect-vars:
+    runs-on: ubuntu-latest  # this job is always run on linux
+    outputs:
+      epoch: ${{ steps.set-vars.outputs.epoch }}
+      distro: ${{ steps.set-vars.outputs.distro }}
+      seed-env: ${{ steps.set-vars.outputs.seed-env }}
+      is-release: ${{ steps.set-vars.outputs.is-release }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      # TODO: fork this to prevent supply chain attack
+      - uses: tj-actions/changed-files@v35
+        id: changed
+
+      - name: set-vars
+        id: set-vars
+        run: |
+          # Parse the git changes to figure out which epoch triggered this workflow.
+          CHANGED="${{ steps.changed.outputs.all_changed_files }}"
+          EPOCH=$(python .github/workflows/bin/determine.py --epoch "$CHANGED")
+          DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
+          RELEASE=${{ startsWith(github.head_ref, 'Release-') }}
+          SUBDIR=$([ $RELEASE = 'true' ] && 'released' || 'passed')
+
+          echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
+          echo "distro=$DISTRO" >> $GITHUB_OUTPUT
+          echo "seed-env=$EPOCH/$DISTRO/$SUBDIR/seed-environment-conda.yml" >> $GITHUB_OUTPUT
+          echo "is-release=$RELEASE" >> $GITHUB_OUTPUT
+
+  # this job will parse a diff from cbc, and use that to generate a DAG
+  prepare:
+    needs: detect-vars
+    runs-on: ubuntu-latest
+    outputs:
+      rev-deps-key: ${{ env.rev_deps_key }}
+      # patched-channel-key includes a hash which is calculated in this step
+      patched-channel-key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
+      rebuilt-channel-key: ${{ env.rebuilt_channel_key }}
+      seed-environment-key: ${{ env.seed_environment_key }}
+      solved-environment-key: ${{ env.solved_environment_key }}
+      matrix-key: ${{ env.matrix_key }}
+      generation-matrix: ${{ steps.store-generations.outputs.generation-matrix }}
+
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: install dependencies
+        run: |
+          pip install pyyaml jinja2 networkx conda-mirror ghapi
+          conda install -q conda-build
+
+      - name: make matrix dir
+        run: mkdir ${{ env.matrix_path }}
+
+      - name: make rev deps dir
+        run: mkdir ${{ env.rev_deps_path }}
+
+      - uses: ./.github/actions/find-distro-packages
+        id: distro-pkgs
+        with:
+          seed-env: ${{ needs.detect-vars.outputs.seed-env }}
+
+      - uses: ./.github/actions/find-sibling-branches
+        id: siblings
+        with:
+          repos: ${{ steps.distro-pkgs.outputs.repos }}
+          is-release: ${{ needs.detect-vars.outputs.is-release }}
+
+      - name: get diff
+        if: ${{ !needs.detect-vars.outputs.is-release }}
+        run: |
+          git fetch origin ${{ env.base_branch }}:${{ env.base_branch }}
+          git show ${{ env.base_branch }}:${{ needs.detect-vars.outputs.seed-env }} > original-env.yml
+
+      - uses: ./.github/actions/find-changed-plugins
+        id: changed-plugins
+        with:
+          old-seed-env: ${{ needs.detect-vars.outputs.is-release && 'original-env.yml' || '' }
+          new-seed-env: ${{ needs.detect-vars.outputs.seed-env }}
+
+      - uses: ./.github/actions/make-dag
+        with:
+          epoch: ${{ steps.detect-vars.outputs.epoch }}
+          distro: ${{ steps.detect-vars.outputs.distro }}
+          changed: ${{ steps.changed-plugins.outputs.all-changes }}
+          rebuild: ${{ steps.siblings.outputs.repos }}
+          repos: ${{ steps.distro-pkgs.outputs.versions }}
+          matrix-path: ${{ env.matrix_path }}
+          rev-deps-path: ${{ env.rev_deps_path }}
+
+      - name: hash of distro
+        id: distro-hash
+        shell: bash
+        run: |
+          cat <<EOF > full_distro.json
+          ${{ steps.distro-pkgs.outputs.versions }}
+          EOF
+          echo hash=${{ hashFiles('full_distro.json') }} >> $GITHUB_OUTPUT
+          rm full_distro.json
+
+      - uses: actions/cache/restore@v3
+        if: !needs.detect-vars.outputs.is-release
+        id: patched-channel-restore
+        with:
+          key: "${{ env.partial_patched_channel_key }} (${{ steps.distro-hash.outputs.hash }})"
+          path: ${{ env.patched_channel_path }}
+
+      - name: setup patched channel
+        if: steps.patched-channel-restore.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          mkdir ${{ env.patched_channel_path }}
+          conda index ${{ env.patched_channel_path }}
+
+      - name: mirror patched channel
+        if:  !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        uses: qiime2/action-library-packaging/mirror-channel@beta
+        with:
+          packages: ${{ steps.distro-pkgs.outputs.versions }}
+          local-channel: ${{ env.patched_channel_path }}
+          remote-channel: 'https://packages.qiime2.org/qiime2/${{ needs.detect-vars.outputs.epoch }}/staged/${{ needs.detect-vars.outputs.distro }}'
+
+      - name: collect versions for patches
+        if: !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        uses: ./.github/actions/collect-versions@beta
+        with:
+          packages: ${{ steps.distro-pkgs.outputs.versions }}
+          changed: ${{ steps.changed-plugins.outputs.all-changes }}
+          versions-path: versions.txt
+
+      - name: apply patches
+        if: !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        uses: qiime2/action-library-packaging/patch-repodata@beta
+        with:
+          channel: ${{ env.patched_channel_path }}
+          rev-deps: ${{ env.rev_deps_path }}/rev_deps.json
+          versions-file: versions.txt
+
+      - name: upload reverse dependencies
+        uses: actions/upload-artifact@v3
+        with:
+          name: '${{ env.rev_deps_key }}'
+          path: ${{ env.rev_deps_path }}
+
+      - name: upload patched channel
+        uses: actions/upload-artifact@v3
+        with:
+          name: "${{ steps.patched-channel-restore.outputs.cache-primary-key }}"
+          path: ${{ env.patched_channel_path }}
+
+      - uses: actions/cache/save@v3
+        id: patched-channel-save
+        if: !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        with:
+          key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: store matrices
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.matrix_key }}
+          path: ${{ env.matrix_path }}
+
+      - name: store generations
+        id: store-generations
+        run: |
+          echo "generation-matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+
+      - name: copy repodata patches
+        if: !needs.detect-vars.outputs.is-release
+        run: |
+          mkdir -p ${{ env.repodata_patches_path }}/linux-64
+          mkdir -p ${{ env.repodata_patches_path }}/osx-64
+          mkdir -p ${{ env.repodata_patches_path }}/noarch
+
+          cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
+
+          cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
+
+          cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
+
+      - name: store repodata patches
+        if: !needs.detect-vars.outputs.is-release
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.repodata_patches_key }}
+          path: ${{ env.repodata_patches_path }}
+
+      - name: create rebuilt channel
+        id: rebuilt-channel
+        run: |
+          mkdir ${{ env.rebuilt_channel_path }}
+          conda index ${{ env.rebuilt_channel_path }}
+
+      - name: store rebuilt channel
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.rebuilt_channel_key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: create seed env dir
+        id: seed-env-dir
+        run: |
+          mkdir ${{ env.seed_environment_path }}
+          cp ${{ needs.detect-vars.outputs.seed-env }} ${{ env.seed_environment_path }}
+
+      - name: store seed env
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.seed_environment_key }}
+          path: ${{ env.seed_environment_path }}

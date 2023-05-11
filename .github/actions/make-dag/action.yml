@@ -1,0 +1,31 @@
+name: 'Make DAG'
+inputs:
+  epoch:
+    required: true
+  distro:
+    required: true
+  changed:
+    required: true
+  rebuild:
+    required: true
+  repos:
+    required: true
+  matrix_path:
+    required: true
+  rev_deps_path:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'dag'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | make-dag.py
+        ${{ toJSON(inputs) }}
+        EOF

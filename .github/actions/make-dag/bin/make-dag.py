@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import json
 import urllib.request
 
 import networkx as nx

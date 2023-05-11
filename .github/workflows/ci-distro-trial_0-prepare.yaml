@@ -132,7 +132,7 @@ jobs:
       - uses: ./.github/actions/find-changed-plugins
         id: changed-plugins
         with:
-          old-seed-env: ${{ needs.detect-vars.outputs.is-release && 'original-env.yml' || '' }}
+          old-seed-env: ${{ !needs.detect-vars.outputs.is-release && 'original-env.yml' || '' }}
           new-seed-env: ${{ needs.detect-vars.outputs.seed-env }}
 
       - uses: ./.github/actions/make-dag

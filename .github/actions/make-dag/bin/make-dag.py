@@ -130,7 +130,6 @@ def main(epoch, distro, changed, rebuild, versions, matrix_path, rev_deps_path):
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
     distro_deps = get_distro_deps(epoch, versions)
-    print(distro_deps)
 
     core_dag = make_dag(pkg_dict=distro_deps)
     core_sub = nx.subgraph(core_dag, versions)

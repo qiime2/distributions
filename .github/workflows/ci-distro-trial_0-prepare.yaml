@@ -156,7 +156,7 @@ jobs:
           rm full_distro.json
 
       - uses: actions/cache/restore@v3
-        if: !needs.detect-vars.outputs.is-release
+        if: ${{ !needs.detect-vars.outputs.is-release }}
         id: patched-channel-restore
         with:
           key: "${{ env.partial_patched_channel_key }} (${{ steps.distro-hash.outputs.hash }})"
@@ -170,7 +170,7 @@ jobs:
           conda index ${{ env.patched_channel_path }}
 
       - name: mirror patched channel
-        if:  !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        if: ${{ !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         uses: qiime2/action-library-packaging/mirror-channel@beta
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
@@ -178,7 +178,7 @@ jobs:
           remote-channel: 'https://packages.qiime2.org/qiime2/${{ needs.detect-vars.outputs.epoch }}/staged/${{ needs.detect-vars.outputs.distro }}'
 
       - name: collect versions for patches
-        if: !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        if: ${{ !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/collect-versions@beta
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
@@ -186,7 +186,7 @@ jobs:
           versions-path: versions.txt
 
       - name: apply patches
-        if: !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        if: ${{ !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         uses: qiime2/action-library-packaging/patch-repodata@beta
         with:
           channel: ${{ env.patched_channel_path }}
@@ -207,7 +207,7 @@ jobs:
 
       - uses: actions/cache/save@v3
         id: patched-channel-save
-        if: !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true'
+        if: ${{ !needs.detect-vars.outputs.is-release && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         with:
           key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
           path: ${{ env.patched_channel_path }}
@@ -224,7 +224,7 @@ jobs:
           echo "generation-matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
 
       - name: copy repodata patches
-        if: !needs.detect-vars.outputs.is-release
+        if: ${{ !needs.detect-vars.outputs.is-release }}
         run: |
           mkdir -p ${{ env.repodata_patches_path }}/linux-64
           mkdir -p ${{ env.repodata_patches_path }}/osx-64
@@ -240,7 +240,7 @@ jobs:
              ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
 
       - name: store repodata patches
-        if: !needs.detect-vars.outputs.is-release
+        if: ${{ !needs.detect-vars.outputs.is-release }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.repodata_patches_key }}

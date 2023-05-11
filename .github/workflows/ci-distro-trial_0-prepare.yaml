@@ -69,7 +69,7 @@ jobs:
           EPOCH=$(python .github/workflows/bin/determine.py --epoch "$CHANGED")
           DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
           RELEASE=${{ startsWith(github.head_ref, 'Release-') }}
-          SUBDIR=$([ $RELEASE = 'true' ] && 'released' || 'passed')
+          SUBDIR=[ $RELEASE = 'true' ] && 'released' || 'passed'
 
           echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
           echo "distro=$DISTRO" >> $GITHUB_OUTPUT

@@ -117,11 +117,12 @@ def get_distro_deps(epoch, relevant_pkgs):
     return q2_dep_dict
 
 
-def main(epoch, distro, changed, rebuild, versions, matrix_path, rev_deps_path):
+def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
+         matrix_path, rev_deps_path):
     """
     changed: list of package names
     rebuild: dict of package name -> repository/package
-    versions: dict of package name -> version
+    *_versions: dict of package name -> version
     """
     # HACK: TODO: undo this
     epoch = 2023.2
@@ -137,10 +138,10 @@ def main(epoch, distro, changed, rebuild, versions, matrix_path, rev_deps_path):
     TEMPLATE_DIR = os.path.join(GITHUB_ACTION_PATH, 'templates')
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
-    distro_deps = get_distro_deps(epoch, rebuild)
+    distro_deps = get_distro_deps(epoch, distro_versions)
 
     core_dag = make_dag(pkg_dict=distro_deps)
-    core_sub = nx.subgraph(core_dag, versions)
+    core_sub = nx.subgraph(core_dag, env_versions)
 
 
     rebuild_generations = list(nx.topological_generations(

@@ -8,7 +8,9 @@ inputs:
     required: true
   rebuild:
     required: true
-  versions:
+  distro-versions:
+    required: true
+  env-versions:
     required: true
   matrix-path:
     required: true

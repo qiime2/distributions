@@ -141,7 +141,7 @@ jobs:
           distro: ${{ steps.detect-vars.outputs.distro }}
           changed: ${{ steps.changed-plugins.outputs.all-changes }}
           rebuild: ${{ steps.siblings.outputs.repos }}
-          repos: ${{ steps.distro-pkgs.outputs.versions }}
+          versions: ${{ steps.distro-pkgs.outputs.versions }}
           matrix-path: ${{ env.matrix_path }}
           rev-deps-path: ${{ env.rev_deps_path }}
 

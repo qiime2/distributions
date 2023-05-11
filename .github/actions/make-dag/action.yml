@@ -8,11 +8,11 @@ inputs:
     required: true
   rebuild:
     required: true
-  repos:
+  versions:
     required: true
-  matrix_path:
+  matrix-path:
     required: true
-  rev_deps_path:
+  rev-deps-path:
     required: true
 
 runs:

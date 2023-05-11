@@ -26,7 +26,7 @@ def main(seed_env):
     repos = {k: library_pkgs[k] for k in relevant_pkgs if k in library_pkgs}
     versions = {k: relevant_pkgs[k] for k in repos}
 
-    return dict(repos=repos, versions=versions)
+    return dict(repos=repos, versions=versions, all=relevant_pkgs)
 
 
 if __name__ == '__main__':

@@ -7,6 +7,8 @@ outputs:
     value: ${{ steps.find-distro.outputs.repos }}
   versions:
     value: ${{ steps.find-distro.outputs.versions }}
+  all:
+    value: ${{ steps.find-distro.outputs.all }}
 runs:
   using: composite
   steps:

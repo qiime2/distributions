@@ -23,7 +23,7 @@ def get_minimal_env(seed_env_path):
 def main(seed_env):
     library_pkgs = get_library_packages()
     relevant_pkgs = get_minimal_env(seed_env)
-    repos = {k: v for k, v in relevant_pkgs.items() if k in library_pkgs}
+    repos = {k: library_pkgs[k] for k in relevant_pkgs if k in library_pkgs}
     versions = {k: relevant_pkgs[k] for k in repos}
 
     return dict(repos=repos, versions=versions)

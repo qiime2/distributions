@@ -12,7 +12,6 @@ from alp.common import ActionAdapter
 # Convert DAG subplot to mermaid diagram for use in job summary
 def to_mermaid(G, highlight_from=None):
     lookup = {n: f'{i:x}' for i, n in enumerate(sorted(G.nodes, reverse=True))}
-    print(lookup)
 
     if highlight_from is None:
         highlight_from = set()
@@ -138,7 +137,7 @@ def main(epoch, distro, changed, rebuild, versions, matrix_path, rev_deps_path):
     TEMPLATE_DIR = os.path.join(GITHUB_ACTION_PATH, 'templates')
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
-    distro_deps = get_distro_deps(epoch, versions)
+    distro_deps = get_distro_deps(epoch, rebuild)
 
     core_dag = make_dag(pkg_dict=distro_deps)
     core_sub = nx.subgraph(core_dag, versions)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import urllib.request
 
 import networkx as nx
 import jinja2
@@ -78,6 +79,12 @@ def make_dag(pkg_dict):
             dag.add_edge(dep, pkg)
 
     return dag
+
+
+def _fetch_url(url):
+    http_response = urllib.request.urlopen(url)
+    obj = http_response.read().decode('utf-8')
+    return obj
 
 
 # Get current distro dep structure from repodata.json under tested channel

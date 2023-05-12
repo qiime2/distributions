@@ -85,7 +85,7 @@ jobs:
 
   build-metapackage:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5]
-    if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    if: ${{ (success() || failure()) && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_2-build-metapackage.yaml
     with:
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
@@ -96,7 +96,7 @@ jobs:
 
   test-metapackage:
     needs: [prepare, build-metapackage]
-    if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    if: ${{ (success() || failure()) && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_3-test-metapackage.yaml
     with:
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}

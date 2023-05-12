@@ -148,14 +148,14 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
         nx.induced_subgraph(core_sub, rebuild)
     ))
 
-    src_revdeps = get_source_revdeps(core_dag, changed)
+    src_revdeps = get_source_revdeps(core_dag, [*changed, *rebuild])
 
     # TODO: can this just be the set of all keys and smooshed values from src_revdeps
     pkgs_to_test = sorted(set.union(set(src_revdeps),
                                     *(nx.descendants(core_dag, pkg)
                                       for pkg in src_revdeps)))
 
-    core_mermaid = to_mermaid(core_sub, highlight_from=changed)
+    core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")
 
     with open(gh_summary_path, 'w') as fh:

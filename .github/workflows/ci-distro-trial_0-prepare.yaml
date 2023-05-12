@@ -153,7 +153,9 @@ jobs:
           cat <<EOF > full_distro.json
           ${{ steps.distro-pkgs.outputs.versions }}
           EOF
-          echo hash=${{ hashFiles('full_distro.json') }} >> $GITHUB_OUTPUT
+          echo hash=$(
+            shasum -a 256 -U full_distro.json | cut -f1 -d ' '
+          ) >> $GITHUB_OUTPUT
           rm full_distro.json
 
       - uses: actions/cache/restore@v3

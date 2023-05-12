@@ -127,7 +127,7 @@ jobs:
           conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda.yml'
           conda-build-config: 'conda_build_config.yml'
-          channels: '["${{ env.rebuilt_channel_path }}", "${{ inputs.patched-channel-path }}"]'
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
 
       - uses: qiime2/action-library-packaging/build-package@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
@@ -229,12 +229,6 @@ jobs:
         with:
           name: ${{ inputs.seed-environment-key }}
           path: ${{ env.seed_environment_path }}
-
-      - uses: actions/download-artifact@v3
-        name: 'Fetch base channel with patches'
-        with:
-          name: ${{ inputs.patched-channel-key }}
-          path: ${{ env.patched_channel_path }}
 
       - uses: actions/download-artifact@v3
         name: 'Fetch rebuilt packages and their reverse dependencies'

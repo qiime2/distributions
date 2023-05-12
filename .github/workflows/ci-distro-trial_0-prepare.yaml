@@ -177,7 +177,8 @@ jobs:
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
           local-channel: ${{ env.patched_channel_path }}
-          remote-channel: 'https://packages.qiime2.org/qiime2/${{ needs.detect-vars.outputs.epoch }}/staged/${{ needs.detect-vars.outputs.distro }}'
+          # TODO: put epoch to needs.detect-vars.outputs.epoch
+          remote-channel: 'https://packages.qiime2.org/qiime2/2023.2/staged/${{ needs.detect-vars.outputs.distro }}'
 
       - name: collect versions for patches
         if: ${{ needs.detect-vars.outputs.is-release != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}

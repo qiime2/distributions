@@ -53,6 +53,18 @@ jobs:
           name: ${{ inputs.solved-environment-key }}
           path: ${{ env.solved_environment_path }}
 
+      - name: 'Fetch base channel with patches'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: 'Fetch rebuilt channel'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
       - name: install environment
         id: env
         uses: qiime2/action-library-packaging/create-env@beta
@@ -65,18 +77,6 @@ jobs:
         run: |
           ${{ steps.env.outputs.conda-activate }}
           qiime info
-
-     - name: 'Fetch base channel with patches'
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.patched-channel-key }}
-          path: ${{ env.patched_channel_path }}
-
-      - name: 'Fetch rebuilt channel'
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.rebuilt-channel-key }}
-          path: ${{ env.rebuilt_channel_path }}
 
       - name: 'collect package path'
         id: 'collect-package'

@@ -117,6 +117,7 @@ jobs:
     with:
       epoch: ${{ needs.prepare.outputs.epoch }}
       distro: ${{ needs.prepare.outputs.distro }}
+      is-release: ${{ needs.prepare.outputs.is-release }}
       pr-ref: ${{ github.event.pull_request.head.ref }}
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}

@@ -8,6 +8,8 @@ on:
         value: ${{ jobs.detect-vars.outputs.epoch }}
       distro:
         value: ${{ jobs.detect-vars.outputs.distro }}
+      is-release:
+        value: ${{ jobs.detect-vars.outputs.is-release }}
       sibling-ref:
         value: ${{ jobs.detect-vars.outputs.sibling-ref }}
       matrix-key:

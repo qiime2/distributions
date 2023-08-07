@@ -3,16 +3,22 @@ on:
     inputs:
       epoch:
         required: true
+        type: string
       distro:
         required: true
+        type: string
       is-release:
         required: true
+        type: string
       pr-ref:
         required: true
+        type: string
       seed-environment-key:
         required: true
+        type: string
       solved-environment-key:
         required: true
+        type: string
 
 env:
   distributions_repo: './distributions'
@@ -42,26 +48,26 @@ jobs:
 
       - name: copy seed environments
         shell: bash
-        runs: |
+        run: |
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
 
       - name: copy seed environments (release)
         if: ${{ inputs.is-release == 'true' }}
         shell: bash
-        runs: |
+        run: |
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
       - name: copy solved environments
         shell: bash
-        runs: |
+        run: |
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
 
       - name: copy solved environments (release)
         if: ${{ inputs.is-release == 'true' }}
         shell: bash
-        runs: |
+        run: |
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
       - uses: EndBug/add-and-commit@v9

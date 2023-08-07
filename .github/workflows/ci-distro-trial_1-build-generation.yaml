@@ -131,6 +131,7 @@ jobs:
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda.yml'
           conda-build-config: 'conda_build_config.yml'
           channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+          skip-first-channel: true
 
       - uses: qiime2/action-library-packaging/build-package@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}

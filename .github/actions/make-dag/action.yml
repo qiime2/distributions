@@ -16,6 +16,8 @@ inputs:
     required: true
   rev-deps-path:
     required: true
+  search-channels:
+    required: true
 
 runs:
   using: composite

@@ -1,4 +1,24 @@
+
+
+
+# Release
+
+Create a PR from a branch named `Release-<anything>` into `dev`.
+This PR should copy the latest seed environment of the `passed/` subdirectory into `released/`.
+
+This is currently a very manual process.
+
+# Dev Bump
+
+Create a PR from a branch named `Prepare-<anything>` into `dev`.
+This PR should (generally) copy the released seed environment from the last epoch into a new `passed/` subdirectory for the new epoch being prepared.
+
+The channels should not be updated to the next epoch immediately, as a valid channel with packages is needed to resolve the DAG. The newly resolved seed env will update the first channel to the correct epoch. This new artifact can then be written to the `passed/` directory with a no-ci commit.
+
+This is currently a very manual process.
+
 # Overview
+
 
 Legend:
  * rounded = *start/end*

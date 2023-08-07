@@ -4,8 +4,12 @@ name: prepare-release
 on:
   workflow_call:
     outputs:
+      epoch:
+        value: ${{ jobs.detect-vars.outputs.epoch }}
       distro:
         value: ${{ jobs.detect-vars.outputs.distro }}
+      sibling-ref:
+        value: ${{ jobs.detect-vars.outputs.sibling-ref }}
       matrix-key:
         value: ${{ jobs.prepare.outputs.matrix-key }}
       rev-deps-key:
@@ -22,8 +26,7 @@ on:
         value: ${{ jobs.prepare.outputs.solved-environment-key }}
 
 env:
-  #TODO: change this
-  base_branch: 'ci-v2'
+  base_branch: 'dev'
 
   matrix_key: '[GHA Matrix] Packages to rebuild and test'
   matrix_path: './matrix'
@@ -53,6 +56,9 @@ jobs:
       distro: ${{ steps.set-vars.outputs.distro }}
       seed-env: ${{ steps.set-vars.outputs.seed-env }}
       is-release: ${{ steps.set-vars.outputs.is-release }}
+      is-prepare: ${{ steps.set-vars.outputs.is-prepare }}
+      is-rebuild: ${{ steps.set-vars.outputs.is-rebuild }}
+      sibling-ref: ${{ steps.set-vars.outputs.sibling-ref }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -69,12 +75,18 @@ jobs:
           EPOCH=$(python .github/workflows/bin/determine.py --epoch "$CHANGED")
           DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
           RELEASE=${{ startsWith(github.head_ref, 'Release-') }}
+          PREPARE=${{ startsWith(github.head_ref, 'Prepare-') }}
+          REBUILD=$([ $RELEASE = 'true' ] || [ $PREPARE = 'true' ] && echo 'true' || echo 'false')
           SUBDIR=$([ $RELEASE = 'true' ] && echo 'released' || echo 'passed')
+          SIBLING_REF=$([ $RELEASE = 'true' ] && echo "$GITHUB_HEAD_REF" || echo "")
 
           echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
           echo "distro=$DISTRO" >> $GITHUB_OUTPUT
           echo "seed-env=$EPOCH/$DISTRO/$SUBDIR/seed-environment-conda.yml" >> $GITHUB_OUTPUT
           echo "is-release=$RELEASE" >> $GITHUB_OUTPUT
+          echo "is-prepare=$PREPARE" >> $GITHUB_OUTPUT
+          echo "is-rebuild=$REBUILD" >> $GITHUB_OUTPUT
+          echo "sibling-ref=$SIBLING_REF" >> $GITHUB_OUTPUT
 
   # this job will parse a diff from cbc, and use that to generate a DAG
   prepare:
@@ -121,10 +133,10 @@ jobs:
         id: siblings
         with:
           repos: ${{ steps.distro-pkgs.outputs.repos }}
-          is-release: ${{ needs.detect-vars.outputs.is-release }}
+          is-rebuild: ${{ needs.detect-vars.outputs.is-rebuild }}
 
       - name: get diff
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}
         run: |
           git fetch origin ${{ env.base_branch }}:${{ env.base_branch }}
           git show ${{ env.base_branch }}:${{ needs.detect-vars.outputs.seed-env }} > original-env.yml
@@ -132,11 +144,18 @@ jobs:
       - uses: ./.github/actions/find-changed-plugins
         id: changed-plugins
         with:
-          old-seed-env: ${{ needs.detect-vars.outputs.is-release != 'true' && 'original-env.yml' || '' }}
+          old-seed-env: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && 'original-env.yml' || '' }}
           new-seed-env: ${{ needs.detect-vars.outputs.seed-env }}
+
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        id: find-channels
+        with:
+          seed-environment: ${{ needs.detect-vars.outputs.seed-env }}
+          conda-build-config: /dev/null
 
       - uses: ./.github/actions/make-dag
         with:
+          search-channels: ${{ steps.find-channels.outputs.channels }}
           epoch: ${{ steps.detect-vars.outputs.epoch }}
           distro: ${{ steps.detect-vars.outputs.distro }}
           changed: ${{ steps.changed-plugins.outputs.all-changes }}
@@ -172,7 +191,7 @@ jobs:
           conda index ${{ env.patched_channel_path }}
 
       - name: mirror patched channel
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         uses: qiime2/action-library-packaging/mirror-channel@beta
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
@@ -181,7 +200,7 @@ jobs:
           remote-channel: 'https://packages.qiime2.org/qiime2/2023.2/staged/${{ needs.detect-vars.outputs.distro }}'
 
       - name: collect versions for patches
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         uses: ./.github/actions/collect-versions
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
@@ -189,7 +208,7 @@ jobs:
           versions-path: versions.txt
 
       - name: apply patches
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         uses: qiime2/action-library-packaging/patch-repodata@beta
         with:
           channel: ${{ env.patched_channel_path }}
@@ -210,7 +229,7 @@ jobs:
 
       - uses: actions/cache/save@v3
         id: patched-channel-save
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
         with:
           key: ${{ steps.patched-channel-restore.outputs.cache-primary-key }}
           path: ${{ env.patched_channel_path }}
@@ -227,7 +246,7 @@ jobs:
           echo "generation-matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
 
       - name: copy repodata patches
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}
         run: |
           mkdir -p ${{ env.repodata_patches_path }}/linux-64
           mkdir -p ${{ env.repodata_patches_path }}/osx-64
@@ -243,7 +262,7 @@ jobs:
              ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
 
       - name: store repodata patches
-        if: ${{ needs.detect-vars.outputs.is-release != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.repodata_patches_key }}

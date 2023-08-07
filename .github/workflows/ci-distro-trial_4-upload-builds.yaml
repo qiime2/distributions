@@ -1,0 +1,72 @@
+on:
+  workflow_call:
+    inputs:
+      epoch:
+        required: true
+      distro:
+        required: true
+      is-release:
+        required: true
+      pr-ref:
+        required: true
+      seed-environment-key:
+        required: true
+      solved-environment-key:
+        required: true
+
+env:
+  distributions_repo: './distributions'
+  seed_environment_path: './seed_environment'
+  solved_environment_path: './solved_environment'
+
+jobs:
+  commit-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.pr-ref }}
+          path: ${{ env.distributions_repo }}
+
+      - name: get seed environment
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - name: get solved environment
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.solved-environment-key }}
+          path: ${{ env.solved_environment_path }}
+
+      - name: copy seed environments
+        shell: bash
+        runs: |
+          cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
+          cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
+
+      - name: copy seed environments (release)
+        if: ${{ inputs.is-release == 'true' }}
+        shell: bash
+        runs: |
+          cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
+
+      - name: copy solved environments
+        shell: bash
+        runs: |
+          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
+          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
+
+      - name: copy solved environments (release)
+        if: ${{ inputs.is-release == 'true' }}
+        shell: bash
+        runs: |
+          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: Update seed environments (${{ inputs.pr-ref }})
+          committer_name: q2d2
+          committer_email: q2d2.noreply@gmail.com
+          cwd: ${{ env.distributions_repo }}

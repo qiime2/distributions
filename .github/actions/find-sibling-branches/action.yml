@@ -2,7 +2,7 @@ name: 'Find sibling branches'
 inputs:
   repos:
     required: true
-  is-release:
+  is-rebuild:
     required: true
 outputs:
   repos:

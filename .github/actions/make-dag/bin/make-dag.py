@@ -88,13 +88,10 @@ def _fetch_url(url):
     return obj
 
 
-# Get current distro dep structure from repodata.json under tested channel
-def get_distro_deps(epoch, relevant_pkgs):
+def get_distro_deps(channel, relevant_pkgs):
 
     missing_pkgs = relevant_pkgs.copy()
-    # TODO: update tested/ to staged/ once library does that also
-    q2_pkg_channel_url = (f'https://packages.qiime2.org/qiime2/{epoch}/'
-                          f'tested/linux-64/repodata.json')
+    q2_pkg_channel_url = channel + '/linux-64/repodata.json'
 
     response = _fetch_url(q2_pkg_channel_url)
     repodata = json.loads(response)
@@ -118,15 +115,12 @@ def get_distro_deps(epoch, relevant_pkgs):
 
 
 def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
-         matrix_path, rev_deps_path):
+         matrix_path, rev_deps_path, search_channels):
     """
     changed: list of package names
     rebuild: dict of package name -> repository/package
     *_versions: dict of package name -> version
     """
-    # HACK: TODO: undo this
-    epoch = 2023.2
-
     gh_summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
     if gh_summary_path is None:
         raise Exception()
@@ -138,7 +132,7 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     TEMPLATE_DIR = os.path.join(GITHUB_ACTION_PATH, 'templates')
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
-    distro_deps = get_distro_deps(epoch, distro_versions)
+    distro_deps = get_distro_deps(search_channels[0], distro_versions)
 
     core_dag = make_dag(pkg_dict=distro_deps)
     core_sub = nx.subgraph(core_dag, env_versions)

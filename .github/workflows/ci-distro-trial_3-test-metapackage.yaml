@@ -7,10 +7,18 @@ on:
       matrix-key:
         required: true
         type: string
+      rebuilt-channel-key:
+        required: true
+        type: string
+      patched-channel-key:
+        required: true
+        type: string
 
 env:
   matrix_path: './matrix'
   solved_environment_path: './env-file'
+  patched_channel_path: './patched-channel'
+  rebuilt_channel_path: './rebuilt-channel'
 
 jobs:
   configure_matrix:
@@ -58,7 +66,28 @@ jobs:
           ${{ steps.env.outputs.conda-activate }}
           qiime info
 
-    # download the cached env file
-    # activate the env
-    # identify the .tarbz2 file for each pkg in retest_matrix
-    # run test_package in ALP for each pkg in retest_matrix
+     - name: 'Fetch base channel with patches'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: 'Fetch rebuilt channel'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: 'collect package path'
+        id: 'collect-package'
+        uses: qiime2/action-library-packaging/collect-package@beta
+        with:
+          runner: ${{ matrix.os }}
+          package: ${{ matrix.package }}
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+
+      - name: 'run tests'
+        uses: qiime2/action-library-packaging/test-package@beta
+        with:
+          conda-activate: ${{ steps.env.outputs.conda-activate }}
+          package-path: ${{ steps.collect-package.outputs.path }}

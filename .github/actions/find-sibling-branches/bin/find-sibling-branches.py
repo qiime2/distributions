@@ -26,12 +26,12 @@ def find_packages_to_build(api, repos, branch):
     return to_build
 
 
-def main(repos, is_release):
+def main(repos, is_rebuild):
     branch = os.environ.get('GITHUB_HEAD_REF')
     if branch is None:
         raise Exception()
 
-    if is_release != 'true':
+    if is_rebuild != 'true':
         api = GhApi()
         repos = find_packages_to_build(api, repos, branch)
 

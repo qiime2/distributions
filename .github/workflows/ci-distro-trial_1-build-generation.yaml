@@ -19,6 +19,9 @@ on:
       matrix-index:
         required: true
         type: number
+      sibling-ref:
+        required: true
+        type: string
 
 env:
   matrix_path: './matrix'
@@ -88,7 +91,7 @@ jobs:
         name: 'Checkout ${{ matrix.package }} repository'
         with:
           repository: ${{ matrix.package }}
-          ref: ${{ github.head_ref }}
+          ref: ${{ inputs.sibling-ref }}
           path: ${{ env.plugin_path }}
           fetch-depth: 0
 

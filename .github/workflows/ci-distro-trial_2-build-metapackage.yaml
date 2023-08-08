@@ -16,6 +16,10 @@ on:
       distro-name:
         required: true
         type: string
+    outputs:
+      distro-version:
+        value: ${{ jobs.setup-version.outputs.version }}
+
 env:
   patched_channel_path: './patched-channel'
   rebuilt_channel_path: './rebuilt-channel'

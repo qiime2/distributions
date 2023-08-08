@@ -104,6 +104,8 @@ jobs:
     steps:
       - name: notify library
         uses: qiime2/action-library-packaging/notify-library-distro@beta
+        env:
+          LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
         with:
           distro: ${{ inputs.distro }}
           distro-versions: ${{ inputs.distro-version }}

@@ -7,7 +7,7 @@ on:
       distro:
         required: true
         type: string
-      distro-versions:
+      distro-version:
         required: true
         type: string
       is-release:

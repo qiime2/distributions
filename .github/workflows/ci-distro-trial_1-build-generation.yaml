@@ -156,7 +156,7 @@ jobs:
         name: 'Upload updated build to rebuilt channel'
         with:
           name: ${{ inputs.rebuilt-channel-key }}
-          path: ${{ env.rebuilt_channel_path }}
+          path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - id: setup-version-info
         name: 'Capture info about package'

@@ -13,6 +13,9 @@ on:
       patched-channel-key:
         required: true
         type: string
+      distro-name:
+        required: true
+        type: string
 
 env:
   matrix_path: './matrix'
@@ -70,7 +73,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/environment-${{ runner.os }}-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ matrix.os }}-conda.yml
 
       - name: run qiime info
         shell: bash

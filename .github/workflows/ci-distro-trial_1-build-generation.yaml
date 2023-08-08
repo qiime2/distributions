@@ -207,6 +207,7 @@ jobs:
           path: |
             ${{ env.rebuilt_channel_path }}/**/*repodata*
             ${{ env.rebuilt_channel_path }}/**/*index*
+            ${{ env.rebuilt_channel_path }}/*channeldata*
             !${{ env.rebuilt_channel_path }}/*/.cache/*
 
       - uses: actions/download-artifact@v3

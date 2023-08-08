@@ -144,10 +144,11 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
 
     src_revdeps = get_source_revdeps(core_dag, [*changed, *rebuild])
 
-    # TODO: can this just be the set of all keys and smooshed values from src_revdeps
     pkgs_to_test = sorted(set.union(set(src_revdeps),
                                     *(nx.descendants(core_dag, pkg)
                                       for pkg in src_revdeps)))
+    # Filter to only packages that we manage
+    pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")

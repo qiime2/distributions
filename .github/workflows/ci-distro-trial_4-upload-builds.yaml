@@ -40,11 +40,11 @@ jobs:
           name: ${{ inputs.seed-environment-key }}
           path: ${{ env.seed_environment_path }}
 
-      - name: get solved environment
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.solved-environment-key }}
-          path: ${{ env.solved_environment_path }}
+      # - name: get solved environment
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: ${{ inputs.solved-environment-key }}
+      #     path: ${{ env.solved_environment_path }}
 
       - name: prep directories
         shell: bash
@@ -65,17 +65,17 @@ jobs:
         run: |
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
-      - name: copy solved environments
-        shell: bash
-        run: |
-          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
-          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
+      # - name: copy solved environments
+      #   shell: bash
+      #   run: |
+      #     cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
+      #     cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
 
-      - name: copy solved environments (release)
-        if: ${{ inputs.is-release == 'true' }}
-        shell: bash
-        run: |
-          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
+      # - name: copy solved environments (release)
+      #   if: ${{ inputs.is-release == 'true' }}
+      #   shell: bash
+      #   run: |
+      #     cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
       - uses: EndBug/add-and-commit@v9
         with:

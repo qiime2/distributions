@@ -204,7 +204,10 @@ jobs:
         name: 'Upload final rebuilt channel'
         with:
           name: ${{ inputs.rebuilt-channel-key }}
-          path: ${{ env.rebuilt_channel_path }}
+          path: |
+            ${{ env.rebuilt_channel_path }}/**/*repodata*
+            ${{ env.rebuilt_channel_path }}/**/*index*
+            !${{ env.rebuilt_channel_path }}/*/.cache/*
 
       - uses: actions/download-artifact@v3
         name: 'Fetch updated versions'

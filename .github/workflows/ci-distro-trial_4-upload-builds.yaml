@@ -46,6 +46,13 @@ jobs:
           name: ${{ inputs.solved-environment-key }}
           path: ${{ env.solved_environment_path }}
 
+      - name: prep directories
+        shell: bash
+        run: |
+          mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
+          mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
+          mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
+
       - name: copy seed environments
         shell: bash
         run: |
@@ -72,7 +79,7 @@ jobs:
 
       - uses: EndBug/add-and-commit@v9
         with:
-          message: Update seed environments (${{ inputs.pr-ref }})
+          message: Update conda environments (${{ inputs.pr-ref }})
           committer_name: q2d2
           committer_email: q2d2.noreply@gmail.com
           cwd: ${{ env.distributions_repo }}

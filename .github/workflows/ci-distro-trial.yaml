@@ -111,7 +111,8 @@ jobs:
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
 
   upload-builds:
-    needs: [prepare, test-metapackage]
+    # needs: [prepare, test-metapackage]
+    needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_4-upload-builds.yaml
     with:

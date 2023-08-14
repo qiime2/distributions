@@ -1,11 +1,11 @@
 active_epochs: ["2023.7"]
 next_epoch: "2023.9"
-distros: [core, community]
+distros: [core, community, minimal]
 packages:
 
 - name: provenance-lib
   repo: qiime2/provenance-lib
-  distros: [core, community]
+  distros: [core, community, minimal]
 
 - name: q2-alignment
   repo: qiime2/q2-alignment
@@ -121,7 +121,7 @@ packages:
 
 - name: q2-types
   repo: qiime2/q2-types
-  distros: [core, community]
+  distros: [core, community, minimal]
 
 - name: q2-types-genomics
   repo: bokulich-lab/q2-types-genomics
@@ -133,7 +133,7 @@ packages:
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [core, community]
+  distros: [core, community, minimal]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy
@@ -145,7 +145,7 @@ packages:
 
 - name: qiime2
   repo: qiime2/qiime2
-  distros: [core, community]
+  distros: [core, community, minimal]
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt

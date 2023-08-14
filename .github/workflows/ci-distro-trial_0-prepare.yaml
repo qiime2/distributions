@@ -79,7 +79,7 @@ jobs:
           PREPARE=${{ startsWith(github.head_ref, 'Prepare-') }}
           REBUILD=$([ $RELEASE = 'true' ] || [ $PREPARE = 'true' ] && echo 'true' || echo 'false')
           SUBDIR=$([ $RELEASE = 'true' ] && echo 'released' || echo 'passed')
-          SIBLING_REF=$([ $RELEASE = 'true' ] && echo "$GITHUB_HEAD_REF" || echo "")
+          SIBLING_REF=$([ $PREPARE != 'true' ] && echo "$GITHUB_HEAD_REF" || echo "")
 
           echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
           echo "distro=$DISTRO" >> $GITHUB_OUTPUT
@@ -198,19 +198,18 @@ jobs:
         with:
           packages: ${{ steps.distro-pkgs.outputs.versions }}
           local-channel: ${{ env.patched_channel_path }}
-          # TODO: put epoch to needs.detect-vars.outputs.epoch
-          remote-channel: 'https://packages.qiime2.org/qiime2/2023.2/staged/${{ needs.detect-vars.outputs.distro }}'
+          remote-channel: ${{ fromJSON(steps.find-channels.outputs.channels)[0] }}
 
       - name: collect versions for patches
-        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}
         uses: ./.github/actions/collect-versions
         with:
-          packages: ${{ steps.distro-pkgs.outputs.versions }}
+          packages: ${{ steps.distro-pkgs.outputs.all }}
           changed: ${{ steps.changed-plugins.outputs.all-changes }}
           versions-path: versions.txt
 
       - name: apply patches
-        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}
+        if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}
         uses: qiime2/action-library-packaging/patch-repodata@beta
         with:
           channel: ${{ env.patched_channel_path }}

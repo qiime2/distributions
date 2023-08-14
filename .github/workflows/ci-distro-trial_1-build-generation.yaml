@@ -189,9 +189,9 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: install pyyaml
+      - name: install pyyaml & packaging
         shell: bash
-        run: pip install pyyaml
+        run: pip install pyyaml packaging
 
       - name: install conda-build
         run: conda install -q conda-build

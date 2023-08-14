@@ -16,6 +16,7 @@ concurrency:
 jobs:
   create-pr:
     uses: ./.github/workflows/ci-setup-trial_0-create-pr.yaml
+    secrets: inherit
     with:
       branch: ci-setup-trial/core-2023.7
       distro: core

@@ -3,7 +3,7 @@ on:
   workflow_dispatch: {}
   schedule:
     # 10pm every day to repair in the event a push fails
-    cron: 0 22 * * *
+    - cron: 0 22 * * *
   push:
     branches: [dev]
     paths:

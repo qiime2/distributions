@@ -1,0 +1,44 @@
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+      distro:
+        required: true
+        type: string
+      epoch:
+        required: true
+        type: string
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: prep directory
+        shell: bash
+        run: |
+          mkdir -p '${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
+
+      - name: copy file
+        shell: bash
+        run: |
+          cp '${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml' \
+             '${{ inputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
+
+      - name: Create Pull Request
+        uses: qiime2/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: ${{ inputs.branch }}
+          title: "[${{ inputs.distro }}] Automated Trial"
+          body: |
+            Automated updates from `ci-setup-trial-${{ inputs.distro }}`
+            triggered by ${{ github.event_name }}.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            Automated updates to seed environment: ${{ inputs.distro }}

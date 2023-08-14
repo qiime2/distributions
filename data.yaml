@@ -1,0 +1,152 @@
+active_epochs: ["2023.7"]
+next_epoch: "2023.9"
+distros: [core, community]
+packages:
+
+- name: provenance-lib
+  repo: qiime2/provenance-lib
+  distros: [core, community]
+
+- name: q2-alignment
+  repo: qiime2/q2-alignment
+  distros: [core, community]
+
+- name: q2-assembly
+  repo: bokulich-lab/q2-assembly
+  distros: [community]
+
+- name: q2-checkm
+  repo: bokulich-lab/q2-checkm
+  distros: [community]
+
+- name: q2-composition
+  repo: qiime2/q2-composition
+  distros: [core, community]
+
+- name: q2-cutadapt
+  repo: qiime2/q2-cutadapt
+  distros: [core, community]
+
+- name: q2-dada2
+  repo: qiime2/q2-dada2
+  distros: [core, community]
+
+- name: q2-deblur
+  repo: qiime2/q2-deblur
+  distros: [core, community]
+
+- name: q2-demux
+  repo: qiime2/q2-demux
+  distros: [core, community]
+
+- name: q2-diversity
+  repo: qiime2/q2-diversity
+  distros: [core, community]
+
+- name: q2-diversity-lib
+  repo: qiime2/q2-diversity-lib
+  distros: [core, community]
+
+- name: q2-emperor
+  repo: qiime2/q2-emperor
+  distros: [core, community]
+
+- name: q2-feature-classifier
+  repo: qiime2/q2-feature-classifier
+  distros: [core, community]
+
+- name: q2-feature-table
+  repo: qiime2/q2-feature-table
+  distros: [core, community]
+
+- name: q2-fmt
+  repo: qiime2/q2-fmt
+  distros: [community]
+
+- name: q2-fondue
+  repo: bokulich-lab/q2-fondue
+  distros: [community]
+
+- name: q2-fragment-insertion
+  repo: qiime2/q2-fragment-insertion
+  distros: [core, community]
+
+- name: q2-gneiss
+  repo: qiime2/q2-gneiss
+  distros: [core, community]
+
+- name: q2-longitudinal
+  repo: qiime2/q2-longitudinal
+  distros: [core, community]
+
+- name: q2-metadata
+  repo: qiime2/q2-metadata
+  distros: [core, community]
+
+- name: q2-moshpit
+  repo: bokulich-lab/q2-moshpit
+  distros: [community]
+
+- name: q2-mystery-stew
+  repo: qiime2/q2-mystery-stew
+  distros: [core, community]
+
+- name: q2-phylogeny
+  repo: qiime2/q2-phylogeny
+  distros: [core, community]
+
+- name: q2-protein-pca
+  repo: bokulich-lab/q2-protein-pca
+  distros: [community]
+
+- name: q2-quality-control
+  repo: qiime2/q2-quality-control
+  distros: [core, community]
+
+- name: q2-quality-filter
+  repo: qiime2/q2-quality-filter
+  distros: [core, community]
+
+- name: q2-sample-classifier
+  repo: qiime2/q2-sample-classifier
+  distros: [core, community]
+
+- name: q2-stats
+  repo: qiime2/q2-stats
+  distros: [community]
+
+- name: q2-taxa
+  repo: qiime2/q2-taxa
+  distros: [core, community]
+
+- name: q2-types
+  repo: qiime2/q2-types
+  distros: [core, community]
+
+- name: q2-types-genomics
+  repo: bokulich-lab/q2-types-genomics
+  distros: [community]
+
+- name: q2-vsearch
+  repo: qiime2/q2-vsearch
+  distros: [core, community]
+
+- name: q2cli
+  repo: qiime2/q2cli
+  distros: [core, community]
+
+- name: q2galaxy
+  repo: qiime2/q2galaxy
+  distros: [core, community]
+
+- name: q2templates
+  repo: qiime2/q2templates
+  distros: [core, community]
+
+- name: qiime2
+  repo: qiime2/qiime2
+  distros: [core, community]
+
+- name: rescript
+  repo: bokulich-lab/RESCRIPt
+  distros: [community]

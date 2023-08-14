@@ -1,0 +1,22 @@
+name: cron-setup-trial-core
+on:
+  workflow_dispatch: {}
+  schedule:
+    # 10pm every day to repair in the event a push fails
+    cron: 0 22 * * *
+  push:
+    branches: [dev]
+    paths:
+      - 2023.7/core/staged/seed-environment-conda.yml
+
+concurrency:
+  group: ci-setup-trial/core-2023.7
+  cancel-in-progress: false
+
+jobs:
+  create-pr:
+    uses: ./.github/workflows/ci-setup-trial_0-create-pr.yaml
+    with:
+      branch: ci-setup-trial/core-2023.7
+      distro: core
+      epoch: "2023.7"

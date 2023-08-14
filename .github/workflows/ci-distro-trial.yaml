@@ -7,6 +7,10 @@ on:
       - 20*.*/*/passed/seed-environment-conda.yml
       - 20*.*/*/released/seed-environment-conda.yml
 
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   prepare:
     uses: ./.github/workflows/ci-distro-trial_0-prepare.yaml

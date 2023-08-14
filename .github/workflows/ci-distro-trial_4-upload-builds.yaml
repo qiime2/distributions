@@ -58,15 +58,8 @@ jobs:
       - name: prep directories
         shell: bash
         run: |
-          mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/'
           mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
           mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
-
-      - name: update seed environments (staged)
-        uses: qiime2/action-library-packaging/patch-env@beta
-        with:
-          environment-file: ${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
-          mask-environment-file: ${{ env.seed_environment_path }}/seed-environment-conda.yml
 
       - name: update seed environments (passed)
         shell: bash
@@ -97,18 +90,3 @@ jobs:
           author_name: q2d2
           author_email: q2d2.noreply@gmail.com
           cwd: ${{ env.distributions_repo }}
-
-  notify-library:
-    needs: commit-changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: notify library
-        uses: qiime2/action-library-packaging/notify-library-distro@beta
-        env:
-          LIBRARY_TOKEN: ${{ secrets.LIBRARY_TOKEN }}
-        with:
-          distro: ${{ inputs.distro }}
-          distro-versions: ${{ inputs.distro-version }}
-          is-release: ${{ inputs.is-release }}
-          patch-instructions-artifact-key: ${{ inputs.repodata-patches-key }}
-          rebuilt-channel-artifact-key: ${{ inputs.rebuilt-channel-key }}

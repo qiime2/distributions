@@ -98,8 +98,7 @@ jobs:
           author_email: q2d2.noreply@gmail.com
           cwd: ${{ env.distributions_repo }}
 
-      - uses: ./.github/workflows/_shared-upload-packages.yaml
-        secrets: inherit
+      - uses: qiime2/action-library-packaging/upload-channel@beta
         with:
           distro: ${{ inputs.distro }}
           epoch: ${{ inputs.epoch }}
@@ -107,3 +106,7 @@ jobs:
           released-gate: ${{ inputs.is-release == 'true' }}
           repodata-patches-key: ${{ inputs.repodata-patches-key }}
           rebuilt-channel-key: ${{ inputs.rebuilt-channel-key }}
+          remote-base: ${{ secrets.REMOTE_CHANNEL_BASE }}
+          ssh-user: ${{ secrets.REMOTE_CHANNEL_USER }}
+          ssh-key: ${{ secrets.REMOTE_CHANNEL_KEY }}
+          ssh-host: ${{ secrets.REMOTE_CHANNEL_HOST }}

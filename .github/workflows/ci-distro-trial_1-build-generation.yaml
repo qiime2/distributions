@@ -22,6 +22,9 @@ on:
       sibling-ref:
         required: true
         type: string
+      is-rebuild:
+        required: true
+        type: string
 
 env:
   matrix_path: './matrix'
@@ -237,18 +240,21 @@ jobs:
           path: ${{ env.seed_environment_path }}
 
       - uses: actions/download-artifact@v3
+        if: ${{ inputs.is-rebuild != 'true' }}
         name: 'Fetch base channel with patches'
         with:
           name: ${{ inputs.patched-channel-key }}
           path: ${{ env.patched_channel_path }}
 
       - uses: actions/download-artifact@v3
+        if: ${{ inputs.is-rebuild != 'true' }}
         name: 'Fetch rebuilt packages and their reverse dependencies'
         with:
           name: ${{ inputs.rev-deps-key }}
           path: ${{ env.rev_deps_path }}
 
       - name: 'Patch base channel'
+        if: ${{ inputs.is-rebuild != 'true' }}
         uses: qiime2/action-library-packaging/patch-repodata@beta
         with:
           channel: ${{ env.patched_channel_path }}
@@ -256,6 +262,7 @@ jobs:
           versions-file: version_updates.txt
 
       - name: copy repodata patches
+        if: ${{ inputs.is-rebuild != 'true' }}
         run: |
           mkdir -p ${{ env.repodata_patches_path }}/linux-64
           mkdir -p ${{ env.repodata_patches_path }}/osx-64
@@ -271,12 +278,14 @@ jobs:
              ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
 
       - name: store repodata patches
+        if: ${{ inputs.is-rebuild != 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.repodata_patches_key }}
           path: ${{ env.repodata_patches_path }}
 
       - uses: actions/upload-artifact@v3
+        if: ${{ inputs.is-rebuild != 'true' }}
         name: 'Upload base channel with patches'
         with:
           name: ${{ inputs.patched-channel-key }}

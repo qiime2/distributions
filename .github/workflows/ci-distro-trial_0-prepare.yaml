@@ -7,6 +7,8 @@ on:
         value: ${{ jobs.detect-vars.outputs.distro }}
       is-release:
         value: ${{ jobs.detect-vars.outputs.is-release }}
+      is-rebuild:
+        value: ${{ jobs.detect-vars.outputs.is-rebuild }}
       sibling-ref:
         value: ${{ jobs.detect-vars.outputs.sibling-ref }}
       matrix-key:

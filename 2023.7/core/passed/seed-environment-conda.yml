@@ -1,3 +1,4 @@
+# Will this work? Only time will tell
 channels:
   - https://packages.qiime2.org/qiime2/2023.7/passed/core
   - conda-forge

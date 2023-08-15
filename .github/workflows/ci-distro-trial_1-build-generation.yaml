@@ -32,6 +32,8 @@ env:
   plugin_path: './plugin'
   version_key: '[Version Files] Rebuilt version info'
   version_path: './version-info'
+  repodata_patches_key: '[Repodata Patches] patch_instructions.json'
+  repodata_patches_path: './repodata-patches'
 
 jobs:
   configure_matrix:
@@ -94,10 +96,6 @@ jobs:
           ref: ${{ inputs.sibling-ref }}
           path: ${{ env.plugin_path }}
           fetch-depth: 0
-
-      - id: debug
-        shell: bash
-        run: ls -R ${{ env.rebuilt_channel_path }}
 
       - uses: qiime2/action-library-packaging/build-package@beta
         name: 'Determine package data for ${{ matrix.package }}'
@@ -256,6 +254,27 @@ jobs:
           channel: ${{ env.patched_channel_path }}
           rev-deps: ${{ env.rev_deps_path }}/rev_deps.json
           versions-file: version_updates.txt
+
+      - name: copy repodata patches
+        run: |
+          mkdir -p ${{ env.repodata_patches_path }}/linux-64
+          mkdir -p ${{ env.repodata_patches_path }}/osx-64
+          mkdir -p ${{ env.repodata_patches_path }}/noarch
+
+          cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
+
+          cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
+
+          cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
+
+      - name: store repodata patches
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.repodata_patches_key }}
+          path: ${{ env.repodata_patches_path }}
 
       - uses: actions/upload-artifact@v3
         name: 'Upload base channel with patches'

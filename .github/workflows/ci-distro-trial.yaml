@@ -116,13 +116,13 @@ jobs:
       distro-name: qiime2-${{ needs.prepare.outputs.distro }}
 
   upload-builds:
-    needs: [prepare, build-metapackage, test-metapackage]
+    needs: [prepare, test-metapackage]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_4-upload-builds.yaml
+    secrets: inherit
     with:
       epoch: ${{ needs.prepare.outputs.epoch }}
       distro: ${{ needs.prepare.outputs.distro }}
-      distro-version: ${{ needs.build-metapackage.outputs.distro-version }}
       is-release: ${{ needs.prepare.outputs.is-release }}
       pr-ref: ${{ github.event.pull_request.head.ref }}
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}

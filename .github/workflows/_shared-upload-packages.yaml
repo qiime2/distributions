@@ -1,0 +1,98 @@
+on:
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+      epoch:
+        required: true
+      rebuilt-channel-key:
+        required: true
+      repodata-patches-key:
+        required: false
+        default: ''
+      passed-gate:
+        required: true
+      released-gate:
+        required: true
+env:
+  rebuilt_channel_path: './rebuilt-channel'
+  repodata_patches_path: './repodata-patches'
+  remote_base: ${{ secrets.REMOTE_BASE }}
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+
+      - name: 'Fetch rebuilt channel'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: 'prepare target directories'
+        run: |
+          ssh staging 'mkdir -p ${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged'
+          ssh staging 'mkdir -p ${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed'
+          ssh staging 'mkdir -p ${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/released'
+
+      - name: 'rsync new packages (staged)'
+        run: |
+          rsync -hvrt --ignore-existing \
+            ${{ env.rebuilt_channel_path }}/ \
+            staging:${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/
+
+      - name: 'link new packages (passed)'
+        if: ${{ inputs.passed-gate == 'true' }}
+        run: |
+          rsync -hvrt --ignore-existing \
+            --link-dest=../staged/ \
+            ${{ env.rebuilt_channel_path }}/ \
+            staging:${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/
+
+      - name: 'link new packages (released)'
+        if: ${{ inputs.released-gate == 'true' }}
+        run: |
+          rsync -hvrt --ignore-existing \
+            --link-dest=../staged/ \
+            ${{ env.rebuilt_channel_path }}/ \
+            staging:${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/
+
+      # - name: 'Fetch patch instructions'
+      #   if: ${{ inputs.repodata-patches-key != '' }}
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: ${{ inputs.repodata-patches-key }}
+      #     path: ${{ env.repodata_patches_path }}
+
+      # - name: 'merge patch instructions (passed)'
+      #   if: ${{ inputs.repodata-patches-key != '' && inputs.passed-gate == 'true' }}
+
+      # - name: 'rsync merged patch instructions (passed)'
+      #   if: ${{ inputs.repodata-patches-key != '' && inputs.passed-gate == 'true' }}
+      #   run: |
+      #     rsync -hvrt \
+      #       ${{ env.repodata_patches_path }}/ \
+      #       staging:${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/
+
+      - name: 'run conda index'
+        run: |
+          ssh staging '/opt/miniconda3/bin/conda index ${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged'
+          ssh staging '/opt/miniconda3/bin/conda index ${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed'
+          ssh staging '/opt/miniconda3/bin/conda index ${{ secrets.REMOTE_BASE }}/${{ inputs.epoch }}/${{ inputs.distro }}/released'

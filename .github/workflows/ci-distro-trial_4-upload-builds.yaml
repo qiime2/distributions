@@ -7,9 +7,6 @@ on:
       distro:
         required: true
         type: string
-      distro-version:
-        required: true
-        type: string
       is-release:
         required: true
         type: string
@@ -33,6 +30,10 @@ env:
   distributions_repo: './distributions'
   seed_environment_path: './seed_environment'
   solved_environment_path: './solved_environment'
+
+concurrency:
+  group: lock-github
+  cancel-in-progress: false
 
 jobs:
   commit-changes:
@@ -60,6 +61,12 @@ jobs:
         run: |
           mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
           mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
+
+      - name: update seed environments (staged)
+        uses: qiime2/action-library-packaging/patch-env@beta
+        with:
+          environment-file: ${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
+          mask-environment-file: ${{ env.seed_environment_path }}/seed-environment-conda.yml
 
       - name: update seed environments (passed)
         shell: bash
@@ -90,3 +97,13 @@ jobs:
           author_name: q2d2
           author_email: q2d2.noreply@gmail.com
           cwd: ${{ env.distributions_repo }}
+
+      - uses: ./.github/workflows/_shared-upload-packages.yaml
+        secrets: inherit
+        with:
+          distro: ${{ inputs.distro }}
+          epoch: ${{ inputs.epoch }}
+          passed-gate: true
+          released-gate: ${{ inputs.is-release == 'true' }}
+          repodata-patches-key: ${{ inputs.repodata-patches-key }}
+          rebuilt-channel-key: ${{ inputs.rebuilt-channel-key }}

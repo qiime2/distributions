@@ -1,4 +1,4 @@
-active_epochs: ["2023.7"]
+active_epoch: "2023.7"
 next_epoch: "2023.9"
 distros: [core, community]
 packages:

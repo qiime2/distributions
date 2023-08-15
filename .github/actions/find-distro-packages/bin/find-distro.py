@@ -9,8 +9,8 @@ from alp.common import ActionAdapter
 
 def get_library_packages():
     response = urllib.request.urlopen(
-        'https://library.qiime2.org/api/v2/packages')
-    return json.load(response)['packages']
+        'https://raw.githubusercontent.com/qiime2/distributions/dev/data.yaml')
+    return {x['name']: x['repo'] for x in yaml.safe_load(response)['packages']}
 
 
 def get_minimal_env(seed_env_path):

@@ -89,7 +89,7 @@ packages:
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew
-  distros: [core, community]
+  distros: [core, community, tiny]
 
 - name: q2-phylogeny
   repo: qiime2/q2-phylogeny

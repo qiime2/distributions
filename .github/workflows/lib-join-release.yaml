@@ -13,10 +13,8 @@ jobs:
   get-release-info:
     runs-on: ubuntu-latest
     outputs:
-      release-epoch:
-        value: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
-      new-dev-epoch:
-        value: ${{ fromJSON(steps.yaml.outputs.data).next_epoch }}
+      release-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+      new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).next_epoch }}
     steps:
       - uses: actions/checkout@v3
         with:

@@ -1,0 +1,54 @@
+# # Example of workflow trigger for calling workflow (the client).
+# name: tag-release
+# on:
+#   push:
+#     branches: ["Release-*"]
+# jobs:
+#   tag:
+#     uses: qiime2/distributions/.github/workflows/lib-tag-release.yaml@dev
+
+on:
+  workflow_call: {}
+
+jobs:
+  increment-release-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        shell: bash
+        run: |
+          IFS='-' read -r _ release <<< $(git branch)
+          echo "release=$release" >> $GITHUB_ENV
+          echo "default_tag=$release.-1" >> $GITHUB_ENV
+
+      - name: Get last tag
+        id: get_last_tag
+        shell: bash
+        run: |
+          last_tag=$(git describe --abbrev=0 --tags 2>/dev/null || echo ${{ env.default_tag }})
+          echo "last_tag=$last_tag" >> "$GITHUB_ENV"
+
+      - name: Increment tag
+        id: increment_tag
+        shell: bash
+        run: |
+          last_tag=${{ env.last_tag }}
+          IFS='.' read -r major minor patch <<< "$last_tag"
+          incremented_tag="$major.$minor.$((patch + 1))"
+          echo "RELEASE_TAG=$incremented_tag" >> "$GITHUB_ENV"
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ./release-checkout
+          default_author: user_info
+          author_name: q2d2
+          author_email: q2d2.noreply@gmail.com
+          message: "REL: ${{ env.RELEASE_TAG }}"
+          commit: --allow-empty
+          tag: -a "${{ env.RELEASE_TAG }}" -m "${{ github.event.repository.name }} ${{ env.RELEASE_TAG }}"

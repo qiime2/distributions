@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.7/passed/core
+- https://packages.qiime2.org/qiime2/2023.7/core/passed
 - conda-forge
 - bioconda
 - defaults
@@ -10,7 +10,7 @@ dependencies:
 - q2-dada2=2023.7.0.dev0+1.gc3061d3
 - q2-deblur=2023.7.0.dev0+2.g23bbd4b
 - q2-demux=2023.7.0.dev0+1.g3a591ef
-- q2-diversity=2023.7.0.dev0+2.g71d3d14
+- q2-diversity=2023.7.0.dev0+5.g7457506
 - q2-diversity-lib=2023.7.0.dev0+1.gbfc7996
 - q2-emperor=2023.7.0.dev0+1.g415e661
 - q2-feature-classifier=2023.7.0.dev0+1.g7f2729a
@@ -31,17 +31,17 @@ dependencies:
 - q2galaxy=2023.7.0.dev0
 - q2templates=2023.7.0.dev0+1.gd73abfc
 - qiime2=2023.7.0.dev0+12.gb7a1766
-- biom-format=2.1.12
-- h5py=2.10.0
-- hdf5=1.10.6
-- numpy=1.23.5
+- biom-format=2.1.14
+- h5py=3.8.0
+- hdf5=1.14.0
+- numpy=1.24.4
 - pandas=1.5.3
 - python=3.8
-- scikit-bio=0.5.7
+- scikit-bio=0.5.8
 - scikit-learn=0.24.1
-- scipy=1.8.1
-- unifrac=1.1.1
-- unifrac-binaries=1.1.1
+- scipy=1.10.0
+- unifrac=1.3
+- unifrac-binaries=1.3.1
 - r-base=4.2.2
 extras:
   variant_override:

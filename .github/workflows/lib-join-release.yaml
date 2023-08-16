@@ -29,6 +29,7 @@ jobs:
 
   create-branches:
     needs: get-release-info
+    runs-on: ubuntu-latest
     env:
       RELEASE: ${{ needs.get-release-info.outputs.release-epoch }}
       RELEASE_TAG: ${{ needs.get-release-info.outputs.release-epoch }}.0

@@ -118,7 +118,7 @@ jobs:
       - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'
         with:
-          conda-activate: ${{ env.env_prefix }}/etc/activate.sh
+          conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
           package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
 
   lint:

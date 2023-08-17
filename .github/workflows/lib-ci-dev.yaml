@@ -110,7 +110,7 @@ jobs:
           package-name: ${{ steps.build-package.outputs.package-name }}
           package-version: ${{ steps.build-package.outputs.package-version }}
           conda-prefix: ${{ env.env_prefix }}
-          channels: ${{ setups.make-cbc.outputs.channels }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
 
       - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'

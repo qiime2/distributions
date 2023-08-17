@@ -82,6 +82,7 @@ jobs:
 
       - name: 'Set up built channel'
         run: |
+          ${{ setup-conda.outputs.conda-activate }}
           mkdir -p ${{ env.built_channel_path }}
           conda index ${{ env.built_channel_path }}
 

@@ -4,6 +4,7 @@ channels:
 - bioconda
 - defaults
 dependencies:
+- provenance-lib=2023.7.0.dev0
 - q2-alignment=2023.7.0.dev0+1.gb74f1ad
 - q2-composition=2023.7.0.dev0+4.gb2c8733
 - q2-cutadapt=2023.7.0.dev0+1.gdb6d44b

@@ -120,6 +120,7 @@ jobs:
         with:
           conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
           package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
 
   lint:
     runs-on: ubuntu-latest

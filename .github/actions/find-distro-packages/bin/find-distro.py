@@ -2,7 +2,7 @@
 import urllib.request
 import yaml
 
-from src.alp.common import ActionAdapter
+from alp.common import ActionAdapter
 
 
 def get_library_packages():

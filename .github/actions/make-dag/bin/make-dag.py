@@ -6,7 +6,7 @@ import urllib.request
 import networkx as nx
 import jinja2
 
-from src.alp.common import ActionAdapter
+from alp.common import ActionAdapter
 
 
 # Convert DAG subplot to mermaid diagram for use in job summary

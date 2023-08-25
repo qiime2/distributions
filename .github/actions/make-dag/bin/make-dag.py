@@ -138,7 +138,7 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
 
     distro_deps = get_distro_deps(search_channels[0], distro_versions)
 
-    core_dag = make_dag(pkg_dict=distro_deps)
+    core_dag = make_dag(pkg_dict=distro_deps, env_versions=env_versions)
     core_sub = nx.subgraph(core_dag, env_versions)
 
     rebuild_generations = list(nx.topological_generations(

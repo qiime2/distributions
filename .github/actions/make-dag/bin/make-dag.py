@@ -82,7 +82,6 @@ def make_dag(pkg_dict, env_versions):
     for pkg, _ in env_versions.items():
         dag.add_node(pkg)
 
-    raise ValueError(dag)
     return dag
 
 

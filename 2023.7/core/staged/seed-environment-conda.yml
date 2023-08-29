@@ -44,6 +44,7 @@ dependencies:
 - unifrac-binaries=1.3.1
 - r-base=4.2.2
 - provenance-lib=2023.7.1
+- notebook=6.5.5
 extras:
   variant_override:
     qiime2_epoch: '2023.7'

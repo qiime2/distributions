@@ -72,12 +72,15 @@ def get_source_revdeps(dag, all_changes):
 
 
 # Create new DiGraph object & add list of pkgs from a given pkg dict as nodes
-def make_dag(pkg_dict):
+def make_dag(pkg_dict, env_versions):
     dag = nx.DiGraph()
     # Add edges connecting each pkg to their list of deps
     for pkg, deps in pkg_dict.items():
         for dep in deps:
             dag.add_edge(dep, pkg)
+
+    for pkg, _ in env_versions.items():
+        dag.add_node(pkg)
 
     return dag
 
@@ -134,9 +137,8 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
 
     distro_deps = get_distro_deps(search_channels[0], distro_versions)
 
-    core_dag = make_dag(pkg_dict=distro_deps)
+    core_dag = make_dag(pkg_dict=distro_deps, env_versions=env_versions)
     core_sub = nx.subgraph(core_dag, env_versions)
-
 
     rebuild_generations = list(nx.topological_generations(
         nx.induced_subgraph(core_sub, rebuild)

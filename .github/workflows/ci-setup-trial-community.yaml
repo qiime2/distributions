@@ -1,0 +1,23 @@
+name: ci-setup-trial-community
+on:
+  workflow_dispatch: {}
+  schedule:
+    # 7pm (2 UTC) every day to repair in the event a push fails
+    - cron: 0 2 * * *
+  push:
+    branches: [dev]
+    paths:
+      - 2023.7/community/staged/seed-environment-conda.yml
+
+concurrency:
+  group: ci-setup-trial/community-2023.7
+  cancel-in-progress: false
+
+jobs:
+  create-pr:
+    uses: ./.github/workflows/ci-setup-trial_0-create-pr.yaml
+    secrets: inherit
+    with:
+      branch: ci-setup-trial/community-2023.7
+      distro: community
+      epoch: "2023.7"

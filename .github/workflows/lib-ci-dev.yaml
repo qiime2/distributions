@@ -110,6 +110,7 @@ jobs:
       - uses: qiime2/action-library-packaging/install-package@beta
         name: 'Install ${{ github.event.repository.name }}'
         with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
           package-name: ${{ steps.build-package.outputs.package-name }}
           package-version: ${{ steps.build-package.outputs.package-version }}
           conda-prefix: ${{ env.env_prefix }}

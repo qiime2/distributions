@@ -19,8 +19,6 @@ def get_minimal_env(seed_env_path):
     for entry in env['dependencies']:
         print(entry)
 
-    raise ValueError('but why')
-
     return dict(entry.split('=') for entry in env['dependencies'])
 
 

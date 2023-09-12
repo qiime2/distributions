@@ -13,7 +13,7 @@ dependencies:
 - q2-dada2=2023.7.0.dev0
 - q2-deblur=2023.7.0.dev0
 - q2-demux=2023.7.0.dev0
-- q2-diversity=2023.7.0.dev0
+- q2-diversity=2023.7.0.dev0+1.g7ba421d
 - q2-diversity-lib=2023.7.0.dev0
 - q2-emperor=2023.7.0.dev0
 - q2-feature-classifier=2023.7.0.dev0
@@ -40,7 +40,7 @@ dependencies:
 - q2galaxy=2023.7.0.dev0
 - q2templates=2023.7.0.dev0
 - qiime2=2023.7.0.dev0
-- rescript=2023.2.0
+- rescript=2023.2.0+3.gc7c6b4e
 - biom-format=2.1.14
 - h5py=3.8.0
 - hdf5=1.14.0

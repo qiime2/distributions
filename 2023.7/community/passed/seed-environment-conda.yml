@@ -7,7 +7,6 @@ dependencies:
 - provenance-lib=2023.7.0.dev0
 - q2-alignment=2023.7.0.dev0
 - q2-assembly=2023.7.0.dev0
-- q2-checkm=2023.7.0.dev0
 - q2-composition=2023.7.0.dev0
 - q2-cutadapt=2023.7.0.dev0
 - q2-dada2=2023.7.0.dev0
@@ -27,7 +26,6 @@ dependencies:
 - q2-moshpit=2023.7.0.dev0
 - q2-mystery-stew=2023.7.0.dev0
 - q2-phylogeny=2023.7.0.dev0
-- q2-protein-pca=2023.7.0.dev0
 - q2-quality-control=2023.7.0.dev0
 - q2-quality-filter=2023.7.0.dev0
 - q2-sample-classifier=2023.7.0.dev0

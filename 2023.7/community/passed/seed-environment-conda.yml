@@ -1,5 +1,4 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.7/core/staged
 - https://packages.qiime2.org/qiime2/2023.7/community/staged
 - conda-forge
 - bioconda

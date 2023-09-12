@@ -12,9 +12,11 @@ def get_library_packages():
 
 
 def get_minimal_env(seed_env_path):
+
     with open(seed_env_path) as fh:
         env = yaml.safe_load(fh)
 
+    raise ValueError(env)
     return dict(entry.split('=') for entry in env['dependencies'])
 
 

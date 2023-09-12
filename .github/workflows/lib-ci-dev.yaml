@@ -1,0 +1,146 @@
+# # Example of workflow trigger for calling workflow (the client).
+# name: ci-dev
+# on:
+#   pull_request:
+#     branches: ["dev"]
+#   push:
+#     branches: ["dev"]
+# jobs:
+#   ci:
+#     uses: qiime2/distributions/.github/workflows/lib-ci-dev.yaml@dev
+#     with:
+#       distro: core
+
+on:
+  workflow_call:
+    inputs:
+      distro:
+        description: "Distro to test with"
+        type: string
+        required: true
+
+      recipe-path:
+        description: "Path to recipe"
+        type: string
+        required: false
+        default: 'ci/recipe'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      active-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          sparse-checkout: |
+            data.yaml
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+  build-and-test:
+    name: '${{ github.event.repository.name }} (${{ matrix.os }})'
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      plugin_path: ./repo
+      built_channel_path: ./built-channel
+      epoch: ${{ needs.setup.outputs.active-epoch }}
+      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
+      env_prefix: ./test-env
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: ${{ env.plugin_path }}
+          fetch-depth: 0
+
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          path: ./distro
+          sparse-checkout: ${{ env.seed_env_path }}
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - name: 'Set up test environment'
+        run: |
+          conda create -y -p ${{ env.env_prefix }}
+          mkdir -p ${{ env.env_prefix }}/etc
+          cat <<EOF > '${{ env.env_prefix }}/etc/activate.sh'
+            . "$CONDA/etc/profile.d/conda.sh"
+            conda activate '${{ env.env_prefix }}'
+          EOF
+          chmod +x '${{ env.env_prefix }}/etc/activate.sh'
+
+      - name: 'Set up built channel'
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          mkdir -p ${{ env.built_channel_path }}
+          conda index ${{ env.built_channel_path }}
+
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        name: 'Create conda build config'
+        id: make-cbc
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          seed-environment: ./distro/${{ env.seed_env_path }}
+          conda-build-config: 'conda_build_config.yml'
+          channels: '["${{ env.built_channel_path }}"]'
+
+      - uses: qiime2/action-library-packaging/build-package@beta
+        name: 'Build ${{ github.event.repository.name }}'
+        id: build-package
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          recipe-path: ${{ env.plugin_path }}/${{ inputs.recipe-path }}
+          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+          output-channel: ${{ env.built_channel_path }}
+
+      - uses: qiime2/action-library-packaging/install-package@beta
+        name: 'Install ${{ github.event.repository.name }}'
+        with:
+          package-name: ${{ steps.build-package.outputs.package-name }}
+          package-version: ${{ steps.build-package.outputs.package-version }}
+          conda-prefix: ${{ env.env_prefix }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+
+      - uses: qiime2/action-library-packaging/test-package@beta
+        name: 'Test ${{ github.event.repository.name }}'
+        with:
+          conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
+          package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout source
+      uses: actions/checkout@v3
+
+    - name: set up python 3.8
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -q https://github.com/qiime2/q2lint/archive/master.zip
+        pip install -q flake8
+
+    - name: run flake8
+      run: flake8
+
+    - name: run q2lint
+      run: q2lint

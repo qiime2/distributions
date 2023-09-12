@@ -1,11 +1,14 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.7/core/passed
+- https://packages.qiime2.org/qiime2/2023.7/core/staged
+- https://packages.qiime2.org/qiime2/2023.7/community/staged
 - conda-forge
 - bioconda
 - defaults
 dependencies:
-- provenance-lib=2023.7.1
+- provenance-lib=2023.7.0.dev0
 - q2-alignment=2023.7.0
+- q2-assembly=2023.7.0.dev0
+- q2-checkm=2023.7.0.dev0
 - q2-composition=2023.7.0
 - q2-cutadapt=2023.7.0
 - q2-dada2=2023.7.0
@@ -16,22 +19,29 @@ dependencies:
 - q2-emperor=2023.7.0
 - q2-feature-classifier=2023.7.0
 - q2-feature-table=2023.7.0
+- q2-fmt=2023.7.0.dev0
+- q2-fondue=2023.7.0.dev0
 - q2-fragment-insertion=2023.7.0
 - q2-gneiss=2023.7.0
 - q2-longitudinal=2023.7.0
 - q2-metadata=2023.7.0
+- q2-moshpit=2023.7.0.dev0
 - q2-mystery-stew=2023.7.0
 - q2-phylogeny=2023.7.0
+- q2-protein-pca=2023.7.0.dev0
 - q2-quality-control=2023.7.0
 - q2-quality-filter=2023.7.0
 - q2-sample-classifier=2023.7.0
+- q2-stats=2023.7.0.dev0
 - q2-taxa=2023.7.0
 - q2-types=2023.7.0
+- q2-types-genomics
 - q2-vsearch=2023.7.0
 - q2cli=2023.7.0
 - q2galaxy=2023.7.0
 - q2templates=2023.7.0
 - qiime2=2023.7.0
+- rescript=2023.2.0
 - biom-format=2.1.14
 - h5py=3.8.0
 - hdf5=1.14.0

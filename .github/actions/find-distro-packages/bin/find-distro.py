@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 import urllib.request
-import json
-
 import yaml
 
 from alp.common import ActionAdapter
@@ -31,4 +29,3 @@ def main(seed_env):
 
 if __name__ == '__main__':
     ActionAdapter(main)
-

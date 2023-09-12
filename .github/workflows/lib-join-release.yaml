@@ -1,0 +1,65 @@
+# # Example of workflow trigger for calling workflow (the client).
+# name: join-release
+# on:
+#   workflow_dispatch: {}
+# jobs:
+#   release:
+#     uses: qiime2/distributions/.github/workflows/lib-join-release.yaml@dev
+
+on:
+  workflow_call: {}
+
+jobs:
+  get-release-info:
+    runs-on: ubuntu-latest
+    outputs:
+      release-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+      new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).next_epoch }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          sparse-checkout: |
+            data.yaml
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+  create-branches:
+    needs: get-release-info
+    runs-on: ubuntu-latest
+    env:
+      RELEASE: ${{ needs.get-release-info.outputs.release-epoch }}
+      RELEASE_TAG: ${{ needs.get-release-info.outputs.release-epoch }}.0
+      DEV_TAG: ${{ needs.get-release-info.outputs.new-dev-epoch }}.0.dev0
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: ./release-checkout
+
+      - uses: actions/checkout@v3
+        with:
+          path: ./dev-checkout
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ./release-checkout
+          new_branch: 'Release-${{ env.RELEASE }}'
+          default_author: user_info
+          author_name: q2d2
+          author_email: q2d2.noreply@gmail.com
+          message: "REL: ${{ env.RELEASE_TAG }}"
+          commit: --allow-empty
+          tag: -a "${{ env.RELEASE_TAG }}" -m "${{ github.event.repository.name }} ${{ env.RELEASE_TAG }}"
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ./dev-checkout
+          default_author: user_info
+          author_name: q2d2
+          author_email: q2d2.noreply@gmail.com
+          message: "DEV: ${{ needs.get-release-info.outputs.new-dev-epoch }}"
+          tag: -a "${{ env.DEV_TAG }}" -m "${{ github.event.repository.name }} ${{ env.DEV_TAG }}"
+          commit: --allow-empty

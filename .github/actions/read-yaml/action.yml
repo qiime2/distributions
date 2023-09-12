@@ -1,0 +1,21 @@
+name: 'Read a yaml file'
+inputs:
+  file:
+    required: true
+outputs:
+  data:
+    value: ${{ steps.read-yaml.outputs.data }}
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'read-yaml'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | read-yaml.py
+        ${{ toJSON(inputs) }}
+        EOF

@@ -35,7 +35,7 @@ dependencies:
 - q2-stats=2023.7.0.dev0
 - q2-taxa=2023.7.0
 - q2-types=2023.7.0
-- q2-types-genomics
+- q2-types-genomics=2023.7.0.dev0
 - q2-vsearch=2023.7.0
 - q2cli=2023.7.0
 - q2galaxy=2023.7.0

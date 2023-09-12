@@ -16,7 +16,9 @@ def get_minimal_env(seed_env_path):
     with open(seed_env_path) as fh:
         env = yaml.safe_load(fh)
 
-    raise ValueError(env)
+    for entry in env['dependencies']:
+        raise ValueError(entry)
+
     return dict(entry.split('=') for entry in env['dependencies'])
 
 

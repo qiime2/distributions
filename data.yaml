@@ -1,11 +1,11 @@
 active_epoch: "2023.7"
 next_epoch: "2023.9"
-distros: [core, community, tiny]
+distros: [core, community, tiny, shotgun]
 packages:
 
 - name: provenance-lib
   repo: qiime2/provenance-lib
-  distros: [core, community, tiny]
+  distros: [core, community, tiny, shotgun]
 
 - name: q2-alignment
   repo: qiime2/q2-alignment
@@ -13,11 +13,11 @@ packages:
 
 - name: q2-assembly
   repo: bokulich-lab/q2-assembly
-  distros: [community]
+  distros: [community, shotgun]
 
 - name: q2-checkm
   repo: bokulich-lab/q2-checkm
-  distros: [community]
+  distros: [community, shotgun]
 
 - name: q2-composition
   repo: qiime2/q2-composition
@@ -25,7 +25,7 @@ packages:
 
 - name: q2-cutadapt
   repo: qiime2/q2-cutadapt
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-dada2
   repo: qiime2/q2-dada2
@@ -37,19 +37,19 @@ packages:
 
 - name: q2-demux
   repo: qiime2/q2-demux
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-diversity
   repo: qiime2/q2-diversity
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-diversity-lib
   repo: qiime2/q2-diversity-lib
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-emperor
   repo: qiime2/q2-emperor
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
@@ -57,7 +57,7 @@ packages:
 
 - name: q2-feature-table
   repo: qiime2/q2-feature-table
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-fmt
   repo: qiime2/q2-fmt
@@ -81,11 +81,11 @@ packages:
 
 - name: q2-metadata
   repo: qiime2/q2-metadata
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-moshpit
   repo: bokulich-lab/q2-moshpit
-  distros: [community]
+  distros: [community, shotgun]
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew
@@ -101,15 +101,15 @@ packages:
 
 - name: q2-quality-control
   repo: qiime2/q2-quality-control
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-quality-filter
   repo: qiime2/q2-quality-filter
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-sample-classifier
   repo: qiime2/q2-sample-classifier
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-stats
   repo: qiime2/q2-stats
@@ -117,15 +117,15 @@ packages:
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2-types
   repo: qiime2/q2-types
-  distros: [core, community, tiny]
+  distros: [core, community, tiny, shotgun]
 
 - name: q2-types-genomics
   repo: bokulich-lab/q2-types-genomics
-  distros: [community]
+  distros: [community, shotgun]
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch
@@ -133,19 +133,19 @@ packages:
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [core, community, tiny]
+  distros: [core, community, tiny, shotgun]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: q2templates
   repo: qiime2/q2templates
-  distros: [core, community]
+  distros: [core, community, shotgun]
 
 - name: qiime2
   repo: qiime2/qiime2
-  distros: [core, community, tiny]
+  distros: [core, community, tiny, shotgun]
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt

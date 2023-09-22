@@ -71,6 +71,10 @@ packages:
   repo: qiime2/q2-fragment-insertion
   distros: [amplicon]
 
+# - name: q2-gneiss
+#   repo: qiime2/q2-gneiss
+#   distros: []
+
 - name: q2-longitudinal
   repo: qiime2/q2-longitudinal
   distros: [amplicon]

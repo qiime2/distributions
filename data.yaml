@@ -3,10 +3,6 @@ next_epoch: "2023.9"
 distros: [tiny, amplicon, shotgun, fmt]
 packages:
 
-# - name: provenance-lib
-#   repo: qiime2/provenance-lib
-#   distros: []
-
 - name: q2-alignment
   repo: qiime2/q2-alignment
   distros: [amplicon]
@@ -63,17 +59,9 @@ packages:
   repo: qiime2/q2-fmt
   distros: [fmt]
 
-# - name: q2-fondue
-#   repo: bokulich-lab/q2-fondue
-#   distros: []
-
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion
   distros: [amplicon]
-
-# - name: q2-gneiss
-#   repo: qiime2/q2-gneiss
-#   distros: []
 
 - name: q2-longitudinal
   repo: qiime2/q2-longitudinal
@@ -94,10 +82,6 @@ packages:
 - name: q2-phylogeny
   repo: qiime2/q2-phylogeny
   distros: [amplicon]
-
-# - name: q2-protein-pca
-#   repo: bokulich-lab/q2-protein-pca
-#   distros: []
 
 - name: q2-quality-control
   repo: qiime2/q2-quality-control
@@ -153,7 +137,7 @@ packages:
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt
-  distros: [amplicon]
+  distros: [shotgun]
 
 - name: q2-sapienns
   repo: gregcaporaso/q2-sapienns

@@ -81,7 +81,7 @@ jobs:
           PREPARE=${{ startsWith(github.head_ref, 'Prepare-') }}
           REBUILD=$([ $RELEASE = 'true' ] || [ $PREPARE = 'true' ] && echo 'true' || echo 'false')
           SUBDIR=$([ $RELEASE = 'true' ] && echo 'released' || echo 'passed')
-          SIBLING_REF=$([ $PREPARE != 'true' ] && echo "$GITHUB_HEAD_REF" || echo "")
+          SIBLING_REF=$([ $PREPARE != 'true' ] && echo "$GITHUB_HEAD_REF" | cut -f1 -d/ || echo "")
 
           echo "epoch=$EPOCH" >> $GITHUB_OUTPUT
           echo "distro=$DISTRO" >> $GITHUB_OUTPUT

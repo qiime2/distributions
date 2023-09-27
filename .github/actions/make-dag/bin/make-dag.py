@@ -111,10 +111,11 @@ def get_distro_deps(channel, relevant_pkgs):
         q2_dep_dict[name] = [dep.split(' ')[0] for dep in info['depends']]
 
     if missing_pkgs:
-        raise Exception(f'Missing the following packages in the channel'
-                        f' ({q2_pkg_channel_url}): {missing_pkgs}')
+        missing = {name: [] for name in missing_pkgs}
+    else:
+        missing = None
 
-    return q2_dep_dict
+    return q2_dep_dict, missing
 
 
 def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
@@ -135,7 +136,7 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     TEMPLATE_DIR = os.path.join(GITHUB_ACTION_PATH, 'templates')
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
-    distro_deps = get_distro_deps(search_channels[0], distro_versions)
+    distro_deps, missing = get_distro_deps(search_channels[0], distro_versions)
 
     core_dag = make_dag(pkg_dict=distro_deps, env_versions=env_versions)
     core_sub = nx.subgraph(core_dag, env_versions)
@@ -151,6 +152,8 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
                                       for pkg in src_revdeps)))
     # Filter to only packages that we manage
     pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
+    if missing is not None:
+        pkgs_to_test.extend(list(missing))
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")
@@ -167,6 +170,8 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
             [rebuild[key] for key in generation]
             for generation in rebuild_generations
         ]
+        if missing is not None:
+            rebuild_repos.append(list(missing))
         json.dump(rebuild_repos, fh)
 
     with open(os.path.join(matrix_path, 'retest_matrix.json'), 'w') as fh:

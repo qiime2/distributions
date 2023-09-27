@@ -149,6 +149,10 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     print(distro_deps)
     raise ValueError(missing)
 
+    for pkg in missing:
+        if pkg in env_versions.keys():
+            del env_versions[pkg]
+
     core_dag = make_dag(pkg_dict=distro_deps, env_versions=env_versions)
     core_sub = nx.subgraph(core_dag, env_versions)
 
@@ -163,8 +167,6 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
                                       for pkg in src_revdeps)))
     # Filter to only packages that we manage
     pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
-    if missing is not None:
-        pkgs_to_test.extend(list(missing))
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")

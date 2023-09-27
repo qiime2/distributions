@@ -152,7 +152,9 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     ))
 
     src_revdeps = get_source_revdeps(core_dag, [*changed, *rebuild])
-    raise ValueError(src_revdeps)
+    for pkg in missing:
+        if pkg in src_revdeps.keys():
+            del src_revdeps[pkg]
 
     pkgs_to_test = sorted(set.union(set(src_revdeps),
                                     *(nx.descendants(core_dag, pkg)
@@ -160,6 +162,10 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
 
     # Filter to only packages that we manage
     pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
+
+    # add any new pkgs being added to a given distro
+    for pkg in missing:
+        pkgs_to_test.append(pkg)
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")

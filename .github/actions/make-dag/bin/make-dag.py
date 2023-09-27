@@ -104,6 +104,7 @@ def get_distro_deps(channel, relevant_pkgs):
 
     for info in repodata['packages'].values():
         name = info['name']
+        print('NAME')
         print(name)
         if (name not in missing_pkgs
                 or missing_pkgs[name] != info['version']):
@@ -111,6 +112,7 @@ def get_distro_deps(channel, relevant_pkgs):
         del missing_pkgs[name]
         q2_dep_dict[name] = [dep.split(' ')[0] for dep in info['depends']]
 
+    print('Q2 DEP DICT')
     print(q2_dep_dict)
 
     if missing_pkgs:

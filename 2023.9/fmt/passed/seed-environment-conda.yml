@@ -14,6 +14,7 @@ dependencies:
 - q2-mystery-stew=2023.9.0.dev0+2.g2b4de72
 - q2-stats=2023.9.0.dev0
 - q2-types=2023.9.0.dev0+1.gd297c53
+- q2-vizard=2023.7.0
 - q2cli=2023.9.0.dev0+2.gbdc69e4
 - qiime2=2023.9.0.dev0+5.gc7a842e
 - r-base=4.2.2

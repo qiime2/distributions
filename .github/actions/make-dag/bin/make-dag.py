@@ -147,7 +147,6 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     distro_deps, missing = get_distro_deps(search_channels[0], distro_versions)
     print('DISTRO DEPS')
     print(distro_deps)
-    raise ValueError(missing)
 
     for pkg in missing:
         if pkg in env_versions.keys():

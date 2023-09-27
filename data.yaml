@@ -121,7 +121,7 @@ packages:
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [tiny, amplicon, shotgun]
+  distros: [tiny, amplicon, shotgun, fmt]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy

@@ -107,8 +107,6 @@ def get_distro_deps(channel, relevant_pkgs):
         if (name not in missing_pkgs
                 or missing_pkgs[name] != info['version']):
             continue
-        print('MISSING PKGS')
-        print(missing_pkgs[name])
         del missing_pkgs[name]
         q2_dep_dict[name] = [dep.split(' ')[0] for dep in info['depends']]
 
@@ -116,6 +114,8 @@ def get_distro_deps(channel, relevant_pkgs):
     print(q2_dep_dict)
 
     if missing_pkgs:
+        print('MISSING PKGS')
+        print(missing_pkgs)
         missing = {}
         for name in missing_pkgs:
             del q2_dep_dict[name]

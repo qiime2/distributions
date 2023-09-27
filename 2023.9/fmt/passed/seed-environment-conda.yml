@@ -12,6 +12,7 @@ dependencies:
 - pandas=1.5.3
 - python=3.8
 # - q2-fmt=2023.7.0
+- q2-mystery-stew=2023.7.0
 - q2-stats=2023.7.0
 - q2-types=2023.7.0
 # - q2-vizard=2023.7.0

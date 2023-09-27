@@ -183,7 +183,7 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
             for generation in rebuild_generations
         ]
         if missing is not None:
-            rebuild_repos.append(rebuild[key] for key in missing)
+            rebuild_repos.append(list(rebuild[key] for key in missing))
         json.dump(rebuild_repos, fh)
 
     with open(os.path.join(matrix_path, 'retest_matrix.json'), 'w') as fh:

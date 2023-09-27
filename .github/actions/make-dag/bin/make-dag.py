@@ -110,15 +110,9 @@ def get_distro_deps(channel, relevant_pkgs):
         del missing_pkgs[name]
         q2_dep_dict[name] = [dep.split(' ')[0] for dep in info['depends']]
 
-    print('Q2 DEP DICT')
-    print(q2_dep_dict)
-
     if missing_pkgs:
-        print('MISSING PKGS')
-        print(missing_pkgs)
         missing = {}
         for name in missing_pkgs:
-            # del q2_dep_dict[name]
             missing[name] = []
     else:
         missing = None
@@ -145,8 +139,6 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
     distro_deps, missing = get_distro_deps(search_channels[0], distro_versions)
-    print('DISTRO DEPS')
-    print(distro_deps)
 
     for pkg in missing:
         if pkg in env_versions.keys():
@@ -160,10 +152,12 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     ))
 
     src_revdeps = get_source_revdeps(core_dag, [*changed, *rebuild])
+    raise ValueError(src_revdeps)
 
     pkgs_to_test = sorted(set.union(set(src_revdeps),
                                     *(nx.descendants(core_dag, pkg)
                                       for pkg in src_revdeps)))
+
     # Filter to only packages that we manage
     pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
 

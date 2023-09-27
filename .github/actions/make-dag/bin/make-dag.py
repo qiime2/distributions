@@ -118,7 +118,7 @@ def get_distro_deps(channel, relevant_pkgs):
         print(missing_pkgs)
         missing = {}
         for name in missing_pkgs:
-            del q2_dep_dict[name]
+            # del q2_dep_dict[name]
             missing[name] = []
     else:
         missing = None

@@ -145,6 +145,8 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     J_ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
     distro_deps, missing = get_distro_deps(search_channels[0], distro_versions)
+    print('DISTRO DEPS')
+    print(distro_deps)
     raise ValueError(missing)
 
     core_dag = make_dag(pkg_dict=distro_deps, env_versions=env_versions)

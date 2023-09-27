@@ -77,7 +77,7 @@ packages:
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew
-  distros: [tiny, amplicon]
+  distros: [tiny, amplicon, shotgun, fmt]
 
 - name: q2-phylogeny
   repo: qiime2/q2-phylogeny
@@ -121,7 +121,7 @@ packages:
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [tiny, amplicon, shotgun]
+  distros: [tiny, amplicon, shotgun, fmt]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy

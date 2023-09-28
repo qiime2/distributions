@@ -229,6 +229,7 @@ dependencies:
 - pytz=2023.3.post1
 - pyyaml=6.0.1
 - pyzmq=24.0.1
+- q2-fmt=2023.9.0.dev0+1.g63878d2
 - q2-mystery-stew=2023.9.0.dev0+2.g2b4de72
 - q2-stats=2023.9.0.dev0
 - q2-types=2023.9.0.dev0+1.gd297c53

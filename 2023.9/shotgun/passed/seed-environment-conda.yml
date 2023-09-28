@@ -17,6 +17,7 @@ dependencies:
 - q2-diversity-lib=2023.7.0.dev0
 - q2-diversity=2023.7.0.dev0
 - q2-emperor=2023.7.0.dev0
+- q2-feature-table=2023.7.0.dev0
 - q2-metadata=2023.7.0.dev0
 - q2-moshpit=2023.7.0.dev0
 - q2-mystery-stew=2023.7.0.dev0

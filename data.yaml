@@ -11,10 +11,6 @@ packages:
   repo: bokulich-lab/q2-assembly
   distros: [shotgun]
 
-- name: q2-checkm
-  repo: bokulich-lab/q2-checkm
-  distros: [shotgun]
-
 - name: q2-composition
   repo: qiime2/q2-composition
   distros: [amplicon]

@@ -28,6 +28,7 @@ dependencies:
 - q2-types=2023.7.0.dev0
 - q2-types-genomics=2023.7.0.dev0
 - q2cli=2023.7.0.dev0
+- q2templates=2023.7.0.dev0
 - qiime2=2023.7.0.dev0
 - rescript=2023.2.0+3.gc7c6b4e
 - r-base=4.2.2

@@ -47,6 +47,16 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          remove-dotnet: 'true'
+
+      - name: Echo free space
+        run: |
+          echo "Free space:"
+          df -h
+
       - name: fetch seed env
         uses: actions/download-artifact@v3
         with:

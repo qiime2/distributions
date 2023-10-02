@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Maximize build space for linux
-        if: {{ runner.os == 'Linux' }}
+        if: ${{ runner.os == 'Linux' }}
         uses: easimon/maximize-build-space@master
         with:
           remove-dotnet: 'true'

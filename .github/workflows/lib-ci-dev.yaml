@@ -37,6 +37,12 @@ on:
         required: false
         default: 'reports'
 
+    outputs:
+      additional-reports-path:
+        value: ${{ inputs.additional-reports-path }}
+      additional-reports-name:
+        value: ${{ inputs.additional-reports-name }}
+
 jobs:
   setup:
     runs-on: ubuntu-latest

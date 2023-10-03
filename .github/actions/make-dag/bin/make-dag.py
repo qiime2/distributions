@@ -166,8 +166,9 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
 
     # add any new pkgs being added to a given distro
-    for pkg in missing:
-        pkgs_to_test.append(pkg)
+    if missing:
+        for pkg in missing:
+            pkgs_to_test.append(pkg)
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")

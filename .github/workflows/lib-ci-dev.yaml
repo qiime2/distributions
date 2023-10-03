@@ -25,6 +25,18 @@ on:
         required: false
         default: 'ci/recipe'
 
+      additional-reports-path:
+        description: "Path of additional reports to store in GH artifact"
+        type: string
+        required: false
+        default: ''
+
+      additional-reports-name:
+        description: "Name of GH artifact for additional reports"
+        type: string
+        required: false
+        default: 'reports'
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -122,6 +134,13 @@ jobs:
           conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
           package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
           channels: ${{ steps.make-cbc.outputs.channels }}
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ inputs.additional-reports-path != '' }}
+        name: 'Upload additional reports: ${{ inputs.additional-reports-name }}'
+        with:
+          name: ${{ inputs.additional-reports-name }}
+          path: ${{ inputs.additional-reports-path }}
 
   lint:
     runs-on: ubuntu-latest

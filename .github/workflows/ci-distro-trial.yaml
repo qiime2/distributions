@@ -99,8 +99,36 @@ jobs:
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 5
 
+  rebuild-6:
+    needs: [prepare, rebuild-5]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[6] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
+    with:
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 6
+
+  rebuild-7:
+    needs: [prepare, rebuild-6]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[7] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
+    with:
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 7
+
   build-metapackage:
-    needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5]
+    needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_2-build-metapackage.yaml
     with:

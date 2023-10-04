@@ -140,9 +140,10 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
 
     distro_deps, missing = get_distro_deps(search_channels[0], distro_versions)
 
-    for pkg in missing:
-        if pkg in env_versions.keys():
-            del env_versions[pkg]
+    if missing:
+        for pkg in missing:
+            if pkg in env_versions.keys():
+                del env_versions[pkg]
 
     core_dag = make_dag(pkg_dict=distro_deps, env_versions=env_versions)
     core_sub = nx.subgraph(core_dag, env_versions)
@@ -152,9 +153,10 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     ))
 
     src_revdeps = get_source_revdeps(core_dag, [*changed, *rebuild])
-    for pkg in missing:
-        if pkg in src_revdeps.keys():
-            del src_revdeps[pkg]
+    if missing:
+        for pkg in missing:
+            if pkg in src_revdeps.keys():
+                del src_revdeps[pkg]
 
     pkgs_to_test = sorted(set.union(set(src_revdeps),
                                     *(nx.descendants(core_dag, pkg)
@@ -164,8 +166,9 @@ def main(epoch, distro, changed, rebuild, env_versions, distro_versions,
     pkgs_to_test = [pkg for pkg in pkgs_to_test if pkg in distro_versions]
 
     # add any new pkgs being added to a given distro
-    for pkg in missing:
-        pkgs_to_test.append(pkg)
+    if missing:
+        for pkg in missing:
+            pkgs_to_test.append(pkg)
 
     core_mermaid = to_mermaid(core_sub, highlight_from=src_revdeps)
     template = J_ENV.get_template("job-summary-template.j2")

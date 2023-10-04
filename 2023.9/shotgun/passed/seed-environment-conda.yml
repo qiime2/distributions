@@ -1,3 +1,4 @@
+# new prepare w/misc shotgun PR updates as of 10/4/23
 channels:
 - https://packages.qiime2.org/qiime2/2023.9/shotgun/passed
 - conda-forge

@@ -11,10 +11,10 @@ dependencies:
 - numpy=1.24.4
 - pandas=1.5.3
 - python=3.8
-- q2-mystery-stew=2023.9.0.dev0+2.g2b4de72
-- q2-types=2023.9.0.dev0+1.gd297c53
-- q2cli=2023.9.0.dev0+1.g94168c9
-- qiime2=2023.9.0.dev0+4.gded379a
+- q2-mystery-stew=2023.9.0
+- q2-types=2023.9.0
+- q2cli=2023.9.1
+- qiime2=2023.9.1
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1

@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.9/amplicon/released/osx-64
+- https://packages.qiime2.org/qiime2/2023.9/amplicon/released/
 - bioconda
 - conda-forge
 - defaults

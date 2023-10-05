@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.9/shotgun/released/linux-64
+- https://packages.qiime2.org/qiime2/2023.9/shotgun/released/
 - bioconda
 - conda-forge
 - defaults

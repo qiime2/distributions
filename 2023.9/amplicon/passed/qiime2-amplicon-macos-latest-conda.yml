@@ -1,5 +1,5 @@
 channels:
-- file:///Users/runner/work/distributions/distributions/rebuilt-channel
+- https://packages.qiime2.org/qiime2/2023.9/amplicon/passed/osx-64
 - bioconda
 - conda-forge
 - defaults

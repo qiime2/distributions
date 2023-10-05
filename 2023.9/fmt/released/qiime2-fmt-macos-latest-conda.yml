@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.9/fmt/released/osx-64
+- https://packages.qiime2.org/qiime2/2023.9/fmt/released/
 - bioconda
 - conda-forge
 - defaults

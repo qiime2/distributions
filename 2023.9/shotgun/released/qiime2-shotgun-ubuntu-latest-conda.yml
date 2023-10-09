@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.9/shotgun/released/
+- file:///home/runner/work/distributions/distributions/rebuilt-channel
 - bioconda
 - conda-forge
 - defaults
@@ -63,7 +63,7 @@ dependencies:
 - biom-format=2.1.14
 - biopython=1.78
 - blast=2.14.1
-- bleach=6.0.0
+- bleach=6.1.0
 - bowtie2=2.5.1
 - bracken=2.9
 - brotli=1.1.0
@@ -72,7 +72,7 @@ dependencies:
 - bwa=0.7.17
 - bwidget=1.9.14
 - bzip2=1.0.8
-- c-ares=1.19.1
+- c-ares=1.20.1
 - ca-certificates=2023.7.22
 - cachecontrol=0.13.1
 - cached-property=1.5.2
@@ -89,8 +89,8 @@ dependencies:
 - contourpy=1.1.1
 - cryptography=39.0.0
 - curl=7.88.1
-- cutadapt=4.4
-- cycler=0.12.0
+- cutadapt=4.5
+- cycler=0.12.1
 - cython=3.0.3
 - dbus=1.13.6
 - debugpy=1.8.0
@@ -98,7 +98,7 @@ dependencies:
 - defusedxml=0.7.1
 - diamond=2.1.8
 - dill=0.3.7
-- dnaio=1.0.0
+- dnaio=1.0.1
 - easel=0.49
 - eggnog-mapper=2.1.12
 - emperor=1.0.3
@@ -117,7 +117,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.43.0
+- fonttools=4.43.1
 - fqdn=1.5.1
 - freetype=2.12.1
 - fribidi=1.0.10
@@ -279,7 +279,7 @@ dependencies:
 - nbconvert-core=7.9.2
 - nbconvert-pandoc=7.9.2
 - nbformat=5.9.2
-- ncbi-datasets-pylib=15.21.1
+- ncbi-datasets-pylib=15.23.0
 - ncbi-vdb=3.0.0
 - ncurses=6.4
 - nest-asyncio=1.5.6
@@ -395,7 +395,7 @@ dependencies:
 - python=3.8.15
 - python-dateutil=2.8.2
 - python-fastjsonschema=2.18.1
-- python-isal=1.3.0
+- python-isal=1.4.0
 - python-json-logger=2.0.7
 - python_abi=3.8
 - pytz=2023.3.post1
@@ -411,7 +411,7 @@ dependencies:
 - q2-feature-classifier=2023.9.0
 - q2-feature-table=2023.9.0
 - q2-metadata=2023.9.0
-- q2-moshpit=2023.9.0
+- q2-moshpit=2023.9.1
 - q2-mystery-stew=2023.9.0
 - q2-quality-control=2023.9.0
 - q2-quality-filter=2023.9.0
@@ -419,7 +419,7 @@ dependencies:
 - q2-sapienns=2023.9.0
 - q2-taxa=2023.9.0
 - q2-types=2023.9.0
-- q2-types-genomics=2023.9.0
+- q2-types-genomics=2023.9.1
 - q2cli=2023.9.1
 - q2templates=2023.9.0
 - qiime2=2023.9.1
@@ -461,7 +461,7 @@ dependencies:
 - r-dtplyr=1.3.1
 - r-ellipsis=0.3.2
 - r-evaluate=0.22
-- r-fansi=1.0.4
+- r-fansi=1.0.5
 - r-farver=2.1.1
 - r-fastmap=1.1.1
 - r-filelock=1.0.2
@@ -482,7 +482,7 @@ dependencies:
 - r-haven=2.5.3
 - r-highr=0.10
 - r-hms=1.1.3
-- r-htmltools=0.5.6
+- r-htmltools=0.5.6.1
 - r-httr=1.4.7
 - r-ids=1.0.1
 - r-isoband=0.2.7
@@ -548,8 +548,8 @@ dependencies:
 - r-stringi=1.7.12
 - r-stringr=1.5.0
 - r-sys=3.4.2
-- r-systemfonts=1.0.4
-- r-testthat=3.1.10
+- r-systemfonts=1.0.5
+- r-testthat=3.2.0
 - r-textshaping=0.3.6
 - r-tibble=3.2.1
 - r-tidyr=1.3.0
@@ -589,7 +589,7 @@ dependencies:
 - send2trash=1.8.2
 - setproctitle=1.3.3
 - setuptools=68.2.2
-- simplejson=3.19.1
+- simplejson=3.19.2
 - sip=6.7.11
 - six=1.16.0
 - sniffio=1.3.0
@@ -628,7 +628,7 @@ dependencies:
 - wcwidth=0.2.8
 - webcolors=1.13
 - webencodings=0.5.1
-- websocket-client=1.6.3
+- websocket-client=1.6.4
 - wget=1.20.3
 - wheel=0.41.2
 - widgetsnbextension=4.0.9

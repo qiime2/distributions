@@ -2,7 +2,6 @@ channels:
 - https://packages.qiime2.org/qiime2/2023.11/amplicon/passed/
 - conda-forge
 - bioconda
-- defaults
 dependencies:
 - biom-format=2.1.14
 - h5py=3.8.0

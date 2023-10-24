@@ -1,3 +1,4 @@
+# zero days since bloatware has been added by Anthony
 channels:
 - https://packages.qiime2.org/qiime2/2023.9/shotgun/passed
 - conda-forge

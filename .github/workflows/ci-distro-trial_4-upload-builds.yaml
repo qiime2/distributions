@@ -68,26 +68,53 @@ jobs:
           environment-file: ${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
           mask-environment-file: ${{ env.seed_environment_path }}/seed-environment-conda.yml
 
+      - name: fix channels on seed environment (staged)
+        shell: bash
+        run: |
+          file='${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml'
+          cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
+          mv "$file".tmp "$file"
+
       - name: update seed environments (passed)
         shell: bash
         run: |
+          for file in ${{ env.seed_environment_path}}/*
+          do
+            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
+            mv "$file".tmp "$file"
+          done
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
 
       - name: update seed environments (released)
         if: ${{ inputs.is-release == 'true' }}
         shell: bash
         run: |
+          for file in ${{ env.seed_environment_path}}/*
+          do
+            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
+            mv "$file".tmp "$file"
+          done
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
       - name: update solved environments (passed)
         shell: bash
         run: |
+          for file in ${{ env.seed_environment_path}}/*
+          do
+            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
+            mv "$file".tmp "$file"
+          done
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
 
       - name: update solved environments (released)
         if: ${{ inputs.is-release == 'true' }}
         shell: bash
         run: |
+          for file in ${{ env.seed_environment_path}}/*
+          do
+            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
+            mv "$file".tmp "$file"
+          done
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
       - uses: EndBug/add-and-commit@v9
@@ -99,6 +126,7 @@ jobs:
           cwd: ${{ env.distributions_repo }}
 
       - uses: qiime2/action-library-packaging/upload-channel@beta
+        if: ${{ !github.event.pull_request.draft }}
         with:
           distro: ${{ inputs.distro }}
           epoch: ${{ inputs.epoch }}

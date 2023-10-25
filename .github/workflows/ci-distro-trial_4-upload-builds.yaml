@@ -99,7 +99,7 @@ jobs:
       - name: update solved environments (passed)
         shell: bash
         run: |
-          for file in ${{ env.seed_environment_path}}/*
+          for file in ${{ env.solved_environment_path}}/*
           do
             cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
             mv "$file".tmp "$file"
@@ -110,7 +110,7 @@ jobs:
         if: ${{ inputs.is-release == 'true' }}
         shell: bash
         run: |
-          for file in ${{ env.seed_environment_path}}/*
+          for file in ${{ env.solved_environment_path}}/*
           do
             cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
             mv "$file".tmp "$file"

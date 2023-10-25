@@ -1,6 +1,5 @@
-# patch release
 channels:
-- https://packages.qiime2.org/qiime2/2023.9/tiny/passed
+- https://packages.qiime2.org/qiime2/2023.9/tiny/released
 - conda-forge
 - bioconda
 - defaults
@@ -15,7 +14,7 @@ dependencies:
 - q2-mystery-stew=2023.9.0
 - q2-types=2023.9.0
 - q2cli=2023.9.1
-- qiime2=2023.9.1
+- qiime2=2023.9.2
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1

@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.9/shotgun/staged
+- https://packages.qiime2.org/qiime2/2023.9/shotgun/passed
 - conda-forge
 - bioconda
 - defaults
@@ -14,7 +14,7 @@ dependencies:
 - python=3.8
 - q2-assembly=2023.9.0
 - q2-cutadapt=2023.9.0
-- q2-demux=2023.9.0
+- q2-demux=2023.9.1
 - q2-diversity-lib=2023.9.0
 - q2-diversity=2023.9.0
 - q2-emperor=2023.9.0
@@ -32,7 +32,7 @@ dependencies:
 - q2-types=2023.9.0
 - q2cli=2023.9.1
 - q2templates=2023.9.0
-- qiime2=2023.9.1
+- qiime2=2023.9.2
 - r-base=4.2.2
 - rescript=2023.9.0
 - scikit-bio=0.5.8

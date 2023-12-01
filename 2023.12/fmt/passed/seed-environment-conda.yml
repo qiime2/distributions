@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.12/fmt/passed
+- https://packages.qiime2.org/qiime2/2023.11/fmt/passed
 - conda-forge
 - bioconda
 - defaults
@@ -26,4 +26,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2023.12'
+    qiime2_epoch: '2023.11'

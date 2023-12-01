@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.11/fmt/passed
+- https://packages.qiime2.org/qiime2/2023.12/tiny/passed
 - conda-forge
 - bioconda
 - defaults
@@ -11,11 +11,8 @@ dependencies:
 - numpy=1.24.4
 - pandas=1.5.3
 - python=3.8
-- q2-fmt=2023.11.0.dev0
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
-- q2-stats=2023.11.0.dev0
 - q2-types=2023.11.0.dev0+1.g8a0e191
-- q2-vizard=2023.11.0.dev0
 - q2cli=2023.11.0.dev0+5.g4819197
 - qiime2=2023.11.0.dev0+5.gcf317be
 - r-base=4.2.2

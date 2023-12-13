@@ -137,7 +137,7 @@ jobs:
       - name: set up yaml for test env
         shell: bash
         run: |
-          source ${{ env.env_prefix }}/etc/activate.sh
+          conda activate '${{ env.env_prefix }}'
           REQUIRED_PKG="yaml"
           PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
           if [ "" = "$PKG_OK" ]; then

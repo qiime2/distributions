@@ -134,10 +134,9 @@ jobs:
           conda-prefix: ${{ env.env_prefix }}
           channels: ${{ steps.make-cbc.outputs.channels }}
 
-      - name: set up yaml for test env
+      - name: 'set up yaml for test env'
         shell: bash
         run: |
-          conda activate '${{ env.env_prefix }}'
           REQUIRED_PKG="yaml"
           PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
           if [ "" = "$PKG_OK" ]; then

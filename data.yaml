@@ -1,5 +1,5 @@
-active_epoch: "2023.12"
-next_epoch: "2024.2"
+active_epoch: "2024.2"
+next_epoch: "2024.5"
 distros: [tiny, amplicon, shotgun, fmt]
 packages:
 

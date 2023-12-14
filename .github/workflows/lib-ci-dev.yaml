@@ -137,9 +137,10 @@ jobs:
       - name: 'set up yaml for test env'
         shell: bash
         run: |
+          source ${{ env.env_prefix }}/etc/activate.sh
           conda activate '${{ env.env_prefix }}'
-          if ! [sudo dpkg-query -W -f='${Status}' yaml | grep "ok installed"]; 
-          then 
+          if ! [sudo dpkg-query -W -f='${Status}' yaml | grep "ok installed"];
+          then
             sudo apt install yaml;
           fi
 

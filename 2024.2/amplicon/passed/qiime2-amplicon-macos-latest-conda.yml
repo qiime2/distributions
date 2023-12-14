@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.12/amplicon/passed/
+- https://packages.qiime2.org/qiime2/2024.2/amplicon/passed/
 - bioconda
 - conda-forge
 - defaults

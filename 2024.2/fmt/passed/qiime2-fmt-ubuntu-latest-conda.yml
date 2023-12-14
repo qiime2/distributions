@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2023.12/fmt/passed
+- https://packages.qiime2.org/qiime2/2024.2/fmt/passed
 - bioconda
 - conda-forge
 - defaults

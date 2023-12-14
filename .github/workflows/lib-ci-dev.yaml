@@ -139,7 +139,7 @@ jobs:
         run: |
           source ${{ env.env_prefix }}/etc/activate.sh
           conda activate '${{ env.env_prefix }}'
-          pip install yaml
+          pip install pyyaml
 
       - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'

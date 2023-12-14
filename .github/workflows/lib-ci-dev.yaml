@@ -137,11 +137,10 @@ jobs:
       - name: 'set up yaml for test env'
         shell: bash
         run: |
-          if [ $(dpkg-query -W -f='${Status}' yaml 2>/dev/null | grep -c "ok installed") -eq 0 ];
-          then
-            apt-get install yaml;
+          if [! sudo dpkg-query -W -f='${Status}' yaml | grep "ok installed"]; 
+          then 
+            sudo apt install yaml;
           fi
-
 
       - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'

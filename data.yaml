@@ -55,10 +55,6 @@ packages:
   repo: qiime2/q2-fmt
   distros: [fmt]
 
-- name: q2-fondue
-  repo: bokulich-lab/q2-fondue
-  distros: [shotgun]
-
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion
   distros: [amplicon]

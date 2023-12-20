@@ -1,3 +1,4 @@
+name: cron-prepare
 on:
   workflow_dispatch: {}
   schedule:

@@ -1,3 +1,4 @@
+name: create-prepare-pr
 on:
   workflow_call:
     inputs:
@@ -36,7 +37,7 @@ jobs:
       - name: modify file
         shell: bash
         run: |
-          echo '# modified: ${{ steps.vars.outputs.today}}' >> ${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
+          echo '# modified: ${{ steps.vars.outputs.today}}' >> '${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
 
       - name: Create Pull Request
         id: pr

@@ -1,0 +1,89 @@
+on:
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      distro:
+        required: true
+        type: string
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.pr.outputs.pull-request-head-sha}}
+      pr: ${{ steps.pr.outputs.pull-request-number }}
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+      - name: set epoch and date
+        id: vars
+        shell: bash
+        run: |
+          echo epoch=${{ fromJSON(steps.yaml.outputs.data).active_epoch }} >> $GITHUB_OUTPUT
+          echo today=$(date +'%Y-%m-%d') >> $GITHUB_OUTPUT
+
+      - name: modify file
+        shell: bash
+        run: |
+          echo '# modified: ${{ steps.vars.outputs.today}}' >> ${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
+
+      - name: Create Pull Request
+        id: pr
+        uses: qiime2/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today}}
+          title: "[${{ inputs.distro }}] Automated Trial (Prepare)"
+          body: |
+            Automated updates from `create-prepare-pr.yaml`
+            triggered by ${{ github.event_name }}.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            Automated updates to seed environment: ${{ inputs.distro }}
+
+  await-workflow:
+    needs: [create-pr]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get workflow id
+        id: get-id
+        shell: bash
+        run: |
+          sleep 30  # let the workflow start
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial").id'
+          ) >> $GITHUB_OUTPUT
+
+      - name: await workflow id ${{ steps.get-id.outputs.run-id }}
+        uses: Codex-/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          poll_interval_ms: 45000
+
+      - name: merge trial
+        shell: bash
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge

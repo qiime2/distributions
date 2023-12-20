@@ -1,0 +1,32 @@
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: 0 0 * * SUN
+
+jobs:
+  tiny:
+    uses: ./.github/workflows/create-prepare-pr.yaml
+    secrets: inherit
+    with:
+      distro: tiny
+
+  amplicon:
+    needs: [tiny]
+    uses: ./.github/workflows/create-prepare-pr.yaml
+    secrets: inherit
+    with:
+      distro: amplicon
+
+  shotgun:
+    needs: [amplicon]
+    uses: ./.github/workflows/create-prepare-pr.yaml
+    secrets: inherit
+    with:
+      distro: shotgun
+
+  fmt:
+    needs: [shotgun]
+    uses: ./.github/workflows/create-prepare-pr.yaml
+    secrets: inherit
+    with:
+      distro: fmt

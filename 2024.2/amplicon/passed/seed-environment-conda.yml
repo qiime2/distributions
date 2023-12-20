@@ -11,6 +11,7 @@ dependencies:
 - notebook=6.5.5
 - numpy=1.24.4
 - pandas=1.5.3
+- parsl=2023.12.04
 - patsy=0.5.3
 - python=3.8
 - q2-alignment=2023.11.0.dev0+1.gf4a4883

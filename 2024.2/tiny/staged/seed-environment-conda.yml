@@ -10,11 +10,12 @@ dependencies:
 - notebook=6.5.5
 - numpy=1.24.4
 - pandas=1.5.3
+- parsl=2023.12.04
 - python=3.8
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
 - q2-types=2023.11.0.dev0+1.g8a0e191
-- q2cli=2023.11.0.dev0+5.g4819197
-- qiime2=2023.11.0.dev0+5.gcf317be
+- q2cli=2023.11.0.dev0+12.g7cf7a7a
+- qiime2=2023.11.0.dev0+15.g8ac7e3e
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1

@@ -151,7 +151,7 @@ dependencies:
 - icu=70.1
 - idna=3.6
 - ijson=3.2.3
-- importlib-metadata=7.0.0
+- importlib-metadata=7.0.1
 - importlib_resources=6.1.1
 - iniconfig=2.0.0
 - interface_meta=1.3.0
@@ -243,9 +243,9 @@ dependencies:
 - natsort=8.4.0
 - nbclassic=1.0.0
 - nbclient=0.8.0
-- nbconvert=7.13.0
-- nbconvert-core=7.13.0
-- nbconvert-pandoc=7.13.0
+- nbconvert=7.13.1
+- nbconvert-core=7.13.1
+- nbconvert-pandoc=7.13.1
 - nbformat=5.9.2
 - ncbi-vdb=3.0.0
 - ncurses=6.4
@@ -340,7 +340,7 @@ dependencies:
 - q2-diversity-lib=2023.11.0.dev0+3.g5a1b4a6
 - q2-emperor=2023.11.0.dev0+1.g22ad50e
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
-- q2-feature-table=2023.11.0.dev0+6.ga9e47ba
+- q2-feature-table=2023.11.0.dev0+7.g1987eb0
 - q2-fragment-insertion=2023.11.0.dev0+1.g5dce83d
 - q2-longitudinal=2023.11.0.dev0+3.gd55ee50
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
@@ -390,7 +390,7 @@ dependencies:
 - r-curl=4.3.3
 - r-cvxr=1.0_11
 - r-data.table=1.14.10
-- r-dbi=1.1.3
+- r-dbi=1.2.0
 - r-dbplyr=2.4.0
 - r-deldir=2.0_2
 - r-desctools=0.99.51
@@ -473,7 +473,7 @@ dependencies:
 - r-matrix=1.6_4
 - r-matrixstats=1.2.0
 - r-memoise=2.0.1
-- r-mgcv=1.9_0
+- r-mgcv=1.9_1
 - r-mime=0.12
 - r-minqa=1.2.6
 - r-modelr=0.1.11
@@ -569,7 +569,7 @@ dependencies:
 - r-xml2=1.3.3
 - r-xtable=1.8_4
 - r-yaml=2.3.8
-- r-yulab.utils=0.1.1
+- r-yulab.utils=0.1.2
 - raxml=8.2.13
 - readline=8.2
 - referencing=0.32.0

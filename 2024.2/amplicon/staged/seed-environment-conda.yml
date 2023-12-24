@@ -24,7 +24,7 @@ dependencies:
 - q2-diversity=2023.11.0.dev0+1.g2125108
 - q2-emperor=2023.11.0.dev0+1.g22ad50e
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
-- q2-feature-table=2023.11.0.dev0+6.ga9e47ba
+- q2-feature-table=2023.11.0.dev0+7.g1987eb0
 - q2-fragment-insertion=2023.11.0.dev0+1.g5dce83d
 - q2-longitudinal=2023.11.0.dev0+3.gd55ee50
 - q2-metadata=2023.11.0.dev0+1.g5ac3877

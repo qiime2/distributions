@@ -167,9 +167,9 @@ dependencies:
 - natsort=8.4.0
 - nbclassic=1.0.0
 - nbclient=0.8.0
-- nbconvert=7.13.0
-- nbconvert-core=7.13.0
-- nbconvert-pandoc=7.13.0
+- nbconvert=7.13.1
+- nbconvert-core=7.13.1
+- nbconvert-pandoc=7.13.1
 - nbformat=5.9.2
 - ncurses=6.4
 - nest-asyncio=1.5.8

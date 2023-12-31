@@ -94,7 +94,7 @@ dependencies:
 - importlib_resources=6.1.1
 - iniconfig=2.0.0
 - iow=1.0.5
-- ipykernel=6.26.0
+- ipykernel=6.28.0
 - ipython=8.12.2
 - ipython_genutils=0.2.0
 - isl=0.25
@@ -106,13 +106,13 @@ dependencies:
 - jpeg=9e
 - jsonpointer=2.4
 - jsonschema=4.20.0
-- jsonschema-specifications=2023.11.2
+- jsonschema-specifications=2023.12.1
 - jsonschema-with-format-nongpl=4.20.0
 - jupyter_client=7.4.9
-- jupyter_core=5.5.1
+- jupyter_core=5.6.0
 - jupyter_events=0.9.0
 - jupyter_server=2.12.1
-- jupyter_server_terminals=0.5.0
+- jupyter_server_terminals=0.5.1
 - jupyterlab_pygments=0.3.0
 - kiwisolver=1.4.5
 - krb5=1.20.1
@@ -224,7 +224,7 @@ dependencies:
 - pytest=7.4.3
 - python=3.8.18
 - python-dateutil=2.8.2
-- python-fastjsonschema=2.19.0
+- python-fastjsonschema=2.19.1
 - python-json-logger=2.0.7
 - python-slugify=8.0.1
 - python_abi=3.8
@@ -234,7 +234,7 @@ dependencies:
 - q2-fmt=2023.11.0.dev0+7.g22731a9
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
 - q2-stats=2023.11.0.dev0
-- q2-types=2023.11.0.dev0+1.g8a0e191
+- q2-types=2023.11.0.dev0+2.g1827eab
 - q2-vizard=2023.11.0.dev0
 - q2cli=2023.11.0.dev0+12.g7cf7a7a
 - qiime2=2023.11.0.dev0+15.g8ac7e3e
@@ -246,7 +246,7 @@ dependencies:
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
 - rich=13.7.0
-- rpds-py=0.15.2
+- rpds-py=0.16.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0

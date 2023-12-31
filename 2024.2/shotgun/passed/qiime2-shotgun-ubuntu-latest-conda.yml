@@ -13,7 +13,7 @@ dependencies:
 - anyio=4.2.0
 - appdirs=1.4.4
 - argcomplete=3.2.1
-- argh=0.30.4
+- argh=0.31.0
 - argon2-cffi=23.1.0
 - argon2-cffi-bindings=21.2.0
 - aria2=1.36.0
@@ -160,7 +160,7 @@ dependencies:
 - iniconfig=2.0.0
 - insilicoseq=1.5.4
 - iow=1.0.5
-- ipykernel=6.26.0
+- ipykernel=6.28.0
 - ipython=8.12.2
 - ipython_genutils=0.2.0
 - ipywidgets=8.1.1
@@ -175,13 +175,13 @@ dependencies:
 - jsonlines=3.0.0
 - jsonpointer=2.4
 - jsonschema=4.20.0
-- jsonschema-specifications=2023.11.2
+- jsonschema-specifications=2023.12.1
 - jsonschema-with-format-nongpl=4.20.0
 - jupyter_client=7.4.9
-- jupyter_core=5.5.1
+- jupyter_core=5.6.0
 - jupyter_events=0.9.0
 - jupyter_server=2.12.1
-- jupyter_server_terminals=0.5.0
+- jupyter_server_terminals=0.5.1
 - jupyterlab_pygments=0.3.0
 - jupyterlab_widgets=3.0.9
 - k8=0.2.5
@@ -319,7 +319,7 @@ dependencies:
 - paramiko=3.4.0
 - parsl=2023.12.4
 - parso=0.8.3
-- patsy=0.5.4
+- patsy=0.5.5
 - pbzip2=1.1.13
 - pcre=8.45
 - pcre2=10.40
@@ -422,7 +422,7 @@ dependencies:
 - pytest=7.4.3
 - python=3.8.15
 - python-dateutil=2.8.2
-- python-fastjsonschema=2.19.0
+- python-fastjsonschema=2.19.1
 - python-isal=1.5.3
 - python-json-logger=2.0.7
 - python_abi=3.8
@@ -446,7 +446,7 @@ dependencies:
 - q2-sample-classifier=2023.11.0.dev0+3.g7aef7e7
 - q2-sapienns=2023.11.0.dev0+3.g474f133
 - q2-taxa=2023.11.0.dev0+1.g1efb0b0
-- q2-types=2023.11.0.dev0+1.g8a0e191
+- q2-types=2023.11.0.dev0+2.g1827eab
 - q2-types-genomics=2023.11.0.dev0+6.g22fd9a3
 - q2cli=2023.11.0.dev0+12.g7cf7a7a
 - q2templates=2023.11.0.dev0+1.gba531e6
@@ -602,7 +602,7 @@ dependencies:
 - rfc3339-validator=0.1.4
 - rfc3986-validator=0.1.1
 - rmblast=2.14.1
-- rpds-py=0.15.2
+- rpds-py=0.16.2
 - samtools=1.18
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1

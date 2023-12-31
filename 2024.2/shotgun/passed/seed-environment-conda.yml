@@ -30,7 +30,7 @@ dependencies:
 - q2-sapienns=2023.11.0.dev0+3.g474f133
 - q2-taxa=2023.11.0.dev0+1.g1efb0b0
 - q2-types-genomics=2023.11.0.dev0+6.g22fd9a3
-- q2-types=2023.11.0.dev0+1.g8a0e191
+- q2-types=2023.11.0.dev0+2.g1827eab
 - q2cli=2023.11.0.dev0+12.g7cf7a7a
 - q2templates=2023.11.0.dev0+1.gba531e6
 - qiime2=2023.11.0.dev0+15.g8ac7e3e
@@ -45,4 +45,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2023.11'
-# modified: 2023-12-31

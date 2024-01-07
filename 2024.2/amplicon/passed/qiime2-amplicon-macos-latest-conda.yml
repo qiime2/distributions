@@ -16,7 +16,7 @@ dependencies:
 - astor=0.8.1
 - asttokens=2.4.1
 - atpublic=3.0.1
-- attrs=23.1.0
+- attrs=23.2.0
 - backcall=0.2.0
 - bcrypt=4.1.2
 - beautifulsoup4=4.12.2
@@ -93,7 +93,7 @@ dependencies:
 - clangxx_osx-64=17.0.6
 - click=8.1.7
 - colorama=0.4.6
-- comm=0.1.4
+- comm=0.2.1
 - compiler-rt=17.0.6
 - compiler-rt_osx-64=17.0.6
 - conda-pack=0.7.0
@@ -136,7 +136,7 @@ dependencies:
 - gettext=0.21.1
 - gfortran_impl_osx-64=11.4.0
 - gfortran_osx-64=11.4.0
-- globus-sdk=3.33.0.post0
+- globus-sdk=3.34.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.13
@@ -174,9 +174,9 @@ dependencies:
 - jsonschema-specifications=2023.12.1
 - jsonschema-with-format-nongpl=4.20.0
 - jupyter_client=7.4.9
-- jupyter_core=5.6.0
+- jupyter_core=5.7.0
 - jupyter_events=0.9.0
-- jupyter_server=2.12.1
+- jupyter_server=2.12.2
 - jupyter_server_terminals=0.5.1
 - jupyterlab_pygments=0.3.0
 - jupyterlab_widgets=3.0.9
@@ -243,9 +243,9 @@ dependencies:
 - natsort=8.4.0
 - nbclassic=1.0.0
 - nbclient=0.8.0
-- nbconvert=7.13.1
-- nbconvert-core=7.13.1
-- nbconvert-pandoc=7.13.1
+- nbconvert=7.14.0
+- nbconvert-core=7.14.0
+- nbconvert-pandoc=7.14.0
 - nbformat=5.9.2
 - ncbi-vdb=3.0.0
 - ncurses=6.4
@@ -320,7 +320,7 @@ dependencies:
 - pyobjc-framework-cocoa=10.1
 - pyparsing=3.1.1
 - pysocks=1.7.1
-- pytest=7.4.3
+- pytest=7.4.4
 - python=3.8.18
 - python-dateutil=2.8.2
 - python-fastjsonschema=2.19.1
@@ -340,7 +340,7 @@ dependencies:
 - q2-diversity-lib=2023.11.0.dev0+3.g5a1b4a6
 - q2-emperor=2023.11.0.dev0+1.g22ad50e
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
-- q2-feature-table=2023.11.0.dev0+7.g1987eb0
+- q2-feature-table=2023.11.0.dev0+8.g9f87ffb
 - q2-fragment-insertion=2023.11.0.dev0+1.g5dce83d
 - q2-longitudinal=2023.11.0.dev0+3.gd55ee50
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
@@ -572,7 +572,7 @@ dependencies:
 - r-yulab.utils=0.1.2
 - raxml=8.2.13
 - readline=8.2
-- referencing=0.32.0
+- referencing=0.32.1
 - requests=2.31.0
 - rfc3339-validator=0.1.4
 - rfc3986-validator=0.1.1
@@ -586,7 +586,7 @@ dependencies:
 - send2trash=1.8.2
 - sepp=4.3.10
 - setproctitle=1.3.3
-- setuptools=68.2.2
+- setuptools=69.0.3
 - sigtool=0.1.3
 - six=1.16.0
 - sniffio=1.3.0
@@ -610,7 +610,7 @@ dependencies:
 - tqdm=4.66.1
 - traitlets=5.9.0
 - typeguard=2.13.3
-- types-python-dateutil=2.8.19.14
+- types-python-dateutil=2.8.19.20240106
 - typing-extensions=4.9.0
 - typing_extensions=4.9.0
 - typing_utils=0.1.0

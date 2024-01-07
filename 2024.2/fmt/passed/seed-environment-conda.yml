@@ -12,11 +12,11 @@ dependencies:
 - pandas=1.5.3
 - parsl=2023.12.04
 - python=3.8
-- q2-fmt=2023.11.0.dev0+7.g22731a9
+- q2-fmt=2023.11.0.dev0+8.ge630d2b
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
 - q2-stats=2023.11.0.dev0
 - q2-types=2023.11.0.dev0+2.g1827eab
-- q2-vizard=2023.11.0.dev0
+- q2-vizard=2023.11.0.dev0+1.g6708cba
 - q2cli=2023.11.0.dev0+12.g7cf7a7a
 - qiime2=2023.11.0.dev0+15.g8ac7e3e
 - r-base=4.2.2
@@ -28,4 +28,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2023.11'
-# modified: 2024-01-07

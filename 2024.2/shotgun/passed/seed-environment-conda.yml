@@ -20,7 +20,7 @@ dependencies:
 - q2-diversity=2023.11.0.dev0+1.g2125108
 - q2-emperor=2023.11.0.dev0+1.g22ad50e
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
-- q2-feature-table=2023.11.0.dev0+7.g1987eb0
+- q2-feature-table=2023.11.0.dev0+8.g9f87ffb
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
 - q2-moshpit=2023.11.0.dev0+19.g9180084
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05

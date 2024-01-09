@@ -84,12 +84,18 @@ jobs:
           poll_interval_ms: 45000
 
       - name: merge trial
+        id: merge-trial
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api \
+          echo gh-response=$(
+            gh api \
             --method PUT \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
+          ) >> $GITHUB_OUTPUT
+
+      - name: check prepare pr status
+        if: ${{ steps.merge-trial.outputs.gh-response == '200' }}

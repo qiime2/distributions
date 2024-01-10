@@ -97,5 +97,13 @@ jobs:
             /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
           ) >> $GITHUB_OUTPUT
 
-      - name: check prepare pr status
+      - uses: actions/checkout@v3
+
+      - name: copy updated macos env file from merged pr
+        id: copy-macos-env
+        strategy:
+          matrix:
+            os: [macos, ubuntu]
         if: ${{ steps.merge-trial.outputs.gh-response == '200' }}
+        run: |
+          cp ${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-${{ matrix.os }}-latest-conda.yml ''${{ env.distributions_repo }}/latest/passed/'

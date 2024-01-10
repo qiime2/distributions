@@ -1,0 +1,24 @@
+# exploring another method
+name: Updates osx environment files within 'latest' dir after each weekly Prepare has completed
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - '${{ env.epoch }}/${{ env.distro }}/passed/qiime2-${{ env.distro }}-macos-latest-conda.yml'
+
+jobs:
+  copy-env-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          path: ./latest/passed
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Copy updated env fils
+        shell: bash
+        run: |
+          cp

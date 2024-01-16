@@ -126,6 +126,7 @@ jobs:
           token: ${{ secrets.BOT_PAT }}
           branch: update-latest-envs-from-PR-${{ jobs.create-pr.outputs.pr }}
           title: "[${{ inputs.distro }}] latest env updates from PR ${{ jobs.create-pr.outputs.pr }}"
+          add-paths: ${{ env.distributions_repo }}/latest/passed/
           body: |
             Automated updates to latest env files from `create-prepare-pr.yaml`
             triggered by ${{ github.event_name }}.

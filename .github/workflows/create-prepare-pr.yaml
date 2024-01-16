@@ -10,6 +10,9 @@ on:
       distro:
         required: true
         type: string
+      epoch:
+        required: true
+        type: string
 
 env:
   distributions_repo: './distributions'

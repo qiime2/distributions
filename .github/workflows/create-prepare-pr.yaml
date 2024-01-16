@@ -115,7 +115,7 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-macos-env
-        if: ${{ jobs.await-workflow.outputs.gh-response == '200' }}
+        if: ${{ needs.await-workflow.outputs.gh-response == '200' }}
         run: |
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'
@@ -125,8 +125,8 @@ jobs:
         uses: qiime2/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
-          branch: update-latest-envs-from-PR-${{ jobs.create-pr.outputs.pr }}
-          title: "[${{ inputs.distro }}] latest env updates from PR ${{ jobs.create-pr.outputs.pr }}"
+          branch: update-latest-envs-from-PR-${{ needs.create-pr.outputs.pr }}
+          title: "[${{ inputs.distro }}] latest env updates from PR ${{ needs.create-pr.outputs.pr }}"
           add-paths: ${{ env.distributions_repo }}/latest/passed/
           body: |
             Automated updates to latest env files from `create-prepare-pr.yaml`

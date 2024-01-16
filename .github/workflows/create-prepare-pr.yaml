@@ -115,9 +115,8 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-macos-env
-        strategy:
-          matrix:
-            os: [macos, ubuntu]
+        matrix:
+          os: [macos, ubuntu]
         if: ${{ jobs.await-workflow.outputs.gh-response == '200' }}
         run: |
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-${{ matrix.os }}-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'

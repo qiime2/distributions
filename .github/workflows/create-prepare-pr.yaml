@@ -110,17 +110,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: testing gh-response
-        shell: bash
-        run: |
-          echo " PR ID: "${{ needs.create-pr.outputs.pr }}
-          echo ${{ needs.await-workflow.outputs.gh-response }}
-
       - name: copy updated env file from merged prepare pr
         id: copy-macos-env
         if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
-          echo '$(pwd)'
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' './latest/passed/'
 

@@ -123,6 +123,7 @@ jobs:
         id: copy-macos-env
         if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
+          echo '$(pwd)'
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'
 

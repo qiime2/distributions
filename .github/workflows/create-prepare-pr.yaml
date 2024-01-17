@@ -117,11 +117,11 @@ jobs:
         shell: bash
         run: |
           echo " PR ID: "${{ needs.create-pr.outputs.pr }}
-          echo "GH HTTP RESPONSE: "${{ needs.await-workflow.outputs.gh-response }}
+          echo ${{ needs.await-workflow.outputs.gh-response }}
 
       - name: copy updated env file from merged prepare pr
         id: copy-macos-env
-        if: ${{ needs.await-workflow.outputs.gh-response == '200' }}
+        if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'
           cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' '${{ env.distributions_repo }}/latest/passed/'

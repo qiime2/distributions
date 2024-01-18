@@ -10,9 +10,6 @@ on:
       distro:
         required: true
         type: string
-      epoch:
-        required: true
-        type: string
 
 jobs:
   create-pr:
@@ -20,8 +17,8 @@ jobs:
     outputs:
       sha: ${{ steps.pr.outputs.pull-request-head-sha }}
       pr: ${{ steps.pr.outputs.pull-request-number }}
+      epoch: ${{ steps.vars.outputs.epoch }}
     steps:
-
       - uses: actions/checkout@v3
 
       - name: "get distro info"
@@ -40,14 +37,14 @@ jobs:
       - name: modify file
         shell: bash
         run: |
-          echo '# modified: ${{ steps.vars.outputs.today}}' >> '${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
+          echo '# modified: ${{ steps.vars.outputs.today }}' >> '${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
 
       - name: Create Pull Request
         id: pr
         uses: qiime2/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
-          branch: Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today}}
+          branch: Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}
           title: "[${{ inputs.distro }}] Automated Trial (Prepare)"
           body: |
             Automated updates from `create-prepare-pr.yaml`
@@ -116,8 +113,8 @@ jobs:
         id: copy-macos-env
         if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
-          cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
-          cp '${{ inputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' './latest/passed/'
+          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
+          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' './latest/passed/'
 
       - name: Open Pull Request to update latest env files
         id: env-updates-pr
@@ -133,7 +130,7 @@ jobs:
           author: "q2d2 <q2d2.noreply@gmail.com>"
           committer: "q2d2 <q2d2.noreply@gmail.com>"
           commit-message: |
-            Automated updates to latest resolved environment files: ${{ inputs.epoch }} ${{ inputs.distro }}
+            Automated updates to latest resolved environment files: ${{ needs.create-pr.outputs.epoch }} ${{ inputs.distro }}
 
   merge-latest-env-pr:
     needs: [update-latest-envs]

@@ -18,7 +18,7 @@ jobs:
   create-pr:
     runs-on: ubuntu-latest
     outputs:
-      sha: ${{ steps.pr.outputs.pull-request-head-sha}}
+      sha: ${{ steps.pr.outputs.pull-request-head-sha }}
       pr: ${{ steps.pr.outputs.pull-request-number }}
     steps:
 
@@ -107,6 +107,8 @@ jobs:
   update-latest-envs:
     needs: [create-pr, await-workflow]
     runs-on: ubuntu-latest
+    outputs:
+      env-pr: ${{ steps.env-updates-pr.outputs.pull-request-number }}
     steps:
       - uses: actions/checkout@v3
 
@@ -132,3 +134,19 @@ jobs:
           committer: "q2d2 <q2d2.noreply@gmail.com>"
           commit-message: |
             Automated updates to latest resolved environment files: ${{ inputs.epoch }} ${{ inputs.distro }}
+
+  merge-latest-env-pr:
+    needs: [update-latest-envs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: merge env updates
+        id: merge-env-pr
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+            gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.update-latest-envs.outputs.env-pr }}/merge

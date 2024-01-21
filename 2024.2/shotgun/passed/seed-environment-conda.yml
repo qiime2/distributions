@@ -17,25 +17,25 @@ dependencies:
 - q2-cutadapt=2023.11.0.dev0+3.gc78541c
 - q2-demux=2023.11.0.dev0+4.g59b2378
 - q2-diversity-lib=2023.11.0.dev0+3.g5a1b4a6
-- q2-diversity=2023.11.0.dev0+1.g2125108
-- q2-emperor=2023.11.0.dev0+1.g22ad50e
+- q2-diversity=2023.11.0.dev0+2.g7171c05
+- q2-emperor=2023.11.0.dev0+2.g706f4c4
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
 - q2-feature-table=2023.11.0.dev0+8.g9f87ffb
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
-- q2-moshpit=2023.11.0.dev0+19.g9180084
+- q2-moshpit=2023.11.0.dev0+24.gf4b9644
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
 - q2-quality-control=2023.11.0.dev0+2.g0d8aba5
 - q2-quality-filter=2023.11.0.dev0+1.g032ad25
 - q2-sample-classifier=2023.11.0.dev0+3.g7aef7e7
 - q2-sapienns=2023.11.0.dev0+3.g474f133
 - q2-taxa=2023.11.0.dev0+1.g1efb0b0
-- q2-types-genomics=2023.11.0.dev0+6.g22fd9a3
+- q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2023.11.0.dev0+2.g1827eab
-- q2cli=2023.11.0.dev0+12.g7cf7a7a
+- q2cli=2023.11.0.dev0+13.g246f054
 - q2templates=2023.11.0.dev0+1.gba531e6
-- qiime2=2023.11.0.dev0+15.g8ac7e3e
+- qiime2=2023.11.0.dev0+16.gc95b12b
 - r-base=4.2.2
-- rescript=2023.11.0.dev0+44.g92ee605
+- rescript=2023.11.0.dev0+45.g51df26b
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0
@@ -45,4 +45,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2023.11'
-# modified: 2024-01-21

@@ -13,7 +13,7 @@ packages:
 
 - name: q2-composition
   repo: qiime2/q2-composition
-  distros: [amplicon]
+  distros: [amplicon, shotgun]
 
 - name: q2-cutadapt
   repo: qiime2/q2-cutadapt
@@ -61,7 +61,7 @@ packages:
 
 - name: q2-longitudinal
   repo: qiime2/q2-longitudinal
-  distros: [amplicon]
+  distros: [amplicon, shotgun]
 
 - name: q2-metadata
   repo: qiime2/q2-metadata

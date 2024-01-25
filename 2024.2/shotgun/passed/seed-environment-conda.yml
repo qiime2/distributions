@@ -16,7 +16,7 @@ dependencies:
 - patsy=0.5.3
 - python=3.8
 - q2-assembly=2023.11.0.dev0+10.gfa7d842
-- q2-composition=2023.11.0.dev0
+- q2-composition=2023.11.0.dev0+2.g89c2a1c
 - q2-cutadapt=2023.11.0.dev0+3.gc78541c
 - q2-demux=2023.11.0.dev0+4.g59b2378
 - q2-diversity-lib=2023.11.0.dev0+3.g5a1b4a6
@@ -24,9 +24,9 @@ dependencies:
 - q2-emperor=2023.11.0.dev0+2.g706f4c4
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
 - q2-feature-table=2023.11.0.dev0+8.g9f87ffb
-- q2-longitudinal=2023.11.0.dev0
+- q2-longitudinal=2023.11.0.dev0+3.gd55ee50
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
-- q2-moshpit=2023.11.0.dev0+24.gf4b9644
+- q2-moshpit=2023.11.0.dev0+25.g03a2702
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
 - q2-quality-control=2023.11.0.dev0+2.g0d8aba5
 - q2-quality-filter=2023.11.0.dev0+1.g032ad25

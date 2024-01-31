@@ -113,7 +113,7 @@ packages:
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch
-  distros: [amplicon]
+  distros: [amplicon, shotgun]
 
 - name: q2cli
   repo: qiime2/q2cli

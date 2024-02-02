@@ -15,7 +15,7 @@ dependencies:
 - parsl=2023.12.04
 - patsy=0.5.3
 - python=3.8
-- q2-assembly=2023.11.0.dev0+10.gfa7d842
+- q2-assembly=2023.11.0.dev0+11.gc775805
 - q2-composition=2023.11.0.dev0+2.g89c2a1c
 - q2-cutadapt=2023.11.0.dev0+3.gc78541c
 - q2-demux=2023.11.0.dev0+4.g59b2378
@@ -26,7 +26,7 @@ dependencies:
 - q2-feature-table=2023.11.0.dev0+8.g9f87ffb
 - q2-longitudinal=2023.11.0.dev0+3.gd55ee50
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
-- q2-moshpit=2023.11.0.dev0+25.g03a2702
+- q2-moshpit=2023.11.0.dev0+28.ge2faebc
 - q2-mystery-stew=2023.11.0.dev0+2.g1836c05
 - q2-quality-control=2023.11.0.dev0+2.g0d8aba5
 - q2-quality-filter=2023.11.0.dev0+1.g032ad25
@@ -39,7 +39,7 @@ dependencies:
 - q2templates=2023.11.0.dev0+1.gba531e6
 - qiime2=2023.11.0.dev0+16.gc95b12b
 - r-base=4.2.2
-- rescript=2023.11.0.dev0+45.g51df26b
+- rescript=2023.11.0.dev0+47.ga19d106
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0
@@ -50,4 +50,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2023.11'
-# modified: 2024-02-02

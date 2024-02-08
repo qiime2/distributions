@@ -35,6 +35,7 @@ dependencies:
 - q2-taxa=2023.11.0.dev0+1.g1efb0b0
 - q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2023.11.0.dev0+2.g1827eab
+- q2-vsearch=2023.11.0.dev0
 - q2cli=2023.11.0.dev0+13.g246f054
 - q2templates=2023.11.0.dev0+1.gba531e6
 - qiime2=2023.11.0.dev0+16.gc95b12b

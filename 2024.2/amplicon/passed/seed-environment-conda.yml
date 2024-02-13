@@ -23,7 +23,7 @@ dependencies:
 - q2-diversity-lib=2023.11.0.dev0+3.g5a1b4a6
 - q2-diversity=2023.11.0.dev0+2.g7171c05
 - q2-emperor=2023.11.0.dev0+2.g706f4c4
-- q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
+- q2-feature-classifier=2023.11.0.dev0+3.ged1cce9
 - q2-feature-table=2023.11.0.dev0+8.g9f87ffb
 - q2-fragment-insertion=2023.11.0.dev0+1.g5dce83d
 - q2-longitudinal=2023.11.0.dev0+3.gd55ee50
@@ -39,7 +39,7 @@ dependencies:
 - q2cli=2023.11.0.dev0+13.g246f054
 - q2galaxy=2023.11.0.dev0+3.ga24b5bc
 - q2templates=2023.11.0.dev0+1.gba531e6
-- qiime2=2023.11.0.dev0+16.gc95b12b
+- qiime2=2023.11.0.dev0+19.gbaf98a3
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
@@ -50,4 +50,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2023.11'
-# modified: 2024-02-12

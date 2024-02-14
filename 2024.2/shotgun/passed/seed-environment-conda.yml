@@ -24,7 +24,7 @@ dependencies:
 - q2-emperor=2023.11.0.dev0+2.g706f4c4
 - q2-feature-classifier=2023.11.0.dev0+2.g7f9f1c8
 - q2-feature-table=2023.11.0.dev0+8.g9f87ffb
-- q2-fondue=0.0.0
+- q2-fondue=0.0.1
 - q2-longitudinal=2023.11.0.dev0+3.gd55ee50
 - q2-metadata=2023.11.0.dev0+1.g5ac3877
 - q2-moshpit=2023.11.0.dev0+29.g9c5e435

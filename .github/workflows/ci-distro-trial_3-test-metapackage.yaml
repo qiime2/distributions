@@ -40,15 +40,14 @@ jobs:
         run: |
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
-  run_matrix:
-    name: '${{ matrix.package }} (${{ matrix.os }})'
+  run_matrix_ubuntu:
+    name: '${{ matrix.package }} (ubuntu-latest)'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: get environment path
         uses: actions/download-artifact@v3
@@ -69,7 +68,6 @@ jobs:
           path: ${{ env.rebuilt_channel_path }}
 
       - name: Free Disk Space (Ubuntu)
-        if: ${{ matrix.os.ubuntu-latest == 'true' }}
         uses: jlumbroso/free-disk-space@main
         with:
           # this might remove tools that are actually needed,
@@ -88,7 +86,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ matrix.os }}-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-ubuntu-latest-conda.yml
 
       - name: run qiime info
         shell: bash
@@ -100,7 +98,61 @@ jobs:
         id: 'collect-package'
         uses: qiime2/action-library-packaging/collect-package@beta
         with:
-          runner: ${{ matrix.os }}
+          runner: ubuntu-latest
+          package: ${{ matrix.package }}
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+
+      - name: 'run tests'
+        uses: qiime2/action-library-packaging/test-package@beta
+        with:
+          conda-activate: ${{ steps.env.outputs.conda-activate }}
+          package-path: ${{ steps.collect-package.outputs.path }}
+
+  run_matrix_osx:
+    name: '${{ matrix.package }} (macos-latest)'
+    needs: configure_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
+    runs-on: macos-latest
+    steps:
+      - name: get environment path
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.solved-environment-key }}
+          path: ${{ env.solved_environment_path }}
+
+      - name: 'Fetch base channel with patches'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: 'Fetch rebuilt channel'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: install environment
+        id: env
+        uses: qiime2/action-library-packaging/create-env@beta
+        with:
+          conda-prefix: './test-env'
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-macos-latest-conda.yml
+
+      - name: run qiime info
+        shell: bash
+        run: |
+          ${{ steps.env.outputs.conda-activate }}
+          qiime info
+
+      - name: 'collect package path'
+        id: 'collect-package'
+        uses: qiime2/action-library-packaging/collect-package@beta
+        with:
+          runner: macos-latest
           package: ${{ matrix.package }}
           channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
 

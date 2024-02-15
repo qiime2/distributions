@@ -133,7 +133,7 @@ packages:
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt
-  distros: [amplicon]
+  distros: [amplicon, shotgun]
 
 - name: q2-sapienns
   repo: gregcaporaso/q2-sapienns

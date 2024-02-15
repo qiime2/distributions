@@ -34,13 +34,12 @@ dependencies:
 - q2-sample-classifier=2023.11.0.dev0+4.g8d7ea52
 - q2-sapienns=2023.11.0.dev0+3.g474f133
 - q2-taxa=2023.11.0.dev0+1.g1efb0b0
-- q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2023.11.0.dev0+2.g1827eab
+- q2-vsearch=2023.11.0.dev0
 - q2cli=2023.11.0.dev0+14.gfde6c06
 - q2templates=2023.11.0.dev0+1.gba531e6
 - qiime2=2023.11.0.dev0+19.gbaf98a3
 - r-base=4.2.2
-- rescript=2023.11.0.dev0+47.ga19d106
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0

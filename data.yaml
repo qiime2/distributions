@@ -107,6 +107,10 @@ packages:
   repo: qiime2/q2-types
   distros: [tiny, amplicon, shotgun, fmt]
 
+- name: q2-types-genomics
+  repo: bokulich-lab/q2-types-genomics
+  distros: [shotgun]
+
 - name: q2-vizard
   repo: qiime2/q2-vizard
   distros: [fmt]

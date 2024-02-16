@@ -42,7 +42,7 @@ dependencies:
 - q2templates=2023.11.0.dev0+1.gba531e6
 - qiime2=2023.11.0.dev0+20.g4516e90
 - r-base=4.2.2
-- rescript=2023.11.0.dev0
+- rescript=2023.11.0.dev0+50.g79b2e4b
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0

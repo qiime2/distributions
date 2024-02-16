@@ -12,10 +12,10 @@ dependencies:
 - pandas=1.5.3
 - parsl=2023.12.04
 - python=3.8
-- q2-mystery-stew=2023.11.0.dev0+2.g1836c05
-- q2-types=2023.11.0.dev0+2.g1827eab
-- q2cli=2023.11.0.dev0+13.g246f054
-- qiime2=2023.11.0.dev0+16.gc95b12b
+- q2-mystery-stew=2024.2.0
+- q2-types=2024.2.0
+- q2cli=2024.2.0
+- qiime2=2024.2.0
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
@@ -24,4 +24,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2023.11'
+    qiime2_epoch: '2024.2'

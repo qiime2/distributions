@@ -13,6 +13,7 @@ dependencies:
 - pandas=1.5.3
 - parsl=2023.12.04
 - patsy=0.5.3
+- pillow=9.4.0
 - python=3.8
 - q2-alignment=2023.11.0.dev0+2.ga0e44f7
 - q2-composition=2023.11.0.dev0+2.g89c2a1c

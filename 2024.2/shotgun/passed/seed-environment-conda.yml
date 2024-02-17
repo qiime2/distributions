@@ -15,32 +15,32 @@ dependencies:
 - parsl=2023.12.04
 - patsy=0.5.3
 - python=3.8
-- q2-assembly=2023.11.0.dev0+12.gedeefe2
-- q2-composition=2023.11.0.dev0+2.g89c2a1c
-- q2-cutadapt=2023.11.0.dev0+4.g2fddbf0
-- q2-demux=2023.11.0.dev0+4.g59b2378
-- q2-diversity-lib=2023.11.0.dev0+4.gcb637aa
-- q2-diversity=2023.11.0.dev0+3.gc27511d
-- q2-emperor=2023.11.0.dev0+2.g706f4c4
-- q2-feature-classifier=2023.11.0.dev0+4.ga23dc28
-- q2-feature-table=2023.11.0.dev0+8.g9f87ffb
-- q2-fondue=2023.9.0.dev0+4.g90e9d6d
-- q2-longitudinal=2023.11.0.dev0+3.gd55ee50
-- q2-metadata=2023.11.0.dev0+1.g5ac3877
-- q2-moshpit=2023.11.0.dev0+30.g1677131
-- q2-mystery-stew=2023.11.0.dev0+2.g1836c05
-- q2-quality-control=2023.11.0.dev0+3.g337e1c2
-- q2-quality-filter=2023.11.0.dev0+1.g032ad25
-- q2-sample-classifier=2023.11.0.dev0+4.g8d7ea52
-- q2-sapienns=2023.11.0.dev0+3.g474f133
-- q2-taxa=2023.11.0.dev0+1.g1efb0b0
-- q2-types=2023.11.0.dev0+3.gdfd1851
-- q2-vsearch=2023.11.0.dev0+4.gbc85692
-- q2cli=2023.11.0.dev0+14.gfde6c06
-- q2templates=2023.11.0.dev0+1.gba531e6
-- qiime2=2023.11.0.dev0+20.g4516e90
+- q2-assembly=2024.2.0
+- q2-composition=2024.2.0
+- q2-cutadapt=2024.2.0
+- q2-demux=2024.2.0
+- q2-diversity-lib=2024.2.0
+- q2-diversity=2024.2.0
+- q2-emperor=2024.2.0
+- q2-feature-classifier=2024.2.0
+- q2-feature-table=2024.2.0
+- q2-fondue=2024.2.0
+- q2-longitudinal=2024.2.0
+- q2-metadata=2024.2.0
+- q2-moshpit=2024.2.0
+- q2-mystery-stew=2024.2.0
+- q2-quality-control=2024.2.0
+- q2-quality-filter=2024.2.0
+- q2-sample-classifier=2024.2.0
+- q2-sapienns=2024.2.0
+- q2-taxa=2024.2.0
+- q2-types=2024.2.0
+- q2-vsearch=2024.2.0
+- q2cli=2024.2.0
+- q2templates=2024.2.0
+- qiime2=2024.2.0
 - r-base=4.2.2
-- rescript=2023.11.0.dev0+48.gbbed7fe
+- rescript=2024.2.0
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0
@@ -50,4 +50,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2023.11'
+    qiime2_epoch: '2024.2'

@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.2/shotgun/passed
+- https://packages.qiime2.org/qiime2/2024.2/shotgun/released
 - conda-forge
 - bioconda
 - defaults
@@ -24,7 +24,7 @@ dependencies:
 - q2-emperor=2024.2.0
 - q2-feature-classifier=2024.2.0
 - q2-feature-table=2024.2.0
-- q2-fondue=2023.9.0
+- q2-fondue=2024.2.0
 - q2-longitudinal=2024.2.0
 - q2-metadata=2024.2.0
 - q2-moshpit=2024.2.0

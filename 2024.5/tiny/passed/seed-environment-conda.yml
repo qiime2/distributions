@@ -1,3 +1,4 @@
+# adding comment to kick off CI
 channels:
 - https://packages.qiime2.org/qiime2/2024.5/tiny/passed
 - conda-forge

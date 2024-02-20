@@ -1,6 +1,5 @@
-# adding comment to kick off CI
 channels:
-- https://packages.qiime2.org/qiime2/2024.5/tiny/passed
+- https://packages.qiime2.org/qiime2/2024.2/tiny/released
 - conda-forge
 - bioconda
 - defaults
@@ -25,4 +24,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2024.2'
+    qiime2_epoch: '2024.5'

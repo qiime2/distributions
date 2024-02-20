@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.5/shotgun/staged
+- https://packages.qiime2.org/qiime2/2024.2/shotgun/released
 - conda-forge
 - bioconda
 - defaults
@@ -51,4 +51,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2024.2'
+    qiime2_epoch: '2024.5'

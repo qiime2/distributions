@@ -1,3 +1,4 @@
+# re-render
 channels:
 - https://packages.qiime2.org/qiime2/2024.2/amplicon/released
 - conda-forge

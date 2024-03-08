@@ -1,7 +1,7 @@
 # this is the current dev cycle epoch (i.e. 20XX.REL+1)
-active_epoch: "2024.5"
+active_epoch: "2024.2"
 # this is the next dev cycle epoch (i.e. 20XX.REL+2)
-next_epoch: "2024.8"
+next_epoch: "2024.5"
 distros: [tiny, amplicon, shotgun, fmt]
 packages:
 

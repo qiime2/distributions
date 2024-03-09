@@ -15,7 +15,7 @@ dependencies:
 - parsl=2023.12.04
 - patsy=0.5.3
 - python=3.8
-- q2-assembly=2024.2.0
+- q2-assembly=2024.2.0+1.g604db49
 - q2-composition=2024.2.0
 - q2-cutadapt=2024.2.0
 - q2-demux=2024.2.0
@@ -23,7 +23,7 @@ dependencies:
 - q2-diversity=2024.2.0
 - q2-emperor=2024.2.0
 - q2-feature-classifier=2024.2.0
-- q2-feature-table=2024.2.0
+- q2-feature-table=2024.2.2
 - q2-fondue=2024.2.0
 - q2-longitudinal=2024.2.0
 - q2-metadata=2024.2.0
@@ -41,7 +41,7 @@ dependencies:
 - q2templates=2024.2.0
 - qiime2=2024.2.0
 - r-base=4.2.2
-- rescript=2024.2.0
+- rescript=2024.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0

@@ -56,6 +56,10 @@ jobs:
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          sudo docker rmi $(sudo docker image ls -aq)
           sudo docker image prune --all --force
           echo "... done"
 

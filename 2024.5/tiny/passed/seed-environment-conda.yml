@@ -13,9 +13,9 @@ dependencies:
 - parsl=2023.12.04
 - python=3.8
 - q2-mystery-stew=2024.5.0.dev0
-- q2-types=2024.5.0.dev0
+- q2-types=2024.5.0.dev0+4.g823b5a4
 - q2cli=2024.5.0.dev0
-- qiime2=2024.5.0.dev0
+- qiime2=2024.5.0.dev0+1.g6306962
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1

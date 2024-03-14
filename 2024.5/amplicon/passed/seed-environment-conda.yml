@@ -7,6 +7,7 @@ dependencies:
 - biom-format=2.1.14
 - h5py=3.8.0
 - hdf5=1.14.0
+- mafft=7.520
 - matplotlib=3.6.0
 - notebook=6.5.5
 - numpy=1.24.4

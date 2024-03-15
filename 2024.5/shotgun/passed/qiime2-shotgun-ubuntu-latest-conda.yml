@@ -137,7 +137,7 @@ dependencies:
 - entrypoints=0.4
 - exceptiongroup=1.2.0
 - executing=2.0.1
-- expat=2.6.1
+- expat=2.6.2
 - fastcluster=1.2.6
 - feedparser=6.0.11
 - fftw=3.3.10
@@ -241,7 +241,7 @@ dependencies:
 - libedit=3.1.20191231
 - libev=4.33
 - libevent=2.1.10
-- libexpat=2.6.1
+- libexpat=2.6.2
 - libffi=3.4.2
 - libflac=1.4.3
 - libgcc-devel_linux-64=13.2.0
@@ -477,7 +477,7 @@ dependencies:
 - q2-fondue=2024.5.0.dev0
 - q2-longitudinal=2024.5.0.dev0
 - q2-metadata=2024.5.0.dev0
-- q2-moshpit=2024.5.0.dev0+1.gdf1301d
+- q2-moshpit=2024.5.0.dev0+2.g210fde3
 - q2-mystery-stew=2024.5.0.dev0
 - q2-quality-control=2024.5.0.dev0
 - q2-quality-filter=2024.5.0.dev0

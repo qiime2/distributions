@@ -27,7 +27,7 @@ dependencies:
 - q2-fondue=2024.5.0.dev0
 - q2-longitudinal=2024.5.0.dev0
 - q2-metadata=2024.5.0.dev0
-- q2-moshpit=2024.5.0.dev0+1.gdf1301d
+- q2-moshpit=2024.5.0.dev0+2.g210fde3
 - q2-mystery-stew=2024.5.0.dev0
 - q2-quality-control=2024.5.0.dev0
 - q2-quality-filter=2024.5.0.dev0
@@ -51,4 +51,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.5'
-# modified: 2024-03-14

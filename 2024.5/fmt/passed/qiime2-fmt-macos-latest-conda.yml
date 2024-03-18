@@ -191,7 +191,7 @@ dependencies:
 - overrides=7.7.0
 - packaging=24.0
 - pandas=1.5.3
-- pandoc=3.1.12.2
+- pandoc=3.1.12.3
 - pandocfilters=1.5.0
 - pango=1.50.14
 - paramiko=3.4.0
@@ -219,8 +219,8 @@ dependencies:
 - pygments=2.17.2
 - pyjwt=2.8.0
 - pynacl=1.5.0
-- pyobjc-core=10.1
-- pyobjc-framework-cocoa=10.1
+- pyobjc-core=10.2
+- pyobjc-framework-cocoa=10.2
 - pyparsing=3.1.2
 - pysocks=1.7.1
 - pytest=8.1.1
@@ -242,7 +242,7 @@ dependencies:
 - qiime2=2024.5.0.dev0+1.g6306962
 - r-base=4.2.3
 - readline=8.2
-- referencing=0.33.0
+- referencing=0.34.0
 - requests=2.31.0
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
@@ -279,7 +279,7 @@ dependencies:
 - traitlets=5.9.0
 - typeguard=2.13.3
 - typer=0.9.0
-- types-python-dateutil=2.9.0.20240315
+- types-python-dateutil=2.9.0.20240316
 - typing-extensions=4.10.0
 - typing_extensions=4.10.0
 - typing_utils=0.1.0

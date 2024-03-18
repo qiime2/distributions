@@ -99,7 +99,7 @@ dependencies:
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.16.0
-- cctools_osx-64=973.0.1
+- cctools_osx-64=986
 - cdbtools=0.99
 - certifi=2024.2.2
 - cffi=1.16.0
@@ -121,7 +121,7 @@ dependencies:
 - contourpy=1.1.1
 - cryptography=42.0.5
 - curl=7.88.1
-- cutadapt=4.6
+- cutadapt=4.7
 - cycler=0.12.1
 - cython=3.0.9
 - debugpy=1.8.1
@@ -215,7 +215,7 @@ dependencies:
 - kraken2=2.1.3
 - krb5=1.20.1
 - lcms2=2.14
-- ld64_osx-64=609
+- ld64_osx-64=711
 - lerc=4.0.0
 - libaec=1.1.2
 - libblas=3.9.0
@@ -257,7 +257,7 @@ dependencies:
 - libxml2=2.10.3
 - libxslt=1.1.37
 - libzlib=1.2.13
-- llvm-openmp=17.0.6
+- llvm-openmp=18.1.1
 - llvm-tools=17.0.6
 - llvmlite=0.41.1
 - lockfile=0.12.2
@@ -289,7 +289,7 @@ dependencies:
 - nbconvert=7.16.2
 - nbconvert-core=7.16.2
 - nbconvert-pandoc=7.16.2
-- nbformat=5.10.2
+- nbformat=5.10.3
 - ncbi-datasets-pylib=16.6.0
 - ncbi-vdb=3.0.0
 - ncurses=6.4
@@ -407,8 +407,8 @@ dependencies:
 - pyjwt=2.8.0
 - pynacl=1.5.0
 - pynndescent=0.5.11
-- pyobjc-core=10.1
-- pyobjc-framework-cocoa=10.1
+- pyobjc-core=10.2
+- pyobjc-framework-cocoa=10.2
 - pyparsing=3.1.2
 - pysam=0.21.0
 - pysocks=1.7.1
@@ -596,7 +596,7 @@ dependencies:
 - r-png=0.1_8
 - r-praise=1.0.0
 - r-prettyunits=1.2.0
-- r-processx=3.8.3
+- r-processx=3.8.4
 - r-progress=1.2.3
 - r-proxy=0.4_27
 - r-ps=1.7.6
@@ -635,7 +635,7 @@ dependencies:
 - r-rsvd=1.0.5
 - r-rtsne=0.17
 - r-rvest=1.0.4
-- r-sass=0.4.8
+- r-sass=0.4.9
 - r-scales=1.3.0
 - r-scs=3.2.4
 - r-selectr=0.4_2
@@ -657,7 +657,7 @@ dependencies:
 - r-tidytree=0.4.6
 - r-tidyverse=1.3.2
 - r-timechange=0.3.0
-- r-tinytex=0.49
+- r-tinytex=0.50
 - r-tzdb=0.4.0
 - r-utf8=1.2.4
 - r-uuid=1.2_0
@@ -721,7 +721,7 @@ dependencies:
 - tqdm=4.66.2
 - traitlets=5.9.0
 - typeguard=2.13.3
-- types-python-dateutil=2.8.19.20240311
+- types-python-dateutil=2.9.0.20240316
 - typing-extensions=4.10.0
 - typing_extensions=4.10.0
 - typing_utils=0.1.0

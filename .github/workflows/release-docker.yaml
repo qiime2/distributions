@@ -20,6 +20,8 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
+        containerfiles: |
+          ./Dockerfile
         image: ${{ inputs.distro }}
         tags: latest ${{ inputs.epoch }}
 

@@ -17,7 +17,7 @@ RUN conda update -q -y conda
 RUN conda install -q -y wget
 RUN apt-get install -y procps
 
-COPY ${EPOCH}/${DISTRO}/released/qiime2-${distro}-ubuntu-latest-conda.yml released-env.yml
+COPY ${EPOCH}/${DISTRO}/released/qiime2-${DISTRO}-ubuntu-latest-conda.yml released-env.yml
 RUN conda env create -n qiime2-${DISTRO}-${EPOCH} --file released-env.yml \
  && conda clean -a -y \
  && chmod -R a+rwx /opt/conda \

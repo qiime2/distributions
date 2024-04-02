@@ -22,6 +22,9 @@ jobs:
       with:
         containerfiles: |
           ./Dockerfile
+        build-args: |
+          EPOCH=${{ inputs.epoch }}
+          DISTRO=${{ inputs.distro }}
         image: ${{ inputs.distro }}
         tags: latest ${{ inputs.epoch }}
 

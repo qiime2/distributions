@@ -10,7 +10,7 @@ These are used by maintainers to build and deploy various components of a QIIME 
 | :--- | :--- | :--- |
 | [**cron-prepare\***](https://github.com/qiime2/distributions/actions/workflows/cron-prepare.yaml) | Set up consecutive distribution trials for the [active epoch](https://github.com/qiime2/distributions/blob/dev/data.yaml#L2). | Initial seed environments exist for each distribution in the epoch directory. |
 | [**create-prepare-pr**](https://github.com/qiime2/distributions/actions/workflows/create-prepare-pr.yaml) | Set up a single distribution trial for the [active epoch](https://github.com/qiime2/distributions/blob/dev/data.yaml#L2). | Initial seed environments exist for the distribution selected. |
-| [**release-docker**](https://github.com/qiime2/distributions/actions/workflows/release-docker.yaml) | Build and publish a docker container to quay.io using the [Dockerfile](https://github.com/qiime2/distributions/blob/dev/Dockerfile)| A release environment exists for the selected distribution and epoch. |
+| [**release-docker**](https://github.com/qiime2/distributions/actions/workflows/release-docker.yaml) | Build and publish a docker container to quay.io using the [Dockerfile](https://github.com/qiime2/distributions/blob/dev/Dockerfile)| There exists a repository that `qiime2+q2d2` may push to on quay.io and the release environment exists for the selected distribution and epoch. |
 
 \* Also runs on a cron schedule (over the weekend). This cron often will fail, but can be restarted by re-running the failed PR and then re-running the most recent cron-prepare which will resume waiting on and issuing PRs.
 

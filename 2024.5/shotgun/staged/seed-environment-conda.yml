@@ -15,7 +15,7 @@ dependencies:
 - parsl=2023.12.04
 - patsy=0.5.3
 - python=3.8
-- q2-assembly=2024.5.0.dev0
+- q2-assembly=2024.5.0.dev0+1.gfd3ae4c
 - q2-composition=2024.5.0.dev0
 - q2-cutadapt=2024.5.0.dev0
 - q2-demux=2024.5.0.dev0
@@ -27,7 +27,7 @@ dependencies:
 - q2-fondue=2024.5.0.dev0
 - q2-longitudinal=2024.5.0.dev0
 - q2-metadata=2024.5.0.dev0
-- q2-moshpit=2024.5.0.dev0+2.g210fde3
+- q2-moshpit=2024.5.0.dev0+4.g4f27961
 - q2-mystery-stew=2024.5.0.dev0
 - q2-quality-control=2024.5.0.dev0
 - q2-quality-filter=2024.5.0.dev0

@@ -13,7 +13,7 @@ dependencies:
 - parsl=2023.12.04
 - python=3.8
 - q2-mystery-stew=2024.5.0.dev0
-- q2-types=2024.5.0.dev0+4.g823b5a4
+- q2-types=2024.5.0.dev0+5.gd24a69d
 - q2cli=2024.5.0.dev0
 - qiime2=2024.5.0.dev0+1.g6306962
 - r-base=4.2.2
@@ -25,4 +25,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.5'
-# modified: 2024-04-07

@@ -44,7 +44,6 @@ dependencies:
 - cryptography=42.0.5
 - curl=8.1.2
 - cycler=0.12.1
-- cython=3.0.10
 - debugpy=1.8.1
 - decorator=4.4.2
 - defusedxml=0.7.1
@@ -61,7 +60,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.50.0
+- fonttools=4.51.0
 - fqdn=1.5.1
 - freetype=2.12.1
 - fribidi=1.0.10
@@ -165,7 +164,7 @@ dependencies:
 - nbconvert=7.16.3
 - nbconvert-core=7.16.3
 - nbconvert-pandoc=7.16.3
-- nbformat=5.10.3
+- nbformat=5.10.4
 - ncurses=6.4.20240210
 - nest-asyncio=1.6.0
 - networkx=3.1
@@ -182,7 +181,7 @@ dependencies:
 - pango=1.50.14
 - paramiko=3.4.0
 - parsl=2023.12.4
-- parso=0.8.3
+- parso=0.8.4
 - pcre2=10.40
 - pexpect=4.9.0
 - pickleshare=0.7.5
@@ -216,7 +215,7 @@ dependencies:
 - pyyaml=6.0.1
 - pyzmq=24.0.1
 - q2-mystery-stew=2024.5.0.dev0
-- q2-types=2024.5.0.dev0+4.g823b5a4
+- q2-types=2024.5.0.dev0+5.gd24a69d
 - q2cli=2024.5.0.dev0
 - qiime2=2024.5.0.dev0+1.g6306962
 - r-base=4.2.3
@@ -251,8 +250,8 @@ dependencies:
 - traitlets=5.9.0
 - typeguard=2.13.3
 - types-python-dateutil=2.9.0.20240316
-- typing-extensions=4.10.0
-- typing_extensions=4.10.0
+- typing-extensions=4.11.0
+- typing_extensions=4.11.0
 - typing_utils=0.1.0
 - tzlocal=2.1
 - unicodedata2=15.1.0

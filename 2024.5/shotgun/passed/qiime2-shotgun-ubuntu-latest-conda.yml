@@ -88,7 +88,7 @@ dependencies:
 - bioconductor-zlibbioc=1.44.0
 - biom-format=2.1.14
 - biopython=1.78
-- blast=2.14.1
+- blast=2.15.0
 - bleach=6.1.0
 - boost-cpp=1.74.0
 - bowtie2=2.5.1
@@ -118,15 +118,14 @@ dependencies:
 - contourpy=1.1.1
 - cryptography=39.0.0
 - curl=7.87.0
-- cutadapt=4.7
+- cutadapt=4.8
 - cycler=0.12.1
-- cython=3.0.10
 - dbus=1.13.6
 - debugpy=1.8.1
 - decorator=4.4.2
 - defusedxml=0.7.1
 - dendropy=4.5.2
-- diamond=2.1.8
+- diamond=2.1.9
 - dill=0.3.8
 - dnaio=1.2.0
 - easel=0.49
@@ -149,7 +148,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.50.0
+- fonttools=4.51.0
 - formulaic=1.0.1
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -157,10 +156,11 @@ dependencies:
 - future=1.0.0
 - gawk=5.3.0
 - gcc_impl_linux-64=13.2.0
-- gettext=0.21.1
+- gettext=0.22.5
+- gettext-tools=0.22.5
 - gffutils=0.10.1
 - gfortran_impl_linux-64=13.2.0
-- giflib=5.2.1
+- giflib=5.2.2
 - glib=2.78.1
 - glib-tools=2.78.1
 - glimmerhmm=3.0.4
@@ -199,7 +199,7 @@ dependencies:
 - jack=1.9.22
 - jedi=0.19.1
 - jinja2=3.1.3
-- joblib=1.3.2
+- joblib=1.4.0
 - jpeg=9e
 - jq=1.7.1
 - jsonlines=3.0.0
@@ -210,7 +210,7 @@ dependencies:
 - jupyter_client=7.4.9
 - jupyter_core=5.7.2
 - jupyter_events=0.10.0
-- jupyter_server=2.13.0
+- jupyter_server=2.14.0
 - jupyter_server_terminals=0.5.3
 - jupyterlab_pygments=0.3.0
 - jupyterlab_widgets=3.0.10
@@ -226,6 +226,8 @@ dependencies:
 - ld_impl_linux-64=2.40
 - lerc=4.0.0
 - libaec=1.1.3
+- libasprintf=0.22.5
+- libasprintf-devel=0.22.5
 - libblas=3.9.0
 - libbrotlicommon=1.1.0
 - libbrotlidec=1.1.0
@@ -248,6 +250,8 @@ dependencies:
 - libgcc-ng=13.2.0
 - libgcrypt=1.10.3
 - libgd=2.3.3
+- libgettextpo=0.22.5
+- libgettextpo-devel=0.22.5
 - libgfortran-ng=13.2.0
 - libgfortran5=13.2.0
 - libglib=2.78.1
@@ -311,7 +315,7 @@ dependencies:
 - mistune=3.0.2
 - mmseqs2=15.6f452
 - mpfr=4.2.1
-- mpg123=1.32.4
+- mpg123=1.32.6
 - mpi=1.0
 - msgpack-python=1.0.7
 - munkres=1.1.4
@@ -324,9 +328,9 @@ dependencies:
 - nbconvert=7.16.3
 - nbconvert-core=7.16.3
 - nbconvert-pandoc=7.16.3
-- nbformat=5.10.3
+- nbformat=5.10.4
 - ncbi-datasets-pylib=16.6.0
-- ncbi-vdb=3.0.0
+- ncbi-vdb=3.1.0
 - ncurses=6.4.20240210
 - nest-asyncio=1.6.0
 - networkx=3.1
@@ -345,12 +349,12 @@ dependencies:
 - overrides=7.7.0
 - packaging=24.0
 - pandas=1.5.3
-- pandoc=3.1.12.3
+- pandoc=3.1.13
 - pandocfilters=1.5.0
 - pango=1.50.14
 - paramiko=3.4.0
 - parsl=2023.12.4
-- parso=0.8.3
+- parso=0.8.4
 - pathlib=1.0.1
 - patsy=0.5.3
 - pbzip2=1.1.13
@@ -370,7 +374,7 @@ dependencies:
 - perl-constant=1.33
 - perl-dbi=1.643
 - perl-digest-perl-md5=1.9
-- perl-encode=3.19
+- perl-encode=3.21
 - perl-exporter=5.74
 - perl-exporter-tiny=1.002002
 - perl-extutils-config=0.008
@@ -459,7 +463,7 @@ dependencies:
 - python-fastjsonschema=2.19.1
 - python-isal=1.6.1
 - python-json-logger=2.0.7
-- python-zlib-ng=0.4.1
+- python-zlib-ng=0.4.2
 - python_abi=3.8
 - pytz=2024.1
 - pyvcf3=1.0.3
@@ -485,7 +489,7 @@ dependencies:
 - q2-sample-classifier=2024.5.0.dev0
 - q2-sapienns=2024.5.0.dev0
 - q2-taxa=2024.5.0.dev0
-- q2-types=2024.5.0.dev0+4.g823b5a4
+- q2-types=2024.5.0.dev0+5.gd24a69d
 - q2-vsearch=2024.5.0.dev0
 - q2cli=2024.5.0.dev0
 - q2templates=2024.5.0.dev0
@@ -542,7 +546,7 @@ dependencies:
 - r-e1071=1.7_14
 - r-ecosolver=0.5.5
 - r-ellipsis=0.3.2
-- r-emmeans=1.10.0
+- r-emmeans=1.10.1
 - r-energy=1.7_11
 - r-estimability=1.4.1
 - r-evaluate=0.23
@@ -584,7 +588,7 @@ dependencies:
 - r-hmisc=5.1_2
 - r-hms=1.1.3
 - r-htmltable=2.4.2
-- r-htmltools=0.5.8
+- r-htmltools=0.5.8.1
 - r-htmlwidgets=1.6.4
 - r-httr=1.4.7
 - r-ids=1.0.1
@@ -596,7 +600,7 @@ dependencies:
 - r-jpeg=0.1_10
 - r-jquerylib=0.1.4
 - r-jsonlite=1.8.8
-- r-knitr=1.45
+- r-knitr=1.46
 - r-labeling=0.4.3
 - r-lambda.r=1.2.4
 - r-lattice=0.22_6
@@ -610,7 +614,7 @@ dependencies:
 - r-magrittr=2.0.3
 - r-mass=7.3_60.0.1
 - r-matrix=1.6_5
-- r-matrixstats=1.2.0
+- r-matrixstats=1.3.0
 - r-memoise=2.0.1
 - r-mgcv=1.9_1
 - r-mime=0.12
@@ -721,7 +725,7 @@ dependencies:
 - referencing=0.34.0
 - repeatmasker=4.1.5
 - requests=2.31.0
-- rescript=2024.5.0.dev0+2.ga0df425
+- rescript=2024.5.0.dev0+3.g6e87cfe
 - rfc3339-validator=0.1.4
 - rfc3986-validator=0.1.1
 - rmblast=2.14.1
@@ -733,7 +737,7 @@ dependencies:
 - seaborn=0.12.2
 - seaborn-base=0.12.2
 - sed=4.8
-- send2trash=1.8.2
+- send2trash=1.8.3
 - sepp=4.3.10
 - setproctitle=1.3.3
 - setuptools=69.2.0
@@ -767,8 +771,8 @@ dependencies:
 - trf=4.09.1
 - typeguard=2.13.3
 - types-python-dateutil=2.9.0.20240316
-- typing-extensions=4.10.0
-- typing_extensions=4.10.0
+- typing-extensions=4.11.0
+- typing_extensions=4.11.0
 - typing_utils=0.1.0
 - tzlocal=2.1
 - ucsc-fatotwobit=447
@@ -779,7 +783,7 @@ dependencies:
 - unifrac-binaries=1.3.2
 - uri-template=1.3.0
 - urllib3=1.26.18
-- vsearch=2.27.0
+- vsearch=2.27.1
 - wcwidth=0.2.13
 - webcolors=1.13
 - webencodings=0.5.1

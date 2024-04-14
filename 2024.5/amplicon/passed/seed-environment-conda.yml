@@ -36,14 +36,14 @@ dependencies:
 - q2-quality-filter=2024.5.0.dev0
 - q2-sample-classifier=2024.5.0.dev0
 - q2-taxa=2024.5.0.dev0
-- q2-types=2024.5.0.dev0+4.g823b5a4
+- q2-types=2024.5.0.dev0+5.gd24a69d
 - q2-vsearch=2024.5.0.dev0
 - q2cli=2024.5.0.dev0
 - q2galaxy=2024.5.0.dev0+2.ga124fa1
 - q2templates=2024.5.0.dev0
 - qiime2=2024.5.0.dev0+1.g6306962
 - r-base=4.2.2
-- rescript=2024.5.0.dev0+2.ga0df425
+- rescript=2024.5.0.dev0+3.g6e87cfe
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
 - scipy=1.10.0
@@ -53,4 +53,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.5'
-# modified: 2024-04-14

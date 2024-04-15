@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.5/shotgun/passed
+- https://packages.qiime2.org/qiime2/2024.5/metagenome/passed
 - conda-forge
 - bioconda
 - defaults
@@ -51,4 +51,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.5'
-# modified: 2024-04-15

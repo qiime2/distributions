@@ -18,15 +18,15 @@ jobs:
     with:
       distro: amplicon
 
-  shotgun:
+  metagenome:
     needs: [amplicon]
     uses: ./.github/workflows/create-prepare-pr.yaml
     secrets: inherit
     with:
-      distro: shotgun
+      distro: metagenome
 
   fmt:
-    needs: [shotgun]
+    needs: [metagenome]
     uses: ./.github/workflows/create-prepare-pr.yaml
     secrets: inherit
     with:

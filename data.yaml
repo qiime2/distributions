@@ -2,7 +2,7 @@
 active_epoch: "2024.5"
 # this is the next dev cycle epoch (i.e. 20XX.REL+2)
 next_epoch: "2024.8"
-distros: [tiny, amplicon, shotgun, fmt]
+distros: [tiny, amplicon, metagenome, fmt]
 packages:
 
 - name: q2-alignment
@@ -11,15 +11,15 @@ packages:
 
 - name: q2-assembly
   repo: bokulich-lab/q2-assembly
-  distros: [shotgun]
+  distros: [metagenome]
 
 - name: q2-composition
   repo: qiime2/q2-composition
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-cutadapt
   repo: qiime2/q2-cutadapt
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-dada2
   repo: qiime2/q2-dada2
@@ -31,19 +31,19 @@ packages:
 
 - name: q2-demux
   repo: qiime2/q2-demux
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-diversity
   repo: qiime2/q2-diversity
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-diversity-lib
   repo: qiime2/q2-diversity-lib
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-emperor
   repo: qiime2/q2-emperor
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
@@ -51,7 +51,7 @@ packages:
 
 - name: q2-feature-table
   repo: qiime2/q2-feature-table
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-fmt
   repo: qiime2/q2-fmt
@@ -59,7 +59,7 @@ packages:
 
 - name: q2-fondue
   repo: bokulich-lab/q2-fondue
-  distros: [shotgun]
+  distros: [metagenome]
 
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion
@@ -67,19 +67,19 @@ packages:
 
 - name: q2-longitudinal
   repo: qiime2/q2-longitudinal
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-metadata
   repo: qiime2/q2-metadata
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-moshpit
   repo: bokulich-lab/q2-moshpit
-  distros: [shotgun]
+  distros: [metagenome]
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew
-  distros: [tiny, amplicon, shotgun, fmt]
+  distros: [tiny, amplicon, metagenome, fmt]
 
 - name: q2-phylogeny
   repo: qiime2/q2-phylogeny
@@ -87,15 +87,15 @@ packages:
 
 - name: q2-quality-control
   repo: qiime2/q2-quality-control
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-quality-filter
   repo: qiime2/q2-quality-filter
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-sample-classifier
   repo: qiime2/q2-sample-classifier
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-stats
   repo: qiime2/q2-stats
@@ -103,11 +103,11 @@ packages:
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
-  distros: [amplicon, community, shotgun]
+  distros: [amplicon, community, metagenome]
 
 - name: q2-types
   repo: qiime2/q2-types
-  distros: [tiny, amplicon, shotgun, fmt]
+  distros: [tiny, amplicon, metagenome, fmt]
 
 - name: q2-vizard
   repo: qiime2/q2-vizard
@@ -115,28 +115,28 @@ packages:
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [tiny, amplicon, shotgun, fmt]
+  distros: [tiny, amplicon, metagenome, fmt]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2templates
   repo: qiime2/q2templates
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: qiime2
   repo: qiime2/qiime2
-  distros: [tiny, amplicon, shotgun, fmt]
+  distros: [tiny, amplicon, metagenome, fmt]
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt
-  distros: [amplicon, shotgun]
+  distros: [amplicon, metagenome]
 
 - name: q2-sapienns
   repo: gregcaporaso/q2-sapienns
-  distros: [shotgun]
+  distros: [metagenome]

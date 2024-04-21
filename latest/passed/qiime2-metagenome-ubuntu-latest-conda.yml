@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.5/shotgun/passed
+- https://packages.qiime2.org/qiime2/2024.5/metagenome/passed
 - bioconda
 - conda-forge
 - defaults
@@ -97,7 +97,7 @@ dependencies:
 - brotli-bin=1.1.0
 - brotli-python=1.1.0
 - busco=5.5.0
-- bwa=0.7.17
+- bwa=0.7.18
 - bwidget=1.9.14
 - bzip2=1.0.8
 - c-ares=1.28.1
@@ -286,8 +286,7 @@ dependencies:
 - libunistring=0.9.10
 - libuuid=2.38.1
 - libvorbis=1.3.7
-- libwebp=1.3.2
-- libwebp-base=1.3.2
+- libwebp-base=1.4.0
 - libxcb=1.13
 - libxcrypt=4.4.36
 - libxkbcommon=1.5.0
@@ -740,7 +739,7 @@ dependencies:
 - send2trash=1.8.3
 - sepp=4.3.10
 - setproctitle=1.3.3
-- setuptools=69.2.0
+- setuptools=69.5.1
 - sgmllib3k=1.0.0
 - simplejson=3.19.2
 - sip=6.7.12
@@ -821,7 +820,7 @@ dependencies:
 - xorg-xproto=7.0.31
 - xz=5.2.6
 - yaml=0.2.5
-- yq=3.2.3
+- yq=3.3.0
 - zeromq=4.3.5
 - zipp=3.17.0
 - zlib=1.2.13

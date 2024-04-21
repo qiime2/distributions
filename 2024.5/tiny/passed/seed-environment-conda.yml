@@ -15,7 +15,7 @@ dependencies:
 - q2-mystery-stew=2024.5.0.dev0
 - q2-types=2024.5.0.dev0+5.gd24a69d
 - q2cli=2024.5.0.dev0
-- qiime2=2024.5.0.dev0+1.g6306962
+- qiime2=2024.5.0.dev0+2.g27f5ec0
 - r-base=4.2.2
 - scikit-bio=0.5.8
 - scikit-learn=0.24.1
@@ -25,4 +25,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.5'
-# modified: 2024-04-21

@@ -68,7 +68,7 @@ dependencies:
 - gettext=0.22.5
 - gettext-tools=0.22.5
 - gfortran_impl_linux-64=13.2.0
-- globus-sdk=3.39.0
+- globus-sdk=3.40.0
 - graphite2=1.3.13
 - gsl=2.7
 - gxx_impl_linux-64=13.2.0
@@ -77,7 +77,7 @@ dependencies:
 - hdf5=1.14.0
 - hdmedians=0.14.2
 - icu=70.1
-- idna=3.6
+- idna=3.7
 - ijson=3.2.3
 - importlib-resources=6.4.0
 - importlib_resources=6.4.0
@@ -139,13 +139,13 @@ dependencies:
 - libpng=1.6.43
 - libsanitizer=13.2.0
 - libsodium=1.0.18
-- libsqlite=3.45.2
+- libsqlite=3.45.3
 - libssh2=1.11.0
 - libstdcxx-devel_linux-64=13.2.0
 - libstdcxx-ng=13.2.0
 - libtiff=4.5.0
 - libuuid=2.38.1
-- libwebp-base=1.3.2
+- libwebp-base=1.4.0
 - libxcb=1.13
 - libxcrypt=4.4.36
 - libxml2=2.10.3
@@ -158,7 +158,7 @@ dependencies:
 - make=4.3
 - markupsafe=2.1.5
 - matplotlib-base=3.7.3
-- matplotlib-inline=0.1.6
+- matplotlib-inline=0.1.7
 - mistune=3.0.2
 - mpi=1.0
 - msgpack-python=1.0.7
@@ -222,7 +222,7 @@ dependencies:
 - q2-mystery-stew=2024.5.0.dev0
 - q2-types=2024.5.0.dev0+5.gd24a69d
 - q2cli=2024.5.0.dev0
-- qiime2=2024.5.0.dev0+1.g6306962
+- qiime2=2024.5.0.dev0+2.g27f5ec0
 - r-base=4.2.3
 - readline=8.2
 - referencing=0.34.0
@@ -237,7 +237,7 @@ dependencies:
 - sed=4.8
 - send2trash=1.8.3
 - setproctitle=1.3.3
-- setuptools=69.2.0
+- setuptools=69.5.1
 - six=1.16.0
 - sniffio=1.3.1
 - soupsieve=2.5

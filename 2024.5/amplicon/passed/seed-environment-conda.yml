@@ -16,6 +16,7 @@ dependencies:
 - patsy=0.5.6
 - pillow=10.3.0
 - python=3.10
+- python-abi=3.10
 - q2-alignment=2024.5.0.dev0+1.g3a9c58b
 - q2-composition=2024.5.0.dev0
 - q2-cutadapt=2024.5.0.dev0

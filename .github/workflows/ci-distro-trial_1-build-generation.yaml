@@ -101,6 +101,8 @@ jobs:
         id: get-branch
         with:
           route: GET /repos/${{ matrix.package }}/branches/${{ inputs.sibling-ref }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
 
       - name: Determine which branch to checkout

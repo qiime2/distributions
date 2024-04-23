@@ -27,5 +27,8 @@ The most general behavior is to identify what has changed in the environment, pa
 When the branch matches the pattern `Prepare-<epoch>/<distro>[anything else]`,
 all packages will be rebuilt and tested from the default branch. Built packages will be uploaded as a conda channel to [packages.qiime2.org](https://packages.qiime2.org/qiime2) under the respective `/qiime2/<epoch>/<distro>/passed/` directory.
 
-When the branch matches the patter `Release-<epoch>/<distro>[anything else]`,
+When the branch matches the pattern `Language-<anything>/<distro>[anything else]`,
+all packages will be rebuilt and tested from the `Language-<anything>` branch if it exists, else the default. It is recommended to set the PR to a draft so that built packages are not uploaded under the `/passed/` directory.
+
+When the branch matches the pattern `Release-<epoch>/<distro>[anything else]`,
 all packages will be rebuilt and tested from the `Release-epoch` branch (note that any text after the slash is not a part of the package's branch). Built packages will be uploaded as a conda channel to [packages.qiime2.org](https://packages.qiime2.org/qiime2) under the respective `/qiime2/<epoch>/<distro>/released/` directory.

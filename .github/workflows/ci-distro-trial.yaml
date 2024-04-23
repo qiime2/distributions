@@ -20,6 +20,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[0] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -34,6 +35,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[1] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -48,6 +50,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[2] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -62,6 +65,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[3] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -76,6 +80,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[4] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -90,6 +95,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[5] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -104,6 +110,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[6] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
@@ -118,6 +125,7 @@ jobs:
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[7] != null }}
     uses: ./.github/workflows/ci-distro-trial_1-build-generation.yaml
     with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
       rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}

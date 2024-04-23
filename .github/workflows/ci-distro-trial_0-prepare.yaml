@@ -9,6 +9,8 @@ on:
         value: ${{ jobs.detect-vars.outputs.is-release }}
       is-rebuild:
         value: ${{ jobs.detect-vars.outputs.is-rebuild }}
+      is-language:
+        value: ${{ jobs.detect-vars.outputs.is-language }}
       sibling-ref:
         value: ${{ jobs.detect-vars.outputs.sibling-ref }}
       matrix-key:
@@ -61,6 +63,7 @@ jobs:
       is-release: ${{ steps.set-vars.outputs.is-release }}
       is-prepare: ${{ steps.set-vars.outputs.is-prepare }}
       is-rebuild: ${{ steps.set-vars.outputs.is-rebuild }}
+      is-language: ${{ steps.set-vars.outputs.is-language }}
       sibling-ref: ${{ steps.set-vars.outputs.sibling-ref }}
     steps:
       - uses: actions/checkout@v3
@@ -79,7 +82,8 @@ jobs:
           DISTRO=$(python .github/workflows/bin/determine.py --distro "$CHANGED")
           RELEASE=${{ startsWith(github.head_ref, 'Release-') }}
           PREPARE=${{ startsWith(github.head_ref, 'Prepare-') }}
-          REBUILD=$([ $RELEASE = 'true' ] || [ $PREPARE = 'true' ] && echo 'true' || echo 'false')
+          NEWLANG=${{ startsWith(github.head_ref, 'Language-') }}
+          REBUILD=$([ $RELEASE = 'true' ] || [ $PREPARE = 'true' ] || [ $NEWLANG = 'true' ] && echo 'true' || echo 'false')
           SUBDIR=$([ $RELEASE = 'true' ] && echo 'released' || echo 'passed')
           SIBLING_REF=$([ $PREPARE != 'true' ] && echo "$GITHUB_HEAD_REF" | cut -f1 -d/ || echo "")
 
@@ -88,6 +92,7 @@ jobs:
           echo "seed-env=$EPOCH/$DISTRO/$SUBDIR/seed-environment-conda.yml" >> $GITHUB_OUTPUT
           echo "is-release=$RELEASE" >> $GITHUB_OUTPUT
           echo "is-prepare=$PREPARE" >> $GITHUB_OUTPUT
+          echo "is-language=$NEWLANG" >> $GITHUB_OUTPUT
           echo "is-rebuild=$REBUILD" >> $GITHUB_OUTPUT
           echo "sibling-ref=$SIBLING_REF" >> $GITHUB_OUTPUT
 

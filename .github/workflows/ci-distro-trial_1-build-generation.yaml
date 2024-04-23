@@ -25,6 +25,9 @@ on:
       is-rebuild:
         required: true
         type: string
+      is-language:
+        required: true
+        type: string
 
 env:
   matrix_path: './matrix'
@@ -92,7 +95,36 @@ jobs:
           name: ${{ inputs.seed-environment-key }}
           path: ${{ env.seed_environment_path }}
 
+      - name: Try to retrieve branch name
+        if: ${{ inputs.is-language == 'true' }}
+        uses: octokit/request-action@v2.x
+        id: get-branch
+        with:
+          route: GET /repos/${{ matrix.package }}/branches/${{ inputs.sibling-ref }}
+        continue-on-error: true
+
+      - name: Determine which branch to checkout
+        if: ${{ inputs.is-language == 'true' }}
+        id: sibling-ref
+        run: |
+          if [[ '${{ steps.get-branch.outputs.status }}' = '200' ]]; then
+            sibling_ref="${{ inputs.sibling-ref }}"
+          else
+            sibling_ref=""
+          fi
+          echo "sibling-ref=$sibling_ref" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v3
+        if: ${{ inputs.is-language == 'true' }}
+        name: 'Checkout ${{ matrix.package }} repository'
+        with:
+          repository: ${{ matrix.package }}
+          ref: ${{ steps.sibling-ref.outputs.sibling-ref }}
+          path: ${{ env.plugin_path }}
+          fetch-depth: 0
+
+      - uses: actions/checkout@v3
+        if: ${{ inputs.is-language != 'true' }}
         name: 'Checkout ${{ matrix.package }} repository'
         with:
           repository: ${{ matrix.package }}

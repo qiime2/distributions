@@ -75,7 +75,7 @@ jobs:
       seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
       env_prefix: ./test-env
     steps:
-      - name: 'Install conda'
+      - name: 'Install conda on mac runner'
         if: ${{ runner.os == 'macOS' }}
         run: |
           brew update

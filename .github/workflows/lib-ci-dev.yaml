@@ -74,15 +74,15 @@ jobs:
       epoch: ${{ needs.setup.outputs.active-epoch }}
       seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
       env_prefix: ./test-env
-    # TODO: decide if we want to go this route or keep the macos-12 runners -
-    # latest macos runners no longer include miniconda for some reason
-    # https://github.com/actions/runner-images/blob/macos-14-arm64/20240422.3/images/macos/macos-14-arm64-Readme.md
-    # steps:
-    #   - name: 'Install conda on mac runner'
-    #     if: ${{ runner.os == 'macOS' }}
-    #     run: |
-    #       brew update
-    #       brew install --cask miniconda
+      # TODO: decide if we want to go this route or keep the macos-12 runners -
+      # latest macos runners no longer include miniconda for some reason
+      # https://github.com/actions/runner-images/blob/macos-14-arm64/20240422.3/images/macos/macos-14-arm64-Readme.md
+      # steps:
+      #   - name: 'Install conda on mac runner'
+      #     if: ${{ runner.os == 'macOS' }}
+      #     run: |
+      #       brew update
+      #       brew install --cask miniconda
 
       - uses: actions/checkout@v3
         with:

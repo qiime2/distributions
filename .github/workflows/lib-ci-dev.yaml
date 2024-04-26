@@ -75,6 +75,12 @@ jobs:
       seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
       env_prefix: ./test-env
     steps:
+      - name: 'Install conda'
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          brew update
+          brew install --cask miniconda
+          
       - uses: actions/checkout@v3
         with:
           path: ${{ env.plugin_path }}

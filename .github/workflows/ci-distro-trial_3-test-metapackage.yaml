@@ -85,7 +85,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ matrix.os }}-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ matrix.os == 'ubuntu-latest' && matrix.os || 'macos-latest' }}-conda.yml
 
       - name: run qiime info
         shell: bash

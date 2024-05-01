@@ -13,6 +13,10 @@ on:
           description: "Release status to install"
           type: string
           required: true
+      secrets:
+        token:
+          description: "GitHub token"
+          required: true
 
 jobs:
   setup:
@@ -56,7 +60,7 @@ jobs:
           distro: ${{ inputs.distro }}
       - uses: qiime2/create-pull-request@v5
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.token }}
           branch: "update-environment-file"
           title: "update environment file for ${{ inputs.target-stage }} ${{ needs.setup.outputs.epoch }}"
           body: |

@@ -5,7 +5,10 @@ channels:
 - defaults
 dependencies:
 - biom-format=2.1.15
+- biopython=1.83
+- busco=5.5.0
 - bowtie2=2.5.1
+- entrezpy=2.1.2
 - h5py=3.11.0
 - hdf5=1.14.3
 - matplotlib=3.8.4
@@ -47,6 +50,8 @@ dependencies:
 - scikit-learn=1.4.2
 - scipy=1.13.0
 - seaborn=0.12.2
+- sepp=4.4.0
+- tqdm=4.62.3
 - umap-learn=0.5.4
 - unifrac-binaries=1.4
 - unifrac=1.3

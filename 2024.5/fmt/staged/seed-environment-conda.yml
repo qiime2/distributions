@@ -4,26 +4,27 @@ channels:
 - bioconda
 - defaults
 dependencies:
-- biom-format=2.1.14
-- h5py=3.8.0
-- hdf5=1.14.0
+- biom-format=2.1.15
+- h5py=3.11.0
+- hdf5=1.14.3
 - notebook=6.5.5
-- numpy=1.24.4
-- pandas=1.5.3
-- parsl=2023.12.04
-- python=3.8
-- q2-fmt=2024.5.0.dev0
+- numpy=1.26.4
+- pandas=2.2.2
+- parsl=2024.4.15
+- python=3.9.19
+- python_abi=3.9
+- q2-fmt=2024.5.0.dev0+3.g15a5802
 - q2-mystery-stew=2024.5.0.dev0
 - q2-stats=2024.5.0.dev0
-- q2-types=2024.5.0.dev0+5.gd24a69d
+- q2-types=2024.5.0.dev0+6.g8551927
 - q2-vizard=2024.5.0.dev0+1.g79afc0c
-- q2cli=2024.5.0.dev0
-- qiime2=2024.5.0.dev0+2.g27f5ec0
-- r-base=4.2.2
-- scikit-bio=0.5.8
-- scikit-learn=0.24.1
-- scipy=1.10.0
-- unifrac-binaries=1.3.2
+- q2cli=2024.5.0.dev0+1.gdce4a7e
+- qiime2=2024.5.0.dev0+4.gc35a5aa
+- r-base=4.3.3
+- scikit-bio=0.6.0
+- scikit-learn=1.4.2
+- scipy=1.13.0
+- unifrac-binaries=1.4
 - unifrac=1.3
 extras:
   variant_override:

@@ -113,7 +113,7 @@ packages:
 
 - name: q2-vizard
   repo: qiime2/q2-vizard
-  distros: [fmt]
+  distros: []
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch

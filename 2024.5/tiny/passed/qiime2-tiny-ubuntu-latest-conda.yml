@@ -81,7 +81,7 @@ dependencies:
 - ipython_genutils=0.2.0
 - isoduration=20.11.0
 - jedi=0.19.1
-- jinja2=3.1.3
+- jinja2=3.1.4
 - joblib=1.4.2
 - jsonpointer=2.4
 - jsonschema=4.22.0
@@ -111,7 +111,7 @@ dependencies:
 - libgcc-ng=13.2.0
 - libgfortran-ng=13.2.0
 - libgfortran5=13.2.0
-- libglib=2.80.0
+- libglib=2.80.2
 - libgomp=13.2.0
 - libiconv=1.17
 - libjpeg-turbo=3.0.0
@@ -150,7 +150,7 @@ dependencies:
 - nbconvert-core=7.16.4
 - nbconvert-pandoc=7.16.4
 - nbformat=5.10.4
-- ncurses=6.4.20240210
+- ncurses=6.5
 - nest-asyncio=1.6.0
 - networkx=3.1
 - notebook=6.5.5
@@ -197,9 +197,9 @@ dependencies:
 - pyyaml=6.0.1
 - pyzmq=24.0.1
 - q2-mystery-stew=2024.5.0.dev0
-- q2-types=2024.5.0.dev0+6.g8551927
+- q2-types=2024.5.0.dev0+10.g940a02d
 - q2cli=2024.5.0.dev0+1.gdce4a7e
-- qiime2=2024.5.0.dev0+4.gc35a5aa
+- qiime2=2024.5.0.dev0+4.gf24fdd7
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.8.8
@@ -239,7 +239,7 @@ dependencies:
 - tk=8.6.13
 - tktable=2.10
 - tomli=2.0.1
-- tomlkit=0.12.4
+- tomlkit=0.12.5
 - tornado=6.4
 - traitlets=5.9.0
 - typeguard=4.2.1

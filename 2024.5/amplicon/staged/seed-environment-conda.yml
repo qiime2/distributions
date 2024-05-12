@@ -18,7 +18,7 @@ dependencies:
 - python=3.9.19
 - python_abi=3.9
 - q2-alignment=2024.5.0.dev0+1.g3a9c58b
-- q2-composition=2024.5.0.dev0
+- q2-composition=2024.5.0.dev0+24.g33e8a9e
 - q2-cutadapt=2024.5.0.dev0
 - q2-dada2=2024.5.0.dev0
 - q2-deblur=2024.5.0.dev0
@@ -37,7 +37,7 @@ dependencies:
 - q2-quality-filter=2024.5.0.dev0
 - q2-sample-classifier=2024.5.0.dev0+1.g67f3cc5
 - q2-taxa=2024.5.0.dev0+1.gc82612c
-- q2-types=2024.5.0.dev0+7.g5713965
+- q2-types=2024.5.0.dev0+10.g940a02d
 - q2-vsearch=2024.5.0.dev0
 - q2cli=2024.5.0.dev0+1.gdce4a7e
 - q2galaxy=2024.5.0.dev0+2.ga124fa1

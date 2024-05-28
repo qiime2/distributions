@@ -22,27 +22,27 @@ dependencies:
 - q2-cutadapt=2024.5.0.dev0
 - q2-dada2=2024.5.0.dev0
 - q2-deblur=2024.5.0.dev0
-- q2-demux=2024.5.0.dev0
-- q2-diversity-lib=2024.5.0.dev0+1.g983125e
-- q2-diversity=2024.5.0.dev0+2.g76e3380
+- q2-demux=2024.5.0.dev0+1.g4d0d6c4
+- q2-diversity-lib=2024.5.0.dev0+2.g62b5ec3
+- q2-diversity=2024.5.0.dev0+4.g50c486e
 - q2-emperor=2024.5.0.dev0
-- q2-feature-classifier=2024.5.0.dev0+1.g02e77df
-- q2-feature-table=2024.5.0.dev0+3.g55e67a2
+- q2-feature-classifier=2024.5.0.dev0+2.g9cd5fe3
+- q2-feature-table=2024.5.0.dev0+4.g4e484ec
 - q2-fragment-insertion=2024.5.0.dev0
 - q2-longitudinal=2024.5.0.dev0+1.g32b01b7
 - q2-metadata=2024.5.0.dev0+1.g2766cad
 - q2-mystery-stew=2024.5.0.dev0
 - q2-phylogeny=2024.5.0.dev0
-- q2-quality-control=2024.5.0.dev0+1.g8818a5e
+- q2-quality-control=2024.5.0.dev0+4.g79fde25
 - q2-quality-filter=2024.5.0.dev0
 - q2-sample-classifier=2024.5.0.dev0+1.g67f3cc5
-- q2-taxa=2024.5.0.dev0+1.gc82612c
-- q2-types=2024.5.0.dev0+10.g940a02d
+- q2-taxa=2024.5.0.dev0+3.g6fc2f45
+- q2-types=2024.5.0.dev0+14.g18460e4
 - q2-vsearch=2024.5.0.dev0
-- q2cli=2024.5.0.dev0+1.gdce4a7e
+- q2cli=2024.5.0.dev0+2.g4644fcb
 - q2galaxy=2024.5.0.dev0+2.ga124fa1
 - q2templates=2024.5.0.dev0+1.g21d46cb
-- qiime2=2024.5.0.dev0+4.gf24fdd7
+- qiime2=2024.5.0.dev0+9.g59ec732
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.5.0.dev0+3.g6e87cfe
@@ -55,4 +55,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.5'
-# modified: 2024-05-28

@@ -1,10 +1,10 @@
 # this is the current release epoch (i.e. 20XX.REL)
-released_epoch: "2024.2"
+released_epoch: "2024.5"
 # this is the current dev cycle epoch (i.e. 20XX.REL+1)
-active_epoch: "2024.5"
+active_epoch: "2024.10"
 # this is the next dev cycle epoch (i.e. 20XX.REL+2)
-next_epoch: "2024.8"
-distros: [tiny, amplicon, metagenome, fmt]
+next_epoch: "2025.4"
+distros: [tiny, amplicon, metagenome]
 packages:
 
 - name: q2-alignment
@@ -55,9 +55,9 @@ packages:
   repo: qiime2/q2-feature-table
   distros: [amplicon, metagenome]
 
-- name: q2-fmt
-  repo: qiime2/q2-fmt
-  distros: [fmt]
+# - name: q2-fmt
+#   repo: qiime2/q2-fmt
+#   distros: []
 
 - name: q2-fondue
   repo: bokulich-lab/q2-fondue
@@ -81,7 +81,7 @@ packages:
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew
-  distros: [tiny, amplicon, metagenome, fmt]
+  distros: [tiny, amplicon, metagenome]
 
 - name: q2-phylogeny
   repo: qiime2/q2-phylogeny
@@ -101,7 +101,7 @@ packages:
 
 - name: q2-stats
   repo: qiime2/q2-stats
-  distros: [fmt]
+  distros: [amplicon]
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
@@ -109,7 +109,7 @@ packages:
 
 - name: q2-types
   repo: qiime2/q2-types
-  distros: [tiny, amplicon, metagenome, fmt]
+  distros: [tiny, amplicon, metagenome]
 
 # - name: q2-vizard
 #   repo: qiime2/q2-vizard
@@ -121,7 +121,7 @@ packages:
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [tiny, amplicon, metagenome, fmt]
+  distros: [tiny, amplicon, metagenome]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy
@@ -133,7 +133,7 @@ packages:
 
 - name: qiime2
   repo: qiime2/qiime2
-  distros: [tiny, amplicon, metagenome, fmt]
+  distros: [tiny, amplicon, metagenome]
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt

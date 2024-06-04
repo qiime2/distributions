@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.5/tiny/released
+- https://packages.qiime2.org/qiime2/2024.10/tiny/passed
 - conda-forge
 - bioconda
 - defaults
@@ -13,10 +13,10 @@ dependencies:
 - parsl=2024.4.15
 - python=3.9.19
 - python_abi=3.9
-- q2-mystery-stew=2024.5.0
-- q2-types=2024.5.0
-- q2cli=2024.5.0
-- qiime2=2024.5.0
+- q2-mystery-stew=2024.10.0.dev0
+- q2-types=2024.10.0.dev0
+- q2cli=2024.10.0.dev0
+- qiime2=2024.10.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - scikit-bio=0.6.0

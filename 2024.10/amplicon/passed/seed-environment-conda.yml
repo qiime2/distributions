@@ -36,6 +36,7 @@ dependencies:
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
 - q2-sample-classifier=2024.10.0.dev0
+- q2-stats=2024.10.0.dev0
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0
 - q2-vsearch=2024.10.0.dev0

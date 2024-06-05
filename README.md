@@ -35,7 +35,7 @@ all packages will be rebuilt and tested from the `Release-epoch` branch (note th
 
 ## Building Docker Images locally
 
-Edit QIIME2_RELEASE within the top level `Makefile` to the current release epoch:
+Edit `QIIME2_RELEASE` within the top level `Makefile` to the current release epoch:
 
 ```bash
 QIIME2_RELEASE := foo

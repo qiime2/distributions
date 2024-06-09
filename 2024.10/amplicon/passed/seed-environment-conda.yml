@@ -46,7 +46,7 @@ dependencies:
 - qiime2=2024.10.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rescript=2024.10.0.dev0+4.g14dd23a
+- rescript=2024.10.0.dev0+5.g178cd21
 - scikit-bio=0.6.0
 - scikit-learn=1.4.2
 - scipy=1.13.0
@@ -56,4 +56,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.10'
-# modified: 2024-06-09

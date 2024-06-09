@@ -15,7 +15,7 @@ dependencies:
 - python_abi=3.9
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0
-- q2cli=2024.10.0.dev0
+- q2cli=2024.10.0.dev0+1.gefac9fc
 - qiime2=2024.10.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
@@ -27,4 +27,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.10'
-# modified: 2024-06-09

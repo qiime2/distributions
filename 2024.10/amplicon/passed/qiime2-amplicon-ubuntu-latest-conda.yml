@@ -87,7 +87,7 @@ dependencies:
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.0
-- certifi=2024.2.2
+- certifi=2024.6.2
 - cffi=1.16.0
 - chardet=5.2.0
 - charset-normalizer=3.3.2
@@ -116,7 +116,7 @@ dependencies:
 - expat=2.6.2
 - fastcluster=1.2.6
 - fasttree=2.1.11
-- filelock=3.14.0
+- filelock=3.15.1
 - flufl.lock=7.1
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -180,7 +180,7 @@ dependencies:
 - joblib=1.4.2
 - jq=1.7.1
 - jsonlines=3.0.0
-- jsonpointer=2.4
+- jsonpointer=3.0.0
 - jsonschema=4.22.0
 - jsonschema-specifications=2023.12.1
 - jsonschema-with-format-nongpl=4.22.0
@@ -249,7 +249,7 @@ dependencies:
 - libsanitizer=13.2.0
 - libsndfile=1.2.2
 - libsodium=1.0.18
-- libsqlite=3.45.3
+- libsqlite=3.46.0
 - libssh2=1.11.0
 - libstdcxx-devel_linux-64=13.2.0
 - libstdcxx-ng=13.2.0
@@ -272,7 +272,7 @@ dependencies:
 - mafft=7.520
 - make=4.3
 - markdown-it-py=3.0.0
-- marko=2.0.3
+- marko=2.1.0
 - markupsafe=2.1.5
 - matplotlib=3.8.4
 - matplotlib-base=3.8.4
@@ -307,11 +307,11 @@ dependencies:
 - openjpeg=2.5.2
 - openssl=3.3.1
 - overrides=7.7.0
-- packaging=24.0
+- packaging=24.1
 - pandas=2.2.2
 - pandoc=3.2
 - pandocfilters=1.5.0
-- pango=1.52.2
+- pango=1.54.0
 - paramiko=3.4.0
 - parsl=2024.4.15
 - parso=0.8.4
@@ -352,7 +352,7 @@ dependencies:
 - pluggy=1.5.0
 - ply=3.11
 - prometheus_client=0.20.0
-- prompt-toolkit=3.0.46
+- prompt-toolkit=3.0.47
 - protobuf=3.20.3
 - psutil=5.9.8
 - pthread-stubs=0.4
@@ -372,7 +372,7 @@ dependencies:
 - pytest=8.2.2
 - python=3.9.19
 - python-dateutil=2.8.2
-- python-fastjsonschema=2.19.1
+- python-fastjsonschema=2.20.0
 - python-isal=1.6.1
 - python-json-logger=2.0.7
 - python-slugify=8.0.4
@@ -393,7 +393,7 @@ dependencies:
 - q2-diversity-lib=2024.10.0.dev0
 - q2-emperor=2024.10.0.dev0
 - q2-feature-classifier=2024.10.0.dev0
-- q2-feature-table=2024.10.0.dev0
+- q2-feature-table=2024.10.0.dev0+1.gd9e5678
 - q2-fragment-insertion=2024.10.0.dev0
 - q2-longitudinal=2024.10.0.dev0
 - q2-metadata=2024.10.0.dev0
@@ -407,7 +407,7 @@ dependencies:
 - q2-types=2024.10.0.dev0
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+1.gefac9fc
-- q2galaxy=2024.10.0.dev0
+- q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
 - qiime2=2024.10.0.dev0
 - qt-main=5.15.8
@@ -460,7 +460,7 @@ dependencies:
 - r-ecosolver=0.5.5
 - r-ellipsis=0.3.2
 - r-energy=1.7_11
-- r-evaluate=0.23
+- r-evaluate=0.24.0
 - r-exact=3.2
 - r-expm=0.999_9
 - r-fansi=1.0.6
@@ -536,7 +536,7 @@ dependencies:
 - r-multcomp=1.4_25
 - r-munsell=0.5.1
 - r-mvtnorm=1.2_5
-- r-nlme=3.1_164
+- r-nlme=3.1_165
 - r-nloptr=2.0.3
 - r-nnet=7.3_19
 - r-numderiv=2016.8_1.1
@@ -636,7 +636,7 @@ dependencies:
 - readline=8.2
 - referencing=0.35.1
 - requests=2.32.3
-- rescript=2024.10.0.dev0+5.g178cd21
+- rescript=2024.10.0.dev0+7.g3c179ca
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
@@ -739,7 +739,7 @@ dependencies:
 - yaml=0.2.5
 - yq=3.4.3
 - zeromq=4.3.5
-- zipp=3.18.0
+- zipp=3.19.2
 - zlib=1.2.13
 - zlib-ng=2.0.7
 - zstandard=0.19.0

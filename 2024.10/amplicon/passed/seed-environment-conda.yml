@@ -27,7 +27,7 @@ dependencies:
 - q2-diversity=2024.10.0.dev0
 - q2-emperor=2024.10.0.dev0
 - q2-feature-classifier=2024.10.0.dev0
-- q2-feature-table=2024.10.0.dev0
+- q2-feature-table=2024.10.0.dev0+1.gd9e5678
 - q2-fragment-insertion=2024.10.0.dev0
 - q2-longitudinal=2024.10.0.dev0
 - q2-metadata=2024.10.0.dev0
@@ -41,12 +41,12 @@ dependencies:
 - q2-types=2024.10.0.dev0
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+1.gefac9fc
-- q2galaxy=2024.10.0.dev0
+- q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
 - qiime2=2024.10.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rescript=2024.10.0.dev0+5.g178cd21
+- rescript=2024.10.0.dev0+7.g3c179ca
 - scikit-bio=0.6.0
 - scikit-learn=1.4.2
 - scipy=1.13.0

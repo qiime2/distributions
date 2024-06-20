@@ -1,3 +1,4 @@
+# patching release 2024.5.1
 channels:
 - https://packages.qiime2.org/qiime2/2024.5/amplicon/passed
 - conda-forge

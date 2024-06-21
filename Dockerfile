@@ -7,6 +7,7 @@ ENV PATH /opt/conda/envs/qiime2-${DISTRO}-${EPOCH}/bin:$PATH
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV MPLBACKEND agg
+ENV UNIFRAC_USE_GPU N
 ENV HOME /home/qiime2
 ENV XDG_CONFIG_HOME /home/qiime2
 

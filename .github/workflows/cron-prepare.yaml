@@ -24,10 +24,3 @@ jobs:
     secrets: inherit
     with:
       distro: metagenome
-
-  fmt:
-    needs: [metagenome]
-    uses: ./.github/workflows/create-prepare-pr.yaml
-    secrets: inherit
-    with:
-      distro: fmt

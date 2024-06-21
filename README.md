@@ -32,3 +32,31 @@ all packages will be rebuilt and tested from the `Language-<anything>` branch if
 
 When the branch matches the pattern `Release-<epoch>/<distro>[anything else]`,
 all packages will be rebuilt and tested from the `Release-epoch` branch (note that any text after the slash is not a part of the package's branch). Built packages will be uploaded as a conda channel to [packages.qiime2.org](https://packages.qiime2.org/qiime2) under the respective `/qiime2/<epoch>/<distro>/released/` directory.
+
+## Building Docker Images locally
+
+Edit `QIIME2_RELEASE` within the top level `Makefile` to the current release epoch:
+
+```bash
+QIIME2_RELEASE := foo
+```
+
+Please ensure that `QIIME2_RELEASE` is a valid release, with a published environment file under 20XX.REL (within this repository).
+
+Note that `DISTRIBUTIONS` is currently set to `metagenome`, but this may need to be changed in the future as additional distributions are released within the QIIME 2 ecosystem.
+
+### Docker
+
+Navigate to this repository on your local machine and make sure to have Docker desktop running in the background before running the following (note that you'll need quay.io access):
+
+```bash
+# Build the docker image locally
+$ make docker
+# After inspecting the image, login to Docker Hub:
+$ docker login quay.io
+# Then push both latest and version builds up:
+$ docker push quay.io/qiime2/DISTRO:latest
+$ docker push quay.io/qiime2/DISTRO:20XX.REL
+# LOGOUT
+$ docker logout quay.io
+```

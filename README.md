@@ -35,15 +35,15 @@ all packages will be rebuilt and tested from the `Release-epoch` branch (note th
 
 ## Building Docker Images locally
 
-Edit `QIIME2_RELEASE` within the top level `Makefile` to the current release epoch:
+Edit `EPOCH` within the top level `Makefile` to the current release epoch:
 
 ```bash
-QIIME2_RELEASE := foo
+EPOCH := foo
 ```
 
-Please ensure that `QIIME2_RELEASE` is a valid release, with a published environment file under 20XX.REL (within this repository).
+Please ensure that `EPOCH` is a valid release, with a published environment file under 20XX.REL (within this repository).
 
-Note that `DISTRIBUTIONS` is currently set to `metagenome`, but this may need to be changed in the future as additional distributions are released within the QIIME 2 ecosystem.
+Note that `DISTRO` is currently set to `metagenome`, but this may need to be changed in the future as additional distributions are released within the QIIME 2 ecosystem.
 
 ### Docker
 

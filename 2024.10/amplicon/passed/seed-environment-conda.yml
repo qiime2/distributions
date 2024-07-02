@@ -37,7 +37,7 @@ dependencies:
 - q2-quality-filter=2024.10.0.dev0
 - q2-sample-classifier=2024.10.0.dev0
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0
+- q2-types=2024.10.0.dev0+1.ga22a64a
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+1.gefac9fc
 - q2galaxy=2024.10.0.dev0+1.g324442b
@@ -55,4 +55,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.10'
-# modified: 2024-07-02

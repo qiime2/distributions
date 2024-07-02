@@ -65,7 +65,7 @@ dependencies:
 - gxx_impl_linux-64=14.1.0
 - h2=4.1.0
 - h5py=3.11.0
-- harfbuzz=8.5.0
+- harfbuzz=9.0.0
 - hdf5=1.14.3
 - hdmedians=0.14.2
 - hpack=4.0.0
@@ -79,7 +79,7 @@ dependencies:
 - importlib_resources=6.4.0
 - iniconfig=2.0.0
 - iow=1.0.5
-- ipykernel=6.29.4
+- ipykernel=6.29.5
 - ipython=8.18.1
 - ipython_genutils=0.2.0
 - isoduration=20.11.0
@@ -200,7 +200,7 @@ dependencies:
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+1.ga22a64a
 - q2cli=2024.10.0.dev0+1.gefac9fc
-- qiime2=2024.10.0.dev0
+- qiime2=2024.10.0.dev0+1.g9cb45d5
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.8.8

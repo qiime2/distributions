@@ -99,9 +99,9 @@ packages:
   repo: qiime2/q2-sample-classifier
   distros: [amplicon, metagenome]
 
-# - name: q2-stats
-#   repo: qiime2/q2-stats
-#   distros: [amplicon]
+- name: q2-stats
+  repo: qiime2/q2-stats
+  distros: [amplicon]
 
 - name: q2-taxa
   repo: qiime2/q2-taxa

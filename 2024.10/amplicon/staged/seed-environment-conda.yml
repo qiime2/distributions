@@ -23,7 +23,7 @@ dependencies:
 - q2-dada2=2024.10.0.dev0
 - q2-deblur=2024.10.0.dev0
 - q2-demux=2024.10.0.dev0
-- q2-diversity-lib=2024.10.0.dev0
+- q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-diversity=2024.10.0.dev0+1.g368a9eb
 - q2-emperor=2024.10.0.dev0
 - q2-feature-classifier=2024.10.0.dev0
@@ -36,13 +36,14 @@ dependencies:
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
 - q2-sample-classifier=2024.10.0.dev0
+- q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+1.ga22a64a
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+1.gefac9fc
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0
+- qiime2=2024.10.0.dev0+1.g9cb45d5
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+8.g7d9ef27

@@ -25,7 +25,7 @@ dependencies:
 - bwidget=1.9.14
 - bzip2=1.0.8
 - c-ares=1.28.1
-- ca-certificates=2024.6.2
+- ca-certificates=2024.7.4
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.0

@@ -209,7 +209,7 @@ dependencies:
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+1.ga22a64a
 - q2cli=2024.10.0.dev0+1.gefac9fc
-- qiime2=2024.10.0.dev0
+- qiime2=2024.10.0.dev0+1.g9cb45d5
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.8.8

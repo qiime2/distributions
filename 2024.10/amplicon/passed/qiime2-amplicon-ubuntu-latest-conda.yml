@@ -573,7 +573,7 @@ dependencies:
 - r-rcppparallel=5.1.6
 - r-rcppprogress=0.4.2
 - r-rcpptoml=0.2.2
-- r-rcurl=1.98_1.14
+- r-rcurl=1.98_1.16
 - r-rdpack=2.6
 - r-readr=2.1.5
 - r-readxl=1.4.3
@@ -717,7 +717,7 @@ dependencies:
 - xcb-util-wm=0.4.1
 - xkeyboard-config=2.42
 - xmltodict=0.13.0
-- xopen=2.0.1
+- xopen=2.0.2
 - xorg-fixesproto=5.0
 - xorg-inputproto=2.3.2
 - xorg-kbproto=1.0.7

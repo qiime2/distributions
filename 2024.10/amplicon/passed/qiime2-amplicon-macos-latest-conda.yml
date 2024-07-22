@@ -10,7 +10,7 @@ dependencies:
 - appdirs=1.4.4
 - appnope=0.1.4
 - argcomplete=3.4.0
-- argh=0.31.2
+- argh=0.31.3
 - argon2-cffi=23.1.0
 - argon2-cffi-bindings=21.2.0
 - arrow=1.3.0
@@ -78,7 +78,7 @@ dependencies:
 - brotli-python=1.1.0
 - bwidget=1.9.14
 - bzip2=1.0.8
-- c-ares=1.32.1
+- c-ares=1.32.2
 - ca-certificates=2024.7.4
 - cached-property=1.5.2
 - cached_property=1.5.2
@@ -102,7 +102,7 @@ dependencies:
 - compiler-rt_osx-64=18.1.7
 - conda-pack=0.7.0
 - contourpy=1.2.1
-- cryptography=42.0.8
+- cryptography=43.0.0
 - curl=8.8.0
 - cutadapt=4.9
 - cycler=0.12.1
@@ -143,7 +143,7 @@ dependencies:
 - gffutils=0.10.1
 - gfortran_impl_osx-64=12.3.0
 - gfortran_osx-64=12.3.0
-- globus-sdk=3.41.0
+- globus-sdk=3.42.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.13
@@ -335,7 +335,7 @@ dependencies:
 - pycparser=2.22
 - pyfaidx=0.8.1.1
 - pygments=2.18.0
-- pyhmmer=0.10.13
+- pyhmmer=0.10.14
 - pyjwt=2.8.0
 - pynacl=1.5.0
 - pynndescent=0.5.13
@@ -343,7 +343,7 @@ dependencies:
 - pyobjc-framework-cocoa=10.3.1
 - pyparsing=3.1.2
 - pysocks=1.7.1
-- pytest=8.2.2
+- pytest=8.3.1
 - python=3.9.19
 - python-dateutil=2.8.2
 - python-fastjsonschema=2.20.0
@@ -378,12 +378,12 @@ dependencies:
 - q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+1.ga22a64a
+- q2-types=2024.10.0.dev0+2.g04dd0da
 - q2-vsearch=2024.10.0.dev0
-- q2cli=2024.10.0.dev0+1.gefac9fc
+- q2cli=2024.10.0.dev0+2.ge5bd28e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+1.g9cb45d5
+- qiime2=2024.10.0.dev0+3.gd8f3f97
 - r-abind=1.4_5
 - r-ade4=1.7_22
 - r-ape=5.8
@@ -506,11 +506,11 @@ dependencies:
 - r-mime=0.12
 - r-minqa=1.2.7
 - r-modelr=0.1.11
-- r-multcomp=1.4_25
+- r-multcomp=1.4_26
 - r-munsell=0.5.1
 - r-mvtnorm=1.2_5
 - r-nlme=3.1_165
-- r-nloptr=2.0.3
+- r-nloptr=2.1.1
 - r-nnet=7.3_19
 - r-numderiv=2016.8_1.1
 - r-openssl=2.2.0
@@ -536,7 +536,7 @@ dependencies:
 - r-rappdirs=0.3.3
 - r-rbibutils=2.2.16
 - r-rcolorbrewer=1.1_3
-- r-rcpp=1.0.12
+- r-rcpp=1.0.13
 - r-rcppannoy=0.0.22
 - r-rcppeigen=0.3.4.0.0
 - r-rcpphnsw=0.6.0
@@ -561,7 +561,7 @@ dependencies:
 - r-rootsolve=1.8.2.4
 - r-rpart=4.1.23
 - r-rprojroot=2.0.4
-- r-rsqlite=2.3.4
+- r-rsqlite=2.3.7
 - r-rstudioapi=0.16.0
 - r-rsvd=1.0.5
 - r-rtsne=0.17
@@ -587,7 +587,7 @@ dependencies:
 - r-tidytree=0.4.6
 - r-tidyverse=2.0.0
 - r-timechange=0.3.0
-- r-tinytex=0.51
+- r-tinytex=0.52
 - r-tzdb=0.4.0
 - r-utf8=1.2.4
 - r-uuid=1.2_0
@@ -624,7 +624,7 @@ dependencies:
 - send2trash=1.8.3
 - sepp=4.4.0
 - setproctitle=1.3.3
-- setuptools=70.3.0
+- setuptools=71.0.4
 - shellingham=1.5.4
 - sigtool=0.1.3
 - simpleeval=0.9.13
@@ -669,7 +669,7 @@ dependencies:
 - unifrac-binaries=1.4
 - uri-template=1.3.0
 - urllib3=1.26.19
-- validators=0.32.0
+- validators=0.33.0
 - vsearch=2.22.1
 - wcwidth=0.2.13
 - webcolors=24.6.0
@@ -690,5 +690,5 @@ dependencies:
 - zipp=3.19.2
 - zlib=1.2.13
 - zlib-ng=2.2.1
-- zstandard=0.22.0
+- zstandard=0.23.0
 - zstd=1.5.6

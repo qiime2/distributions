@@ -38,12 +38,12 @@ dependencies:
 - q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+1.ga22a64a
+- q2-types=2024.10.0.dev0+2.g04dd0da
 - q2-vsearch=2024.10.0.dev0
-- q2cli=2024.10.0.dev0+1.gefac9fc
+- q2cli=2024.10.0.dev0+2.ge5bd28e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+1.g9cb45d5
+- qiime2=2024.10.0.dev0+3.gd8f3f97
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+8.g7d9ef27
@@ -56,4 +56,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.10'
-# modified: 2024-07-21

@@ -99,6 +99,10 @@ packages:
   repo: qiime2/q2-sample-classifier
   distros: [amplicon, metagenome]
 
+- name: q2-sourmash
+  repo: dib-lab/q2-sourmash
+  distros: [metagenome]
+
 - name: q2-stats
   repo: qiime2/q2-stats
   distros: [amplicon]

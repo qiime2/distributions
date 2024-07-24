@@ -53,7 +53,7 @@ on:
 
 env:
   name: ${{ inputs.github-repo }}
-  filepath: https://raw.githubusercontent.com/${{ inputs.github-org }}/${{ inputs.github-repo }}/${{ inputs.github-env-ref }}/environment-files/${{ inputs.env-file-name }}
+  filepath: environment-files/${{ inputs.env-file-name }}
 
 jobs:
   install-env-and-test:
@@ -62,12 +62,18 @@ jobs:
         os: [ubuntu-latest, macos-12]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - name: 'checkout source'
+        uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v3
+      - name: 'set up python 3.9'
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: 'set up conda environment'
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniconda-version: 'latest'
-          python-version: 3.9
           environment-file: ${{ env.filepath }}
           activate-environment: ${{ env.name }}
 

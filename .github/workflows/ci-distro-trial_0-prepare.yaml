@@ -143,6 +143,7 @@ jobs:
         with:
           repos: ${{ steps.distro-pkgs.outputs.repos }}
           is-rebuild: ${{ needs.detect-vars.outputs.is-rebuild }}
+          sibling-ref: ${{ needs.detect-vars.outputs.sibling-ref }}
 
       - name: get diff
         if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}

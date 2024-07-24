@@ -71,19 +71,9 @@ jobs:
           environment-file: ${{ env.filepath }}
           activate-environment: ${{ env.name }}
 
-      - name: 'install pytest, run qiime info & run tests'
+      - name: 'Run tests for ${{ env.github_repo }}'
         shell: bash -el {0}
         run: |
           conda install pytest
           qiime info
           pytest
-
-      # - name: 'Install and activate test environment'
-      #   run: |
-      #     conda env create
-      #     -n ${{ env.github_repo }}
-      #     -f https://raw.githubusercontent.com/{{ github-org }}/{{ github-repo }}/{{ github-env-ref }}/environment-files/{{ env-file-name }}
-      #     conda activate ${{ env.github_repo }}
-
-      # TODO: run tests using makefile
-      - name: 'Run tests for ${{ env.github_repo }}'

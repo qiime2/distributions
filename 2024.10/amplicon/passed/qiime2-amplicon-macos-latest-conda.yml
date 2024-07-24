@@ -18,7 +18,7 @@ dependencies:
 - asttokens=2.4.1
 - atpublic=3.0.1
 - attrs=23.2.0
-- bcrypt=4.1.3
+- bcrypt=4.2.0
 - beautifulsoup4=4.12.3
 - bibtexparser=1.4.1
 - bioconductor-ancombc=2.4.0
@@ -78,7 +78,7 @@ dependencies:
 - brotli-python=1.1.0
 - bwidget=1.9.14
 - bzip2=1.0.8
-- c-ares=1.32.2
+- c-ares=1.32.3
 - ca-certificates=2024.7.4
 - cached-property=1.5.2
 - cached_property=1.5.2
@@ -114,7 +114,7 @@ dependencies:
 - dill=0.3.8
 - dnaio=1.2.1
 - emperor=1.0.4
-- entrez-direct=22.1
+- entrez-direct=22.4
 - entrypoints=0.4
 - exceptiongroup=1.2.2
 - executing=2.0.1
@@ -122,7 +122,7 @@ dependencies:
 - fastcluster=1.2.6
 - fasttree=2.1.11
 - filelock=3.15.4
-- flufl.lock=7.1
+- flufl.lock=8.0.2
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
 - font-ttf-source-code-pro=2.038
@@ -149,19 +149,21 @@ dependencies:
 - graphite2=1.3.13
 - graphlib-backport=1.0.3
 - gsl=2.7
+- h2=4.1.0
 - h5py=3.11.0
 - harfbuzz=8.5.0
 - hdf5=1.14.3
 - hdmedians=0.14.2
 - hmmer=3.1b2
+- hpack=4.0.0
 - htslib=1.20
 - humanize=4.10.0
+- hyperframe=6.0.1
 - icu=73.2
 - idna=3.7
 - ijson=3.3.0
-- importlib-metadata=8.0.0
+- importlib-metadata=8.1.0
 - importlib-resources=6.4.0
-- importlib_metadata=8.0.0
 - importlib_resources=6.4.0
 - iniconfig=2.0.0
 - interface_meta=1.3.0
@@ -267,7 +269,7 @@ dependencies:
 - nbclient=0.10.0
 - nbconvert-core=7.16.4
 - nbformat=5.10.4
-- ncbi-datasets-pylib=16.6.1
+- ncbi-datasets-pylib=14.25.1
 - ncbi-vdb=3.1.1
 - ncurses=6.5
 - nest-asyncio=1.6.0
@@ -331,7 +333,7 @@ dependencies:
 - psutil=6.0.0
 - pthread-stubs=0.4
 - ptyprocess=0.7.0
-- pure_eval=0.2.2
+- pure_eval=0.2.3
 - pycparser=2.22
 - pyfaidx=0.8.1.1
 - pygments=2.18.0
@@ -345,7 +347,7 @@ dependencies:
 - pysocks=1.7.1
 - pytest=8.3.1
 - python=3.9.19
-- python-dateutil=2.8.2
+- python-dateutil=2.9.0
 - python-fastjsonschema=2.20.0
 - python-isal=1.6.1
 - python-json-logger=2.0.7
@@ -362,11 +364,11 @@ dependencies:
 - q2-cutadapt=2024.10.0.dev0
 - q2-dada2=2024.10.0.dev0
 - q2-deblur=2024.10.0.dev0
-- q2-demux=2024.10.0.dev0
+- q2-demux=2024.10.0.dev0+1.g037f78a
 - q2-diversity=2024.10.0.dev0+1.g368a9eb
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-emperor=2024.10.0.dev0
-- q2-feature-classifier=2024.10.0.dev0
+- q2-feature-classifier=2024.10.0.dev0+1.ga00fe79
 - q2-feature-table=2024.10.0.dev0+1.gd9e5678
 - q2-fragment-insertion=2024.10.0.dev0
 - q2-longitudinal=2024.10.0.dev0
@@ -378,7 +380,7 @@ dependencies:
 - q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+2.g04dd0da
+- q2-types=2024.10.0.dev0+20.g5e0a3d3
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+2.ge5bd28e
 - q2galaxy=2024.10.0.dev0+1.g324442b
@@ -434,7 +436,7 @@ dependencies:
 - r-ellipsis=0.3.2
 - r-energy=1.7_11
 - r-evaluate=0.24.0
-- r-exact=3.2
+- r-exact=3.3
 - r-expm=0.999_9
 - r-fansi=1.0.6
 - r-farver=2.1.2
@@ -472,7 +474,7 @@ dependencies:
 - r-highr=0.11
 - r-hmisc=5.1_3
 - r-hms=1.1.3
-- r-htmltable=2.4.2
+- r-htmltable=2.4.3
 - r-htmltools=0.5.8.1
 - r-htmlwidgets=1.6.4
 - r-httr=1.4.7
@@ -609,7 +611,7 @@ dependencies:
 - readline=8.2
 - referencing=0.35.1
 - requests=2.32.3
-- rescript=2024.10.0.dev0+8.g7d9ef27
+- rescript=2024.10.0.dev0+9.g92fee7e
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
@@ -668,7 +670,7 @@ dependencies:
 - unifrac=1.3
 - unifrac-binaries=1.4
 - uri-template=1.3.0
-- urllib3=1.26.19
+- urllib3=2.2.2
 - validators=0.33.0
 - vsearch=2.22.1
 - wcwidth=0.2.13

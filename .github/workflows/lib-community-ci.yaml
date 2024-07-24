@@ -1,0 +1,79 @@
+# # Example of workflow trigger for calling workflow (the client).
+# name: ci-vizard
+# on:
+#   pull_request:
+#     branches: ["dev"]
+#   push:
+#     branches: ["dev"]
+# jobs:
+#   ci:
+#     uses: qiime2/distributions/.github/workflows/lib-community-ci.yaml@dev
+#     with:
+#       distro: amplicon
+#       release-epoch: 2024.10
+#       github-org-name: qiime2
+#       github-repo-name: q2-vizard
+# TODO: note that default is main branch; can leave blank unless special target
+#       github-env-ref: dev
+#       env-file-name: 2024.5-vizard-environment.yml
+
+on:
+  workflow_call:
+    inputs:
+      distro:
+        description: "Distro to test with"
+        type: string
+        required: true
+
+      release-epoch:
+        description: "Release target for distro to test with"
+        type: number
+        required: true
+
+      github-org:
+        description: "Organization or username on Github"
+        type: string
+        required: true
+
+      github-repo:
+        description: "Plugin repository name on Github"
+        type: string
+        required: true
+
+      github-env-ref:
+        description: "Target branch/ref name on Github for environment file"
+        type: string
+        required: false
+        default: ''
+
+      env-file-name:
+        description: "Name of environment file to test with"
+        type: string
+        required: true
+
+jobs:
+  install-env-and-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-12]
+    runs-on: ${{ matrix.os }}
+
+    env:
+      name: ${{ inputs.github-repo }}
+      filepath: https://raw.githubusercontent.com/${{ inputs.github-org }}/${{ inputs.github-repo }}/${{ inputs.github-env-ref }}/environment-files/${{ inputs.env-file-name }}
+
+      - uses: actions/checkout@v3
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: 'latest'
+          python-version: 3.9
+          environment-file: ${{ env.filepath }}
+          activate-environment: ${{ env.name }}
+
+      - name: 'Run tests for ${{ env.github_repo }}'
+        shell: bash -el {0}
+        run: |
+          conda install pytest
+          qiime info
+          pytest

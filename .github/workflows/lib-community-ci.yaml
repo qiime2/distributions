@@ -20,31 +20,31 @@
 on:
   workflow_call:
     inputs:
-      distro:
-        description: "Distro to test with"
-        type: string
-        required: true
+      # distro:
+      #   description: "Distro to test with"
+      #   type: string
+      #   required: true
 
-      release-epoch:
-        description: "Release target for distro to test with"
-        type: number
-        required: true
+      # release-epoch:
+      #   description: "Release target for distro to test with"
+      #   type: number
+      #   required: true
 
-      github-org:
-        description: "Organization or username on Github"
-        type: string
-        required: true
+      # github-org:
+      #   description: "Organization or username on Github"
+      #   type: string
+      #   required: true
 
       github-repo:
         description: "Plugin repository name on Github"
         type: string
         required: true
 
-      github-env-ref:
-        description: "Target branch/ref name on Github for environment file"
-        type: string
-        required: false
-        default: ''
+      # github-env-ref:
+      #   description: "Target branch/ref name on Github for environment file"
+      #   type: string
+      #   required: false
+      #   default: ''
 
       env-file-name:
         description: "Name of environment file to test with"

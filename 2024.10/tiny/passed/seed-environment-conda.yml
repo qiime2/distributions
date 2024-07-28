@@ -15,8 +15,8 @@ dependencies:
 - python_abi=3.9
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+2.g04dd0da
-- q2cli=2024.10.0.dev0+2.ge5bd28e
-- qiime2=2024.10.0.dev0+3.gd8f3f97
+- q2cli=2024.10.0.dev0+3.gfaa134b
+- qiime2=2024.10.0.dev0+4.g0a39a0b
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - scikit-bio=0.6.0

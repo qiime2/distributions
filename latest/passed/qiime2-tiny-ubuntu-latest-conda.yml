@@ -25,7 +25,7 @@ dependencies:
 - brotli-python=1.1.0
 - bwidget=1.9.14
 - bzip2=1.0.8
-- c-ares=1.32.1
+- c-ares=1.32.2
 - ca-certificates=2024.7.4
 - cached-property=1.5.2
 - cached_property=1.5.2
@@ -37,7 +37,7 @@ dependencies:
 - colorama=0.4.6
 - comm=0.2.2
 - conda-pack=0.7.0
-- cryptography=42.0.8
+- cryptography=43.0.0
 - curl=8.8.0
 - debugpy=1.8.2
 - decorator=4.4.2
@@ -61,7 +61,7 @@ dependencies:
 - fribidi=1.0.10
 - gcc_impl_linux-64=14.1.0
 - gfortran_impl_linux-64=14.1.0
-- globus-sdk=3.41.0
+- globus-sdk=3.42.0
 - graphite2=1.3.13
 - gxx_impl_linux-64=14.1.0
 - h2=4.1.0
@@ -183,12 +183,12 @@ dependencies:
 - pure_eval=0.2.2
 - pycparser=2.22
 - pygments=2.18.0
-- pyhmmer=0.10.13
+- pyhmmer=0.10.14
 - pyjwt=2.8.0
 - pynacl=1.5.0
 - pyparsing=3.1.2
 - pysocks=1.7.1
-- pytest=8.2.2
+- pytest=8.3.1
 - python=3.9.19
 - python-dateutil=2.9.0
 - python-fastjsonschema=2.20.0
@@ -199,9 +199,9 @@ dependencies:
 - pyyaml=6.0.1
 - pyzmq=24.0.1
 - q2-mystery-stew=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+1.ga22a64a
-- q2cli=2024.10.0.dev0+1.gefac9fc
-- qiime2=2024.10.0.dev0+1.g9cb45d5
+- q2-types=2024.10.0.dev0+2.g04dd0da
+- q2cli=2024.10.0.dev0+2.ge5bd28e
+- qiime2=2024.10.0.dev0+3.gd8f3f97
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.8.8
@@ -209,7 +209,7 @@ dependencies:
 - r-matrix=1.6_5
 - r-png=0.1_8
 - r-rappdirs=0.3.3
-- r-rcpp=1.0.12
+- r-rcpp=1.0.13
 - r-rcpptoml=0.2.2
 - r-reticulate=1.36.0
 - r-rlang=1.1.4
@@ -228,7 +228,7 @@ dependencies:
 - sed=4.8
 - send2trash=1.8.3
 - setproctitle=1.3.3
-- setuptools=70.3.0
+- setuptools=71.0.4
 - six=1.16.0
 - sniffio=1.3.1
 - soupsieve=2.5
@@ -277,5 +277,5 @@ dependencies:
 - zeromq=4.3.5
 - zipp=3.19.2
 - zlib=1.2.13
-- zstandard=0.22.0
+- zstandard=0.23.0
 - zstd=1.5.6

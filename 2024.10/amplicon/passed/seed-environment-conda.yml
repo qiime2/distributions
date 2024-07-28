@@ -22,7 +22,7 @@ dependencies:
 - q2-cutadapt=2024.10.0.dev0
 - q2-dada2=2024.10.0.dev0
 - q2-deblur=2024.10.0.dev0
-- q2-demux=2024.10.0.dev0
+- q2-demux=2024.10.0.dev0+1.g19db9d0
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-diversity=2024.10.0.dev0+1.g368a9eb
 - q2-emperor=2024.10.0.dev0
@@ -40,10 +40,10 @@ dependencies:
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+2.g04dd0da
 - q2-vsearch=2024.10.0.dev0
-- q2cli=2024.10.0.dev0+2.ge5bd28e
+- q2cli=2024.10.0.dev0+3.gfaa134b
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+3.gd8f3f97
+- qiime2=2024.10.0.dev0+4.g0a39a0b
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+8.g7d9ef27
@@ -56,4 +56,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2024.10'
-# modified: 2024-07-28

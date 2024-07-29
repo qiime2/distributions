@@ -9,42 +9,16 @@
 #   ci:
 #     uses: qiime2/distributions/.github/workflows/lib-community-ci.yaml@dev
 #     with:
-#       distro: amplicon
-#       release-epoch: 2024.10
-#       github-org-name: qiime2
-#       github-repo-name: q2-vizard
-# TODO: note that default is main branch; can leave blank unless special target
-#       github-env-ref: dev
+#       github-repo: q2-vizard
 #       env-file-name: 2024.5-vizard-environment.yml
 
 on:
   workflow_call:
     inputs:
-      # distro:
-      #   description: "Distro to test with"
-      #   type: string
-      #   required: true
-
-      # release-epoch:
-      #   description: "Release target for distro to test with"
-      #   type: number
-      #   required: true
-
-      # github-org:
-      #   description: "Organization or username on Github"
-      #   type: string
-      #   required: true
-
       github-repo:
         description: "Plugin repository name on Github"
         type: string
         required: true
-
-      # github-env-ref:
-      #   description: "Target branch/ref name on Github for environment file"
-      #   type: string
-      #   required: false
-      #   default: ''
 
       env-file-name:
         description: "Name of environment file to test with"

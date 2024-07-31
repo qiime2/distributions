@@ -51,7 +51,7 @@ jobs:
           environment-file: ${{ env.filepath }}
           activate-environment: ${{ env.name }}
 
-      - name: 'Run tests for ${{ env.github_repo }}'
+      - name: 'Run tests for ${{ env.name }}'
         shell: bash -el {0}
         run: |
           conda install pytest

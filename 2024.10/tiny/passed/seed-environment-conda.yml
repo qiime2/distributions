@@ -2,7 +2,6 @@ channels:
 - https://packages.qiime2.org/qiime2/2024.10/tiny/passed
 - conda-forge
 - bioconda
-- defaults
 dependencies:
 - biom-format=2.1.15
 - h5py=3.11.0

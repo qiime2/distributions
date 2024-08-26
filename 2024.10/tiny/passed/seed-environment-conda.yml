@@ -1,3 +1,4 @@
+# distro trial for q2cli PR 343
 channels:
 - https://packages.qiime2.org/qiime2/2024.10/tiny/passed
 - conda-forge

@@ -2,7 +2,6 @@ channels:
 - https://packages.qiime2.org/qiime2/2024.10/metagenome/staged
 - conda-forge
 - bioconda
-- defaults
 dependencies:
 - biom-format=2.1.15
 - biopython=1.83
@@ -38,6 +37,7 @@ dependencies:
 - q2-quality-filter=2024.10.0.dev0
 - q2-sample-classifier=2024.10.0.dev0
 - q2-sapienns=2024.10.0.dev0
+- q2-sourmash=0+untagged.35.gcb21e53
 - q2-taxa=2024.10.0.dev0
 - q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2024.10.0.dev0+20.g30d8c74

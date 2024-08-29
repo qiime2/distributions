@@ -5,7 +5,7 @@ channels:
 - defaults
 dependencies:
 - _r-mutex=1.0.1
-- altair=5.4.0
+- altair=5.4.1
 - anyio=4.4.0
 - appdirs=1.4.4
 - appnope=0.1.4
@@ -78,7 +78,7 @@ dependencies:
 - brotli-python=1.1.0
 - bwidget=1.9.14
 - bzip2=1.0.8
-- c-ares=1.33.0
+- c-ares=1.33.1
 - ca-certificates=2024.7.4
 - cached-property=1.5.2
 - cached_property=1.5.2
@@ -157,18 +157,18 @@ dependencies:
 - htslib=1.20
 - humanize=4.10.0
 - icu=73.2
-- idna=3.7
+- idna=3.8
 - ijson=3.3.0
 - importlib-metadata=8.4.0
-- importlib-resources=6.4.3
-- importlib_resources=6.4.3
+- importlib-resources=6.4.4
+- importlib_resources=6.4.4
 - iniconfig=2.0.0
 - interface_meta=1.3.0
 - iow=1.0.5
 - ipykernel=6.29.5
 - ipython=8.18.1
 - ipython_genutils=0.2.0
-- ipywidgets=8.1.3
+- ipywidgets=8.1.5
 - iqtree=2.3.6
 - isa-l=2.31.0
 - isl=0.26
@@ -189,7 +189,7 @@ dependencies:
 - jupyter_server=2.14.2
 - jupyter_server_terminals=0.5.3
 - jupyterlab_pygments=0.3.0
-- jupyterlab_widgets=3.0.11
+- jupyterlab_widgets=3.0.13
 - kiwisolver=1.4.5
 - krb5=1.21.3
 - lcms2=2.16
@@ -248,7 +248,7 @@ dependencies:
 - lz4=4.3.3
 - lz4-c=1.9.4
 - mafft=7.520
-- make=4.3
+- make=4.4.1
 - markdown-it-py=3.0.0
 - marko=2.1.2
 - markupsafe=2.1.5
@@ -261,7 +261,7 @@ dependencies:
 - mpfr=4.2.1
 - mpi=1.0
 - munkres=1.1.4
-- narwhals=1.5.0
+- narwhals=1.5.5
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
@@ -340,7 +340,7 @@ dependencies:
 - pynndescent=0.5.13
 - pyobjc-core=10.3.1
 - pyobjc-framework-cocoa=10.3.1
-- pyparsing=3.1.2
+- pyparsing=3.1.4
 - pysocks=1.7.1
 - pytest=8.3.2
 - python=3.9.19
@@ -359,14 +359,14 @@ dependencies:
 - q2-alignment=2024.10.0.dev0
 - q2-composition=2024.10.0.dev0
 - q2-cutadapt=2024.10.0.dev0
-- q2-dada2=2024.10.0.dev0+1.gae3a2df
+- q2-dada2=2024.10.0.dev0+2.g7d89c3b
 - q2-deblur=2024.10.0.dev0
 - q2-demux=2024.10.0.dev0+2.gc13cafb
 - q2-diversity=2024.10.0.dev0+2.gc81c7a0
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-emperor=2024.10.0.dev0
 - q2-feature-classifier=2024.10.0.dev0+1.g1caeb30
-- q2-feature-table=2024.10.0.dev0+1.gd9e5678
+- q2-feature-table=2024.10.0.dev0+2.ga4d0e2e
 - q2-fragment-insertion=2024.10.0.dev0
 - q2-longitudinal=2024.10.0.dev0
 - q2-metadata=2024.10.0.dev0
@@ -379,10 +379,10 @@ dependencies:
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+20.g30d8c74
 - q2-vsearch=2024.10.0.dev0
-- q2cli=2024.10.0.dev0+4.g843ab24
+- q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+9.g2c4c7d2
+- qiime2=2024.10.0.dev0+10.g9cf8e29
 - r-abind=1.4_5
 - r-ade4=1.7_22
 - r-ape=5.8
@@ -413,7 +413,7 @@ dependencies:
 - r-codetools=0.2_20
 - r-colorspace=2.1_1
 - r-conflicted=1.2.0
-- r-cpp11=0.4.7
+- r-cpp11=0.5.0
 - r-crayon=1.5.3
 - r-curl=5.2.1
 - r-cvxr=1.0_13
@@ -421,7 +421,7 @@ dependencies:
 - r-dbi=1.2.3
 - r-dbplyr=2.5.0
 - r-deldir=2.0_4
-- r-desctools=0.99.55
+- r-desctools=0.99.56
 - r-digest=0.6.37
 - r-doparallel=1.0.17
 - r-dorng=1.8.6
@@ -431,7 +431,7 @@ dependencies:
 - r-e1071=1.7_14
 - r-ecosolver=0.5.5
 - r-ellipsis=0.3.2
-- r-energy=1.7_11
+- r-energy=1.7_12
 - r-evaluate=0.24.0
 - r-exact=3.3
 - r-expm=1.0_0
@@ -459,7 +459,7 @@ dependencies:
 - r-ggrepel=0.9.5
 - r-gld=2.6.6
 - r-glue=1.7.0
-- r-gmp=0.7_4
+- r-gmp=0.7_5
 - r-googledrive=2.1.1
 - r-googlesheets4=1.1.1
 - r-gridextra=2.3
@@ -475,7 +475,7 @@ dependencies:
 - r-htmltools=0.5.8.1
 - r-htmlwidgets=1.6.4
 - r-httr=1.4.7
-- r-httr2=1.0.2
+- r-httr2=1.0.3
 - r-hwriter=1.3.2.1
 - r-ids=1.0.1
 - r-igraph=2.0.3
@@ -538,10 +538,10 @@ dependencies:
 - r-rcolorbrewer=1.1_3
 - r-rcpp=1.0.13
 - r-rcppannoy=0.0.22
-- r-rcppeigen=0.3.4.0.1
+- r-rcppeigen=0.3.4.0.2
 - r-rcpphnsw=0.6.0
 - r-rcppml=0.3.7
-- r-rcppparallel=5.1.6
+- r-rcppparallel=5.1.9
 - r-rcppprogress=0.4.2
 - r-rcpptoml=0.2.2
 - r-rcurl=1.98_1.16
@@ -603,7 +603,7 @@ dependencies:
 - r-xml2=1.3.6
 - r-xtable=1.8_4
 - r-yaml=2.3.10
-- r-yulab.utils=0.1.6
+- r-yulab.utils=0.1.7
 - r-zoo=1.8_12
 - raxml=8.2.13
 - readline=8.2
@@ -654,10 +654,10 @@ dependencies:
 - tqdm=4.66.5
 - traitlets=5.9.0
 - typeguard=4.3.0
-- typer=0.12.4
-- typer-slim=0.12.4
-- typer-slim-standard=0.12.4
-- types-python-dateutil=2.9.0.20240316
+- typer=0.12.5
+- typer-slim=0.12.5
+- typer-slim-standard=0.12.5
+- types-python-dateutil=2.9.0.20240821
 - typing-extensions=4.12.2
 - typing_extensions=4.12.2
 - typing_utils=0.1.0
@@ -677,7 +677,7 @@ dependencies:
 - websocket-client=1.8.0
 - wget=1.21.4
 - wheel=0.44.0
-- widgetsnbextension=4.0.11
+- widgetsnbextension=4.0.13
 - wrapt=1.16.0
 - xmltodict=0.13.0
 - xopen=2.0.2
@@ -687,7 +687,7 @@ dependencies:
 - yaml=0.2.5
 - yq=3.4.3
 - zeromq=4.3.5
-- zipp=3.20.0
+- zipp=3.20.1
 - zlib=1.2.13
 - zlib-ng=2.2.1
 - zstandard=0.23.0

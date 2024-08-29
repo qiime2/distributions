@@ -292,7 +292,7 @@ dependencies:
 - libstdcxx=14.1.0
 - libstdcxx-devel_linux-64=14.1.0
 - libstdcxx-ng=14.1.0
-- libsystemd0=255
+- libsystemd0=256.5
 - libtiff=4.6.0
 - libunistring=0.9.10
 - libuuid=2.38.1

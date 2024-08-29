@@ -265,6 +265,7 @@ dependencies:
 - libllvm18=18.1.7
 - libnghttp2=1.58.0
 - libopenblas=0.3.27
+- libopenssl-static=3.3.1
 - libpng=1.6.43
 - libprotobuf=3.20.3
 - libsodium=1.0.18
@@ -272,6 +273,7 @@ dependencies:
 - libssh2=1.11.0
 - libtiff=4.6.0
 - libunistring=0.9.10
+- libuuid=2.38.1
 - libwebp=1.4.0
 - libwebp-base=1.4.0
 - libxcb=1.15
@@ -302,6 +304,7 @@ dependencies:
 - mpfr=4.2.1
 - mpi=1.0
 - munkres=1.1.4
+- mysql-connector-c=6.1.11
 - narwhals=1.5.5
 - natsort=8.4.0
 - nbclassic=1.1.0
@@ -488,7 +491,7 @@ dependencies:
 - r-bit64=4.0.5
 - r-bitops=1.0_8
 - r-blob=1.2.4
-- r-boot=1.3_30
+- r-boot=1.3_31
 - r-brio=1.1.5
 - r-broom=1.0.6
 - r-bslib=0.8.0
@@ -539,7 +542,7 @@ dependencies:
 - r-foreign=0.8_87
 - r-formatr=1.14
 - r-formula=1.2_5
-- r-frictionless=1.1.0
+- r-frictionless=1.2.0
 - r-fs=1.6.4
 - r-futile.logger=1.4.3
 - r-futile.options=1.0.1
@@ -692,7 +695,7 @@ dependencies:
 - r-uuid=1.2_1
 - r-uwot=0.1.16
 - r-vctrs=0.6.5
-- r-vegan=2.6_6.1
+- r-vegan=2.6_8
 - r-vipor=0.4.7
 - r-viridis=0.6.5
 - r-viridislite=0.4.2
@@ -769,7 +772,7 @@ dependencies:
 - typing_utils=0.1.0
 - tzdata=2024a
 - tzlocal=2.1
-- ucsc-fatotwobit=366
+- ucsc-fatotwobit=469
 - ucsc-twobitinfo=366
 - umap-learn=0.5.4
 - unicodedata2=15.1.0

@@ -253,12 +253,14 @@ dependencies:
 - libexpat=2.6.2
 - libffi=3.4.2
 - libflac=1.4.3
+- libgcc=14.1.0
 - libgcc-devel_linux-64=14.1.0
 - libgcc-ng=14.1.0
 - libgcrypt=1.11.0
 - libgd=2.3.3
 - libgettextpo=0.22.5
 - libgettextpo-devel=0.22.5
+- libgfortran=14.1.0
 - libgfortran-ng=14.1.0
 - libgfortran5=14.1.0
 - libglib=2.80.2
@@ -287,9 +289,10 @@ dependencies:
 - libsodium=1.0.18
 - libsqlite=3.46.0
 - libssh2=1.11.0
+- libstdcxx=14.1.0
 - libstdcxx-devel_linux-64=14.1.0
 - libstdcxx-ng=14.1.0
-- libsystemd0=255
+- libsystemd0=256.5
 - libtiff=4.6.0
 - libunistring=0.9.10
 - libuuid=2.38.1
@@ -521,7 +524,7 @@ dependencies:
 - r-bit64=4.0.5
 - r-bitops=1.0_8
 - r-blob=1.2.4
-- r-boot=1.3_30
+- r-boot=1.3_31
 - r-brio=1.1.5
 - r-broom=1.0.6
 - r-bslib=0.8.0
@@ -572,7 +575,7 @@ dependencies:
 - r-foreign=0.8_87
 - r-formatr=1.14
 - r-formula=1.2_5
-- r-frictionless=1.1.0
+- r-frictionless=1.2.0
 - r-fs=1.6.4
 - r-futile.logger=1.4.3
 - r-futile.options=1.0.1
@@ -725,7 +728,7 @@ dependencies:
 - r-uuid=1.2_1
 - r-uwot=0.1.16
 - r-vctrs=0.6.5
-- r-vegan=2.6_6.1
+- r-vegan=2.6_8
 - r-vipor=0.4.7
 - r-viridis=0.6.5
 - r-viridislite=0.4.2

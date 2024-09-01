@@ -22,7 +22,7 @@ dependencies:
 - brotli-python=1.1.0
 - bwidget=1.9.14
 - bzip2=1.0.8
-- c-ares=1.33.0
+- c-ares=1.33.1
 - ca-certificates=2024.7.4
 - cached-property=1.5.2
 - cached_property=1.5.2
@@ -80,10 +80,10 @@ dependencies:
 - htslib=1.20
 - hyperframe=6.0.1
 - icu=73.2
-- idna=3.7
+- idna=3.8
 - ijson=3.3.0
 - importlib-metadata=8.4.0
-- importlib_resources=6.4.3
+- importlib_resources=6.4.4
 - iniconfig=2.0.0
 - iow=1.0.5
 - ipykernel=6.29.5
@@ -146,7 +146,7 @@ dependencies:
 - lxml=5.2.2
 - lz4=4.3.3
 - lz4-c=1.9.4
-- make=4.3
+- make=4.4.1
 - markupsafe=2.1.5
 - matplotlib-inline=0.1.7
 - mistune=3.0.2
@@ -193,7 +193,7 @@ dependencies:
 - pynacl=1.5.0
 - pyobjc-core=10.3.1
 - pyobjc-framework-cocoa=10.3.1
-- pyparsing=3.1.2
+- pyparsing=3.1.4
 - pysocks=1.7.1
 - pytest=8.3.2
 - python=3.9.19
@@ -207,8 +207,8 @@ dependencies:
 - pyzmq=24.0.1
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+20.g30d8c74
-- q2cli=2024.10.0.dev0+4.g843ab24
-- qiime2=2024.10.0.dev0+9.g2c4c7d2
+- q2cli=2024.10.0.dev0+5.g76b8d1e
+- qiime2=2024.10.0.dev0+10.g9cf8e29
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.8.8
@@ -252,7 +252,7 @@ dependencies:
 - tornado=6.4.1
 - traitlets=5.9.0
 - typeguard=4.3.0
-- types-python-dateutil=2.9.0.20240316
+- types-python-dateutil=2.9.0.20240821
 - typing-extensions=4.12.2
 - typing_extensions=4.12.2
 - typing_utils=0.1.0
@@ -270,7 +270,7 @@ dependencies:
 - xz=5.2.6
 - yaml=0.2.5
 - zeromq=4.3.5
-- zipp=3.20.0
+- zipp=3.20.1
 - zlib=1.2.13
 - zstandard=0.23.0
 - zstd=1.5.6

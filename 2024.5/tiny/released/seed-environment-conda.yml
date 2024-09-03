@@ -1,3 +1,4 @@
+# re-mint 2024.5 release env files
 channels:
 - https://packages.qiime2.org/qiime2/2024.5/tiny/released
 - conda-forge

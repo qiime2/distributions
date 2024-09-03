@@ -19,7 +19,7 @@ dependencies:
 - pysam=0.22.1
 - python=3.9.19
 - python_abi=3.9
-- q2-assembly=2024.10.0.dev0+6.g7dda21a
+- q2-assembly=2024.10.0.dev0+7.g8933fac
 - q2-composition=2024.10.0.dev0
 - q2-cutadapt=2024.10.0.dev0
 - q2-demux=2024.10.0.dev0+2.gc13cafb
@@ -31,7 +31,7 @@ dependencies:
 - q2-fondue=2024.10.0.dev0+1.g7892c1f
 - q2-longitudinal=2024.10.0.dev0
 - q2-metadata=2024.10.0.dev0
-- q2-moshpit=2024.10.0.dev0+17.g3f2aeec
+- q2-moshpit=2024.10.0.dev0+22.g2562a9a
 - q2-mystery-stew=2024.10.0.dev0
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
@@ -44,7 +44,7 @@ dependencies:
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+10.g9cf8e29
+- qiime2=2024.10.0.dev0+12.g3581493
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+11.g4f7ab4b

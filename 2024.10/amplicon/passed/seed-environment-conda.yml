@@ -42,7 +42,7 @@ dependencies:
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+10.g9cf8e29
+- qiime2=2024.10.0.dev0+12.g3581493
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+11.g4f7ab4b

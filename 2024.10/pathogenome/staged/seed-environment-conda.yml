@@ -1,6 +1,6 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.10/pathogenome/passed
-- https://packages.qiime2.org/qiime2/2024.10/metagenome/passed
+- https://packages.qiime2.org/qiime2/2024.10/pathogenome/staged
+- https://packages.qiime2.org/qiime2/2024.10/metagenome/staged
 - conda-forge
 - bioconda
 dependencies:

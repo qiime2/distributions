@@ -7,9 +7,17 @@ next_epoch: "2025.4"
 distros: [tiny, amplicon, metagenome, pathogenome]
 packages:
 
+- name: genome-sampler
+  repo: caporaso-lab/genome-sampler
+  distros: [pathogenome]
+
 - name: q2-alignment
   repo: qiime2/q2-alignment
   distros: [amplicon]
+
+- name: q2-amr
+  repo: bokulich-lab/q2-amr
+  distros: [pathogenome]
 
 - name: q2-assembly
   repo: bokulich-lab/q2-assembly
@@ -114,6 +122,10 @@ packages:
 - name: q2-types
   repo: qiime2/q2-types
   distros: [tiny, amplicon, metagenome, pathogenome]
+
+- name: q2-viromics
+  repo: bokulich-lab/q2-viromics
+  distros: [pathogenome]
 
 - name: q2-vizard
   repo: qiime2/q2-vizard

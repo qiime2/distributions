@@ -4,6 +4,8 @@ inputs:
     required: true
   is-rebuild:
     required: true
+  sibling-ref:
+    required: true
 outputs:
   repos:
     value: ${{ steps.siblings.outputs.repos }}

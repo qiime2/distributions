@@ -1,10 +1,12 @@
 channels:
 - https://packages.qiime2.org/qiime2/2024.10/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2024.10/metagenome/passed
 - conda-forge
 - bioconda
 dependencies:
 - biom-format=2.1.15
 - bowtie2=2.5.1
+- genome-sampler=0.0.0
 - h5py=3.11.0
 - hdf5=1.14.3
 - notebook=6.5.5
@@ -14,6 +16,7 @@ dependencies:
 - pysam=0.22.1
 - python=3.9.19
 - python_abi=3.9
+- q2-amr=0.0.0
 - q2-assembly=2024.10.0.dev0
 - q2-demux=2024.10.0.dev0+2.gc13cafb
 - q2-feature-classifier=2024.10.0.dev0+1.g1caeb30
@@ -22,6 +25,7 @@ dependencies:
 - q2-mystery-stew=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-types=2024.10.0.dev0+20.g30d8c74
+- q2-viromics=0.0.0
 - q2-vizard=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0

@@ -8,10 +8,12 @@ dependencies:
 - genome-sampler=0.0.0
 - h5py=3.11.0
 - hdf5=1.14.3
+- matplotlib=3.8.4
 - notebook=6.5.5
 - numpy=1.26.4
 - pandas=2.2.2
 - parsl=2024.4.15
+- patsy=0.5.6
 - pysam=0.22.1
 - python=3.9.19
 - python_abi=3.9
@@ -22,7 +24,10 @@ dependencies:
 - q2-feature-table=2024.10.0.dev0+2.ga4d0e2e
 - q2-longitudinal=2024.10.0.dev0
 - q2-mystery-stew=2024.10.0.dev0
+- q2-quality-control=2024.10.0.dev0
+- q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
+- q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+20.g30d8c74
 - q2-viromics=0.0.0
 - q2-vizard=2024.10.0.dev0

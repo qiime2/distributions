@@ -53,6 +53,8 @@ Once this channel has been added, a Prepare PR can be opened (branch name must b
 
 Once all relevant information has been filled in, open these changes as a PR on distributions (note that it must be opened as a branch on the canonical remote vs. from a forked remote). A full Prepare workflow will run, and any issues with package builds and/or test failures can be addressed from here.
 
+Once the Prepare PR is passing, it can be merged and the new distribution can be added to the [`cron-prepare`](https://github.com/qiime2/distributions/blob/dev/.github/workflows/cron-prepare.yaml) workflow for weekly dev builds.
+
 ## Building Docker Images locally
 
 Edit `EPOCH` within the top level `Makefile` to the current release epoch:

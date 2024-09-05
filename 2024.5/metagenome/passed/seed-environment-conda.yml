@@ -1,4 +1,3 @@
-# re-mint env files for 2024.5
 channels:
 - https://packages.qiime2.org/qiime2/2024.5/metagenome/passed
 - conda-forge
@@ -44,7 +43,7 @@ dependencies:
 - q2-vsearch=2024.5.0
 - q2cli=2024.5.0
 - q2templates=2024.5.0
-- qiime2=2024.5.0
+- qiime2=2024.5.1
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.5.1

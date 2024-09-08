@@ -19,7 +19,7 @@ dependencies:
 - arrow=1.3.0
 - astor=0.8.1
 - asttokens=2.4.1
-- atpublic=3.0.1
+- atpublic=3.1
 - attr=2.5.1
 - attrs=24.2.0
 - bcrypt=4.2.0
@@ -84,7 +84,7 @@ dependencies:
 - bwidget=1.9.14
 - bzip2=1.0.8
 - c-ares=1.33.1
-- ca-certificates=2024.7.4
+- ca-certificates=2024.8.30
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.0
@@ -96,7 +96,7 @@ dependencies:
 - colorama=0.4.6
 - comm=0.2.2
 - conda-pack=0.7.0
-- contourpy=1.2.1
+- contourpy=1.3.0
 - cryptography=43.0.0
 - curl=8.8.0
 - cutadapt=4.9
@@ -222,11 +222,13 @@ dependencies:
 - libexpat=2.6.2
 - libffi=3.4.2
 - libflac=1.4.3
+- libgcc=14.1.0
 - libgcc-devel_linux-64=14.1.0
 - libgcc-ng=14.1.0
 - libgcrypt=1.11.0
 - libgettextpo=0.22.5
 - libgettextpo-devel=0.22.5
+- libgfortran=14.1.0
 - libgfortran-ng=14.1.0
 - libgfortran5=14.1.0
 - libglib=2.80.2
@@ -254,9 +256,10 @@ dependencies:
 - libsodium=1.0.18
 - libsqlite=3.46.0
 - libssh2=1.11.0
+- libstdcxx=14.1.0
 - libstdcxx-devel_linux-64=14.1.0
 - libstdcxx-ng=14.1.0
-- libsystemd0=255
+- libsystemd0=256.5
 - libtiff=4.6.0
 - libunistring=0.9.10
 - libuuid=2.38.1
@@ -288,7 +291,7 @@ dependencies:
 - munkres=1.1.4
 - mysql-common=8.3.0
 - mysql-libs=8.3.0
-- narwhals=1.5.5
+- narwhals=1.6.0
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
@@ -413,7 +416,7 @@ dependencies:
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+10.g9cf8e29
+- qiime2=2024.10.0.dev0+12.g3581493
 - qt-main=5.15.8
 - r-abind=1.4_5
 - r-ade4=1.7_22
@@ -430,7 +433,7 @@ dependencies:
 - r-bit64=4.0.5
 - r-bitops=1.0_8
 - r-blob=1.2.4
-- r-boot=1.3_30
+- r-boot=1.3_31
 - r-broom=1.0.6
 - r-bslib=0.8.0
 - r-cachem=1.1.0
@@ -477,7 +480,7 @@ dependencies:
 - r-foreign=0.8_87
 - r-formatr=1.14
 - r-formula=1.2_5
-- r-frictionless=1.1.0
+- r-frictionless=1.2.0
 - r-fs=1.6.4
 - r-futile.logger=1.4.3
 - r-futile.options=1.0.1
@@ -540,7 +543,7 @@ dependencies:
 - r-modelr=0.1.11
 - r-multcomp=1.4_26
 - r-munsell=0.5.1
-- r-mvtnorm=1.2_6
+- r-mvtnorm=1.3_0
 - r-nlme=3.1_165
 - r-nloptr=2.1.1
 - r-nnet=7.3_19
@@ -625,7 +628,7 @@ dependencies:
 - r-uuid=1.2_1
 - r-uwot=0.1.16
 - r-vctrs=0.6.5
-- r-vegan=2.6_6.1
+- r-vegan=2.6_8
 - r-vipor=0.4.7
 - r-viridis=0.6.5
 - r-viridislite=0.4.2

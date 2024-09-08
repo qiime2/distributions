@@ -29,7 +29,7 @@ dependencies:
 - q2-feature-classifier=2024.10.0.dev0+1.g1caeb30
 - q2-feature-table=2024.10.0.dev0+2.ga4d0e2e
 - q2-fondue=2024.10.0.dev0+1.g7892c1f
-- q2-longitudinal=2024.10.0.dev0
+- q2-longitudinal=2024.10.0.dev0+1.g207dda1
 - q2-metadata=2024.10.0.dev0
 - q2-moshpit=2024.10.0.dev0+22.g2562a9a
 - q2-mystery-stew=2024.10.0.dev0
@@ -39,7 +39,7 @@ dependencies:
 - q2-sapienns=2024.10.0.dev0
 - q2-sourmash=0+untagged.35.gcb21e53
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+20.g30d8c74
+- q2-types=2024.10.0.dev0+21.g0982c4a
 - q2-vsearch=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0

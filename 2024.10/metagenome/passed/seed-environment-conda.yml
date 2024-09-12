@@ -6,7 +6,6 @@ dependencies:
 - biom-format=2.1.15
 - biopython=1.83
 - bowtie2=2.5.1
-- busco=5.5.0
 - entrezpy=2.1.2
 - h5py=3.11.0
 - hdf5=1.14.3

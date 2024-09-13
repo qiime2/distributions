@@ -49,7 +49,6 @@ dependencies:
 - scikit-learn=1.4.2
 - scipy=1.13.0
 - seaborn=0.12.2
-- sepp=4.5.5
 - tqdm=4.62.3
 - umap-learn=0.5.4
 - unifrac-binaries=1.4

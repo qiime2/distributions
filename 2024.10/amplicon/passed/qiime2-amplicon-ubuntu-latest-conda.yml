@@ -19,7 +19,7 @@ dependencies:
 - arrow=1.3.0
 - astor=0.8.1
 - asttokens=2.4.1
-- atpublic=3.1.1
+- atpublic=5.0
 - attr=2.5.1
 - attrs=24.2.0
 - bcrypt=4.2.0
@@ -117,7 +117,7 @@ dependencies:
 - expat=2.6.3
 - fastcluster=1.2.6
 - fasttree=2.1.11
-- filelock=3.15.4
+- filelock=3.16.0
 - flufl.lock=8.1.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -142,7 +142,7 @@ dependencies:
 - giflib=5.2.2
 - glib=2.80.2
 - glib-tools=2.80.2
-- globus-sdk=3.44.0
+- globus-sdk=3.45.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.13
@@ -158,15 +158,15 @@ dependencies:
 - hdmedians=0.14.2
 - hmmer=3.1b2
 - hpack=4.0.0
-- htslib=1.20
+- htslib=1.21
 - humanize=4.10.0
 - hyperframe=6.0.1
 - icu=73.2
-- idna=3.8
+- idna=3.9
 - ijson=3.3.0
-- importlib-metadata=8.4.0
-- importlib-resources=6.4.4
-- importlib_resources=6.4.4
+- importlib-metadata=8.5.0
+- importlib-resources=6.4.5
+- importlib_resources=6.4.5
 - iniconfig=2.0.0
 - interface_meta=1.3.0
 - iow=1.0.5
@@ -259,7 +259,7 @@ dependencies:
 - libstdcxx=14.1.0
 - libstdcxx-devel_linux-64=14.1.0
 - libstdcxx-ng=14.1.0
-- libsystemd0=256.5
+- libsystemd0=256.6
 - libtiff=4.6.0
 - libunistring=0.9.10
 - libuuid=2.38.1
@@ -291,7 +291,7 @@ dependencies:
 - munkres=1.1.4
 - mysql-common=8.3.0
 - mysql-libs=8.3.0
-- narwhals=1.6.2
+- narwhals=1.8.0
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
@@ -316,7 +316,7 @@ dependencies:
 - overrides=7.7.0
 - packaging=24.1
 - pandas=2.2.2
-- pandoc=3.3
+- pandoc=3.4
 - pandocfilters=1.5.0
 - pango=1.54.0
 - paramiko=3.4.1
@@ -354,7 +354,7 @@ dependencies:
 - pip=24.2
 - pixman=0.43.2
 - pkgutil-resolve-name=1.3.10
-- platformdirs=4.2.2
+- platformdirs=4.3.3
 - pluggy=1.5.0
 - ply=3.11
 - prometheus_client=0.20.0
@@ -376,7 +376,7 @@ dependencies:
 - pyqt=5.15.9
 - pyqt5-sip=12.12.2
 - pysocks=1.7.1
-- pytest=8.3.2
+- pytest=8.3.3
 - python=3.9.19
 - python-dateutil=2.9.0
 - python-fastjsonschema=2.20.0
@@ -386,7 +386,7 @@ dependencies:
 - python-tzdata=2024.1
 - python-zlib-ng=0.5.0
 - python_abi=3.9
-- pytz=2024.1
+- pytz=2024.2
 - pyvcf3=1.0.3
 - pyyaml=6.0.2
 - pyzmq=24.0.1
@@ -395,7 +395,7 @@ dependencies:
 - q2-cutadapt=2024.10.0.dev0
 - q2-dada2=2024.10.0.dev0+2.g7d89c3b
 - q2-deblur=2024.10.0.dev0
-- q2-demux=2024.10.0.dev0+2.gc13cafb
+- q2-demux=2024.10.0.dev0+3.g7c9b6d3
 - q2-diversity=2024.10.0.dev0+2.gc81c7a0
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-emperor=2024.10.0.dev0
@@ -491,7 +491,7 @@ dependencies:
 - r-ggbeeswarm=0.7.2
 - r-ggplot2=3.5.1
 - r-ggrastr=1.0.2
-- r-ggrepel=0.9.5
+- r-ggrepel=0.9.6
 - r-gld=2.6.6
 - r-glue=1.7.0
 - r-gmp=0.7_5
@@ -510,7 +510,7 @@ dependencies:
 - r-htmltools=0.5.8.1
 - r-htmlwidgets=1.6.4
 - r-httr=1.4.7
-- r-httr2=1.0.3
+- r-httr2=1.0.4
 - r-hwriter=1.3.2.1
 - r-ids=1.0.1
 - r-igraph=2.0.3
@@ -535,7 +535,7 @@ dependencies:
 - r-magrittr=2.0.3
 - r-mass=7.3_60.0.1
 - r-matrix=1.6_5
-- r-matrixstats=1.4.0
+- r-matrixstats=1.4.1
 - r-memoise=2.0.1
 - r-mgcv=1.9_1
 - r-mime=0.12
@@ -567,7 +567,7 @@ dependencies:
 - r-ps=1.7.7
 - r-purrr=1.0.2
 - r-r6=2.5.1
-- r-ragg=1.3.2
+- r-ragg=1.3.3
 - r-rappdirs=0.3.3
 - r-rbibutils=2.2.16
 - r-rcolorbrewer=1.1_3
@@ -648,10 +648,10 @@ dependencies:
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
-- rich=13.7.1
+- rich=13.8.1
 - rpds-py=0.20.0
 - rpsbproc=0.5.0
-- samtools=1.20
+- samtools=1.21
 - scikit-bio=0.6.0
 - scikit-learn=1.4.2
 - scipy=1.13.0
@@ -747,7 +747,7 @@ dependencies:
 - yaml=0.2.5
 - yq=3.4.3
 - zeromq=4.3.5
-- zipp=3.20.1
+- zipp=3.20.2
 - zlib=1.2.13
 - zlib-ng=2.2.1
 - zstandard=0.23.0

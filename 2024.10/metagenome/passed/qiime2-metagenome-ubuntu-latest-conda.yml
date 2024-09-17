@@ -871,6 +871,6 @@ dependencies:
 - zeromq=4.3.5
 - zipp=3.20.2
 - zlib=1.2.13
-- zlib-ng=2.2.1
+- zlib-ng=2.2.2
 - zstandard=0.23.0
 - zstd=1.5.6

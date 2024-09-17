@@ -17,7 +17,7 @@ dependencies:
 - parsl=2024.4.15
 - patsy=0.5.6
 - pysam=0.22.1
-- python=3.9.19
+- python=3.10
 - python_abi=3.9
 - q2-assembly=2024.10.0.dev0+7.g8933fac
 - q2-composition=2024.10.0.dev0
@@ -31,7 +31,7 @@ dependencies:
 - q2-fondue=2024.10.0.dev0+1.g7892c1f
 - q2-longitudinal=2024.10.0.dev0+1.g207dda1
 - q2-metadata=2024.10.0.dev0
-- q2-moshpit=2024.10.0.dev0+22.g2562a9a
+- q2-moshpit=2024.10.0.dev0+23.gf9aeee9
 - q2-mystery-stew=2024.10.0.dev0
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
@@ -41,7 +41,7 @@ dependencies:
 - q2-taxa=2024.10.0.dev0
 - q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2024.10.0.dev0+21.g0982c4a
-- q2-vsearch=2024.10.0.dev0
+- q2-vsearch=2024.10.0.dev0+1.g92e62f2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0
 - qiime2=2024.10.0.dev0+12.g3581493
@@ -52,7 +52,7 @@ dependencies:
 - scikit-learn=1.4.2
 - scipy=1.13.0
 - seaborn=0.12.2
-- sepp=4.4.0
+- sepp=4.5.5
 - tqdm=4.62.3
 - umap-learn=0.5.4
 - unifrac-binaries=1.4

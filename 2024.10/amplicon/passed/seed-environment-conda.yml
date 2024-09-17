@@ -20,7 +20,7 @@ dependencies:
 - q2-cutadapt=2024.10.0.dev0
 - q2-dada2=2024.10.0.dev0+2.g7d89c3b
 - q2-deblur=2024.10.0.dev0
-- q2-demux=2024.10.0.dev0+2.gc13cafb
+- q2-demux=2024.10.0.dev0+3.g7c9b6d3
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-diversity=2024.10.0.dev0+2.gc81c7a0
 - q2-emperor=2024.10.0.dev0

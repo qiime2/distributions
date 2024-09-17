@@ -160,11 +160,11 @@ dependencies:
 - hdmedians=0.14.2
 - hmmer=3.4
 - hpack=4.0.0
-- htslib=1.20
+- htslib=1.21
 - humanize=4.10.0
 - hyperframe=6.0.1
 - icu=73.2
-- idna=3.8
+- idna=3.9
 - ijson=3.3.0
 - importlib-metadata=8.5.0
 - importlib_resources=6.4.5
@@ -401,7 +401,7 @@ dependencies:
 - q2-cutadapt=2024.10.0.dev0
 - q2-dada2=2024.10.0.dev0+2.g7d89c3b
 - q2-deblur=2024.10.0.dev0
-- q2-demux=2024.10.0.dev0+2.gc13cafb
+- q2-demux=2024.10.0.dev0+3.g7c9b6d3
 - q2-diversity=2024.10.0.dev0+2.gc81c7a0
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-emperor=2024.10.0.dev0
@@ -516,7 +516,7 @@ dependencies:
 - r-htmltools=0.5.8.1
 - r-htmlwidgets=1.6.4
 - r-httr=1.4.7
-- r-httr2=1.0.3
+- r-httr2=1.0.4
 - r-hwriter=1.3.2.1
 - r-ids=1.0.1
 - r-igraph=2.0.3
@@ -657,7 +657,7 @@ dependencies:
 - rich=13.8.1
 - rpds-py=0.20.0
 - rpsbproc=0.5.0
-- samtools=1.20
+- samtools=1.21
 - scikit-bio=0.6.0
 - scikit-learn=1.4.2
 - scipy=1.13.0
@@ -753,7 +753,7 @@ dependencies:
 - yaml=0.2.5
 - yq=3.4.3
 - zeromq=4.3.5
-- zipp=3.20.1
+- zipp=3.20.2
 - zlib=1.2.13
 - zlib-ng=2.2.1
 - zstandard=0.23.0

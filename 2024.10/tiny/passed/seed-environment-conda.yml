@@ -14,7 +14,7 @@ dependencies:
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+21.g0982c4a
 - q2cli=2024.10.0.dev0+5.g76b8d1e
-- qiime2=2024.10.0.dev0+12.g3581493
+- qiime2=2024.10.0.dev0+14.gd0ed13e
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - scikit-bio=0.6.0

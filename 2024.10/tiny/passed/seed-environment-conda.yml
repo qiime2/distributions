@@ -1,3 +1,4 @@
+# let's see if this actually kills the defaults channel
 channels:
 - https://packages.qiime2.org/qiime2/2024.10/tiny/passed
 - conda-forge

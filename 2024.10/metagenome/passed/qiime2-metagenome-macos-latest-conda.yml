@@ -7,7 +7,7 @@ dependencies:
 - _r-mutex=1.0.1
 - alabaster=1.0.0
 - altair=5.4.1
-- anyio=4.4.0
+- anyio=4.5.0
 - appdirs=1.4.4
 - appnope=0.1.4
 - argcomplete=3.5.0
@@ -150,7 +150,7 @@ dependencies:
 - fastcluster=1.2.6
 - fasttree=2.1.11
 - feedparser=6.0.11
-- filelock=3.16.0
+- filelock=3.16.1
 - flufl.lock=8.1.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -165,7 +165,7 @@ dependencies:
 - freetype=2.12.1
 - fribidi=1.0.10
 - future=1.0.0
-- gawk=5.3.0
+- gawk=5.3.1
 - gettext=0.22.5
 - gettext-tools=0.22.5
 - gfatools=0.5
@@ -338,7 +338,7 @@ dependencies:
 - pandocfilters=1.5.0
 - pango=1.54.0
 - parameterized=0.9.0
-- paramiko=3.4.1
+- paramiko=3.5.0
 - parsl=2024.4.15
 - parso=0.8.4
 - pasta=1.9.2
@@ -417,7 +417,7 @@ dependencies:
 - pip=24.2
 - pixman=0.43.4
 - pkgutil-resolve-name=1.3.10
-- platformdirs=4.3.3
+- platformdirs=4.3.6
 - pluggy=1.5.0
 - pockets=0.9.1
 - popt=1.16
@@ -435,7 +435,7 @@ dependencies:
 - pygments=2.18.0
 - pyhmmer=0.10.14
 - pyjwt=2.9.0
-- pymongo=4.8.0
+- pymongo=4.9.1
 - pynacl=1.5.0
 - pynndescent=0.5.13
 - pyobjc-core=10.3.1
@@ -470,7 +470,7 @@ dependencies:
 - q2-fondue=2024.10.0.dev0+1.g7892c1f
 - q2-longitudinal=2024.10.0.dev0+1.g207dda1
 - q2-metadata=2024.10.0.dev0
-- q2-moshpit=2024.10.0.dev0+23.gf9aeee9
+- q2-moshpit=2024.10.0.dev0+24.ge1ae7f1
 - q2-mystery-stew=2024.10.0.dev0
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
@@ -479,10 +479,10 @@ dependencies:
 - q2-sourmash=0+untagged.35.gcb21e53
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+21.g0982c4a
-- q2-vsearch=2024.10.0.dev0+1.g92e62f2
+- q2-vsearch=2024.10.0.dev0+1.g475bfd2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+12.g3581493
+- qiime2=2024.10.0.dev0+14.gd0ed13e
 - quast=5.2.0
 - r-abind=1.4_5
 - r-ade4=1.7_22
@@ -537,7 +537,7 @@ dependencies:
 - r-ecosolver=0.5.5
 - r-ellipsis=0.3.2
 - r-energy=1.7_12
-- r-evaluate=0.24.0
+- r-evaluate=1.0.0
 - r-exact=3.3
 - r-expm=1.0_0
 - r-fansi=1.0.6
@@ -739,7 +739,7 @@ dependencies:
 - sepp=4.5.5
 - seqtk=1.4
 - setproctitle=1.3.3
-- setuptools=73.0.1
+- setuptools=74.1.2
 - sgmllib3k=1.0.0
 - shortuuid=1.0.13
 - sigtool=0.1.3

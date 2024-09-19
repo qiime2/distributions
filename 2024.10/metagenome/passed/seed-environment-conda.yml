@@ -29,7 +29,7 @@ dependencies:
 - q2-fondue=2024.10.0.dev0+1.g7892c1f
 - q2-longitudinal=2024.10.0.dev0+1.g207dda1
 - q2-metadata=2024.10.0.dev0
-- q2-moshpit=2024.10.0.dev0+23.gf9aeee9
+- q2-moshpit=2024.10.0.dev0+24.ge1ae7f1
 - q2-mystery-stew=2024.10.0.dev0
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
@@ -38,10 +38,10 @@ dependencies:
 - q2-sourmash=0+untagged.35.gcb21e53
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+21.g0982c4a
-- q2-vsearch=2024.10.0.dev0+1.g92e62f2
+- q2-vsearch=2024.10.0.dev0+1.g475bfd2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+12.g3581493
+- qiime2=2024.10.0.dev0+14.gd0ed13e
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+11.g4f7ab4b

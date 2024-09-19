@@ -2,7 +2,6 @@ channels:
 - https://packages.qiime2.org/qiime2/2024.10/tiny/passed
 - bioconda
 - conda-forge
-- defaults
 dependencies:
 - _r-mutex=1.0.1
 - anyio=4.5.0

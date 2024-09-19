@@ -77,7 +77,7 @@ packages:
 
 - name: q2-metadata
   repo: qiime2/q2-metadata
-  distros: [amplicon, metagenome]
+  distros: [tiny, amplicon, metagenome]
 
 - name: q2-moshpit
   repo: bokulich-lab/q2-moshpit
@@ -141,7 +141,7 @@ packages:
 
 - name: q2templates
   repo: qiime2/q2templates
-  distros: [amplicon, metagenome, pathogenome]
+  distros: [tiny, amplicon, metagenome, pathogenome]
 
 - name: qiime2
   repo: qiime2/qiime2

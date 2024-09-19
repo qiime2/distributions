@@ -12,10 +12,12 @@ dependencies:
 - parsl=2024.4.15
 - python=3.10
 - python_abi=3.9
+- q2-metadata=2024.10.0.dev0
 - q2-mystery-stew=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+21.g0982c4a
 - q2cli=2024.10.0.dev0+5.g76b8d1e
-- qiime2=2024.10.0.dev0+14.gd0ed13e
+- q2templates=2024.10.0.dev0
+- qiime2=2024.10.0.dev0+15.g0f03dbc
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - scikit-bio=0.6.0

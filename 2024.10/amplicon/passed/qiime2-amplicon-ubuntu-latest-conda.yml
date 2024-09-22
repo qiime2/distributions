@@ -10,7 +10,7 @@ dependencies:
 - _sysroot_linux-64_curr_repodata_hack=3
 - alsa-lib=1.2.11
 - altair=5.4.1
-- anyio=4.4.0
+- anyio=4.6.0
 - appdirs=1.4.4
 - argcomplete=3.5.0
 - argh=0.31.3
@@ -153,16 +153,13 @@ dependencies:
 - gst-plugins-base=1.24.4
 - gstreamer=1.24.4
 - gxx_impl_linux-64=14.1.0
-- h2=4.1.0
 - h5py=3.11.0
 - harfbuzz=8.5.0
 - hdf5=1.14.3
 - hdmedians=0.14.2
 - hmmer=3.4
-- hpack=4.0.0
 - htslib=1.21
 - humanize=4.10.0
-- hyperframe=6.0.1
 - icu=73.2
 - idna=3.10
 - ijson=3.3.0
@@ -293,13 +290,13 @@ dependencies:
 - muscle=3.8.1551
 - mysql-common=8.3.0
 - mysql-libs=8.3.0
-- narwhals=1.8.1
+- narwhals=1.8.2
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
 - nbconvert-core=7.16.4
 - nbformat=5.10.4
-- ncbi-datasets-pylib=14.25.1
+- ncbi-datasets-pylib=16.6.1
 - ncbi-vdb=3.1.1
 - ncurses=6.5
 - nest-asyncio=1.6.0
@@ -321,7 +318,7 @@ dependencies:
 - pandoc=3.4
 - pandocfilters=1.5.0
 - pango=1.54.0
-- paramiko=3.4.1
+- paramiko=3.5.0
 - parsl=2024.4.15
 - parso=0.8.4
 - pasta=1.9.2
@@ -362,7 +359,7 @@ dependencies:
 - pluggy=1.5.0
 - ply=3.11
 - prank=170427
-- prometheus_client=0.20.0
+- prometheus_client=0.21.0
 - prompt-toolkit=3.0.47
 - protobuf=3.20.3
 - psutil=6.0.0
@@ -375,7 +372,7 @@ dependencies:
 - pygments=2.18.0
 - pyhmmer=0.10.14
 - pyjwt=2.9.0
-- pymongo=4.9
+- pymongo=4.9.1
 - pynacl=1.5.0
 - pynndescent=0.5.13
 - pyparsing=3.1.4
@@ -384,7 +381,7 @@ dependencies:
 - pysocks=1.7.1
 - pytest=8.3.3
 - python=3.10.14
-- python-dateutil=2.9.0
+- python-dateutil=2.8.2
 - python-fastjsonschema=2.20.0
 - python-isal=1.7.0
 - python-json-logger=2.0.7
@@ -417,12 +414,12 @@ dependencies:
 - q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+21.g0982c4a
+- q2-types=2024.10.0.dev0+22.g08bae72
 - q2-vsearch=2024.10.0.dev0+1.g475bfd2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+14.gd0ed13e
+- qiime2=2024.10.0.dev0+16.g2a4dc50
 - qt-main=5.15.8
 - r-abind=1.4_5
 - r-ade4=1.7_22
@@ -435,7 +432,7 @@ dependencies:
 - r-beeswarm=0.4.0
 - r-bh=1.84.0_0
 - r-bibtex=0.5.1
-- r-bit=4.0.5
+- r-bit=4.5.0
 - r-bit64=4.0.5
 - r-bitops=1.0_8
 - r-blob=1.2.4
@@ -526,7 +523,7 @@ dependencies:
 - r-iterators=1.0.14
 - r-jpeg=0.1_10
 - r-jquerylib=0.1.4
-- r-jsonlite=1.8.8
+- r-jsonlite=1.8.9
 - r-knitr=1.48
 - r-labeling=0.4.3
 - r-lambda.r=1.2.4
@@ -554,7 +551,7 @@ dependencies:
 - r-nloptr=2.1.1
 - r-nnet=7.3_19
 - r-numderiv=2016.8_1.1
-- r-openssl=2.2.1
+- r-openssl=2.2.2
 - r-optparse=1.7.5
 - r-osqp=0.6.3.3
 - r-permute=0.9_7
@@ -667,7 +664,7 @@ dependencies:
 - send2trash=1.8.3
 - sepp=4.5.5
 - setproctitle=1.3.3
-- setuptools=73.0.1
+- setuptools=74.1.2
 - shellingham=1.5.4
 - simpleeval=0.9.13
 - simplejson=3.19.3
@@ -711,7 +708,7 @@ dependencies:
 - unifrac=1.3
 - unifrac-binaries=1.4
 - uri-template=1.3.0
-- urllib3=2.2.3
+- urllib3=1.26.19
 - validators=0.34.0
 - vsearch=2.22.1
 - wcwidth=0.2.13

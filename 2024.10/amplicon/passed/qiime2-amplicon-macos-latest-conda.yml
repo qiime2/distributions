@@ -6,7 +6,7 @@ channels:
 dependencies:
 - _r-mutex=1.0.1
 - altair=5.4.1
-- anyio=4.4.0
+- anyio=4.6.0
 - appdirs=1.4.4
 - appnope=0.1.4
 - argcomplete=3.5.0
@@ -88,19 +88,19 @@ dependencies:
 - cffi=1.17.1
 - chardet=5.2.0
 - charset-normalizer=3.3.2
-- clang=18.1.7
-- clang-18=18.1.7
-- clang_impl_osx-64=18.1.7
-- clang_osx-64=18.1.7
-- clangxx=18.1.7
-- clangxx_impl_osx-64=18.1.7
-- clangxx_osx-64=18.1.7
+- clang=17.0.6
+- clang-17=17.0.6
+- clang_impl_osx-64=17.0.6
+- clang_osx-64=17.0.6
+- clangxx=17.0.6
+- clangxx_impl_osx-64=17.0.6
+- clangxx_osx-64=17.0.6
 - click=8.1.7
 - clustalw=2.1
 - colorama=0.4.6
 - comm=0.2.2
-- compiler-rt=18.1.7
-- compiler-rt_osx-64=18.1.7
+- compiler-rt=17.0.6
+- compiler-rt_osx-64=17.0.6
 - conda-pack=0.7.0
 - contourpy=1.3.0
 - cryptography=43.0.1
@@ -204,9 +204,10 @@ dependencies:
 - libbrotlidec=1.1.0
 - libbrotlienc=1.1.0
 - libcblas=3.9.0
-- libclang-cpp18.1=18.1.7
+- libclang-cpp17=17.0.6
 - libcurl=8.8.0
-- libcxx=18.1.8
+- libcxx=19.1.0
+- libcxx-devel=17.0.6
 - libdeflate=1.20
 - libedit=3.1.20191231
 - libev=4.33
@@ -227,7 +228,7 @@ dependencies:
 - liblapack=3.9.0
 - liblapacke=3.9.0
 - libllvm14=14.0.6
-- libllvm18=18.1.7
+- libllvm17=17.0.6
 - libnghttp2=1.58.0
 - libopenblas=0.3.27
 - libpng=1.6.43
@@ -243,7 +244,7 @@ dependencies:
 - libxslt=1.1.39
 - libzlib=1.2.13
 - llvm-openmp=18.1.8
-- llvm-tools=18.1.7
+- llvm-tools=17.0.6
 - llvmlite=0.43.0
 - lxml=5.2.2
 - lz4=4.3.3
@@ -263,7 +264,7 @@ dependencies:
 - mpi=1.0
 - munkres=1.1.4
 - muscle=3.8.1551
-- narwhals=1.8.1
+- narwhals=1.8.2
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
@@ -289,7 +290,7 @@ dependencies:
 - pandoc=3.4
 - pandocfilters=1.5.0
 - pango=1.54.0
-- paramiko=3.4.1
+- paramiko=3.5.0
 - parsl=2024.4.15
 - parso=0.8.4
 - pasta=1.9.2
@@ -329,7 +330,7 @@ dependencies:
 - platformdirs=4.3.6
 - pluggy=1.5.0
 - prank=170427
-- prometheus_client=0.20.0
+- prometheus_client=0.21.0
 - prompt-toolkit=3.0.47
 - protobuf=3.20.3
 - psutil=6.0.0
@@ -341,7 +342,7 @@ dependencies:
 - pygments=2.18.0
 - pyhmmer=0.10.14
 - pyjwt=2.9.0
-- pymongo=4.9
+- pymongo=4.9.1
 - pynacl=1.5.0
 - pynndescent=0.5.13
 - pyobjc-core=10.3.1
@@ -383,12 +384,12 @@ dependencies:
 - q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+21.g0982c4a
+- q2-types=2024.10.0.dev0+22.g08bae72
 - q2-vsearch=2024.10.0.dev0+1.g475bfd2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+14.gd0ed13e
+- qiime2=2024.10.0.dev0+16.g2a4dc50
 - r-abind=1.4_5
 - r-ade4=1.7_22
 - r-ape=5.8
@@ -400,7 +401,7 @@ dependencies:
 - r-beeswarm=0.4.0
 - r-bh=1.84.0_0
 - r-bibtex=0.5.1
-- r-bit=4.0.5
+- r-bit=4.5.0
 - r-bit64=4.0.5
 - r-bitops=1.0_8
 - r-blob=1.2.4
@@ -491,7 +492,7 @@ dependencies:
 - r-iterators=1.0.14
 - r-jpeg=0.1_10
 - r-jquerylib=0.1.4
-- r-jsonlite=1.8.8
+- r-jsonlite=1.8.9
 - r-knitr=1.48
 - r-labeling=0.4.3
 - r-lambda.r=1.2.4
@@ -519,7 +520,7 @@ dependencies:
 - r-nloptr=2.1.1
 - r-nnet=7.3_19
 - r-numderiv=2016.8_1.1
-- r-openssl=2.2.1
+- r-openssl=2.2.2
 - r-optparse=1.7.5
 - r-osqp=0.6.3.3
 - r-permute=0.9_7
@@ -631,7 +632,7 @@ dependencies:
 - send2trash=1.8.3
 - sepp=4.5.5
 - setproctitle=1.3.3
-- setuptools=73.0.1
+- setuptools=74.1.2
 - shellingham=1.5.4
 - sigtool=0.1.3
 - simpleeval=0.9.13
@@ -644,7 +645,7 @@ dependencies:
 - statsmodels=0.14.3
 - stringcase=1.2.0
 - tabulate=0.9.0
-- tapi=1100.0.11
+- tapi=1300.6.5
 - tbb=2021.13.0
 - tblib=3.0.0
 - terminado=0.18.1

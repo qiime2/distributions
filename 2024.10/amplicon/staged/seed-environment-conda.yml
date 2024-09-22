@@ -37,12 +37,12 @@ dependencies:
 - q2-sample-classifier=2024.10.0.dev0
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+21.g0982c4a
+- q2-types=2024.10.0.dev0+22.g08bae72
 - q2-vsearch=2024.10.0.dev0+1.g92e62f2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+14.gd0ed13e
+- qiime2=2024.10.0.dev0+16.g2a4dc50
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2024.10.0.dev0+11.g4f7ab4b

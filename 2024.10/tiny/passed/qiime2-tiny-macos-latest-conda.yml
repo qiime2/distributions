@@ -46,7 +46,7 @@ dependencies:
 - conda-pack=0.7.0
 - cryptography=43.0.1
 - curl=8.8.0
-- debugpy=1.8.5
+- debugpy=1.8.6
 - decorator=4.4.2
 - defusedxml=0.7.1
 - dill=0.3.8
@@ -182,7 +182,7 @@ dependencies:
 - platformdirs=4.3.6
 - pluggy=1.5.0
 - prometheus_client=0.21.0
-- prompt-toolkit=3.0.47
+- prompt-toolkit=3.0.48
 - psutil=6.0.0
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
@@ -200,7 +200,7 @@ dependencies:
 - python-dateutil=2.9.0
 - python-fastjsonschema=2.20.0
 - python-json-logger=2.0.7
-- python-tzdata=2024.1
+- python-tzdata=2024.2
 - python_abi=3.10
 - pytz=2024.2
 - pyyaml=6.0.2
@@ -236,7 +236,7 @@ dependencies:
 - scipy=1.13.0
 - send2trash=1.8.3
 - setproctitle=1.3.3
-- setuptools=74.1.2
+- setuptools=75.1.0
 - sigtool=0.1.3
 - six=1.16.0
 - sniffio=1.3.1

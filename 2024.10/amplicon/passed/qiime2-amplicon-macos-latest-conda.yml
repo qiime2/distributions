@@ -108,7 +108,7 @@ dependencies:
 - cutadapt=4.9
 - cycler=0.12.1
 - deblur=1.1.1
-- debugpy=1.8.5
+- debugpy=1.8.6
 - decorator=4.4.2
 - defusedxml=0.7.1
 - dendropy=5.0.1
@@ -132,7 +132,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.53.1
+- fonttools=4.54.1
 - formulaic=1.0.2
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -264,7 +264,7 @@ dependencies:
 - mpi=1.0
 - munkres=1.1.4
 - muscle=3.8.1551
-- narwhals=1.8.2
+- narwhals=1.8.4
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
@@ -331,7 +331,7 @@ dependencies:
 - pluggy=1.5.0
 - prank=170427
 - prometheus_client=0.21.0
-- prompt-toolkit=3.0.47
+- prompt-toolkit=3.0.48
 - protobuf=3.20.3
 - psutil=6.0.0
 - pthread-stubs=0.4
@@ -353,17 +353,17 @@ dependencies:
 - python=3.10.14
 - python-dateutil=2.8.2
 - python-fastjsonschema=2.20.0
-- python-isal=1.7.0
+- python-isal=1.7.1
 - python-json-logger=2.0.7
 - python-slugify=8.0.4
-- python-tzdata=2024.1
-- python-zlib-ng=0.5.0
+- python-tzdata=2024.2
+- python-zlib-ng=0.5.1
 - python_abi=3.10
 - pytz=2024.2
 - pyvcf3=1.0.3
 - pyyaml=6.0.2
 - pyzmq=24.0.1
-- q2-alignment=2024.10.0.dev0
+- q2-alignment=2024.10.0.dev0+1.g98741b3
 - q2-composition=2024.10.0.dev0
 - q2-cutadapt=2024.10.0.dev0
 - q2-dada2=2024.10.0.dev0+2.g7d89c3b
@@ -371,7 +371,7 @@ dependencies:
 - q2-demux=2024.10.0.dev0+3.g7c9b6d3
 - q2-diversity=2024.10.0.dev0+2.gc81c7a0
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
-- q2-emperor=2024.10.0.dev0
+- q2-emperor=2024.10.0.dev0+1.g1d646f2
 - q2-feature-classifier=2024.10.0.dev0+1.g1caeb30
 - q2-feature-table=2024.10.0.dev0+2.ga4d0e2e
 - q2-fragment-insertion=2024.10.0.dev0+1.g7090abd
@@ -402,11 +402,11 @@ dependencies:
 - r-bh=1.84.0_0
 - r-bibtex=0.5.1
 - r-bit=4.5.0
-- r-bit64=4.0.5
+- r-bit64=4.5.2
 - r-bitops=1.0_8
 - r-blob=1.2.4
 - r-boot=1.3_31
-- r-broom=1.0.6
+- r-broom=1.0.7
 - r-bslib=0.8.0
 - r-cachem=1.1.0
 - r-cairo=1.6_2
@@ -428,7 +428,7 @@ dependencies:
 - r-dbi=1.2.3
 - r-dbplyr=2.5.0
 - r-deldir=2.0_4
-- r-desctools=0.99.56
+- r-desctools=0.99.57
 - r-digest=0.6.37
 - r-doparallel=1.0.17
 - r-dorng=1.8.6
@@ -445,7 +445,7 @@ dependencies:
 - r-fansi=1.0.6
 - r-farver=2.1.2
 - r-fastmap=1.2.0
-- r-fnn=1.1.4
+- r-fnn=1.1.4.1
 - r-fontawesome=0.5.2
 - r-forcats=1.0.0
 - r-foreach=1.5.2
@@ -482,7 +482,7 @@ dependencies:
 - r-htmltools=0.5.8.1
 - r-htmlwidgets=1.6.4
 - r-httr=1.4.7
-- r-httr2=1.0.4
+- r-httr2=1.0.5
 - r-hwriter=1.3.2.1
 - r-ids=1.0.1
 - r-igraph=2.0.3
@@ -632,7 +632,7 @@ dependencies:
 - send2trash=1.8.3
 - sepp=4.5.5
 - setproctitle=1.3.3
-- setuptools=74.1.2
+- setuptools=75.1.0
 - shellingham=1.5.4
 - sigtool=0.1.3
 - simpleeval=0.9.13

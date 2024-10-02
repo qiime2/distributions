@@ -125,7 +125,7 @@ packages:
 
 - name: q2-vizard
   repo: qiime2/q2-vizard
-  distros: [pathogenome]
+  distros: [amplicon, metagenome, pathogenome]
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch

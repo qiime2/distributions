@@ -72,7 +72,7 @@ jobs:
         shell: bash
         run: |
           file='${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml'
-          cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/staged/g' | uniq > "$file".tmp
+          cat "$file" | sed -E 's/(\.\/|file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/staged/g' | uniq > "$file".tmp
           mv "$file".tmp "$file"
 
       - name: update seed environments (passed)
@@ -80,7 +80,7 @@ jobs:
         run: |
           for file in ${{ env.seed_environment_path}}/*
           do
-            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
+            cat "$file" | sed -E 's/(\.\/|file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
             mv "$file".tmp "$file"
           done
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
@@ -91,7 +91,7 @@ jobs:
         run: |
           for file in ${{ env.seed_environment_path}}/*
           do
-            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
+            cat "$file" | sed -E 's/(\.\/|file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
             mv "$file".tmp "$file"
           done
           cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
@@ -101,7 +101,7 @@ jobs:
         run: |
           for file in ${{ env.solved_environment_path}}/*
           do
-            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
+            cat "$file" | sed -E 's/(\.\/|file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
             mv "$file".tmp "$file"
           done
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
@@ -112,7 +112,7 @@ jobs:
         run: |
           for file in ${{ env.solved_environment_path}}/*
           do
-            cat "$file" | sed -E 's/(file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
+            cat "$file" | sed -E 's/(\.\/|file|https):\/\/.*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
             mv "$file".tmp "$file"
           done
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'

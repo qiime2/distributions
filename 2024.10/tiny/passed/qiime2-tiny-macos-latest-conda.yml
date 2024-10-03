@@ -1,8 +1,8 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.10/tiny/passed
-- bioconda
+- ./rebuilt-channel
+- ./patched-channel
 - conda-forge
-- defaults
+- bioconda
 dependencies:
 - _r-mutex=1.0.1
 - anyio=4.6.0

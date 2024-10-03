@@ -37,6 +37,7 @@ dependencies:
 - q2-stats=2024.10.0.dev0+1.g6711b86
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+22.g08bae72
+- q2-vizard=2024.10.0.dev0+183.g5c76d99
 - q2-vsearch=2024.10.0.dev0+1.g475bfd2
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2galaxy=2024.10.0.dev0+1.g324442b

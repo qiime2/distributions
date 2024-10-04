@@ -5,11 +5,19 @@ on:
       distro:
         required: true
         type: string
+      draft:
+        required: false
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       distro:
         required: true
         type: string
+      draft:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   create-pr:
@@ -45,6 +53,7 @@ jobs:
         with:
           token: ${{ secrets.BOT_PAT }}
           branch: Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}
+          draft: ${{ inputs.draft }}
           title: "[${{ inputs.distro }}] Automated Trial (Prepare)"
           body: |
             Automated updates from `create-prepare-pr.yaml`

@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
 
       - name: Build Workshop Image
-        id: build-image
+        id: build-workshop-image
         uses: redhat-actions/buildah-build@v2
         with:
           containerfiles: |
@@ -54,7 +54,7 @@ jobs:
           tags: workshop ${{ inputs.epoch }}
 
       - name: Push Workshop Image To quay.io
-        id: push-to-quay
+        id: push-workshop-image-to-quay
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.build-image.outputs.image }}

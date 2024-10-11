@@ -11,8 +11,8 @@ packages:
   repo: qiime2/q2-alignment
   distros: [amplicon]
 
-- name: q2-amr
-  repo: bokulich-lab/q2-amr
+- name: q2-amrfinderplus
+  repo: bokulich-lab/q2-amrfinderplus
   distros: [pathogenome]
 
 - name: q2-assembly
@@ -58,10 +58,6 @@ packages:
 - name: q2-feature-table
   repo: qiime2/q2-feature-table
   distros: [amplicon, metagenome, pathogenome]
-
-# - name: q2-fmt
-#   repo: qiime2/q2-fmt
-#   distros: []
 
 - name: q2-fondue
   repo: bokulich-lab/q2-fondue
@@ -109,7 +105,7 @@ packages:
 
 - name: q2-stats
   repo: qiime2/q2-stats
-  distros: [amplicon, pathogenome]
+  distros: [amplicon]
 
 - name: q2-taxa
   repo: qiime2/q2-taxa

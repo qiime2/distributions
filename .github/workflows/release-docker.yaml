@@ -14,32 +14,56 @@ jobs:
     name: Build and push image
     runs-on: ubuntu-latest
     steps:
-    - uses: qiime2/action-library-packaging/clean-disk@beta
-      name: "Clean disk on linux"
+      - uses: qiime2/action-library-packaging/clean-disk@beta
+        name: "Clean disk on linux"
 
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Build Image
-      id: build-image
-      uses: redhat-actions/buildah-build@v2
-      with:
-        containerfiles: |
-          ./Dockerfile
-        build-args: |
-          EPOCH=${{ inputs.epoch }}
-          DISTRO=${{ inputs.distro }}
-        image: ${{ inputs.distro }}
-        tags: latest ${{ inputs.epoch }}
+      - name: Build Image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          containerfiles: |
+            ./Dockerfile.base
+          build-args: |
+            EPOCH=${{ inputs.epoch }}
+            DISTRO=${{ inputs.distro }}
+          image: ${{ inputs.distro }}
+          tags: latest ${{ inputs.epoch }}
 
-    - name: Push To quay.io
-      id: push-to-quay
-      uses: redhat-actions/push-to-registry@v2
-      with:
-        image: ${{ steps.build-image.outputs.image }}
-        tags: ${{ steps.build-image.outputs.tags }}
-        registry: quay.io/qiime2
-        username: qiime2+q2d2
-        password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
+      - name: Push To quay.io
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: quay.io/qiime2
+          username: qiime2+q2d2
+          password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
 
-    - name: Print image url
-      run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
+      - name: Build Workshop Image
+        id: build-workshop-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          containerfiles: |
+            ./Dockerfile.workshop
+          build-args: |
+            EPOCH=${{ inputs.epoch }}
+            DISTRO=${{ inputs.distro }}
+          image: ${{ inputs.distro }}-workshop
+          tags: latest ${{ inputs.epoch }}
+
+      - name: Push Workshop Image To quay.io
+        id: push-workshop-image-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-workshop-image.outputs.image }}
+          tags: ${{ steps.build-workshop-image.outputs.tags }}
+          registry: quay.io/qiime2
+          username: qiime2+q2d2
+          password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
+
+      - name: Print image url
+        run: |
+          echo "Base image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
+          echo "Workshop image pushed to ${{ steps.push-workshop-image-to-quay.outputs.registry-paths }}"

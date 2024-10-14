@@ -4,11 +4,22 @@
 EPOCH := 2024.5
 DISTRO := metagenome
 
-.PHONY: docker
+.PHONY: docker docker-workshop
+
 docker:
 	docker build \
+		-f Dockerfile.base \
 		-t quay.io/qiime2/$(DISTRO):$(EPOCH) \
 		-t quay.io/qiime2/$(DISTRO):latest \
+		--build-arg EPOCH=$(EPOCH) \
+		--build-arg DISTRO=$(DISTRO) \
+		--no-cache \
+		.
+
+docker-workshop:
+	docker build \
+		-f Dockerfile.workshop \
+		-t quay.io/qiime2/$(DISTRO):$(EPOCH)-workshop \
 		--build-arg EPOCH=$(EPOCH) \
 		--build-arg DISTRO=$(DISTRO) \
 		--no-cache \

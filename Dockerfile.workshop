@@ -1,0 +1,31 @@
+ARG EPOCH
+ARG DISTRO
+
+FROM quay.io/qiime2/${DISTRO}:latest
+
+WORKDIR /home/qiime2
+
+# update cli prompt to print working directory
+RUN echo "export PS1=\"\nCurrent working directory: \\w\n\\$ \"" >> $HOME/.bashrc
+
+# install jupyter lab, configure notebooks for displaying
+RUN pip install jupyterlab
+RUN jupyter serverextension enable --py qiime2 --sys-prefix
+
+# declare that a volume will be mounted to the working directory
+VOLUME "/home/qiime2"
+
+# make default jupyter shell be bash
+ENV SHELL /bin/bash
+
+# install various useful tools
+RUN apt-get update
+RUN yes | apt-get install tree vim iputils-ping nano less
+
+# launch jupyter lab on startup
+CMD ["jupyter", "lab", \
+    "--ip=0.0.0.0", \
+    "--port=8888", \
+    "--no-browser", \
+    "--allow-root", \
+    "--NotebookApp.token=''"]

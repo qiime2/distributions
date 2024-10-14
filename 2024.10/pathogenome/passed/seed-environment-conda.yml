@@ -1,7 +1,7 @@
 channels:
 - https://packages.qiime2.org/qiime2/2024.10/metagenome/passed
-- conda-forge
 - bioconda
+- conda-forge
 - defaults
 dependencies:
 - biom-format=2.1.15

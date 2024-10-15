@@ -39,6 +39,7 @@ dependencies:
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+21.g0982c4a
 - q2-vsearch=2024.10.0.dev0+1.g475bfd2
+- q2-vizard=2024.10.0.dev0
 - q2cli=2024.10.0.dev0+5.g76b8d1e
 - q2templates=2024.10.0.dev0
 - qiime2=2024.10.0.dev0+14.gd0ed13e

@@ -39,6 +39,9 @@ dependencies:
 - scikit-learn=1.4.2
 - scipy=1.13.0
 - seaborn=0.12.2
+# adding this dep to address feature-classifier test failure on osx
+# https://github.com/qiime2/distributions/actions/runs/11351275507/job/31639822132?pr=366#step:9:444
+- vsearch=2.22.1
 - unifrac-binaries=1.4
 - unifrac=1.3
 extras:

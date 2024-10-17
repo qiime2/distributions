@@ -24,3 +24,10 @@ jobs:
     secrets: inherit
     with:
       distro: metagenome
+
+  pathogenome:
+    needs: [metagenome]
+    uses: ./.github/workflows/create-prepare-pr.yaml
+    secrets: inherit
+    with:
+      distro: pathogenome

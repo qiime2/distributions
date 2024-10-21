@@ -55,6 +55,7 @@ dependencies:
 - umap-learn=0.5.4
 - unifrac-binaries=1.4
 - unifrac=1.3
+- vsearch=2.22.1
 extras:
   variant_override:
     qiime2_epoch: '2024.10'

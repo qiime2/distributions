@@ -263,7 +263,7 @@ dependencies:
 - mpi=1.0.1
 - munkres=1.1.4
 - muscle=3.8.1551
-- narwhals=1.9.4
+- narwhals=1.10.0
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.0
@@ -368,7 +368,7 @@ dependencies:
 - q2-dada2=2024.10.0.dev0+2.g7d89c3b
 - q2-deblur=2024.10.0.dev0
 - q2-demux=2024.10.0.dev0+3.g7c9b6d3
-- q2-diversity=2024.10.0.dev0+2.gc81c7a0
+- q2-diversity=2024.10.0.dev0+3.gc243310
 - q2-diversity-lib=2024.10.0.dev0+1.gbd7e767
 - q2-emperor=2024.10.0.dev0+1.g1d646f2
 - q2-feature-classifier=2024.10.0.dev0+1.g1caeb30
@@ -381,15 +381,15 @@ dependencies:
 - q2-quality-control=2024.10.0.dev0
 - q2-quality-filter=2024.10.0.dev0
 - q2-sample-classifier=2024.10.0.dev0
-- q2-stats=2024.10.0.dev0+1.g6711b86
+- q2-stats=2024.10.0.dev0+2.g324f2ac
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+23.g4b9509a
-- q2-vizard=2024.10.0.dev0+195.g9aef2fa
+- q2-vizard=2024.10.0.dev0+232.gebde89a
 - q2-vsearch=2024.10.0.dev0+2.gce434c8
-- q2cli=2024.10.0.dev0+6.gfe7799f
+- q2cli=2024.10.0.dev0+8.gd86cf68
 - q2galaxy=2024.10.0.dev0+1.g324442b
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+17.g5fb10c4
+- qiime2=2024.10.0.dev0+19.g55aad00
 - r-abind=1.4_5
 - r-ade4=1.7_22
 - r-ape=5.8
@@ -620,7 +620,7 @@ dependencies:
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
-- rich=13.9.2
+- rich=13.9.3
 - rpds-py=0.20.0
 - rpsbproc=0.5.0
 - samtools=1.21

@@ -28,7 +28,7 @@ dependencies:
 - q2-taxa=2024.10.0.dev0
 - q2-types=2024.10.0.dev0+23.g4b9509a
 - q2-viromics=0+untagged.23.gc1af303
-- q2-vizard=2024.10.0.dev0+195.g9aef2fa
+- q2-vizard=2024.10.0.dev0+232.gebde89a
 - q2cli=2024.10.0.dev0+6.gfe7799f
 - q2templates=2024.10.0.dev0
 - qiime2=2024.10.0.dev0+17.g5fb10c4

@@ -1,0 +1,72 @@
+name: ci-join-release-all
+on:
+  workflow_dispatch: {}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      release-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+      new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).next_epoch }}
+      plugin-matrix: ${{ steps.yaml.outputs.data }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          sparse-checkout: |
+            data.yaml
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+  join-release:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_EPOCH: ${{ needs.setup.outputs.release-epoch }}
+      RELEASE_TAG: ${{ needs.setup.outputs.release-epoch }}.0
+      DEV_TAG: ${{ needs.setup.outputs.new-dev-epoch }}.0.dev0
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        packages: ${{ toJSON(needs.setup.plugin-matrix).packages }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ matrix.packages.repo }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: ./release-checkout
+
+      - uses: actions/checkout@v3
+        with:
+          path: ./dev-checkout
+
+      - name: "create release branch and commit"
+        shell: bash
+        run: |
+          cd ./release-checkout
+          git config --global user.name 'q2d2'
+          git config --global user.email 'q2d2.noreply@gmail.com'
+          git remote set-url origin https://q2d2:${{ secrets.BOT_PAT }}@github.com/${{ matrix.packages.repo }}
+          git checkout -b 'Release-${{ env.RELEASE_EPOCH }}'
+          git commit --allow-empty -m "REL: ${{ env.RELEASE_TAG }}"
+          git tag -a "${{ env.RELEASE_TAG }}" -m "${{ matrix.packages.name }} ${{ env.RELEASE_TAG }}"
+          git push origin --tags "${{ env.RELEASE_TAG }}"
+          git push origin 'Release-${{ env.RELEASE_EPOCH }}'
+
+      - name: "checkout main branch and commit for next dev epoch"
+        shell: bash
+        run: |
+          cd ./dev-checkout
+          git config --global user.name 'q2d2'
+          git config --global user.email 'q2d2.noreply@gmail.com'
+          git remote set-url origin https://q2d2:${{ secrets.BOT_PAT }}@github.com/${{ matrix.packages.repo }}
+          git commit --allow-empty -m "DEV: ${{ needs.setup.outputs.new-dev-epoch }}"
+          git tag -a "${{ env.DEV_TAG }}" -m "${{ matrix.packages.name }} ${{ env.DEV_TAG }}"
+          git push origin --tags "${{ env.DEV_TAG }}"
+          git push origin

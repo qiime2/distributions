@@ -148,5 +148,5 @@ packages:
   distros: [amplicon, metagenome, pathogenome]
 
 - name: q2-sapienns
-  repo: gregcaporaso/q2-sapienns
+  repo: caporaso-lab/q2-sapienns
   distros: [metagenome]

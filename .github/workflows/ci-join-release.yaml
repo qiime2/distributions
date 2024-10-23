@@ -52,7 +52,7 @@ jobs:
           git config --global user.name 'q2d2'
           git config --global user.email 'q2d2.noreply@gmail.com'
           git checkout -b 'Release-${{ env.RELEASE_EPOCH }}'
-          git commit --allow-empty -m "REL: ${{ env.RELEASE_TAG }}"
+          git commit --allow-empty -m "REL: ${{ env.RELEASE_TAG }} [skip ci]"
           git tag -a "${{ env.RELEASE_TAG }}" -m "${{ matrix.packages.name }} ${{ env.RELEASE_TAG }}"
           git push origin --tags "${{ env.RELEASE_TAG }}"
           git push origin 'Release-${{ env.RELEASE_EPOCH }}'
@@ -63,7 +63,7 @@ jobs:
           cd ./dev-checkout
           git config --global user.name 'q2d2'
           git config --global user.email 'q2d2.noreply@gmail.com'
-          git commit --allow-empty -m "DEV: ${{ needs.setup.outputs.new-dev-epoch }}"
+          git commit --allow-empty -m "DEV: ${{ needs.setup.outputs.new-dev-epoch }} [skip ci]"
           git tag -a "${{ env.DEV_TAG }}" -m "${{ matrix.packages.name }} ${{ env.DEV_TAG }}"
           git push origin --tags "${{ env.DEV_TAG }}"
           git push origin

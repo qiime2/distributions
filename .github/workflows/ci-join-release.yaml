@@ -28,7 +28,6 @@ jobs:
       RELEASE_EPOCH: ${{ needs.setup.outputs.release-epoch }}
       RELEASE_TAG: ${{ needs.setup.outputs.release-epoch }}.0
       DEV_TAG: ${{ needs.setup.outputs.new-dev-epoch }}.0.dev0
-    secrets: inherit
     strategy:
       fail-fast: false
       matrix:

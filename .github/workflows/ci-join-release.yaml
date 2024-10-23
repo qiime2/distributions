@@ -35,17 +35,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: ${{ matrix.packages.repo }}
-
-      - uses: actions/checkout@v3
-        with:
           path: ./release-checkout
           token: ${{ secrets.BOT_PAT }}
+          repository: ${{ matrix.packages.repo }}
 
       - uses: actions/checkout@v3
         with:
           path: ./dev-checkout
           token: ${{ secrets.BOT_PAT }}
+          repository: ${{ matrix.packages.repo }}
 
       - name: "create release branch and commit"
         shell: bash

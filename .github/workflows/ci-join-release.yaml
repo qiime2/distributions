@@ -20,9 +20,6 @@ jobs:
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
-      - shell: bash
-        run: |
-          echo ${{ steps.yaml.outputs.data }}
 
   join-release:
     needs: [setup]
@@ -34,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        packages: ${{ fromJSON(needs.setup.plugin-matrix).packages }}
+        packages: ${{ fromJSON(needs.setup.outputs.plugin-matrix).packages }}
     steps:
       - uses: actions/checkout@v3
         with:

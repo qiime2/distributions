@@ -1,4 +1,4 @@
-name: ci-join-release-all
+name: ci-join-release
 on:
   workflow_dispatch: {}
 

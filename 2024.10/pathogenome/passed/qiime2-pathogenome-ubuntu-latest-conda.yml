@@ -400,9 +400,9 @@ dependencies:
 - q2-types=2024.10.0.dev0+23.g4b9509a
 - q2-viromics=0+untagged.23.gc1af303
 - q2-vizard=2024.10.0.dev0+232.gebde89a
-- q2cli=2024.10.0.dev0+6.gfe7799f
+- q2cli=2024.10.0.dev0+8.gd86cf68
 - q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+17.g5fb10c4
+- qiime2=2024.10.0.dev0+19.g55aad00
 - qt-main=5.15.8
 - quast=5.2.0
 - r-abind=1.4_5

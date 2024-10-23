@@ -20,6 +20,9 @@ jobs:
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
+      - shell: bash
+        run: |
+          echo ${{ steps.yaml.outputs.data }}
 
   join-release:
     needs: [setup]

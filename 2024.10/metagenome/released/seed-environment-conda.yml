@@ -1,12 +1,11 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.10/metagenome/staged
+- https://packages.qiime2.org/qiime2/2024.10/metagenome/released
 - conda-forge
 - bioconda
 dependencies:
 - biom-format=2.1.15
 - biopython=1.83
 - bowtie2=2.5.1
-- busco=5.5.0
 - entrezpy=2.1.2
 - h5py=3.11.0
 - hdf5=1.14.3
@@ -18,7 +17,6 @@ dependencies:
 - patsy=0.5.6
 - pysam=0.22.1
 - python=3.10
-- python_abi=3.9
 - q2-assembly=2024.10.0
 - q2-composition=2024.10.0
 - q2-cutadapt=2024.10.0
@@ -39,7 +37,6 @@ dependencies:
 - q2-sapienns=2024.10.0
 - q2-sourmash=2024.10.0
 - q2-taxa=2024.10.0
-- q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2024.10.0
 - q2-vizard=2024.10.0
 - q2-vsearch=2024.10.0

@@ -51,14 +51,10 @@ jobs:
           environment-file: ${{ env.filepath }}
           activate-environment: ${{ env.name }}
 
-      - name: 'install package locally'
-        shell: bash
-        run: |
-          make dev
-
-      - name: 'Run tests for ${{ env.name }}'
+      - name: 'Install package locally and run tests for ${{ env.name }}'
         shell: bash -el {0}
         run: |
+          make dev
           conda install pytest
           qiime info
           pytest

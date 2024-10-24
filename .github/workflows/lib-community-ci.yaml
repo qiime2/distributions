@@ -51,6 +51,11 @@ jobs:
           environment-file: ${{ env.filepath }}
           activate-environment: ${{ env.name }}
 
+      - name: 'install package locally'
+        shell: bash
+        run: |
+          make dev
+
       - name: 'Run tests for ${{ env.name }}'
         shell: bash -el {0}
         run: |

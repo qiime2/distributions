@@ -130,7 +130,7 @@ dependencies:
 - liblapacke=3.9.0
 - libllvm18=18.1.7
 - libnghttp2=1.58.0
-- libopenblas=0.3.27
+- libopenblas=0.3.28
 - libpng=1.6.43
 - libsodium=1.0.18
 - libsqlite=3.46.0
@@ -204,12 +204,12 @@ dependencies:
 - pytz=2024.2
 - pyyaml=6.0.2
 - pyzmq=24.0.1
-- q2-metadata=2024.10.0.dev0
-- q2-mystery-stew=2024.10.0.dev0
-- q2-types=2024.10.0.dev0+23.g4b9509a
-- q2cli=2024.10.0.dev0+6.gfe7799f
-- q2templates=2024.10.0.dev0
-- qiime2=2024.10.0.dev0+17.g5fb10c4
+- q2-metadata=2024.10.0
+- q2-mystery-stew=2024.10.0
+- q2-types=2024.10.0
+- q2cli=2024.10.0
+- q2templates=2024.10.0
+- qiime2=2024.10.0
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.8.9

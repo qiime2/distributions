@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2024.10/tiny/staged
+- https://packages.qiime2.org/qiime2/2024.10/tiny/released
 - conda-forge
 - bioconda
 dependencies:
@@ -11,7 +11,6 @@ dependencies:
 - pandas=2.2.2
 - parsl=2024.4.15
 - python=3.10
-- python_abi=3.9
 - q2-metadata=2024.10.0
 - q2-mystery-stew=2024.10.0
 - q2-types=2024.10.0

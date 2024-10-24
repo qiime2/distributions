@@ -19,7 +19,7 @@ docker:
 docker-workshop:
 	docker build \
 		-f Dockerfile.workshop \
-		-t quay.io/qiime2/$(DISTRO):$(EPOCH)-workshop \
+		-t quay.io/qiime2/$(DISTRO)-workshop:$(EPOCH) \
 		--build-arg EPOCH=$(EPOCH) \
 		--build-arg DISTRO=$(DISTRO) \
 		--no-cache \

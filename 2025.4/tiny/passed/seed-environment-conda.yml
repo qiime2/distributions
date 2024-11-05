@@ -9,7 +9,7 @@ dependencies:
 - notebook=6.5.5
 - numpy=1.26.4
 - pandas=2.2.2
-- parsl=2024.4.15
+- parsl=2024.10.28
 - python=3.10
 - q2-metadata=2025.4.0.dev0
 - q2-mystery-stew=2025.4.0.dev0

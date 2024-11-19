@@ -17,7 +17,7 @@ dependencies:
 - q2-types=2025.4.0.dev0
 - q2cli=2025.4.0.dev0+1.g0ac7869
 - q2templates=2025.4.0.dev0
-- qiime2=2025.4.0.dev0+3.g4b5034d
+- qiime2=2025.4.0.dev0+4.ge8e66ba
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - scikit-bio=0.6.0

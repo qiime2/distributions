@@ -20,7 +20,7 @@ dependencies:
 - asttokens=3.0.0
 - atpublic=5.0
 - attr=2.5.1
-- attrs=24.2.0
+- attrs=24.3.0
 - bcrypt=4.2.1
 - beautifulsoup4=4.12.3
 - bibtexparser=1.4.2
@@ -37,7 +37,7 @@ dependencies:
 - bioconductor-biostrings=2.70.1
 - bioconductor-bluster=1.12.0
 - bioconductor-dada2=1.30.0
-- bioconductor-data-packages=20231203
+- bioconductor-data-packages=20241103
 - bioconductor-decipher=2.30.0
 - bioconductor-decontam=1.22.0
 - bioconductor-delayedarray=0.28.0
@@ -72,7 +72,7 @@ dependencies:
 - bioconductor-treesummarizedexperiment=2.10.0
 - bioconductor-xvector=0.42.0
 - bioconductor-zlibbioc=1.48.0
-- biom-format=2.1.15
+- biom-format=2.1.16
 - biopython=1.84
 - blast=2.16.0
 - bleach=6.2.0
@@ -87,7 +87,7 @@ dependencies:
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.0
-- certifi=2024.8.30
+- certifi=2024.12.14
 - cffi=1.17.1
 - chardet=5.2.0
 - charset-normalizer=3.4.0
@@ -296,7 +296,7 @@ dependencies:
 - mypy_extensions=1.0.0
 - mysql-common=8.3.0
 - mysql-libs=8.3.0
-- narwhals=1.18.3
+- narwhals=1.18.4
 - natsort=8.4.0
 - nbclassic=1.1.0
 - nbclient=0.10.1

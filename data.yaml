@@ -19,6 +19,11 @@ packages:
   repo: bokulich-lab/q2-amrfinderplus
   distros: [pathogenome]
 
+# formerly q2-moshpit
+- name: q2-annotate
+  repo: bokulich-lab/q2-annotate
+  distros: [moshpit]
+
 - name: q2-assembly
   repo: bokulich-lab/q2-assembly
   distros: [moshpit, pathogenome]
@@ -78,10 +83,6 @@ packages:
 - name: q2-metadata
   repo: qiime2/q2-metadata
   distros: [tiny, amplicon, moshpit]
-
-- name: q2-moshpit
-  repo: bokulich-lab/q2-moshpit
-  distros: [moshpit]
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew

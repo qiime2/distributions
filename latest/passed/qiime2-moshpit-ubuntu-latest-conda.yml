@@ -89,7 +89,7 @@ dependencies:
 - bioconductor-variantannotation=1.48.1
 - bioconductor-xvector=0.42.0
 - bioconductor-zlibbioc=1.48.0
-- biom-format=2.1.15
+- biom-format=2.1.16
 - biopython=1.83
 - bitstring=3.1.9
 - blast=2.16.0
@@ -178,7 +178,7 @@ dependencies:
 - glib=2.80.2
 - glib-tools=2.80.2
 - glimmerhmm=3.0.4
-- globus-sdk=3.49.0
+- globus-sdk=3.50.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.13
@@ -193,7 +193,6 @@ dependencies:
 - h5py=3.11.0
 - harfbuzz=8.5.0
 - hdf5=1.14.3
-- hdmedians=0.14.2
 - hmmer=3.4
 - hpack=4.0.0
 - htslib=1.21
@@ -349,14 +348,14 @@ dependencies:
 - mysql-common=8.3.0
 - mysql-connector-c=6.1.11
 - mysql-libs=8.3.0
-- narwhals=1.21.1
+- narwhals=1.22.0
 - natsort=8.4.0
-- nbclassic=1.1.0
+- nbclassic=1.2.0
 - nbclient=0.10.2
 - nbconvert-core=7.16.5
 - nbformat=5.10.4
 - ncbi-datasets-pylib=14.25.1
-- ncbi-vdb=3.1.1
+- ncbi-vdb=3.2.0
 - ncurses=6.5
 - nest-asyncio=1.6.0
 - networkx=3.1
@@ -376,7 +375,7 @@ dependencies:
 - pandas=2.2.2
 - pandera=0.22.1
 - pandera-base=0.22.1
-- pandoc=3.6.1
+- pandoc=3.6.2
 - pandocfilters=1.5.0
 - pango=1.54.0
 - parameterized=0.9.0
@@ -505,10 +504,11 @@ dependencies:
 - pyzmq=24.0.1
 - pyzotero=1.6.4
 - q2-alignment=2025.4.0.dev0+5.g40a0361
-- q2-assembly=2025.4.0.dev0+5.gae9c336
+- q2-annotate=2025.4.0.dev0+14.g1e6d223
+- q2-assembly=2025.4.0.dev0+7.g509401a
 - q2-composition=2025.4.0.dev0+7.g0b19b96
 - q2-cutadapt=2025.4.0.dev0+6.g918bfe1
-- q2-demux=2025.4.0.dev0+5.g0162ce9
+- q2-demux=2025.4.0.dev0+6.g64ac759
 - q2-diversity=2025.4.0.dev0+7.gea79f04
 - q2-diversity-lib=2025.4.0.dev0+5.g2cf3c0b
 - q2-emperor=2025.4.0.dev0+5.geb34114
@@ -517,7 +517,6 @@ dependencies:
 - q2-fondue=2025.4.0.dev0+3.g43dc251
 - q2-longitudinal=2025.4.0.dev0+5.g23c62ea
 - q2-metadata=2025.4.0.dev0+5.g7af916f
-- q2-moshpit=2025.4.0.dev0+13.ga797ffb
 - q2-mystery-stew=2025.4.0.dev0+5.g51996ef
 - q2-quality-control=2025.4.0.dev0+6.gb759f55
 - q2-quality-filter=2025.4.0.dev0+6.gb7bf2b4
@@ -528,7 +527,7 @@ dependencies:
 - q2-types=2025.4.0.dev0+6.g11e14d8
 - q2-vizard=2025.4.0.dev0+85.g837033f
 - q2-vsearch=2025.4.0.dev0+5.gd7bbead
-- q2cli=2025.4.0.dev0+8.g63d82cb
+- q2cli=2025.4.0.dev0+9.g92c5570
 - q2templates=2025.4.0.dev0+5.gfcd2c55
 - qiime2=2025.4.0.dev0+11.g85975ad
 - qt-main=5.15.8
@@ -578,7 +577,7 @@ dependencies:
 - r-diffobj=0.3.5
 - r-digest=0.6.37
 - r-doparallel=1.0.17
-- r-dorng=1.8.6
+- r-dorng=1.8.6.1
 - r-dplyr=1.1.4
 - r-dqrng=0.3.2
 - r-dtplyr=1.3.1
@@ -586,7 +585,7 @@ dependencies:
 - r-ecosolver=0.5.5
 - r-ellipsis=0.3.2
 - r-energy=1.7_12
-- r-evaluate=1.0.1
+- r-evaluate=1.0.3
 - r-exact=3.3
 - r-expm=1.0_0
 - r-fansi=1.0.6
@@ -597,7 +596,7 @@ dependencies:
 - r-fontawesome=0.5.3
 - r-forcats=1.0.0
 - r-foreach=1.5.2
-- r-foreign=0.8_87
+- r-foreign=0.8_88
 - r-formatr=1.14
 - r-formula=1.2_5
 - r-frictionless=1.2.0
@@ -624,7 +623,7 @@ dependencies:
 - r-haven=2.5.4
 - r-here=1.0.1
 - r-highr=0.11
-- r-hmisc=5.2_1
+- r-hmisc=5.2_2
 - r-hms=1.1.3
 - r-htmltable=2.4.3
 - r-htmltools=0.5.8.1
@@ -693,7 +692,7 @@ dependencies:
 - r-rappdirs=0.3.3
 - r-rbibutils=2.3
 - r-rcolorbrewer=1.1_3
-- r-rcpp=1.0.13_1
+- r-rcpp=1.0.14
 - r-rcppannoy=0.0.22
 - r-rcppeigen=0.3.4.0.2
 - r-rcpphnsw=0.6.0
@@ -719,6 +718,7 @@ dependencies:
 - r-rootsolve=1.8.2.4
 - r-rpart=4.1.24
 - r-rprojroot=2.0.4
+- r-rspectra=0.16_2
 - r-rsqlite=2.3.9
 - r-rstudioapi=0.17.1
 - r-rsvd=1.0.5
@@ -751,7 +751,7 @@ dependencies:
 - r-tzdb=0.4.0
 - r-utf8=1.2.4
 - r-uuid=1.2_1
-- r-uwot=0.1.16
+- r-uwot=0.2.2
 - r-vctrs=0.6.5
 - r-vegan=2.6_8
 - r-vipor=0.4.7
@@ -782,7 +782,7 @@ dependencies:
 - rpsbproc=0.5.0
 - rsync=3.1.3
 - samtools=1.21
-- scikit-bio=0.6.0
+- scikit-bio=0.6.2
 - scikit-learn=1.4.2
 - scipy=1.13.0
 - screed=1.1.3
@@ -802,7 +802,7 @@ dependencies:
 - sniffio=1.3.1
 - snowballstemmer=2.2.0
 - soupsieve=2.5
-- sourmash-minimal=4.8.12
+- sourmash-minimal=4.8.14
 - spades=4.0.0
 - sphinx=8.1.3
 - sphinxcontrib-applehelp=2.0.0
@@ -844,7 +844,7 @@ dependencies:
 - ucsc-fatotwobit=472
 - ucsc-twobitinfo=472
 - umap-learn=0.5.4
-- unicodedata2=15.1.0
+- unicodedata2=16.0.0
 - unifrac=1.3
 - unifrac-binaries=1.4
 - uri-template=1.3.0
@@ -857,7 +857,7 @@ dependencies:
 - wget=1.21.4
 - wheel=0.45.1
 - widgetsnbextension=4.0.13
-- wrapt=1.17.0
+- wrapt=1.17.2
 - xcb-util=0.4.0
 - xcb-util-image=0.4.0
 - xcb-util-keysyms=0.4.0

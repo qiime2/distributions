@@ -11,12 +11,12 @@ dependencies:
 - pandas=2.2.2
 - parsl=2024.4.15
 - python=3.10
-- q2-metadata=2025.4.0.dev0+5.g7af916f
-- q2-mystery-stew=2025.4.0.dev0+5.g51996ef
-- q2-types=2025.4.0.dev0+6.g11e14d8
-- q2cli=2025.4.0.dev0+8.g63d82cb
-- q2templates=2025.4.0.dev0+5.gfcd2c55
-- qiime2=2025.4.0.dev0+11.g85975ad
+- q2-metadata=2025.4.0.dev0+6.g60634cb
+- q2-mystery-stew=2025.4.0.dev0+6.gef2bd4c
+- q2-types=2025.4.0.dev0+7.ge732a7d
+- q2cli=2025.4.0.dev0+10.g78bca15
+- q2templates=2025.4.0.dev0+6.g4a74666
+- qiime2=2025.4.0.dev0+12.g6b89626
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - scikit-bio=0.6.2
@@ -27,4 +27,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.4'
-# modified: 2025-01-19

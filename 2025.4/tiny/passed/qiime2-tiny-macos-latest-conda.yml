@@ -11,8 +11,8 @@ dependencies:
 - argon2-cffi-bindings=21.2.0
 - arrow=1.3.0
 - asttokens=3.0.0
-- atpublic=5.0
-- attrs=24.3.0
+- atpublic=5.1
+- attrs=25.1.0
 - bcrypt=4.2.1
 - beautifulsoup4=4.12.3
 - bibtexparser=1.4.3
@@ -46,7 +46,7 @@ dependencies:
 - conda-pack=0.7.0
 - cryptography=44.0.0
 - curl=8.8.0
-- debugpy=1.8.11
+- debugpy=1.8.12
 - decorator=4.4.2
 - defusedxml=0.7.1
 - dill=0.3.9
@@ -54,7 +54,7 @@ dependencies:
 - exceptiongroup=1.2.2
 - executing=2.1.0
 - expat=2.6.4
-- filelock=3.16.1
+- filelock=3.17.0
 - flufl.lock=8.1.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -75,13 +75,13 @@ dependencies:
 - h5py=3.11.0
 - harfbuzz=9.0.0
 - hdf5=1.14.3
-- hpack=4.0.0
+- hpack=4.1.0
 - htslib=1.21
-- hyperframe=6.0.1
+- hyperframe=6.1.0
 - icu=73.2
 - idna=3.10
 - ijson=3.3.0
-- importlib-metadata=8.5.0
+- importlib-metadata=8.6.1
 - importlib_resources=6.5.2
 - iniconfig=2.0.0
 - iow=1.0.5
@@ -184,7 +184,7 @@ dependencies:
 - platformdirs=4.3.6
 - pluggy=1.5.0
 - prometheus_client=0.21.1
-- prompt-toolkit=3.0.48
+- prompt-toolkit=3.0.50
 - psutil=6.1.1
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
@@ -202,7 +202,7 @@ dependencies:
 - python-dateutil=2.9.0.post0
 - python-fastjsonschema=2.21.1
 - python-json-logger=2.0.7
-- python-tzdata=2024.2
+- python-tzdata=2025.1
 - python_abi=3.10
 - pytz=2024.2
 - pyyaml=6.0.2
@@ -227,7 +227,7 @@ dependencies:
 - r-rprojroot=2.0.4
 - r-withr=3.0.2
 - readline=8.2
-- referencing=0.36.1
+- referencing=0.36.2
 - requests=2.32.3
 - rfc3339-validator=0.1.4
 - rfc3986-validator=0.1.1

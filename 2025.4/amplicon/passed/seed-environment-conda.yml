@@ -48,6 +48,7 @@ dependencies:
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
 - rescript=2025.4.0.dev0+8.g7679cb1
+- rnanorm=2.1.0
 - rpy2=3.5.11
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

@@ -6,6 +6,7 @@ dependencies:
 - _libgcc_mutex=0.1
 - _openmp_mutex=4.5
 - _r-mutex=1.0.1
+- annotated-types=0.7.0
 - anyio=4.8.0
 - appdirs=1.4.4
 - argon2-cffi=23.1.0
@@ -25,7 +26,7 @@ dependencies:
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.4
-- ca-certificates=2024.12.14
+- ca-certificates=2025.1.31
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.2
@@ -146,12 +147,13 @@ dependencies:
 - make=4.4.1
 - markupsafe=3.0.2
 - matplotlib-inline=0.1.7
-- mistune=3.1.0
+- mistune=3.1.1
 - mpi=1.0.1
+- mypy_extensions=1.0.0
 - natsort=8.4.0
 - nbclassic=1.2.0
 - nbclient=0.10.2
-- nbconvert-core=7.16.5
+- nbconvert-core=7.16.6
 - nbformat=5.10.4
 - ncurses=6.5
 - nest-asyncio=1.6.0
@@ -163,6 +165,8 @@ dependencies:
 - overrides=7.7.0
 - packaging=24.2
 - pandas=2.2.2
+- pandera=0.22.1
+- pandera-base=0.22.1
 - pandocfilters=1.5.0
 - pango=1.56.1
 - paramiko=3.5.0
@@ -172,7 +176,7 @@ dependencies:
 - pcre2=10.44
 - pexpect=4.9.0
 - pickleshare=0.7.5
-- pip=24.3.1
+- pip=25.0
 - pixman=0.44.2
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.6
@@ -184,6 +188,8 @@ dependencies:
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
 - pycparser=2.22
+- pydantic=2.10.6
+- pydantic-core=2.27.2
 - pygments=2.19.1
 - pyhmmer=0.11.0
 - pyjwt=2.10.1
@@ -197,7 +203,7 @@ dependencies:
 - python-json-logger=2.0.7
 - python-tzdata=2025.1
 - python_abi=3.10
-- pytz=2024.2
+- pytz=2025.1
 - pyyaml=6.0.2
 - pyzmq=24.0.1
 - q2-metadata=2025.4.0.dev0+6.g60634cb
@@ -224,6 +230,7 @@ dependencies:
 - requests=2.32.3
 - rfc3339-validator=0.1.4
 - rfc3986-validator=0.1.1
+- rnanorm=2.1.0
 - rpds-py=0.22.3
 - samtools=1.21
 - scikit-bio=0.6.2
@@ -253,6 +260,7 @@ dependencies:
 - types-python-dateutil=2.9.0.20241206
 - typing-extensions=4.12.2
 - typing_extensions=4.12.2
+- typing_inspect=0.9.0
 - typing_utils=0.1.0
 - tzdata=2025a
 - tzlocal=2.1

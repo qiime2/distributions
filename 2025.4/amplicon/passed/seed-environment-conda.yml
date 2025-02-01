@@ -33,7 +33,7 @@ dependencies:
 - q2-mystery-stew=2025.4.0.dev0+6.gef2bd4c
 - q2-phylogeny=2025.4.0.dev0+6.gad6b1f4
 - q2-quality-control=2025.4.0.dev0+7.g1327ea1
-- q2-quality-filter=2025.4.0.dev0+7.g5b9109f
+- q2-quality-filter=2025.4.0.dev0+8.g30a445c
 - q2-sample-classifier=2025.4.0.dev0+6.gf880f13
 - q2-stats=2025.4.0.dev0+9.g294b0dc
 - q2-taxa=2025.4.0.dev0+6.g4908860
@@ -48,6 +48,7 @@ dependencies:
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
 - rescript=2025.4.0.dev0+8.g7679cb1
+- rnanorm=2.1.0
 - rpy2=3.5.11
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

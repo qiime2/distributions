@@ -84,7 +84,7 @@ dependencies:
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.4
-- ca-certificates=2024.12.14
+- ca-certificates=2025.1.31
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.0
@@ -107,7 +107,7 @@ dependencies:
 - debugpy=1.8.12
 - decorator=4.4.2
 - defusedxml=0.7.1
-- dendropy=5.0.1
+- dendropy=5.0.2
 - dill=0.3.9
 - dnaio=1.2.2
 - dnspython=2.7.0
@@ -129,7 +129,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.55.6
+- fonttools=4.55.8
 - formulaic=1.1.1
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -287,7 +287,7 @@ dependencies:
 - matplotlib-base=3.8.4
 - matplotlib-inline=0.1.7
 - mdurl=0.1.2
-- mistune=3.1.0
+- mistune=3.1.1
 - mpfr=4.2.1
 - mpg123=1.32.9
 - mpi=1.0.1
@@ -296,11 +296,11 @@ dependencies:
 - mypy_extensions=1.0.0
 - mysql-common=8.3.0
 - mysql-libs=8.3.0
-- narwhals=1.23.0
+- narwhals=1.24.1
 - natsort=8.4.0
 - nbclassic=1.2.0
 - nbclient=0.10.2
-- nbconvert-core=7.16.5
+- nbconvert-core=7.16.6
 - nbformat=5.10.4
 - ncbi-datasets-pylib=14.25.1
 - ncbi-vdb=3.2.0
@@ -360,7 +360,7 @@ dependencies:
 - pickleshare=0.7.5
 - pigz=2.8
 - pillow=10.3.0
-- pip=24.3.1
+- pip=25.0
 - pixman=0.44.2
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.6
@@ -382,7 +382,7 @@ dependencies:
 - pygments=2.19.1
 - pyhmmer=0.11.0
 - pyjwt=2.10.1
-- pymongo=4.10.1
+- pymongo=4.11
 - pynacl=1.5.0
 - pynndescent=0.5.13
 - pyparsing=3.2.1
@@ -399,7 +399,7 @@ dependencies:
 - python-tzdata=2025.1
 - python-zlib-ng=0.5.1
 - python_abi=3.10
-- pytz=2024.2
+- pytz=2025.1
 - pyvcf3=1.0.3
 - pyyaml=6.0.2
 - pyzmq=24.0.1
@@ -420,7 +420,7 @@ dependencies:
 - q2-mystery-stew=2025.4.0.dev0+6.gef2bd4c
 - q2-phylogeny=2025.4.0.dev0+6.gad6b1f4
 - q2-quality-control=2025.4.0.dev0+7.g1327ea1
-- q2-quality-filter=2025.4.0.dev0+7.g5b9109f
+- q2-quality-filter=2025.4.0.dev0+8.g30a445c
 - q2-sample-classifier=2025.4.0.dev0+6.gf880f13
 - q2-stats=2025.4.0.dev0+9.g294b0dc
 - q2-taxa=2025.4.0.dev0+6.g4908860
@@ -449,7 +449,7 @@ dependencies:
 - r-blob=1.2.4
 - r-boot=1.3_31
 - r-broom=1.0.7
-- r-bslib=0.8.0
+- r-bslib=0.9.0
 - r-cachem=1.1.0
 - r-cairo=1.6_2
 - r-callr=3.7.6
@@ -470,7 +470,7 @@ dependencies:
 - r-dbi=1.2.3
 - r-dbplyr=2.5.0
 - r-deldir=2.0_4
-- r-desctools=0.99.58
+- r-desctools=0.99.59
 - r-digest=0.6.37
 - r-doparallel=1.0.17
 - r-dorng=1.8.6.1
@@ -555,10 +555,10 @@ dependencies:
 - r-mime=0.12
 - r-minqa=1.2.8
 - r-modelr=0.1.11
-- r-multcomp=1.4_26
+- r-multcomp=1.4_28
 - r-munsell=0.5.1
 - r-mvtnorm=1.3_3
-- r-nlme=3.1_165
+- r-nlme=3.1_167
 - r-nloptr=2.1.1
 - r-nnet=7.3_20
 - r-numderiv=2016.8_1.1
@@ -653,7 +653,7 @@ dependencies:
 - r-xml2=1.3.6
 - r-xtable=1.8_4
 - r-yaml=2.3.10
-- r-yulab.utils=0.1.9
+- r-yulab.utils=0.2.0
 - r-zoo=1.8_12
 - raxml=8.2.13
 - readline=8.2

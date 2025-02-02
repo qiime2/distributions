@@ -101,7 +101,7 @@ dependencies:
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.4
-- ca-certificates=2024.12.14
+- ca-certificates=2025.1.31
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cachetools=5.5.1
@@ -256,7 +256,7 @@ dependencies:
 - libcurl=8.8.0
 - libcxx=19.1.7
 - libdeflate=1.20
-- libedit=3.1.20240808
+- libedit=3.1.20250104
 - libev=4.33
 - libexpat=2.6.4
 - libffi=3.4.2
@@ -325,7 +325,7 @@ dependencies:
 - muscle=3.8.1551
 - mypy_extensions=1.0.0
 - mysql-connector-c=6.1.11
-- narwhals=1.24.1
+- narwhals=1.24.2
 - natsort=8.4.0
 - nbclassic=1.2.0
 - nbclient=0.10.2
@@ -471,7 +471,7 @@ dependencies:
 - python-tzdata=2025.1
 - python-zlib-ng=0.5.1
 - python_abi=3.10
-- pytz=2024.2
+- pytz=2025.1
 - pyvcf3=1.0.3
 - pyyaml=6.0.2
 - pyzmq=24.0.1
@@ -523,7 +523,7 @@ dependencies:
 - r-boot=1.3_31
 - r-brio=1.1.5
 - r-broom=1.0.7
-- r-bslib=0.8.0
+- r-bslib=0.9.0
 - r-cachem=1.1.0
 - r-cairo=1.6_2
 - r-callr=3.7.6
@@ -703,7 +703,7 @@ dependencies:
 - r-selectr=0.4_2
 - r-sitmo=2.0.2
 - r-snow=0.4_4
-- r-sp=2.1_4
+- r-sp=2.2_0
 - r-stringdist=0.9.15
 - r-stringi=1.8.4
 - r-stringr=1.5.1
@@ -825,7 +825,7 @@ dependencies:
 - wheel=0.45.1
 - widgetsnbextension=4.0.13
 - wrapt=1.17.2
-- xlsxwriter=3.2.0
+- xlsxwriter=3.2.2
 - xmltodict=0.14.2
 - xopen=2.0.2
 - xorg-libxau=1.0.12

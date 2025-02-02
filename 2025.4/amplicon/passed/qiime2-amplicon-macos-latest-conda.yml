@@ -270,7 +270,7 @@ dependencies:
 - munkres=1.1.4
 - muscle=3.8.1551
 - mypy_extensions=1.0.0
-- narwhals=1.24.1
+- narwhals=1.24.2
 - natsort=8.4.0
 - nbclassic=1.2.0
 - nbclient=0.10.2
@@ -592,7 +592,7 @@ dependencies:
 - r-selectr=0.4_2
 - r-sitmo=2.0.2
 - r-snow=0.4_4
-- r-sp=2.1_4
+- r-sp=2.2_0
 - r-stringi=1.8.4
 - r-stringr=1.5.1
 - r-survival=3.8_3

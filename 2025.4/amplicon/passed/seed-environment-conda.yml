@@ -57,6 +57,7 @@ dependencies:
 - sepp=4.5.5
 - unifrac-binaries=1.4
 - unifrac=1.3
+- vsearch=2.22.1
 extras:
   variant_override:
     qiime2_epoch: '2025.4'

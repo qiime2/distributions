@@ -21,35 +21,35 @@ dependencies:
 - pysam=0.22.1
 - python=3.10
 - q2-alignment=2025.4.0.dev0+6.g1df967b
-- q2-annotate=2025.4.0.dev0+17.g39373a2
+- q2-annotate=2025.4.0.dev0+20.gb230268
 - q2-assembly=2025.4.0.dev0+8.ga124882
 - q2-composition=2025.4.0.dev0+8.gce9ecc0
-- q2-cutadapt=2025.4.0.dev0+7.g778486f
+- q2-cutadapt=2025.4.0.dev0+8.g74874e6
 - q2-demux=2025.4.0.dev0+7.gbdd4ad5
 - q2-diversity-lib=2025.4.0.dev0+6.g6fb2691
 - q2-diversity=2025.4.0.dev0+8.gda384c7
 - q2-emperor=2025.4.0.dev0+6.g6c973cf
 - q2-feature-classifier=2025.4.0.dev0+6.gf3509a5
-- q2-feature-table=2025.4.0.dev0+10.gde36ea3
+- q2-feature-table=2025.4.0.dev0+11.gfd3001c
 - q2-fondue=2025.4.0.dev0+4.gf8d805b
 - q2-longitudinal=2025.4.0.dev0+6.gdcf00f5
 - q2-metadata=2025.4.0.dev0+6.g60634cb
 - q2-mystery-stew=2025.4.0.dev0+6.gef2bd4c
-- q2-quality-control=2025.4.0.dev0+7.g1327ea1
+- q2-quality-control=2025.4.0.dev0+8.g858e215
 - q2-quality-filter=2025.4.0.dev0+8.g30a445c
 - q2-sample-classifier=2025.4.0.dev0+6.gf880f13
 - q2-sapienns=2025.4.0.dev0+7.g41488a6
 - q2-sourmash=2025.4.0.dev0+2.ged0fedc
 - q2-taxa=2025.4.0.dev0+6.g4908860
-- q2-types=2025.4.0.dev0+7.ge732a7d
+- q2-types=2025.4.0.dev0+8.g5dcff1f
 - q2-vizard=2025.4.0.dev0+86.g10bef67
-- q2-vsearch=2025.4.0.dev0+7.g86fb84e
+- q2-vsearch=2025.4.0.dev0+10.g5942dae
 - q2cli=2025.4.0.dev0+10.g78bca15
 - q2templates=2025.4.0.dev0+6.g4a74666
-- qiime2=2025.4.0.dev0+12.g6b89626
+- qiime2=2025.4.0.dev0+14.g1366930
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rescript=2025.4.0.dev0+8.g7679cb1
+- rescript=2025.4.0.dev0+9.gc28682c
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2
@@ -65,4 +65,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.4'
-# modified: 2025-02-13

@@ -97,12 +97,49 @@ jobs:
       - name: upload rebuilt channel with metapackage
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.rebuilt-channel-key }}
-          path: ${{ env.rebuilt_channel_path }}
-          overwrite: true
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ matrix.os }}
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
 
       - name: upload environment file
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.solved-environment-key }}-${{ matrix.os }}
           path: ${{ steps.cache-env.outputs.environment-file }}
+
+  finalize:
+    name: 'Finalize metapackage'
+    needs: [build-metapackage]
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/download-artifact@v4
+        name: 'Collate rebuilt channel'
+        with:
+          pattern: ${{ inputs.rebuilt-channel-key }}-*
+          path: ${{ env.rebuilt_channel_path }}
+          merge-multiple: true
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: install pyyaml & packaging
+        shell: bash
+        run: pip install pyyaml packaging
+
+      - name: install conda-build
+        run: conda install -q conda-build
+
+      - name: 'Reindex rebuilt channel'
+        shell: bash
+        run: conda index ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/upload-artifact@v4
+        name: 'Upload final rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: |
+            ${{ env.rebuilt_channel_path }}/**
+            !${{ env.rebuilt_channel_path }}/*/.cache/*
+          overwrite: true

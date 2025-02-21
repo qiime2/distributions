@@ -31,7 +31,7 @@ dependencies:
 - q2-diversity-lib=2025.4.0.dev0+6.g6fb2691
 - q2-diversity=2025.4.0.dev0+8.gda384c7
 - q2-emperor=2025.4.0.dev0+6.g6c973cf
-- q2-feature-classifier=2025.4.0.dev0+6.gf3509a5
+- q2-feature-classifier=2025.4.0.dev0+7.g0ba5389
 - q2-feature-table=2025.4.0.dev0+11.gfd3001c
 - q2-fondue=2025.4.0.dev0+4.gf8d805b
 - q2-longitudinal=2025.4.0.dev0+6.gdcf00f5

@@ -113,7 +113,7 @@ dependencies:
 - cachetools=5.5.1
 - cairo=1.18.0
 - cdbtools=0.99
-- certifi=2024.12.14
+- certifi=2025.1.31
 - cffi=1.17.1
 - charset-normalizer=3.4.1
 - circos=0.69.9
@@ -280,7 +280,7 @@ dependencies:
 - libgomp=14.2.0
 - libgpg-error=1.51
 - libhwloc=2.11.2
-- libiconv=1.17
+- libiconv=1.18
 - libidn2=2.3.7
 - libjpeg-turbo=3.0.0
 - liblapack=3.9.0
@@ -293,7 +293,7 @@ dependencies:
 - libnghttp2=1.58.0
 - libnsl=2.0.1
 - libogg=1.3.5
-- libopenblas=0.3.28
+- libopenblas=0.3.29
 - libopenssl-static=3.4.1
 - libopus=1.3.1
 - libpng=1.6.43
@@ -307,7 +307,7 @@ dependencies:
 - libstdcxx=14.2.0
 - libstdcxx-devel_linux-64=14.2.0
 - libstdcxx-ng=14.2.0
-- libsystemd0=257.2
+- libsystemd0=257.3
 - libtiff=4.6.0
 - libunistring=0.9.10
 - libuuid=2.38.1
@@ -351,7 +351,7 @@ dependencies:
 - mysql-common=8.3.0
 - mysql-connector-c=6.1.11
 - mysql-libs=8.3.0
-- narwhals=1.26.0
+- narwhals=1.27.1
 - natsort=8.4.0
 - nbclassic=1.2.0
 - nbclient=0.10.2
@@ -507,7 +507,7 @@ dependencies:
 - pyzmq=24.0.1
 - pyzotero=1.6.6
 - q2-alignment=2025.4.0.dev0+6.g1df967b
-- q2-annotate=2025.4.0.dev0+20.gb230268
+- q2-annotate=2025.4.0.dev0+21.gaaccaca
 - q2-assembly=2025.4.0.dev0+8.ga124882
 - q2-composition=2025.4.0.dev0+8.gce9ecc0
 - q2-cutadapt=2025.4.0.dev0+8.g74874e6
@@ -536,7 +536,7 @@ dependencies:
 - qt-main=5.15.8
 - quast=5.3.0
 - r-abind=1.4_5
-- r-ade4=1.7_22
+- r-ade4=1.7_23
 - r-ape=5.8_1
 - r-argparser=0.7.2
 - r-askpass=1.2.1
@@ -561,7 +561,7 @@ dependencies:
 - r-cellranger=1.1.0
 - r-checkmate=2.3.2
 - r-class=7.3_23
-- r-cli=3.6.3
+- r-cli=3.6.4
 - r-clipr=0.8.0
 - r-cluster=2.1.8
 - r-codetools=0.2_20
@@ -690,7 +690,7 @@ dependencies:
 - r-proxy=0.4_27
 - r-ps=1.8.1
 - r-purrr=1.0.2
-- r-r6=2.6.0
+- r-r6=2.6.1
 - r-ragg=1.3.3
 - r-rappdirs=0.3.3
 - r-rbibutils=2.3
@@ -741,7 +741,7 @@ dependencies:
 - r-survival=3.8_3
 - r-sys=3.4.3
 - r-systemfonts=1.2.1
-- r-testthat=3.2.1.1
+- r-testthat=3.2.3
 - r-textshaping=0.4.0
 - r-th.data=1.1_3
 - r-tibble=3.2.1
@@ -799,7 +799,7 @@ dependencies:
 - setuptools=75.8.0
 - sgmllib3k=1.0.0
 - shortuuid=1.0.13
-- simplejson=3.19.3
+- simplejson=3.20.1
 - sip=6.7.12
 - six=1.17.0
 - sniffio=1.3.1
@@ -836,7 +836,7 @@ dependencies:
 - tqdm=4.62.3
 - traitlets=5.9.0
 - trf=4.09.1
-- typeguard=4.4.1
+- typeguard=4.4.2
 - types-python-dateutil=2.9.0.20241206
 - typing-extensions=4.12.2
 - typing_extensions=4.12.2

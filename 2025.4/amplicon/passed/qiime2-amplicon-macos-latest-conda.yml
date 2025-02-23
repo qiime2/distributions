@@ -544,7 +544,7 @@ dependencies:
 - r-plyr=1.8.9
 - r-png=0.1_8
 - r-prettyunits=1.2.0
-- r-processx=3.8.5
+- r-processx=3.8.6
 - r-progress=1.2.3
 - r-proxy=0.4_27
 - r-ps=1.8.1
@@ -623,7 +623,7 @@ dependencies:
 - r-xtable=1.8_4
 - r-yaml=2.3.10
 - r-yulab.utils=0.2.0
-- r-zoo=1.8_12
+- r-zoo=1.8_13
 - raxml=8.2.13
 - readline=8.2
 - referencing=0.36.2
@@ -634,7 +634,7 @@ dependencies:
 - rfc3986-validator=0.1.1
 - rich=13.9.4
 - rnanorm=2.1.0
-- rpds-py=0.22.3
+- rpds-py=0.23.1
 - rpsbproc=0.5.0
 - rpy2=3.5.11
 - samtools=1.21

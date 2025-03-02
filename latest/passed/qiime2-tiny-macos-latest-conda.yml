@@ -238,7 +238,7 @@ dependencies:
 - rfc3339-validator=0.1.4
 - rfc3986-validator=0.1.1
 - rnanorm=2.1.0
-- rpds-py=0.22.3
+- rpds-py=0.23.1
 - samtools=1.21
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

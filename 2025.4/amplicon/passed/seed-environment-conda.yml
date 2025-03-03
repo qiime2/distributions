@@ -17,7 +17,7 @@ dependencies:
 - pillow=10.3.0
 - python=3.10
 - q2-alignment=2025.4.0.dev0+6.g1df967b
-- q2-composition=2025.4.0.dev0+8.gce9ecc0
+- q2-composition=2025.4.0.dev0+15.g5eb525b
 - q2-cutadapt=2025.4.0.dev0+8.g74874e6
 - q2-dada2=2025.4.0.dev0+9.g29e0e4e
 - q2-deblur=2025.4.0.dev0+7.g0120a74
@@ -37,7 +37,7 @@ dependencies:
 - q2-sample-classifier=2025.4.0.dev0+6.gf880f13
 - q2-stats=2025.4.0.dev0+9.g294b0dc
 - q2-taxa=2025.4.0.dev0+6.g4908860
-- q2-types=2025.4.0.dev0+8.g5dcff1f
+- q2-types=2025.4.0.dev0+9.gff058fb
 - q2-vizard=2025.4.0.dev0+86.g10bef67
 - q2-vsearch=2025.4.0.dev0+10.g5942dae
 - q2cli=2025.4.0.dev0+10.g78bca15
@@ -61,4 +61,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.4'
-# modified: 2025-03-02

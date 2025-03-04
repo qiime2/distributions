@@ -28,7 +28,7 @@ dependencies:
 - q2-quality-control=2025.4.0.dev0+8.g858e215
 - q2-sample-classifier=2025.4.0.dev0+6.gf880f13
 - q2-taxa=2025.4.0.dev0+6.g4908860
-- q2-types=2025.4.0.dev0+8.g5dcff1f
+- q2-types=2025.4.0.dev0+9.gff058fb
 - q2-viromics=2025.4.0.dev0+13.g8e54502
 - q2-vizard=2025.4.0.dev0+86.g10bef67
 - q2cli=2025.4.0.dev0+10.g78bca15
@@ -49,4 +49,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.4'
-# modified: 2025-03-03

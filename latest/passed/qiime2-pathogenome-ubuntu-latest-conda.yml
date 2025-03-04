@@ -510,7 +510,7 @@ dependencies:
 - r-png=0.1_8
 - r-praise=1.0.0
 - r-prettyunits=1.2.0
-- r-processx=3.8.5
+- r-processx=3.8.6
 - r-progress=1.2.3
 - r-ps=1.8.1
 - r-purrr=1.0.2

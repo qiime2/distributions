@@ -42,7 +42,8 @@ jobs:
           incremented_tag="$major.$minor.$((patch + 1))"
           echo "RELEASE_TAG=$incremented_tag" >> "$GITHUB_ENV"
 
-      - uses: EndBug/add-and-commit@v9
+      # Replaces EndBug/add-and-commit@v9
+      - uses: qiime2-cutlery/add-and-commit@main
         with:
           default_author: user_info
           author_name: q2d2

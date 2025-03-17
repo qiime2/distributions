@@ -118,7 +118,8 @@ jobs:
           done
           cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
 
-      - uses: EndBug/add-and-commit@v9
+      # Replaces EndBug/add-and-commit@v9
+      - uses: qiime2-cutlery/add-and-commit@main
         with:
           message: Update conda environments (${{ inputs.pr-ref }})
           default_author: user_info

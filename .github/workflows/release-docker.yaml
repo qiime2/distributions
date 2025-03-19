@@ -21,7 +21,8 @@ jobs:
 
       - name: Build Image
         id: build-image
-        uses: redhat-actions/buildah-build@v2
+        # Replaces redhat-actions/buildah-build@v2
+        uses: qiime2-cutlery/buildah-build@v2
         with:
           containerfiles: |
             ./Dockerfile.base

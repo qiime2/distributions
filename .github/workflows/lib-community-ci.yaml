@@ -45,7 +45,8 @@ jobs:
           python-version: 3.9
 
       - name: 'set up conda environment'
-        uses: conda-incubator/setup-miniconda@v3
+        # Replaces conda-incubator/setup-miniconda@v3
+        uses: qiime2-cutlery/setup-miniconda@v3
         with:
           miniconda-version: 'latest'
           architecture: 'x64'

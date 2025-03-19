@@ -70,7 +70,7 @@ jobs:
         with:
           fetch-depth: 2
       # Replaces tj-actions/changed-files@v46.0.1
-      - uses: qiime2-cutlery/changed-files@main
+      - uses: qiime2-cutlery/changed-files@v46.0.1
         id: changed
 
       - name: set-vars

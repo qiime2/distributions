@@ -34,7 +34,8 @@ jobs:
 
       - name: Push To quay.io
         id: push-to-quay
-        uses: redhat-actions/push-to-registry@v2
+        # Replaces redhat-actions/push-to-registry@v2
+        uses: qiime2-cutlery/push-to-registry@v2
         with:
           image: ${{ steps.build-image.outputs.image }}
           tags: ${{ steps.build-image.outputs.tags }}
@@ -44,7 +45,8 @@ jobs:
 
       - name: Build Workshop Image
         id: build-workshop-image
-        uses: redhat-actions/buildah-build@v2
+        # Replaces redhat-actions/buildah-build@v2
+        uses: qiime2-cutlery/buildah-build@v2
         with:
           containerfiles: |
             ./Dockerfile.workshop
@@ -56,7 +58,8 @@ jobs:
 
       - name: Push Workshop Image To quay.io
         id: push-workshop-image-to-quay
-        uses: redhat-actions/push-to-registry@v2
+        # Replaces redhat-actions/push-to-registry@v2
+        uses: qiime2-cutlery/push-to-registry@v2
         with:
           image: ${{ steps.build-workshop-image.outputs.image }}
           tags: ${{ steps.build-workshop-image.outputs.tags }}

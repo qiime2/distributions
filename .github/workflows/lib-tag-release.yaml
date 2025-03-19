@@ -43,7 +43,7 @@ jobs:
           echo "RELEASE_TAG=$incremented_tag" >> "$GITHUB_ENV"
 
       # Replaces EndBug/add-and-commit@v9
-      - uses: qiime2-cutlery/add-and-commit@main
+      - uses: qiime2-cutlery/add-and-commit@v9
         with:
           default_author: user_info
           author_name: q2d2

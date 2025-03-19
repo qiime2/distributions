@@ -98,7 +98,8 @@ jobs:
 
       - name: Try to retrieve branch name
         if: ${{ inputs.is-language == 'true' }}
-        uses: octokit/request-action@v2.x
+        # Replaces octokit/request-action@v2.x
+        uses: qiime2-cutlery/request-action@v2.x
         id: get-branch
         with:
           route: GET /repos/${{ matrix.package }}/branches/${{ inputs.sibling-ref }}

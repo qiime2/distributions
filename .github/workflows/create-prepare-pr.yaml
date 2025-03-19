@@ -86,7 +86,7 @@ jobs:
 
       - name: await workflow id ${{ steps.get-id.outputs.run-id }}
         # Forked from Codex-/await-remote-run@v1.0.0
-        uses: qiime2-cutlery/await-remote-run@main
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
         with:
           token: ${{ github.token }}
           repo: distributions

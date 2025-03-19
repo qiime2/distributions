@@ -49,7 +49,9 @@ jobs:
 
       - name: Create Pull Request
         id: pr
-        uses: qiime2/create-pull-request@v5
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
           branch: Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}
@@ -128,7 +130,9 @@ jobs:
 
       - name: Open Pull Request to update latest env files
         id: env-updates-pr
-        uses: qiime2/create-pull-request@v5
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
           branch: update-latest-envs-from-PR-${{ needs.create-pr.outputs.pr }}

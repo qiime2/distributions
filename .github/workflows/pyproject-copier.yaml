@@ -225,7 +225,9 @@ jobs:
           https://github.com/qiime2/q2-setup-template.git .
 
       - name: 'Create pull request from copier changes'
-        uses: qiime2/create-pull-request@v5
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
           branch: automated/pyproject-toml-update

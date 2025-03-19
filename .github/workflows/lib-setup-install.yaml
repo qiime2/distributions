@@ -58,7 +58,9 @@ jobs:
           pip-spec: ${{ needs.setup.outputs.pip-spec }}
           epoch: ${{ needs.setup.outputs.epoch }}
           distro: ${{ inputs.distro }}
-      - uses: qiime2/create-pull-request@v5
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
         with:
           token: ${{ secrets.token }}
           branch: "update-environment-file"

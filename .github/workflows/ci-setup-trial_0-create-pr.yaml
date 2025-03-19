@@ -30,7 +30,9 @@ jobs:
              '${{ inputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
 
       - name: Create Pull Request
-        uses: qiime2/create-pull-request@v5
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
           branch: ${{ inputs.branch }}

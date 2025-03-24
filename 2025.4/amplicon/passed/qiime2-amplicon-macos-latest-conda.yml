@@ -9,7 +9,7 @@ dependencies:
 - anyio=4.9.0
 - appdirs=1.4.4
 - appnope=0.1.4
-- argcomplete=3.6.0
+- argcomplete=3.6.1
 - argh=0.31.3
 - argon2-cffi=23.1.0
 - argon2-cffi-bindings=21.2.0
@@ -353,7 +353,7 @@ dependencies:
 - pynndescent=0.5.13
 - pyobjc-core=11.0
 - pyobjc-framework-cocoa=11.0
-- pyparsing=3.2.1
+- pyparsing=3.2.2
 - pysocks=1.7.1
 - pytest=8.3.5
 - python=3.10.14
@@ -362,7 +362,7 @@ dependencies:
 - python-isal=1.7.2
 - python-json-logger=2.0.7
 - python-slugify=8.0.4
-- python-tzdata=2025.1
+- python-tzdata=2025.2
 - python-zlib-ng=0.5.1
 - python_abi=3.10
 - pytz=2025.1
@@ -500,7 +500,7 @@ dependencies:
 - r-irlba=2.3.5.1
 - r-isoband=0.2.7
 - r-iterators=1.0.14
-- r-jpeg=0.1_10
+- r-jpeg=0.1_11
 - r-jquerylib=0.1.4
 - r-jsonlite=1.9.1
 - r-knitr=1.50
@@ -686,7 +686,7 @@ dependencies:
 - typing_extensions=4.12.2
 - typing_inspect=0.9.0
 - typing_utils=0.1.0
-- tzdata=2025a
+- tzdata=2025b
 - tzlocal=2.1
 - umap-learn=0.5.7
 - unicodedata2=16.0.0

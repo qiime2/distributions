@@ -57,7 +57,10 @@ jobs:
         shell: bash -el {0}
         run: |
           conda install pip
+          echo "conda install pip"
           pip install .
+          echo "pip install ."
           conda install pytest
+          echo "conda install pytest"
           qiime info
           pytest

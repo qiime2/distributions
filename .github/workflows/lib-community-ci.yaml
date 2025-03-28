@@ -44,25 +44,35 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: 'set up conda environment'
-        # Replaces conda-incubator/setup-miniconda@v3
-        uses: qiime2-cutlery/setup-miniconda@v3
-        with:
-          miniconda-version: 'latest'
-          architecture: 'x64'
-          environment-file: ${{ env.filepath }}
-          activate-environment: ${{ env.name }}
-
-      - name: 'activate conda environment for ${{ env.name }}'
-        continue-on-error: true
-        run: |
-          source activate "${{ env.name }}"
-
-      - name: 'Install package locally and run tests for ${{ env.name }}'
+      - name: 'Manually set up conda environment and install ${{ env.name }} locally'
         shell: bash -el {0}
         run: |
+          if ! command -v conda >/dev/null 2>&1; then
+            echo "Miniconda not found. Installing Miniconda..."
+            if [[ "$(uname)" == "Darwin" ]]; then
+              MINICONDA_INSTALLER_SCRIPT=Miniconda3-latest-MacOSX-x86_64.sh
+            else
+              MINICONDA_INSTALLER_SCRIPT=Miniconda3-latest-Linux-x86_64.sh
+            fi
+            curl -LO https://repo.anaconda.com/miniconda/$MINICONDA_INSTALLER_SCRIPT
+            bash $MINICONDA_INSTALLER_SCRIPT -b -p $HOME/miniconda
+            export PATH="$HOME/miniconda/bin:$PATH"
+          fi
+
+          echo "Creating environment '${{ env.name }}' from file '${{ env.filepath }}'"
+          conda env create --file "${{ env.filepath }}" --name "${{ env.name }}"
+
+          echo "Activating environment '${{ env.name }}'"
+          source "$(conda info --base)/etc/profile.d/conda.sh"
+          conda activate "${{ env.name }}" || true
+
+          echo "Running 'make dev' to fix the environment"
           conda install -y pip
           pip install .
+
+      - name: 'Run qiime info and tests for ${{ env.name }}'
+        shell: bash -el {0}
+        run: |
           conda install -y pytest
           qiime info
           pytest

@@ -56,11 +56,8 @@ jobs:
       - name: 'Install package locally and run tests for ${{ env.name }}'
         shell: bash -el {0}
         run: |
-          conda install pip
-          echo "conda install pip"
+          conda install -y pip
           pip install .
-          echo "pip install ."
-          conda install pytest
-          echo "conda install pytest"
+          conda install -y pytest
           qiime info
           pytest

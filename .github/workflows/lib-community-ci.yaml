@@ -54,10 +54,11 @@ jobs:
           activate-environment: ${{ env.name }}
 
       - name: 'Install package locally and run tests for ${{ env.name }}'
-        shell: bash -el {0}
+        shell: bash +el {0}
         run: |
           conda install -y pip
           pip install .
+          set -e
           conda install -y pytest
           qiime info
           pytest

@@ -63,10 +63,12 @@ jobs:
           conda env create --file "${{ env.filepath }}" --name "${{ env.name }}"
 
           echo "Activating environment '${{ env.name }}'"
+          set +e
           source "$(conda info --base)/etc/profile.d/conda.sh"
           conda activate "${{ env.name }}" || true
 
           echo "Running 'make dev' to fix the environment"
+          set -e
           conda install -y pip
           pip install .
 

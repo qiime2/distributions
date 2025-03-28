@@ -69,12 +69,11 @@ jobs:
 
           echo "Running 'make dev' to fix the environment"
           set -e
-          conda install -y pip
           pip install .
+          qiime info
 
-      - name: 'Run qiime info and tests for ${{ env.name }}'
+      - name: 'Run tests for ${{ env.name }}'
         shell: bash -el {0}
         run: |
           conda install -y pytest
-          qiime info
           pytest

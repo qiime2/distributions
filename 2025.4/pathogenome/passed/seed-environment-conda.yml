@@ -20,7 +20,7 @@ dependencies:
 - q2-amrfinderplus=2025.4.0.dev0+37.g2de602b
 - q2-assembly=2025.4.0.dev0+9.g1543468
 - q2-demux=2025.4.0.dev0+8.g10f924a
-- q2-feature-classifier=2025.4.0.dev0+8.g40e1815
+- q2-feature-classifier=2025.4.0.dev0+9.gc64bc5c
 - q2-feature-table=2025.4.0.dev0+13.g0ed9a00
 - q2-longitudinal=2025.4.0.dev0+8.g3131278
 - q2-metadata=2025.4.0.dev0+8.g66139ab
@@ -28,7 +28,7 @@ dependencies:
 - q2-quality-control=2025.4.0.dev0+10.g0cd079d
 - q2-sample-classifier=2025.4.0.dev0+8.gf4db42f
 - q2-taxa=2025.4.0.dev0+8.g095dbe6
-- q2-types=2025.4.0.dev0+13.g4f2a231
+- q2-types=2025.4.0.dev0+14.gfa6c579
 - q2-viromics=2025.4.0.dev0+15.g0469191
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
 - q2cli=2025.4.0.dev0+12.ged5374f

@@ -80,13 +80,3 @@ jobs:
 
           echo "Running tests for '${{ env.name }}'..."
           pytest
-
-      # - name: 'Run tests for ${{ env.name }}'
-      #   shell: bash -el {0}
-      #   run: |
-      #     echo "Activating environment '${{ env.name }}'"
-      #     source "$(conda info --base)/etc/profile.d/conda.sh"
-      #     conda activate "${{ env.name }}"
-      #     conda install -y pytest
-      #     echo "Running tests for '${{ env.name }}'"
-      #     pytest

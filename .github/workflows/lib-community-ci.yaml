@@ -44,7 +44,7 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: 'Manually set up conda environment and install ${{ env.name }} locally'
+      - name: 'Manually set up conda environment, install ${{ env.name }} locally and run tests'
         shell: bash -el {0}
         run: |
           if ! command -v conda >/dev/null 2>&1; then
@@ -67,17 +67,26 @@ jobs:
           source "$(conda info --base)/etc/profile.d/conda.sh"
           conda activate "${{ env.name }}" || true
 
-          echo "Running 'make dev' to install '${{ env.name }}' locally"
+          echo "Installing '${{ env.name }}' locally..."
           set -e
           pip install .
+          echo "Installation successful!"
+
+          echo "Running 'qiime info' to check package versions..."
           qiime info
 
-      - name: 'Run tests for ${{ env.name }}'
-        shell: bash -el {0}
-        run: |
-          echo "Activating environment '${{ env.name }}'"
-          source "$(conda info --base)/etc/profile.d/conda.sh"
-          conda activate "${{ env.name }}"
+          echo "Installing pytest to run '${{ env.name }}'' test suite..."
           conda install -y pytest
-          echo "Running tests for '${{ env.name }}'"
+
+          echo "Running tests for '${{ env.name }}'..."
           pytest
+
+      # - name: 'Run tests for ${{ env.name }}'
+      #   shell: bash -el {0}
+      #   run: |
+      #     echo "Activating environment '${{ env.name }}'"
+      #     source "$(conda info --base)/etc/profile.d/conda.sh"
+      #     conda activate "${{ env.name }}"
+      #     conda install -y pytest
+      #     echo "Running tests for '${{ env.name }}'"
+      #     pytest

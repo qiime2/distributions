@@ -80,6 +80,7 @@ jobs:
         with:
           path: ${{ env.plugin_path }}
           fetch-depth: 0
+          submodules: true
 
       - uses: actions/checkout@v3
         with:

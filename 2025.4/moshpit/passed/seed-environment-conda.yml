@@ -21,8 +21,8 @@ dependencies:
 - pysam=0.22.1
 - python=3.10
 - q2-alignment=2025.4.0.dev0+7.g5073163
-- q2-annotate=2025.4.0.dev0+29.g3438624
-- q2-assembly=2025.4.0.dev0+10.gd551bbb
+- q2-annotate=2025.4.0.dev0+30.g204e08f
+- q2-assembly=2025.4.0.dev0+11.gb2b08fa
 - q2-composition=2025.4.0.dev0+19.g7c877df
 - q2-cutadapt=2025.4.0.dev0+9.gaec0799
 - q2-demux=2025.4.0.dev0+8.g10f924a
@@ -41,7 +41,7 @@ dependencies:
 - q2-sapienns=2025.4.0.dev0+9.gc25e495
 - q2-sourmash=2025.4.0.dev0+2.ged0fedc
 - q2-taxa=2025.4.0.dev0+8.g095dbe6
-- q2-types=2025.4.0.dev0+15.g0e41949
+- q2-types=2025.4.0.dev0+16.g229da69
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
 - q2-vsearch=2025.4.0.dev0+13.gf376287
 - q2cli=2025.4.0.dev0+14.g13c6e4d
@@ -65,4 +65,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.4'
-# modified: 2025-04-14

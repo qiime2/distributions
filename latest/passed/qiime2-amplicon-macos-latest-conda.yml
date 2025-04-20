@@ -110,7 +110,7 @@ dependencies:
 - cutadapt=5.0
 - cycler=0.12.1
 - deblur=1.1.1
-- debugpy=1.8.13
+- debugpy=1.8.14
 - decorator=4.4.2
 - defusedxml=0.7.1
 - dendropy=5.0.6
@@ -393,10 +393,10 @@ dependencies:
 - q2-types=2025.4.0.dev0+15.g0e41949
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
 - q2-vsearch=2025.4.0.dev0+13.gf376287
-- q2cli=2025.4.0.dev0+13.g941e1af
+- q2cli=2025.4.0.dev0+14.g13c6e4d
 - q2galaxy=2025.4.0.dev0+9.g53039d2
 - q2templates=2025.4.0.dev0+7.g55d3090
-- qiime2=2025.4.0.dev0+14.g1366930
+- qiime2=2025.4.0.dev0+15.gb11fe02
 - r-abind=1.4_5
 - r-ade4=1.7_23
 - r-ape=5.8_1
@@ -463,7 +463,7 @@ dependencies:
 - r-formatr=1.14
 - r-formula=1.2_5
 - r-frictionless=1.2.0
-- r-fs=1.6.5
+- r-fs=1.6.6
 - r-futile.logger=1.4.3
 - r-futile.options=1.0.1
 - r-gargle=1.5.2
@@ -546,7 +546,7 @@ dependencies:
 - r-processx=3.8.6
 - r-progress=1.2.3
 - r-proxy=0.4_27
-- r-ps=1.8.1
+- r-ps=1.9.1
 - r-purrr=1.0.4
 - r-r6=2.6.1
 - r-ragg=1.3.3
@@ -572,7 +572,7 @@ dependencies:
 - r-reprex=2.1.1
 - r-reshape2=1.4.4
 - r-reticulate=1.36.0
-- r-rlang=1.1.5
+- r-rlang=1.1.6
 - r-rmarkdown=2.29
 - r-rmpfr=1.0_0
 - r-rngtools=1.5.2
@@ -587,7 +587,7 @@ dependencies:
 - r-rtsne=0.17
 - r-rvest=1.0.4
 - r-sandwich=3.1_1
-- r-sass=0.4.9
+- r-sass=0.4.10
 - r-scales=1.3.0
 - r-scs=3.2.4
 - r-selectr=0.4_2
@@ -694,7 +694,7 @@ dependencies:
 - unifrac=1.3
 - unifrac-binaries=1.4
 - uri-template=1.3.0
-- urllib3=2.3.0
+- urllib3=2.4.0
 - validators=0.34.0
 - vsearch=2.22.1
 - wcwidth=0.2.13

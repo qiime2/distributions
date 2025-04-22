@@ -14,7 +14,7 @@ dependencies:
 - q2-metadata=2025.4.0.dev0+8.g66139ab
 - q2-mystery-stew=2025.4.0.dev0+8.g9b6c7a8
 - q2-types=2025.4.0.dev0+16.g229da69
-- q2cli=2025.4.0.dev0+15.gbd99eec
+- q2cli=2025.4.0.dev0+16.gd6d2337
 - q2templates=2025.4.0.dev0+7.g55d3090
 - qiime2=2025.4.0.dev0+16.g832a1e9
 - r-base=4.3.3
@@ -28,4 +28,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.4'
-# modified: 2025-04-22

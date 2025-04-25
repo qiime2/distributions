@@ -91,7 +91,7 @@ dependencies:
 - joblib=1.4.2
 - jsonpointer=3.0.0
 - jsonschema=4.23.0
-- jsonschema-specifications=2024.10.1
+- jsonschema-specifications=2025.4.1
 - jsonschema-with-format-nongpl=4.23.0
 - jupyter_client=7.4.9
 - jupyter_core=5.7.2
@@ -113,6 +113,8 @@ dependencies:
 - libev=4.33
 - libexpat=2.7.0
 - libffi=3.4.6
+- libfreetype=2.13.3
+- libfreetype6=2.13.3
 - libgcc=14.2.0
 - libgcc-devel_linux-64=14.2.0
 - libgcc-ng=14.2.0
@@ -145,7 +147,7 @@ dependencies:
 - libxml2=2.13.7
 - libxslt=1.1.39
 - libzlib=1.3.1
-- lxml=5.3.2
+- lxml=5.4.0
 - lz4=4.3.3
 - lz4-c=1.10.0
 - make=4.4.1
@@ -218,7 +220,7 @@ dependencies:
 - q2-metadata=2025.4.0.dev0+8.g66139ab
 - q2-mystery-stew=2025.4.0.dev0+8.g9b6c7a8
 - q2-types=2025.4.0.dev0+16.g229da69
-- q2cli=2025.4.0.dev0+16.gd6d2337
+- q2cli=2025.4.0.dev0+19.g7e40795
 - q2templates=2025.4.0.dev0+7.g55d3090
 - qiime2=2025.4.0.dev0+16.g832a1e9
 - r-base=4.3.3

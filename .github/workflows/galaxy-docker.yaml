@@ -19,6 +19,13 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      # Do we pull prebuilt tools or do we pull q2galaxy and build?
+      - name: Get Tools
+        id: get-tools
+        uses: actions/checkout@v4
+        with:
+          repository: 'qiime2/q2galaxy'
+
       - name: Build Galaxy Image
         id: build-galaxy-image
         # Replaces redhat-actions/buildah-build@v2

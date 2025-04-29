@@ -86,7 +86,7 @@ dependencies:
 - bioconductor-zlibbioc=1.48.0
 - biom-format=2.1.16
 - biopython=1.83
-- bitarray=3.1.1
+- bitarray=3.3.1
 - bitstring=4.3.1
 - blast=2.16.0
 - bleach=6.2.0
@@ -102,7 +102,7 @@ dependencies:
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.5
-- ca-certificates=2025.1.31
+- ca-certificates=2025.4.26
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cachetools=5.5.2
@@ -152,7 +152,7 @@ dependencies:
 - entrezpy=2.1.2
 - entrypoints=0.4
 - exceptiongroup=1.2.2
-- executing=2.1.0
+- executing=2.2.0
 - expat=2.7.0
 - fastcluster=1.2.6
 - fastp=0.24.0
@@ -181,14 +181,14 @@ dependencies:
 - gfortran_osx-64=12.3.0
 - giflib=5.2.2
 - glimmerhmm=3.0.4
-- globus-sdk=3.54.0
+- globus-sdk=3.55.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.13
 - graphlib-backport=1.0.3
 - gridss=2.11.1
 - gsl=2.7
-- h11=0.14.0
+- h11=0.16.0
 - h2=4.2.0
 - h5py=3.11.0
 - harfbuzz=8.5.0
@@ -196,7 +196,7 @@ dependencies:
 - hmmer=3.4
 - hpack=4.1.0
 - htslib=1.21
-- httpcore=1.0.7
+- httpcore=1.0.9
 - httpx=0.28.1
 - humanize=4.12.2
 - hyperframe=6.1.0
@@ -225,7 +225,7 @@ dependencies:
 - jsonlines=3.0.0
 - jsonpointer=3.0.0
 - jsonschema=4.23.0
-- jsonschema-specifications=2024.10.1
+- jsonschema-specifications=2025.4.1
 - jsonschema-with-format-nongpl=4.23.0
 - jupyter_client=7.4.9
 - jupyter_core=5.7.2
@@ -272,7 +272,7 @@ dependencies:
 - libiconv=1.18
 - libidn2=2.3.8
 - libintl=0.23.1
-- libjpeg-turbo=3.0.0
+- libjpeg-turbo=3.1.0
 - liblapack=3.9.0
 - liblapacke=3.9.0
 - libllvm14=14.0.6
@@ -326,11 +326,11 @@ dependencies:
 - mpi=1.0.1
 - munkres=1.1.4
 - muscle=3.8.1551
-- mypy_extensions=1.0.0
+- mypy_extensions=1.1.0
 - mysql-connector-c=6.1.11
-- narwhals=1.35.0
+- narwhals=1.37.0
 - natsort=8.4.0
-- nbclassic=1.2.0
+- nbclassic=1.3.0
 - nbclient=0.10.2
 - nbconvert-core=7.16.6
 - nbformat=5.10.4
@@ -434,7 +434,7 @@ dependencies:
 - pickleshare=0.7.5
 - pigz=2.8
 - pillow=10.3.0
-- pip=25.0.1
+- pip=25.1
 - pixman=0.44.2
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.7
@@ -482,7 +482,7 @@ dependencies:
 - pyzmq=24.0.1
 - pyzotero=1.6.11
 - q2-alignment=2025.4.0.dev0+7.g5073163
-- q2-annotate=2025.4.0.dev0+33.gcfc69ee
+- q2-annotate=2025.4.0.dev0+37.g0756f1b
 - q2-assembly=2025.4.0.dev0+11.gb2b08fa
 - q2-composition=2025.4.0.dev0+19.g7c877df
 - q2-cutadapt=2025.4.0.dev0+9.gaec0799
@@ -491,7 +491,7 @@ dependencies:
 - q2-diversity-lib=2025.4.0.dev0+8.g56d97e1
 - q2-emperor=2025.4.0.dev0+8.g018b885
 - q2-feature-classifier=2025.4.0.dev0+9.gc64bc5c
-- q2-feature-table=2025.4.0.dev0+13.g0ed9a00
+- q2-feature-table=2025.4.0.dev0+14.g3b548ad
 - q2-fondue=2025.4.0.dev0+6.g525c45b
 - q2-longitudinal=2025.4.0.dev0+8.g3131278
 - q2-metadata=2025.4.0.dev0+8.g66139ab
@@ -505,9 +505,9 @@ dependencies:
 - q2-types=2025.4.0.dev0+16.g229da69
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
 - q2-vsearch=2025.4.0.dev0+13.gf376287
-- q2cli=2025.4.0.dev0+15.gbd99eec
+- q2cli=2025.4.0.dev0+21.g97e80cc
 - q2templates=2025.4.0.dev0+7.g55d3090
-- qiime2=2025.4.0.dev0+16.g832a1e9
+- qiime2=2025.4.0.dev0+18.g9414a65
 - quast=5.3.0
 - r-abind=1.4_5
 - r-ade4=1.7_23
@@ -536,7 +536,7 @@ dependencies:
 - r-cellranger=1.1.0
 - r-checkmate=2.3.2
 - r-class=7.3_23
-- r-cli=3.6.4
+- r-cli=3.6.5
 - r-clipr=0.8.0
 - r-cluster=2.1.8.1
 - r-codetools=0.2_20
@@ -554,7 +554,7 @@ dependencies:
 - r-deoptimr=1.1_3_1
 - r-desc=1.4.3
 - r-desctools=0.99.60
-- r-diffobj=0.3.5
+- r-diffobj=0.3.6
 - r-digest=0.6.37
 - r-doparallel=1.0.17
 - r-dorng=1.8.6.2
@@ -674,7 +674,7 @@ dependencies:
 - r-rcolorbrewer=1.1_3
 - r-rcpp=1.0.14
 - r-rcppannoy=0.0.22
-- r-rcpparmadillo=14.4.1_1
+- r-rcpparmadillo=14.4.2_1
 - r-rcppeigen=0.3.4.0.2
 - r-rcpphnsw=0.6.0
 - r-rcppml=0.3.7
@@ -709,7 +709,7 @@ dependencies:
 - r-rvest=1.0.4
 - r-sandwich=3.1_1
 - r-sass=0.4.10
-- r-scales=1.3.0
+- r-scales=1.4.0
 - r-scs=3.2.7
 - r-selectr=0.4_2
 - r-sitmo=2.0.2
@@ -776,7 +776,7 @@ dependencies:
 - sepp=4.5.5
 - seqtk=1.4
 - setproctitle=1.3.5
-- setuptools=78.1.0
+- setuptools=79.0.1
 - sgmllib3k=1.0.0
 - shellingham=1.5.4
 - shortuuid=1.0.13
@@ -849,7 +849,7 @@ dependencies:
 - wheel=0.45.1
 - widgetsnbextension=4.0.14
 - wrapt=1.17.2
-- xlsxwriter=3.2.2
+- xlsxwriter=3.2.3
 - xmltodict=0.14.2
 - xopen=2.0.2
 - xorg-libxau=1.0.12

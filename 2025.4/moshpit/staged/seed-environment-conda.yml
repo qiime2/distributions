@@ -23,7 +23,7 @@ dependencies:
 - python=3.10
 - python_abi=3.9
 - q2-alignment=2025.4.0.dev0+7.g5073163
-- q2-annotate=2025.4.0.dev0+33.gcfc69ee
+- q2-annotate=2025.4.0.dev0+37.g0756f1b
 - q2-assembly=2025.4.0.dev0+11.gb2b08fa
 - q2-composition=2025.4.0.dev0+19.g7c877df
 - q2-cutadapt=2025.4.0.dev0+9.gaec0799
@@ -32,7 +32,7 @@ dependencies:
 - q2-diversity=2025.4.0.dev0+10.g7931356
 - q2-emperor=2025.4.0.dev0+8.g018b885
 - q2-feature-classifier=2025.4.0.dev0+9.gc64bc5c
-- q2-feature-table=2025.4.0.dev0+13.g0ed9a00
+- q2-feature-table=2025.4.0.dev0+14.g3b548ad
 - q2-fondue=2025.4.0.dev0+6.g525c45b
 - q2-longitudinal=2025.4.0.dev0+8.g3131278
 - q2-metadata=2025.4.0.dev0+8.g66139ab
@@ -48,9 +48,9 @@ dependencies:
 - q2-types=2025.4.0.dev0+16.g229da69
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
 - q2-vsearch=2025.4.0.dev0+13.gf376287
-- q2cli=2025.4.0.dev0+15.gbd99eec
+- q2cli=2025.4.0.dev0+21.g97e80cc
 - q2templates=2025.4.0.dev0+7.g55d3090
-- qiime2=2025.4.0.dev0+16.g832a1e9
+- qiime2=2025.4.0.dev0+18.g9414a65
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rescript=2025.4.0.dev0+19.g3b783e2

@@ -30,7 +30,7 @@ dependencies:
 - bc=1.07.1
 - bcftools=1.21
 - bcrypt=4.3.0
-- beautifulsoup4=4.13.3
+- beautifulsoup4=4.13.4
 - bedtools=2.31.1
 - bibtexparser=1.4.3
 - binutils_impl_linux-64=2.43
@@ -125,7 +125,7 @@ dependencies:
 - comm=0.2.2
 - commonmark=0.9.1
 - conda-pack=0.7.0
-- contourpy=1.3.1
+- contourpy=1.3.2
 - cryptography=44.0.2
 - curl=8.8.0
 - cutadapt=5.0
@@ -138,7 +138,7 @@ dependencies:
 - dendropy=5.0.6
 - deprecation=2.1.0
 - diamond=2.1.10
-- dill=0.3.9
+- dill=0.4.0
 - dnaio=1.2.2
 - dnspython=2.7.0
 - docutils=0.21.2
@@ -283,7 +283,7 @@ dependencies:
 - libgfortran5=14.2.0
 - libglib=2.80.2
 - libgomp=14.2.0
-- libgpg-error=1.53
+- libgpg-error=1.54
 - libhwloc=2.11.2
 - libiconv=1.18
 - libidn2=2.3.8
@@ -357,7 +357,7 @@ dependencies:
 - mysql-common=8.3.0
 - mysql-connector-c=6.1.11
 - mysql-libs=8.3.0
-- narwhals=1.34.1
+- narwhals=1.35.0
 - natsort=8.4.0
 - nbclassic=1.2.0
 - nbclient=0.10.2
@@ -380,7 +380,7 @@ dependencies:
 - openjpeg=2.5.2
 - openssl=3.5.0
 - overrides=7.7.0
-- packaging=24.2
+- packaging=25.0
 - pandas=2.2.2
 - pandera=0.23.1
 - pandera-base=0.23.1
@@ -476,7 +476,7 @@ dependencies:
 - prank=170427
 - prodigal=2.6.3
 - prometheus_client=0.21.1
-- prompt-toolkit=3.0.50
+- prompt-toolkit=3.0.51
 - protobuf=3.20.3
 - psutil=7.0.0
 - pthread-stubs=0.4
@@ -515,7 +515,7 @@ dependencies:
 - pyzmq=24.0.1
 - pyzotero=1.6.11
 - q2-alignment=2025.4.0.dev0+7.g5073163
-- q2-annotate=2025.4.0.dev0+30.g204e08f
+- q2-annotate=2025.4.0.dev0+33.gcfc69ee
 - q2-assembly=2025.4.0.dev0+11.gb2b08fa
 - q2-composition=2025.4.0.dev0+19.g7c877df
 - q2-cutadapt=2025.4.0.dev0+9.gaec0799
@@ -538,9 +538,9 @@ dependencies:
 - q2-types=2025.4.0.dev0+16.g229da69
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
 - q2-vsearch=2025.4.0.dev0+13.gf376287
-- q2cli=2025.4.0.dev0+14.g13c6e4d
+- q2cli=2025.4.0.dev0+15.gbd99eec
 - q2templates=2025.4.0.dev0+7.g55d3090
-- qiime2=2025.4.0.dev0+15.gb11fe02
+- qiime2=2025.4.0.dev0+16.g832a1e9
 - qt-main=5.15.8
 - quast=5.3.0
 - r-abind=1.4_5
@@ -744,7 +744,7 @@ dependencies:
 - r-sandwich=3.1_1
 - r-sass=0.4.10
 - r-scales=1.3.0
-- r-scs=3.2.4
+- r-scs=3.2.7
 - r-selectr=0.4_2
 - r-sitmo=2.0.2
 - r-snow=0.4_4
@@ -765,7 +765,7 @@ dependencies:
 - r-tidytree=0.4.6
 - r-tidyverse=2.0.0
 - r-timechange=0.3.0
-- r-tinytex=0.56
+- r-tinytex=0.57
 - r-tzdb=0.5.0
 - r-utf8=1.2.4
 - r-uuid=1.2_1
@@ -791,7 +791,7 @@ dependencies:
 - referencing=0.36.2
 - repeatmasker=4.1.8
 - requests=2.32.3
-- rescript=2025.4.0.dev0+17.gaeb7832
+- rescript=2025.4.0.dev0+19.g3b783e2
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1

@@ -24,7 +24,7 @@ dependencies:
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.5
-- ca-certificates=2025.1.31
+- ca-certificates=2025.4.26
 - cached-property=1.5.2
 - cached_property=1.5.2
 - cairo=1.18.0
@@ -164,7 +164,7 @@ dependencies:
 - mpi=1.0.1
 - mypy_extensions=1.0.0
 - natsort=8.4.0
-- nbclassic=1.2.0
+- nbclassic=1.3.0
 - nbclient=0.10.2
 - nbconvert-core=7.16.6
 - nbformat=5.10.4
@@ -190,7 +190,7 @@ dependencies:
 - petl=1.7.16
 - pexpect=4.9.0
 - pickleshare=0.7.5
-- pip=25.0.1
+- pip=25.1
 - pixman=0.44.2
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.7
@@ -225,7 +225,7 @@ dependencies:
 - q2-metadata=2025.4.0.dev0+8.g66139ab
 - q2-mystery-stew=2025.4.0.dev0+8.g9b6c7a8
 - q2-types=2025.4.0.dev0+16.g229da69
-- q2cli=2025.4.0.dev0+20.g41b1c43
+- q2cli=2025.4.0.dev0+21.g97e80cc
 - q2templates=2025.4.0.dev0+7.g55d3090
 - qiime2=2025.4.0.dev0+18.g9414a65
 - r-base=4.3.3

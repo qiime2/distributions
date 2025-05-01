@@ -158,7 +158,7 @@ dependencies:
 - mdurl=0.1.2
 - mistune=3.1.3
 - mpi=1.0.1
-- mypy_extensions=1.0.0
+- mypy_extensions=1.1.0
 - natsort=8.4.0
 - nbclassic=1.3.0
 - nbclient=0.10.2
@@ -187,7 +187,7 @@ dependencies:
 - pexpect=4.9.0
 - pickleshare=0.7.5
 - pip=25.1
-- pixman=0.44.2
+- pixman=0.46.0
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.7
 - pluggy=1.5.0
@@ -220,7 +220,7 @@ dependencies:
 - q2-metadata=2025.4.0.dev0+8.g66139ab
 - q2-mystery-stew=2025.4.0.dev0+8.g9b6c7a8
 - q2-types=2025.4.0.dev0+16.g229da69
-- q2cli=2025.4.0.dev0+21.g97e80cc
+- q2cli=2025.4.0.dev0+23.gc1c519b
 - q2templates=2025.4.0.dev0+7.g55d3090
 - qiime2=2025.4.0.dev0+18.g9414a65
 - r-base=4.3.3
@@ -251,7 +251,7 @@ dependencies:
 - scipy=1.13.0
 - sed=4.8
 - send2trash=1.8.3
-- setproctitle=1.3.5
+- setproctitle=1.3.6
 - setuptools=79.0.1
 - shellingham=1.5.4
 - simpleeval=0.9.13
@@ -275,9 +275,9 @@ dependencies:
 - tornado=6.4.2
 - traitlets=5.9.0
 - typeguard=4.4.2
-- typer=0.15.2
-- typer-slim=0.15.2
-- typer-slim-standard=0.15.2
+- typer=0.15.3
+- typer-slim=0.15.3
+- typer-slim-standard=0.15.3
 - types-python-dateutil=2.9.0.20241206
 - typing-extensions=4.13.2
 - typing-inspection=0.4.0

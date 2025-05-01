@@ -98,6 +98,7 @@ dependencies:
 - gmp=6.3.0
 - graphite2=1.3.13
 - gridss=2.8.0
+- gsl=2.7
 - h2=4.2.0
 - h5py=3.11.0
 - harfbuzz=9.0.0
@@ -105,7 +106,7 @@ dependencies:
 - hmmer=3.4
 - hpack=4.1.0
 - htslib=1.21
-- humanize=4.12.2
+- humanize=4.12.3
 - hyperframe=6.1.0
 - icu=73.2
 - idna=3.10
@@ -153,7 +154,7 @@ dependencies:
 - libcblas=3.9.0
 - libclang-cpp18.1=18.1.7
 - libcurl=8.8.0
-- libcxx=20.1.3
+- libcxx=20.1.4
 - libdeflate=1.20
 - libedit=3.1.20250104
 - libev=4.33
@@ -209,7 +210,7 @@ dependencies:
 - mistune=3.1.3
 - mpc=1.3.1
 - mpfr=4.2.1
-- mpi=1.0.1
+- mpi=1.0
 - munkres=1.1.4
 - mypy_extensions=1.1.0
 - natsort=8.4.0
@@ -228,6 +229,7 @@ dependencies:
 - numpy=1.26.4
 - openjdk=22.0.1
 - openjpeg=2.5.2
+- openmpi=4.1.6
 - openssl=3.5.0
 - overrides=7.7.0
 - packaging=25.0
@@ -298,7 +300,7 @@ dependencies:
 - pickleshare=0.7.5
 - pillow=10.3.0
 - pip=25.1
-- pixman=0.44.2
+- pixman=0.46.0
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.7
 - pluggy=1.5.0
@@ -350,7 +352,7 @@ dependencies:
 - q2-types=2025.4.0.dev0+16.g229da69
 - q2-viromics=2025.4.0.dev0+15.g0469191
 - q2-vizard=2025.4.0.dev0+90.ga641e5c
-- q2cli=2025.4.0.dev0+21.g97e80cc
+- q2cli=2025.4.0.dev0+24.g9e3c0a8
 - q2templates=2025.4.0.dev0+7.g55d3090
 - qiime2=2025.4.0.dev0+18.g9414a65
 - quast=5.3.0
@@ -395,7 +397,7 @@ dependencies:
 - r-stringi=1.8.4
 - r-stringr=1.5.1
 - r-tibble=3.2.1
-- r-utf8=1.2.4
+- r-utf8=1.2.5
 - r-vctrs=0.6.5
 - r-viridislite=0.4.2
 - r-withr=3.0.2
@@ -417,8 +419,8 @@ dependencies:
 - seaborn=0.12.2
 - seaborn-base=0.12.2
 - send2trash=1.8.3
-- setproctitle=1.3.5
-- setuptools=79.0.1
+- setproctitle=1.3.6
+- setuptools=80.1.0
 - shellingham=1.5.4
 - shortuuid=1.0.13
 - sigtool=0.1.3

@@ -8,11 +8,6 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV MPLBACKEND agg
 ENV UNIFRAC_USE_GPU N
-ENV HOME /home/qiime2
-ENV XDG_CONFIG_HOME /home/qiime2
-
-RUN mkdir /home/qiime2
-WORKDIR /home/qiime2
 
 RUN conda update -q -y conda
 RUN conda install -q -y wget
@@ -27,14 +22,9 @@ RUN conda env create -n qiime2-${DISTRO}-${EPOCH} --file released-env.yml \
 RUN /bin/bash -c "source activate qiime2-${DISTRO}-${EPOCH}"
 ENV CONDA_PREFIX /opt/conda/envs/qiime2-${DISTRO}-${EPOCH}/
 RUN qiime dev refresh-cache
-RUN echo "source activate qiime2-${DISTRO}-${EPOCH}" >> $HOME/.bashrc
-RUN echo "source tab-qiime" >> $HOME/.bashrc
+RUN python -c "from qiime2.sdk.parallel_config import get_vendored_config; get_vendored_config()"
+RUN echo "source activate qiime2-${DISTRO}-${EPOCH}" >> /root/.bashrc
+RUN echo "source tab-qiime" >> /root/.bashrc
 
-# Important: let any UID modify these directories so that
-# `docker run -u UID:GID` works
-RUN chmod -R a+rwx /home/qiime2
-
-# TODO: update this to point at the new homedir defined above. Keeping this
-# for now because this will require an update to the user docs.
 VOLUME ["/data"]
 WORKDIR /data

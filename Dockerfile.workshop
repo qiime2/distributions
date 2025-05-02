@@ -3,7 +3,18 @@ ARG DISTRO
 
 FROM quay.io/qiime2/${DISTRO}:latest
 
+ENV HOME /home/qiime2
+ENV XDG_CONFIG_HOME /home/qiime2
+
+RUN mkdir /home/qiime2
 WORKDIR /home/qiime2
+
+RUN echo "source activate qiime2-${DISTRO}-${EPOCH}" >> $HOME/.bashrc
+RUN echo "source tab-qiime" >> $HOME/.bashrc
+
+# Important: let any UID modify these directories so that
+# `docker run -u UID:GID` works
+RUN chmod -R a+rwx /home/qiime2
 
 # update cli prompt to print working directory
 RUN echo "export PS1=\"\nCurrent working directory: \\w\n\\$ \"" >> $HOME/.bashrc

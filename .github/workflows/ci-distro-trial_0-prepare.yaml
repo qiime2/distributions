@@ -125,7 +125,7 @@ jobs:
       - name: install dependencies
         run: |
           pip install pyyaml jinja2 networkx conda-mirror ghapi
-          conda install -q conda-build
+          conda install -q conda-build=25.4.2
 
       - name: make matrix dir
         run: mkdir ${{ env.matrix_path }}

@@ -232,7 +232,7 @@ jobs:
         run: pip install pyyaml packaging
 
       - name: install conda-build
-        run: conda install -q conda-build
+        run: conda install -q conda-build=25.4.2
 
       - name: 'Reindex rebuilt channel'
         shell: bash

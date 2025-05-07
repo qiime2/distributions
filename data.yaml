@@ -60,6 +60,10 @@ packages:
   repo: qiime2/q2-emperor
   distros: [amplicon, moshpit]
 
+- name: q2-fastp
+  repo: bokulich-lab/q2-fastp
+  distros: [moshpit]
+
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
   distros: [amplicon, pathogenome]

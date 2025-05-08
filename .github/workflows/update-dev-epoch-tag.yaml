@@ -10,7 +10,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).next_epoch }}
+      new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
       plugin-matrix: ${{ steps.yaml.outputs.data }}
     steps:
       - uses: actions/checkout@v3

@@ -133,7 +133,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.57.0
+- fonttools=4.58.0
 - formulaic=1.1.1
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -461,7 +461,7 @@ dependencies:
 - r-futile.options=1.0.1
 - r-gargle=1.5.2
 - r-gbrd=0.4.12
-- r-generics=0.1.3
+- r-generics=0.1.4
 - r-getopt=1.20.4
 - r-ggbeeswarm=0.7.2
 - r-ggplot2=3.5.2

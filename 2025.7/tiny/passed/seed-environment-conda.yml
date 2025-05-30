@@ -4,7 +4,6 @@ channels:
 - bioconda
 dependencies:
 - biom-format=2.1.16
-- click=8.1.8
 - h5py=3.11.0
 - hdf5=1.14.3
 - notebook=6.5.5

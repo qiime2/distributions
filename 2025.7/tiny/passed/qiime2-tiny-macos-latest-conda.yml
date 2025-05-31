@@ -45,7 +45,7 @@ dependencies:
 - comm=0.2.2
 - compiler-rt=18.1.7
 - compiler-rt_osx-64=18.1.7
-- conda-pack=0.7.0
+- conda-pack=0.8.1
 - cryptography=45.0.3
 - curl=8.8.0
 - debugpy=1.8.14

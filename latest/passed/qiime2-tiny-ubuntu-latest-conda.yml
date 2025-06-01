@@ -37,7 +37,7 @@ dependencies:
 - click=8.1.8
 - colorama=0.4.6
 - comm=0.2.2
-- conda-pack=0.7.0
+- conda-pack=0.8.1
 - cryptography=45.0.3
 - curl=8.14.0
 - debugpy=1.8.14

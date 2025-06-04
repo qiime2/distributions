@@ -106,7 +106,7 @@ jobs:
         run: |
           ${{ steps.setup-conda.outputs.conda-activate }}
           mkdir -p ${{ env.built_channel_path }}
-          conda index ${{ env.built_channel_path }}
+          python -m conda_index ${{ env.built_channel_path }}
 
       - uses: qiime2/action-library-packaging/make-conda-config@beta
         name: 'Create conda build config'

@@ -193,12 +193,17 @@ jobs:
           key: "${{ env.partial_patched_channel_key }} (${{ steps.distro-hash.outputs.hash }})"
           path: ${{ env.patched_channel_path }}
 
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
       - name: setup patched channel
         if: steps.patched-channel-restore.outputs.cache-hit != 'true'
         shell: bash
         run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
           mkdir ${{ env.patched_channel_path }}
-          conda index ${{ env.patched_channel_path }}
+          python -m conda_index ${{ env.patched_channel_path }}
 
       - name: mirror patched channel
         if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' && steps.patched-channel-restore.outputs.cache-hit != 'true' }}

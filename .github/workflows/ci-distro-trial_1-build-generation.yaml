@@ -234,9 +234,15 @@ jobs:
       - name: install conda-build
         run: conda install -c conda-forge -q conda-build
 
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
       - name: 'Reindex rebuilt channel'
         shell: bash
-        run: conda index ${{ env.rebuilt_channel_path }}
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          python -m conda_index ${{ env.rebuilt_channel_path }}
 
       - uses: actions/upload-artifact@v4
         name: 'Upload final rebuilt channel'

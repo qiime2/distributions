@@ -71,7 +71,7 @@ dependencies:
 - frictionless=5.5.0
 - gfortran_impl_osx-64=12.3.0
 - gfortran_osx-64=12.3.0
-- globus-sdk=3.56.1
+- globus-sdk=3.57.0
 - gmp=6.3.0
 - graphite2=1.3.13
 - h2=4.2.0
@@ -276,10 +276,10 @@ dependencies:
 - tk=8.6.13
 - tktable=2.10
 - tomli=2.2.1
-- tomlkit=0.13.2
+- tomlkit=0.13.3
 - tornado=6.5.1
 - traitlets=5.9.0
-- typeguard=4.4.2
+- typeguard=4.4.3
 - typer=0.16.0
 - typer-slim=0.16.0
 - typer-slim-standard=0.16.0

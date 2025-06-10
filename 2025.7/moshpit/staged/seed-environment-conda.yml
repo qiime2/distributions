@@ -47,13 +47,14 @@ dependencies:
 - q2-taxa=2025.7.0.dev0
 - q2-types-genomics=2023.11.0.dev0+8.g3b993ed
 - q2-types=2025.7.0.dev0+1.g553bf8e
-- q2-vizard=2025.7.0.dev0
+- q2-vizard=2025.7.0.dev0+16.g79ca694
 - q2-vsearch=2025.7.0.dev0
 - q2cli=2025.7.0.dev0+1.g6fb6bc4
 - q2templates=2025.7.0.dev0
 - qiime2=2025.7.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
+- r-vegan=2.6_8
 - rescript=2025.7.0.dev0
 - rnanorm=2.1.0
 - rpy2=3.5.11

@@ -129,7 +129,7 @@ dependencies:
 - curl=8.8.0
 - cutadapt=5.1
 - cycler=0.12.1
-- cython=3.1.1
+- cython=3.1.2
 - dbus=1.13.6
 - debugpy=1.8.14
 - decorator=4.4.2
@@ -163,7 +163,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.58.1
+- fonttools=4.58.2
 - formulaic=1.1.1
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -180,7 +180,7 @@ dependencies:
 - glib=2.80.2
 - glib-tools=2.80.2
 - glimmerhmm=3.0.4
-- globus-sdk=3.56.1
+- globus-sdk=3.57.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.13
@@ -354,13 +354,13 @@ dependencies:
 - mysql-common=8.3.0
 - mysql-connector-c=6.1.11
 - mysql-libs=8.3.0
-- narwhals=1.41.0
+- narwhals=1.42.0
 - natsort=8.4.0
 - nbclassic=1.3.1
 - nbclient=0.10.2
 - nbconvert-core=7.16.6
 - nbformat=5.10.4
-- ncbi-datasets-pyclient=18.3.0
+- ncbi-datasets-pyclient=18.3.1
 - ncbi-vdb=3.2.1
 - ncurses=6.5
 - nest-asyncio=1.6.0
@@ -389,7 +389,7 @@ dependencies:
 - paramiko=3.5.1
 - parsl=2024.4.15
 - parso=0.8.4
-- pasta=1.9.2
+- pasta=1.9.3
 - patsy=0.5.6
 - pbzip2=1.1.13
 - pcre=8.45
@@ -486,7 +486,7 @@ dependencies:
 - pygments=2.19.1
 - pyhmmer=0.11.0
 - pyjwt=2.10.1
-- pymongo=4.11
+- pymongo=4.13.0
 - pynacl=1.5.0
 - pynndescent=0.5.13
 - pyparsing=3.2.3
@@ -531,7 +531,7 @@ dependencies:
 - q2-sourmash=2025.7.0.dev0
 - q2-taxa=2025.7.0.dev0
 - q2-types=2025.7.0.dev0+1.g553bf8e
-- q2-vizard=2025.7.0.dev0
+- q2-vizard=2025.7.0.dev0+16.g79ca694
 - q2-vsearch=2025.7.0.dev0
 - q2cli=2025.7.0.dev0+1.g6fb6bc4
 - q2templates=2025.7.0.dev0
@@ -679,7 +679,7 @@ dependencies:
 - r-optparse=1.7.5
 - r-osqp=0.6.3.3
 - r-permute=0.9_7
-- r-pheatmap=1.0.12
+- r-pheatmap=1.0.13
 - r-pillar=1.10.2
 - r-pixmap=0.4_13
 - r-pkgbuild=1.4.8
@@ -731,7 +731,7 @@ dependencies:
 - r-rpart=4.1.24
 - r-rprojroot=2.0.4
 - r-rspectra=0.16_2
-- r-rsqlite=2.4.0
+- r-rsqlite=2.4.1
 - r-rstudioapi=0.17.1
 - r-rsvd=1.0.5
 - r-rtsne=0.17
@@ -754,7 +754,7 @@ dependencies:
 - r-testthat=3.2.3
 - r-textshaping=0.4.0
 - r-th.data=1.1_3
-- r-tibble=3.2.1
+- r-tibble=3.3.0
 - r-tidyr=1.3.1
 - r-tidyselect=1.2.1
 - r-tidytree=0.4.6
@@ -762,11 +762,11 @@ dependencies:
 - r-timechange=0.3.0
 - r-tinytex=0.57
 - r-tzdb=0.5.0
-- r-utf8=1.2.5
+- r-utf8=1.2.6
 - r-uuid=1.2_1
 - r-uwot=0.2.3
 - r-vctrs=0.6.5
-- r-vegan=2.6_10
+- r-vegan=2.6_8
 - r-vipor=0.4.7
 - r-viridis=0.6.5
 - r-viridislite=0.4.2
@@ -785,7 +785,7 @@ dependencies:
 - recommonmark=0.7.1
 - referencing=0.36.2
 - repeatmasker=4.1.9
-- requests=2.32.3
+- requests=2.32.4
 - rescript=2025.7.0.dev0
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
@@ -850,12 +850,12 @@ dependencies:
 - tktable=2.10
 - toml=0.10.2
 - tomli=2.2.1
-- tomlkit=0.13.2
+- tomlkit=0.13.3
 - tornado=6.5.1
 - tqdm=4.62.3
 - traitlets=5.9.0
 - trf=4.09.1
-- typeguard=4.4.2
+- typeguard=4.4.3
 - typer=0.16.0
 - typer-slim=0.16.0
 - typer-slim-standard=0.16.0
@@ -919,7 +919,7 @@ dependencies:
 - yaml=0.2.5
 - yq=3.4.3
 - zeromq=4.3.5
-- zipp=3.22.0
+- zipp=3.23.0
 - zlib=1.2.13
 - zlib-ng=2.2.4
 - zstandard=0.23.0

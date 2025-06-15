@@ -46,7 +46,7 @@ dependencies:
 - compiler-rt=18.1.7
 - compiler-rt_osx-64=18.1.7
 - conda-pack=0.8.1
-- cryptography=45.0.3
+- cryptography=45.0.4
 - curl=8.8.0
 - debugpy=1.8.14
 - decorator=4.4.2
@@ -117,7 +117,7 @@ dependencies:
 - libcblas=3.9.0
 - libclang-cpp18.1=18.1.7
 - libcurl=8.8.0
-- libcxx=20.1.6
+- libcxx=20.1.7
 - libdeflate=1.20
 - libedit=3.1.20250104
 - libev=4.33
@@ -147,14 +147,14 @@ dependencies:
 - libxml2=2.12.7
 - libxslt=1.1.39
 - libzlib=1.2.13
-- llvm-openmp=20.1.6
+- llvm-openmp=20.1.7
 - llvm-tools=18.1.7
 - lxml=5.2.2
 - lz4=4.4.4
 - lz4-c=1.10.0
 - make=4.4.1
 - markdown-it-py=3.0.0
-- marko=2.1.3
+- marko=2.1.4
 - markupsafe=3.0.2
 - matplotlib-inline=0.1.7
 - mdurl=0.1.2
@@ -191,7 +191,7 @@ dependencies:
 - pexpect=4.9.0
 - pickleshare=0.7.5
 - pip=25.1.1
-- pixman=0.46.0
+- pixman=0.46.2
 - pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.8
 - pluggy=1.6.0
@@ -201,7 +201,7 @@ dependencies:
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
 - pycparser=2.22
-- pydantic=2.11.4
+- pydantic=2.11.7
 - pydantic-core=2.33.2
 - pygments=2.19.1
 - pyhmmer=0.11.0
@@ -227,7 +227,7 @@ dependencies:
 - q2-types=2025.7.0.dev0+1.g553bf8e
 - q2cli=2025.7.0.dev0+1.g6fb6bc4
 - q2templates=2025.7.0.dev0
-- qiime2=2025.7.0.dev0
+- qiime2=2025.7.0.dev0+1.g8cbd3d1
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.9.1
@@ -243,7 +243,7 @@ dependencies:
 - r-withr=3.0.2
 - readline=8.2
 - referencing=0.36.2
-- requests=2.32.3
+- requests=2.32.4
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
@@ -306,7 +306,7 @@ dependencies:
 - xz-tools=5.8.1
 - yaml=0.2.5
 - zeromq=4.3.5
-- zipp=3.22.0
+- zipp=3.23.0
 - zlib=1.2.13
 - zstandard=0.23.0
 - zstd=1.5.6

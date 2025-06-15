@@ -17,7 +17,7 @@ dependencies:
 - q2-types=2025.7.0.dev0+1.g553bf8e
 - q2cli=2025.7.0.dev0+1.g6fb6bc4
 - q2templates=2025.7.0.dev0
-- qiime2=2025.7.0.dev0
+- qiime2=2025.7.0.dev0+1.g8cbd3d1
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rnanorm=2.1.0

@@ -1,0 +1,19 @@
+name: test-docker-image
+on:
+  workflow_dispatch:
+    inputs:
+      epoch:
+        required: true
+        type: string
+      distro:
+        required: true
+        type: string
+
+jobs:
+  install-and-test:
+    name: Install and run integration tests on image
+    runs-on: ubuntu-latest
+    container: quay.io/qiime2/${{ inputs.distro }}:${{ inputs.epoch }}
+    steps:
+      - name: run qiime info
+        run: qiime info

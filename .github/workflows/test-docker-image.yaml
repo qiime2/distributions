@@ -10,10 +10,76 @@ on:
         type: string
 
 jobs:
-  install-and-test:
-    name: Install and run integration tests on image
+  prepare_matrix:
+    name: Create package matrix to test
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup miniforge
+        # Replaces conda-incubator/setup-miniconda@v3
+        uses: qiime2-cutlery/setup-miniconda@v3
+        with:
+          activate-environment: ''
+          architecture: 'x64'
+          auto-activate-base: true
+          miniforge-version: 'latest'
+
+      - name: construct and store retest matrix
+        id: construct-matrix
+        run: |
+          mkdir retest-matrix/
+
+          conda search --channel https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/${{ inputs.distro }}/released/ --json > retest-matrix/packages.json
+
+          python - <<EOF
+          import json
+
+          with open('packages.json', 'r') as fh:
+            packages = json.load(fh)
+            retest_matrix = list(packages.keys())
+
+          json_matrix = json.dumps(retest_matrix)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+            fh.write(f'matrix={json_matrix}\n')
+
+          EOF
+        outputs:
+          matrix: ${{ steps.construct-matrix.outputs.matrix }}
+
+  install_and_test:
+    name: Install and run integration tests within image
+    needs: prepare_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.prepare_matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     container: quay.io/qiime2/${{ inputs.distro }}:${{ inputs.epoch }}
     steps:
-      - name: run qiime info
-        run: qiime info
+      - name: create conda activation script
+        run: |
+          echo "source /opt/conda/etc/profile.d/conda.sh && conda activate base" > activate.sh
+          chmod +x activate.sh
+
+      - name: download ${{ matrix.package }}
+        id: download
+        run: |
+          PACKAGE=${{ matrix.package }}
+          CHANNEL_URL="https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/${{ inputs.distro }}/released/linux-64"
+
+          curl -sSL "${CHANNEL_URL}/repodata.json" > repodata.json
+
+          PACKAGE_FILE=$(jq -r --arg name "$PACKAGE" '
+            .packages | to_entries
+            | map(select(.value.name == $name))
+            | sort_by(.value.timestamp)
+            | reverse | .[0].key' repodata.json)
+
+          echo "PACKAGE_FILE=$PACKAGE_FILE" >> $GITHUB_ENV
+
+          curl -O "${CHANNEL_URL}/${PACKAGE_FILE}"
+
+      - name: run tests
+        uses: qiime2/action-library-packaging/test-package@beta
+        with:
+          conda-activate: ./activate.sh
+          package-path: ./${{ env.PACKAGE_FILE }}

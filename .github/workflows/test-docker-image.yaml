@@ -36,7 +36,7 @@ jobs:
           import json
           import os
 
-          with open('packages.json', 'r') as fh:
+          with open('retest-matrix/packages.json', 'r') as fh:
             packages = json.load(fh)
             retest_matrix = list(packages.keys())
 

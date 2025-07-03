@@ -13,6 +13,8 @@ jobs:
   prepare_matrix:
     name: Create package matrix to test
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.construct-matrix.outputs.matrix }}
     steps:
       - name: setup miniforge
         # Replaces conda-incubator/setup-miniconda@v3
@@ -32,18 +34,18 @@ jobs:
 
           python - <<EOF
           import json
+          import os
 
           with open('packages.json', 'r') as fh:
             packages = json.load(fh)
             retest_matrix = list(packages.keys())
 
           json_matrix = json.dumps(retest_matrix)
+
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
             fh.write(f'matrix={json_matrix}\n')
 
           EOF
-        outputs:
-          matrix: ${{ steps.construct-matrix.outputs.matrix }}
 
   install_and_test:
     name: Install and run integration tests within image

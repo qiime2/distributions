@@ -25,9 +25,9 @@ dependencies:
 - q2-deblur=2025.7.0.dev0
 - q2-demux=2025.7.0.dev0+1.g4ab0fa7
 - q2-diversity-lib=2025.7.0.dev0+1.g5a90752
-- q2-diversity=2025.7.0.dev0+1.gf294f29
+- q2-diversity=2025.7.0.dev0+2.g18f77ce
 - q2-emperor=2025.7.0.dev0
-- q2-feature-classifier=2025.7.0.dev0
+- q2-feature-classifier=2025.7.0.dev0+1.gbe2c2df
 - q2-feature-table=2025.7.0.dev0+4.g77c0ee1
 - q2-fragment-insertion=2025.7.0.dev0+1.g69b0c7f
 - q2-longitudinal=2025.7.0.dev0

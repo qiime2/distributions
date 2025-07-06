@@ -21,18 +21,18 @@ dependencies:
 - patsy=0.5.6
 - pysam=0.22.1
 - python=3.10
-- q2-alignment=2025.7.0.dev0
-- q2-annotate=2025.7.0.dev0+3.g100de18
-- q2-assembly=2025.7.0.dev0+4.gbd7ff6b
-- q2-composition=2025.7.0.dev0
+- q2-alignment=2025.7.0.dev0+1.g351a9cc
+- q2-annotate=2025.7.0.dev0+11.g37844c5
+- q2-assembly=2025.7.0.dev0+6.g8a5821c
+- q2-composition=2025.7.0.dev0+1.g085024e
 - q2-cutadapt=2025.7.0.dev0
-- q2-demux=2025.7.0.dev0
-- q2-diversity-lib=2025.7.0.dev0
-- q2-diversity=2025.7.0.dev0
+- q2-demux=2025.7.0.dev0+1.g4ab0fa7
+- q2-diversity-lib=2025.7.0.dev0+1.g5a90752
+- q2-diversity=2025.7.0.dev0+2.g18f77ce
 - q2-emperor=2025.7.0.dev0
-- q2-feature-classifier=2025.7.0.dev0
-- q2-feature-table=2025.7.0.dev0+1.gb601d04
-- q2-fondue=2025.7.0.dev0
+- q2-feature-classifier=2025.7.0.dev0+1.gbe2c2df
+- q2-feature-table=2025.7.0.dev0+4.g77c0ee1
+- q2-fondue=2025.7.0.dev0+1.g48e1664
 - q2-longitudinal=2025.7.0.dev0
 - q2-metadata=2025.7.0.dev0
 - q2-mystery-stew=2025.7.0.dev0
@@ -42,12 +42,12 @@ dependencies:
 - q2-sapienns=2025.7.0.dev0
 - q2-sourmash=2025.7.0.dev0
 - q2-taxa=2025.7.0.dev0
-- q2-types=2025.7.0.dev0+1.g553bf8e
-- q2-vizard=2025.7.0.dev0+18.g5776cc2
+- q2-types=2025.7.0.dev0+4.g91fb4ca
+- q2-vizard=2025.7.0.dev0+23.g63872e9
 - q2-vsearch=2025.7.0.dev0
 - q2cli=2025.7.0.dev0+1.g6fb6bc4
 - q2templates=2025.7.0.dev0
-- qiime2=2025.7.0.dev0+1.g8cbd3d1
+- qiime2=2025.7.0.dev0+5.g455d55f
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
@@ -68,4 +68,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.7'
-# modified: 2025-07-06

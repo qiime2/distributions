@@ -14,6 +14,15 @@ runs:
     shell: bash
     run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
 
+  - name: List repo contents
+    run: |
+      echo "Repo root:"
+      ls -al .
+      echo ".github directory:"
+      ls -al .github
+      echo ".github/actions directory:"
+      ls -al .github/actions
+
   - name: debugme
     shell: bash
     run: |

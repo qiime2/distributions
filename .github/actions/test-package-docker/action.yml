@@ -19,6 +19,6 @@ runs:
       PYTHONPATH: "${{ github.action_path }}/../src/"
     run: |
       ${{ inputs.conda-activate }}
-      cat <<EOF | "${{ github.action_path }}/test-package.py"
+      cat <<EOF | "${{ github.action_path }}/bin/test-package.py"
       ${{ toJSON(inputs) }}
       EOF

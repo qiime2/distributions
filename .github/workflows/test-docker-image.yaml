@@ -89,7 +89,7 @@ jobs:
           curl -O "${CHANNEL_URL}/${PACKAGE_FILE}"
 
       - name: run tests for ${{ matrix.package }}
-        uses: ./.github/actions/test-package-docker
+        uses: qiime2/action-library-packaging/test-package-docker@beta
         with:
           conda-activate: ./activate.sh
           package-path: ./${{ env.PACKAGE_FILE }}

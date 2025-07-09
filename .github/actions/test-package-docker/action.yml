@@ -15,6 +15,7 @@ runs:
     run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
 
   - name: debugme
+    shell: bash
     run: |
       ls -R ${{ github.action_path }}
 

@@ -58,9 +58,13 @@ jobs:
     runs-on: ubuntu-latest
     container: quay.io/qiime2/${{ inputs.distro }}:${{ inputs.epoch }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: install jq
         run: |
           apt-get update && apt-get install -y jq && rm -rf /var/lib/apt/lists/*
+
       - name: create conda activation script
         run: |
           echo "source /opt/conda/etc/profile.d/conda.sh && conda activate base" > activate.sh

@@ -39,6 +39,7 @@ jobs:
           with open('retest-matrix/packages.json', 'r') as fh:
             packages = json.load(fh)
             retest_matrix = set(packages.keys())
+            retest_matrix = list(retest_matrix)
 
           json_matrix = json.dumps(retest_matrix)
 

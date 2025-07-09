@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir retest-matrix/
 
-          conda search --channel https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/${{ inputs.distro }}/released/ --json > retest-matrix/packages.json
+          conda search --channel https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/${{ inputs.distro }}/released/ --override-channels --json > retest-matrix/packages.json
 
           python - <<EOF
           import json
@@ -38,7 +38,7 @@ jobs:
 
           with open('retest-matrix/packages.json', 'r') as fh:
             packages = json.load(fh)
-            retest_matrix = list(packages.keys())
+            retest_matrix = set(packages.keys())
 
           json_matrix = json.dumps(retest_matrix)
 

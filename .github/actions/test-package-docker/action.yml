@@ -1,0 +1,24 @@
+name: 'Docker Image Testing - Test Package'
+description: 'Test a conda package'
+inputs:
+  conda-activate:
+    description: 'An activation script for the conda env to use'
+    required: true
+  package-path:
+    description: 'The path to the .tar.bz2 to test'
+    required: true
+runs:
+  using: composite
+  steps:
+  - id: 'setup-path'
+    shell: bash
+    run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+  - id: 'test-package'
+    shell: bash
+    env:
+      PYTHONPATH: "${{ github.action_path }}/../src/"
+    run: |
+      ${{ inputs.conda-activate }}
+      cat <<EOF | "${{ github.action_path }}/test-package.py"
+      ${{ toJSON(inputs) }}
+      EOF

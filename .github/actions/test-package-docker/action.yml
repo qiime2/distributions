@@ -13,12 +13,17 @@ runs:
   - id: 'setup-path'
     shell: bash
     run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+
+  - name: debugme
+    run: |
+      ls -R ${{ github.action_path }}
+
   - id: 'test-package'
     shell: bash
     env:
       PYTHONPATH: "${{ github.action_path }}/../src/"
     run: |
       ${{ inputs.conda-activate }}
-      cat <<EOF | "${{ github.action_path }}/bin/test-package.py"
+      cat <<EOF | "${{ github.action_path }}/test-package.py"
       ${{ toJSON(inputs) }}
       EOF

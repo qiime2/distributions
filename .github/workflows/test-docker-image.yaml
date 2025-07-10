@@ -88,8 +88,105 @@ jobs:
 
           curl -O "${CHANNEL_URL}/${PACKAGE_FILE}"
 
+      - name: Write test runner script
+        run: |
+          mkdir -p test-bin
+          cat <<EOF > test-bin/test-package.py
+          #!/usr/bin/env python
+
+          import importlib
+          import itertools
+          import subprocess
+          import tarfile
+          import yaml
+          import os
+          import sys
+          import json
+
+          def ActionAdapter(function, **extras):
+              print(' == Starting == ', flush=True)
+              arguments = json.load(sys.stdin)
+              kwargs = {k.replace('-', '_'): v for k, v in arguments.items()}
+              for key, val in kwargs.items():
+                  if isinstance(val, str) and (val.startswith('[') or val.startswith('{')):
+                      try:
+                          kwargs[key] = json.loads(val)
+                      except Exception:
+                          pass
+
+              print(' == Using inputs == ')
+              print(json.dumps(arguments, indent=2), flush=True)
+              if extras:
+                  print(json.dumps(extras, indent=2), flush=True)
+              print(' == Evaluated keyword arguments == ')
+              print(json.dumps(kwargs, indent=2), flush=True)
+
+              print(' == Executing == ', flush=True)
+              results = function(**kwargs, **extras)
+
+              if results:
+                  print(' == Outputs == ')
+                  results = {k.replace('_', '-'): v for k, v in results.items()}
+                  print(json.dumps(results, indent=2), flush=True)
+
+                  lines = []
+                  for param, arg in results.items():
+                      if isinstance(arg, (dict, list)):
+                          arg = json.dumps(arg)
+                      lines.append(f'{param}={arg}\n')
+
+                  output_path = os.environ.get('GITHUB_OUTPUT')
+                  if output_path is None:
+                      raise Exception('Missing $GITHUB_OUTPUT, not in a github runner.')
+
+                  with open(output_path, mode='a') as fh:
+                      fh.write(''.join(lines))
+              else:
+                  print(' == No outputs == ')
+              print(' == Done == ', flush=True)
+
+          def find_tests(package_path):
+              with tarfile.open(package_path, mode='r:bz2') as fh:
+                  recipe_fh = fh.extractfile('info/recipe/meta.yaml')
+                  tests = yaml.safe_load(recipe_fh).get('test')
+              return tests
+
+          def install_requires(reqs, channels):
+              print(f'Installing: {" ".join(reqs)}', flush=True)
+              channels = itertools.chain.from_iterable(
+                  [('-c', channel) for channel in channels])
+              subprocess.run(['conda', 'install',
+                              *channels,
+                              '-y', '-q',
+                              *reqs],
+                             check=True)
+
+          def run_imports(imports):
+              for imp in imports:
+                  print(f'Importing: {imp}', flush=True)
+                  importlib.import_module(imp)
+
+          def main(package_path, channels, conda_activate):
+              tests = find_tests(package_path)
+              print(tests, flush=True)
+              if 'requires' in tests:
+                  install_requires(tests['requires'], channels)
+              if 'imports' in tests:
+                  run_imports(tests['imports'])
+
+          if __name__ == '__main__':
+              ActionAdapter(main)
+          EOF
+
+          chmod +x test-bin/test-package.py
+
       - name: run tests for ${{ matrix.package }}
-        uses: qiime2/action-library-packaging/test-package-docker@beta
-        with:
-          conda-activate: ./activate.sh
-          package-path: ./${{ env.PACKAGE_FILE }}
+        shell: bash
+        run: |
+          ./activate.sh
+
+          echo '{
+            "conda-activate": "./activate.sh",
+            "package-path": "./${{ env.PACKAGE_FILE }}",
+            "channels": ["https://packages.qiime2.org/qiime2/${{ inputs.epoch }}/${{ inputs.distro }}/released", "conda-forge", "bioconda"]
+          }' | ./test-bin/test-package.py

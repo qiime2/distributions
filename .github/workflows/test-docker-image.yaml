@@ -36,12 +36,15 @@ jobs:
           import json
           import os
 
+          distro = "${{ inputs.distro }}"
+          metapackage_name = f"qiime2-{distro}"
+
           with open('retest-matrix/packages.json', 'r') as fh:
             packages = json.load(fh)
             retest_matrix = set(packages.keys())
-            retest_matrix = list(retest_matrix)
 
-          json_matrix = json.dumps(retest_matrix)
+          retest_matrix.discard(metapackage_name)
+          json_matrix = json.dumps(sorted(retest_matrix))
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
             fh.write(f'matrix={json_matrix}\n')
@@ -99,51 +102,11 @@ jobs:
           import subprocess
           import tarfile
           import yaml
+          import json
           import os
           import sys
-          import json
 
-          def ActionAdapter(function, **extras):
-              print(' == Starting == ', flush=True)
-              arguments = json.load(sys.stdin)
-              kwargs = {k.replace('-', '_'): v for k, v in arguments.items()}
-              for key, val in kwargs.items():
-                  if isinstance(val, str) and (val.startswith('[') or val.startswith('{')):
-                      try:
-                          kwargs[key] = json.loads(val)
-                      except Exception:
-                          pass
-
-              print(' == Using inputs == ')
-              print(json.dumps(arguments, indent=2), flush=True)
-              if extras:
-                  print(json.dumps(extras, indent=2), flush=True)
-              print(' == Evaluated keyword arguments == ')
-              print(json.dumps(kwargs, indent=2), flush=True)
-
-              print(' == Executing == ', flush=True)
-              results = function(**kwargs, **extras)
-
-              if results:
-                  print(' == Outputs == ')
-                  results = {k.replace('_', '-'): v for k, v in results.items()}
-                  print(json.dumps(results, indent=2), flush=True)
-
-                  lines = []
-                  for param, arg in results.items():
-                      if isinstance(arg, (dict, list)):
-                          arg = json.dumps(arg)
-                      lines.append(f'{param}={arg}\n')
-
-                  output_path = os.environ.get('GITHUB_OUTPUT')
-                  if output_path is None:
-                      raise Exception('Missing $GITHUB_OUTPUT, not in a github runner.')
-
-                  with open(output_path, mode='a') as fh:
-                      fh.write(''.join(lines))
-              else:
-                  print(' == No outputs == ')
-              print(' == Done == ', flush=True)
+          from alp.common import ActionAdapter
 
           def find_tests(package_path):
               with tarfile.open(package_path, mode='r:bz2') as fh:
@@ -166,6 +129,11 @@ jobs:
                   print(f'Importing: {imp}', flush=True)
                   importlib.import_module(imp)
 
+          def run_commands(commands):
+              for cmd in commands:
+                print(f'Running: {cmd}', flush=True)
+                subprocess.run(cmd, shell=True, check=True)
+
           def main(package_path, channels, conda_activate):
               tests = find_tests(package_path)
               print(tests, flush=True)
@@ -173,6 +141,8 @@ jobs:
                   install_requires(tests['requires'], channels)
               if 'imports' in tests:
                   run_imports(tests['imports'])
+              if 'commands' in tests:
+                  run_commands(tests['commands'])
 
           if __name__ == '__main__':
               ActionAdapter(main)
@@ -182,6 +152,8 @@ jobs:
 
       - name: run tests for ${{ matrix.package }}
         shell: bash
+        env:
+          PYTHONPATH: ${{ github.workspace }}/.github/actions/src
         run: |
           ./activate.sh
 

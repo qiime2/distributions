@@ -1,9 +1,9 @@
 # this is the current release epoch (i.e. 20XX.REL)
-released_epoch: "2025.4"
+released_epoch: "2025.7"
 # this is the current dev cycle epoch (i.e. 20XX.REL+1)
-active_epoch: "2025.7"
+active_epoch: "2025.10"
 # this is the next dev cycle epoch (i.e. 20XX.REL+2)
-next_epoch: "2025.10"
+next_epoch: "2026.1"
 distros: [tiny, amplicon, moshpit, pathogenome, test]
 packages:
 

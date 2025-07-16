@@ -6,6 +6,7 @@ dependencies:
 - biom-format=2.1.16
 - biopython=1.83
 - bowtie2=2.5.1
+- busco=6.0.0
 - click=8.1.8
 - entrezpy=2.1.2
 - fastp=0.24.0

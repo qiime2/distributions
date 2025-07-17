@@ -14,6 +14,7 @@ dependencies:
 - mafft=7.526
 - matplotlib=3.8.4
 - moshpit=2025.10.0.dev0
+- multiqc=1.30
 - notebook=6.5.5
 - numpy=1.26.4
 - pandas=2.2.2

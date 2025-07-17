@@ -1,7 +1,7 @@
 ARG EPOCH
 ARG DISTRO
 
-FROM quay.io/qiime2/${DISTRO}:{EPOCH}
+FROM quay.io/qiime2/${DISTRO}:${EPOCH}
 
 ARG EPOCH
 ARG DISTRO

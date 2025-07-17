@@ -1,7 +1,10 @@
 ARG EPOCH
 ARG DISTRO
 
-FROM quay.io/qiime2/${DISTRO}:latest
+FROM quay.io/qiime2/${DISTRO}:{EPOCH}
+
+ARG EPOCH
+ARG DISTRO
 
 ENV HOME /home/qiime2
 ENV XDG_CONFIG_HOME /home/qiime2

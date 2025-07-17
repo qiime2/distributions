@@ -12,6 +12,7 @@ dependencies:
 - matplotlib=3.8.4
 - notebook=6.5.5
 - numpy=1.26.4
+- pyarrow=16.1.0
 - pandas=2.2.2
 - parsl=2024.4.15
 - patsy=0.5.6

@@ -22,8 +22,8 @@ dependencies:
 - pysam=0.22.1
 - python=3.10
 - q2-alignment=2025.10.0.dev0
-- q2-annotate=2025.10.0.dev0
-- q2-assembly=2025.10.0.dev0
+- q2-annotate=2025.10.0.dev0+2.g6f6ed60
+- q2-assembly=2025.10.0.dev0+1.ge4c2e87
 - q2-composition=2025.10.0.dev0
 - q2-cutadapt=2025.10.0.dev0
 - q2-demux=2025.10.0.dev0

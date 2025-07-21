@@ -19,7 +19,7 @@ dependencies:
 - python=3.10
 - q2-alignment=2025.10.0.dev0
 - q2-amrfinderplus=2025.10.0.dev0
-- q2-assembly=2025.10.0.dev0
+- q2-assembly=2025.10.0.dev0+1.ge4c2e87
 - q2-demux=2025.10.0.dev0
 - q2-feature-classifier=2025.10.0.dev0
 - q2-feature-table=2025.10.0.dev0

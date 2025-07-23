@@ -4,7 +4,7 @@ channels:
 - bioconda
 dependencies:
 - biom-format=2.1.16
-- click=8.2.1
+- click=8.1.8
 - decorator=5.2.1
 - frictionless=5.5.0
 - h5py=3.14.0

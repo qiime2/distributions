@@ -5,7 +5,7 @@ channels:
 dependencies:
 - biom-format=2.1.16
 - blast=2.16.0
-- click=8.2.1
+- click=8.1.8
 - cutadapt=5.1
 - deblur=1.1.1
 - decorator=5.2.1

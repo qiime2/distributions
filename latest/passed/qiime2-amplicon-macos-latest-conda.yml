@@ -107,7 +107,7 @@ dependencies:
 - cutadapt=5.1
 - cycler=0.12.1
 - deblur=1.1.1
-- debugpy=1.8.14
+- debugpy=1.8.15
 - decorator=4.4.2
 - defusedxml=0.7.1
 - dendropy=5.0.8
@@ -119,7 +119,7 @@ dependencies:
 - entrypoints=0.4
 - exceptiongroup=1.3.0
 - executing=2.2.0
-- expat=2.7.0
+- expat=2.7.1
 - fastcluster=1.3.0
 - fastp=0.24.0
 - fasttree=2.1.11
@@ -132,7 +132,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.58.5
+- fonttools=4.59.0
 - formulaic=1.2.0
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -160,7 +160,6 @@ dependencies:
 - idna=3.10
 - ijson=3.4.0
 - importlib-metadata=8.7.0
-- importlib_resources=6.5.2
 - iniconfig=2.0.0
 - interface_meta=1.3.0
 - iow=1.0.5
@@ -178,9 +177,9 @@ dependencies:
 - joblib=1.5.1
 - jq=1.8.1
 - jsonpointer=3.0.0
-- jsonschema=4.24.0
+- jsonschema=4.25.0
 - jsonschema-specifications=2025.4.1
-- jsonschema-with-format-nongpl=4.24.0
+- jsonschema-with-format-nongpl=4.25.0
 - jupyter_client=7.4.9
 - jupyter_core=5.8.1
 - jupyter_events=0.12.0
@@ -190,6 +189,7 @@ dependencies:
 - jupyterlab_widgets=3.0.15
 - kiwisolver=1.4.8
 - krb5=1.21.3
+- lark=1.2.2
 - lcms2=2.16
 - ld64_osx-64=711
 - lerc=4.0.0
@@ -206,7 +206,7 @@ dependencies:
 - libdeflate=1.20
 - libedit=3.1.20250104
 - libev=4.33
-- libexpat=2.7.0
+- libexpat=2.7.1
 - libffi=3.4.6
 - libgettextpo=0.25.1
 - libgfortran=5.0.0
@@ -259,7 +259,7 @@ dependencies:
 - munkres=1.1.4
 - muscle=3.8.1551
 - mypy_extensions=1.1.0
-- narwhals=1.47.0
+- narwhals=1.47.1
 - natsort=8.4.0
 - nbclassic=1.3.1
 - nbclient=0.10.2
@@ -324,7 +324,6 @@ dependencies:
 - pillow=10.3.0
 - pip=25.1.1
 - pixman=0.46.2
-- pkgutil-resolve-name=1.3.10
 - platformdirs=4.3.8
 - pluggy=1.6.0
 - prank=170427
@@ -573,7 +572,7 @@ dependencies:
 - r-rpart=4.1.24
 - r-rprojroot=2.1.0
 - r-rspectra=0.16_2
-- r-rsqlite=2.4.1
+- r-rsqlite=2.4.2
 - r-rstudioapi=0.17.1
 - r-rsvd=1.0.5
 - r-rtsne=0.17
@@ -626,6 +625,7 @@ dependencies:
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
+- rfc3987-syntax=1.1.0
 - rich=14.0.0
 - rnanorm=2.1.0
 - rpds-py=0.26.0

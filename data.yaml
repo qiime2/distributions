@@ -28,6 +28,10 @@ packages:
   repo: bokulich-lab/q2-assembly
   distros: [moshpit, pathogenome]
 
+- name: q2-boots
+  repo: caporaso-lab/q2-boots
+  distros: [amplicon]
+
 - name: q2-composition
   repo: qiime2/q2-composition
   distros: [amplicon, moshpit]
@@ -78,6 +82,10 @@ packages:
 
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion
+  distros: [amplicon]
+
+- name: q2-kmerizer
+  repo: bokulich-lab/q2-kmerizer
   distros: [amplicon]
 
 - name: q2-longitudinal

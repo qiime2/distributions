@@ -68,7 +68,7 @@ dependencies:
 - rescript=2025.10.0.dev0
 - rnanorm=2.2.0
 - rpy2=3.5.11
-- samtools=1.22.1
+- samtools=1.21
 - scikit-bio=0.7.0
 - scikit-learn=1.7.1
 - scipy=1.15.2

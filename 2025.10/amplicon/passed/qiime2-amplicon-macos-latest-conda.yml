@@ -86,7 +86,7 @@ dependencies:
 - certifi=2025.8.3
 - cffi=1.17.1
 - chardet=5.2.0
-- charset-normalizer=3.4.2
+- charset-normalizer=3.4.3
 - clang=18.1.7
 - clang-18=18.1.7
 - clang_impl_osx-64=18.1.7
@@ -246,7 +246,7 @@ dependencies:
 - mafft=7.526
 - make=4.4.1
 - markdown-it-py=3.0.0
-- marko=2.1.4
+- marko=2.2.0
 - markupsafe=3.0.2
 - matplotlib=3.8.4
 - matplotlib-base=3.8.4
@@ -629,7 +629,7 @@ dependencies:
 - rfc3987-syntax=1.1.0
 - rich=14.1.0
 - rnanorm=2.1.0
-- rpds-py=0.26.0
+- rpds-py=0.27.0
 - rpsbproc=0.5.0
 - rpy2=3.5.11
 - samtools=1.21
@@ -666,14 +666,14 @@ dependencies:
 - toml=0.10.2
 - tomli=2.2.1
 - tomlkit=0.13.3
-- tornado=6.5.1
+- tornado=6.5.2
 - tqdm=4.67.1
 - traitlets=5.9.0
 - typeguard=4.4.4
 - typer=0.16.0
 - typer-slim=0.16.0
 - typer-slim-standard=0.16.0
-- types-python-dateutil=2.9.0.20250708
+- types-python-dateutil=2.9.0.20250809
 - typing-extensions=4.14.1
 - typing-inspection=0.4.1
 - typing_extensions=4.14.1
@@ -709,6 +709,6 @@ dependencies:
 - zeromq=4.3.5
 - zipp=3.23.0
 - zlib=1.2.13
-- zlib-ng=2.2.4
+- zlib-ng=2.2.5
 - zstandard=0.23.0
 - zstd=1.5.6

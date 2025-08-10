@@ -31,7 +31,7 @@ dependencies:
 - q2-diversity=2025.10.0.dev0
 - q2-emperor=2025.10.0.dev0
 - q2-feature-classifier=2025.10.0.dev0
-- q2-feature-table=2025.10.0.dev0
+- q2-feature-table=2025.10.0.dev0+1.g4ca1f5f
 - q2-fondue=2025.10.0.dev0
 - q2-longitudinal=2025.10.0.dev0
 - q2-metadata=2025.10.0.dev0
@@ -47,7 +47,7 @@ dependencies:
 - q2-vsearch=2025.10.0.dev0
 - q2cli=2025.10.0.dev0
 - q2templates=2025.10.0.dev0
-- qiime2=2025.10.0.dev0
+- qiime2=2025.10.0.dev0+1.g74f1c7a
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
@@ -68,4 +68,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.10'
-# modified: 2025-08-10

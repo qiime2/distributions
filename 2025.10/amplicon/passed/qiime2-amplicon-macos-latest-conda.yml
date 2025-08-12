@@ -151,6 +151,7 @@ dependencies:
 - h5py=3.11.0
 - harfbuzz=9.0.0
 - hdf5=1.14.3
+- hdmedians=0.14.2
 - hmmer=3.4
 - hpack=4.1.0
 - htslib=1.21
@@ -187,7 +188,7 @@ dependencies:
 - jupyter_server_terminals=0.5.3
 - jupyterlab_pygments=0.3.0
 - jupyterlab_widgets=3.0.15
-- kiwisolver=1.4.8
+- kiwisolver=1.4.9
 - krb5=1.21.3
 - lark=1.2.2
 - lcms2=2.16
@@ -245,7 +246,7 @@ dependencies:
 - lz4-c=1.10.0
 - mafft=7.526
 - make=4.4.1
-- markdown-it-py=3.0.0
+- markdown-it-py=4.0.0
 - marko=2.2.0
 - markupsafe=3.0.2
 - matplotlib=3.8.4
@@ -259,7 +260,7 @@ dependencies:
 - munkres=1.1.4
 - muscle=3.8.1551
 - mypy_extensions=1.1.0
-- narwhals=2.0.1
+- narwhals=2.1.0
 - natsort=8.4.0
 - nbclassic=1.3.1
 - nbclient=0.10.2
@@ -360,6 +361,7 @@ dependencies:
 - pyyaml=6.0.2
 - pyzmq=24.0.1
 - q2-alignment=2025.10.0.dev0
+- q2-boots=0.0.1+153.geda5d1f
 - q2-composition=2025.10.0.dev0+1.g71010c7
 - q2-cutadapt=2025.10.0.dev0
 - q2-dada2=2025.10.0.dev0
@@ -696,7 +698,7 @@ dependencies:
 - wget=1.21.4
 - wheel=0.45.1
 - widgetsnbextension=4.0.14
-- wrapt=1.17.2
+- wrapt=1.17.3
 - xmltodict=0.14.2
 - xopen=2.0.2
 - xorg-libxau=1.0.12

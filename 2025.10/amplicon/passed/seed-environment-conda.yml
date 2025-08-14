@@ -25,7 +25,7 @@ dependencies:
 - patsy=1.0.1
 - pillow=11.3.0
 - pymc=5.25.1
-- python=3.10
+- python=3.12
 - q2-alignment=2025.10.0.dev0
 - q2-boots=0.0.1+153.geda5d1f
 - q2-composition=2025.10.0.dev0+1.g71010c7
@@ -73,7 +73,7 @@ dependencies:
 - tzlocal=5.3
 - umap-learn=0.5.9.post2
 - unifrac-binaries=1.5
-- unifrac=1.3
+- unifrac=1.5
 - vsearch=2.29.4
 extras:
   variant_override:

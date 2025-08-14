@@ -19,7 +19,7 @@ dependencies:
 - ncbi-datasets-pyclient=18.4.0
 - networkx=3.4.2
 - notebook=7.4.4
-- numpy=1.26.4
+- numpy=2.2.6
 - pandas=2.3.1
 - parsl=2025.7.28
 - patsy=1.0.1

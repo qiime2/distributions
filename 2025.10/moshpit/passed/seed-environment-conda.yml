@@ -11,7 +11,7 @@ dependencies:
 - click=8.1.8
 - cutadapt=5.1
 - decorator=5.2.1
-- eggnog-mapper=2.1.13
+- eggnog-mapper=2.1.12
 - emperor=1.0.4
 - entrezpy=2.1.3
 - fastp=0.24.0
@@ -26,13 +26,13 @@ dependencies:
 - ncbi-datasets-pyclient=18.4.0
 - networkx=3.4.2
 - notebook=7.4.4
-- numpy=1.26.4
+- numpy=2.2.6
 - pandas=2.3.1
 - parsl=2025.7.28
 - patsy=1.0.1
 - pyarrow=16.1.0
 - pysam=0.22.1
-- python=3.10
+- python=3.12
 - q2-alignment=2025.10.0.dev0
 - q2-annotate=2025.10.0.dev0+2.g6f6ed60
 - q2-assembly=2025.10.0.dev0+1.ge4c2e87
@@ -75,14 +75,14 @@ dependencies:
 - seaborn=0.13.2
 - semibin=2.2.0
 - sepp=4.5.5
-- spades=4.0.0
+- spades=4.2.0
 - statsmodels=0.14.5
 - tqdm=4.67.1
 - tzlocal=5.3
 - umap-learn=0.5.9.post2
 - unifrac-binaries=1.5
-- unifrac=1.3
-- vsearch=2.29.1
+- unifrac=1.5
+- vsearch=2.29.4
 extras:
   variant_override:
     qiime2_epoch: '2025.10'

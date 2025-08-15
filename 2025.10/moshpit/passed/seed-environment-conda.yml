@@ -80,7 +80,7 @@ dependencies:
 - tqdm=4.67.1
 - tzlocal=5.3
 - umap-learn=0.5.9.post2
-- unifrac-binaries=1.5
+- unifrac-binaries=1.5.1
 - unifrac=1.5
 - vsearch=2.29.4
 extras:

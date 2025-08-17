@@ -84,7 +84,7 @@ dependencies:
 - bioconductor-zlibbioc=1.48.0
 - biom-format=2.1.16
 - biopython=1.83
-- bitarray=3.6.0
+- bitarray=3.6.1
 - bitstring=4.3.1
 - blast=2.16.0
 - bleach=6.2.0
@@ -132,7 +132,7 @@ dependencies:
 - curl=8.8.0
 - cutadapt=5.1
 - cycler=0.12.1
-- cython=3.1.2
+- cython=3.1.3
 - debugpy=1.8.16
 - decorator=4.4.2
 - defusedxml=0.7.1
@@ -156,7 +156,7 @@ dependencies:
 - fastp=0.24.0
 - fasttree=2.1.11
 - feedparser=6.0.11
-- filelock=3.18.0
+- filelock=3.19.1
 - flufl.lock=8.2.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -165,7 +165,7 @@ dependencies:
 - fontconfig=2.14.2
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.59.0
+- fonttools=4.59.1
 - formulaic=1.2.0
 - fqdn=1.5.1
 - freetype=2.12.1
@@ -204,6 +204,7 @@ dependencies:
 - iniconfig=2.0.0
 - insilicoseq=2.0.1
 - interface_meta=1.3.0
+- invoke=2.2.0
 - iow=1.0.5
 - ipykernel=6.29.5
 - ipython=8.21.0
@@ -230,7 +231,7 @@ dependencies:
 - jupyterlab_widgets=3.0.15
 - k8=0.2.5
 - kaiju=1.10.1
-- kiwisolver=1.4.8
+- kiwisolver=1.4.9
 - kmer-jellyfish=1.1.12
 - kraken=1.1.1
 - kraken2=2.1.3
@@ -299,7 +300,7 @@ dependencies:
 - lz4-c=1.10.0
 - mafft=7.526
 - make=4.4.1
-- markdown-it-py=3.0.0
+- markdown-it-py=4.0.0
 - marko=2.2.0
 - markupsafe=3.0.2
 - mason=2.0.9
@@ -323,7 +324,7 @@ dependencies:
 - muscle=3.8.1551
 - mypy_extensions=1.1.0
 - mysql-connector-c=6.1.11
-- narwhals=2.0.1
+- narwhals=2.1.2
 - natsort=8.4.0
 - nbclassic=1.3.1
 - nbclient=0.10.2
@@ -347,13 +348,13 @@ dependencies:
 - overrides=7.7.0
 - packaging=25.0
 - pandas=2.2.2
-- pandera=0.25.0
-- pandera-base=0.25.0
+- pandera=0.26.0
+- pandera-base=0.26.0
 - pandoc=3.7.0.2
 - pandocfilters=1.5.0
 - pango=1.54.0
 - parameterized=0.9.0
-- paramiko=3.5.1
+- paramiko=4.0.0
 - parsl=2024.4.15
 - parso=0.8.4
 - pasta=1.9.3
@@ -462,7 +463,7 @@ dependencies:
 - python=3.10.14
 - python-dateutil=2.9.0.post0
 - python-dotenv=1.1.1
-- python-fastjsonschema=2.21.1
+- python-fastjsonschema=2.21.2
 - python-isal=1.7.2
 - python-json-logger=2.0.7
 - python-slugify=8.0.4
@@ -480,7 +481,7 @@ dependencies:
 - q2-cutadapt=2025.10.0.dev0
 - q2-demux=2025.10.0.dev0
 - q2-diversity=2025.10.0.dev0
-- q2-diversity-lib=2025.10.0.dev0
+- q2-diversity-lib=2025.10.0.dev0+1.g4565c49
 - q2-emperor=2025.10.0.dev0
 - q2-feature-classifier=2025.10.0.dev0
 - q2-feature-table=2025.10.0.dev0+1.g4ca1f5f
@@ -843,7 +844,7 @@ dependencies:
 - wget=1.21.4
 - wheel=0.45.1
 - widgetsnbextension=4.0.14
-- wrapt=1.17.2
+- wrapt=1.17.3
 - xlsxwriter=3.2.5
 - xmltodict=0.14.2
 - xopen=2.0.2

@@ -27,7 +27,7 @@ dependencies:
 - q2-composition=2025.10.0.dev0+1.g71010c7
 - q2-cutadapt=2025.10.0.dev0
 - q2-demux=2025.10.0.dev0
-- q2-diversity-lib=2025.10.0.dev0
+- q2-diversity-lib=2025.10.0.dev0+1.g4565c49
 - q2-diversity=2025.10.0.dev0
 - q2-emperor=2025.10.0.dev0
 - q2-feature-classifier=2025.10.0.dev0
@@ -68,4 +68,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.10'
-# modified: 2025-08-17

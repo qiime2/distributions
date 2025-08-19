@@ -220,7 +220,7 @@ dependencies:
 - pytest=8.4.1
 - python=3.12.11
 - python-dateutil=2.9.0.post0
-- python-fastjsonschema=2.21.1
+- python-fastjsonschema=2.21.2
 - python-json-logger=2.0.7
 - python-slugify=8.0.4
 - python-tzdata=2025.2

@@ -33,7 +33,7 @@ jobs:
   install-env-and-test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-13]
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'checkout source'

@@ -301,6 +301,7 @@ jobs:
         if: ${{ inputs.is-rebuild != 'true' }}
         uses: qiime2/action-library-packaging/patch-repodata@beta
         with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
           channel: ${{ env.patched_channel_path }}
           rev-deps: ${{ env.rev_deps_path }}/rev_deps.json
           versions-file: version_updates.txt

@@ -6,6 +6,7 @@ dependencies:
 - biom-format=2.1.16
 - click=8.1.8
 - decorator=4.4.2
+- frictionless=5.5.0
 - h5py=3.11.0
 - hdf5=1.14.3
 - networkx=3.1

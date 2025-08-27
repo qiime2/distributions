@@ -68,7 +68,7 @@ dependencies:
 - gxx_impl_linux-64=15.1.0
 - h2=4.2.0
 - h5py=3.11.0
-- harfbuzz=11.4.3
+- harfbuzz=11.4.4
 - hdf5=1.14.3
 - hpack=4.1.0
 - htslib=1.22.1
@@ -189,7 +189,7 @@ dependencies:
 - pickleshare=0.7.5
 - pip=25.2
 - pixman=0.46.4
-- platformdirs=4.3.8
+- platformdirs=4.4.0
 - pluggy=1.6.0
 - prometheus_client=0.22.1
 - prompt-toolkit=3.0.51
@@ -217,12 +217,12 @@ dependencies:
 - pytz=2025.2
 - pyyaml=6.0.2
 - pyzmq=24.0.1
-- q2-metadata=2025.10.0.dev0
-- q2-mystery-stew=2025.10.0.dev0
-- q2-types=2025.10.0.dev0+1.gf604aa7
+- q2-metadata=2025.10.0.dev0+1.g61b847b
+- q2-mystery-stew=2025.10.0.dev0+1.g25270e3
+- q2-types=2025.10.0.dev0+3.g79aae14
 - q2cli=2025.10.0.dev0
-- q2templates=2025.10.0.dev0
-- qiime2=2025.10.0.dev0+1.g74f1c7a
+- q2templates=2025.10.0.dev0+1.g695609d
+- qiime2=2025.10.0.dev0+3.g812fd09
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=2.0.0
@@ -234,7 +234,7 @@ dependencies:
 - r-rcpptoml=0.2.3
 - r-reticulate=1.36.0
 - r-rlang=1.1.6
-- r-rprojroot=2.1.0
+- r-rprojroot=2.1.1
 - r-withr=3.0.2
 - readline=8.2
 - referencing=0.36.2
@@ -245,7 +245,7 @@ dependencies:
 - rfc3987-syntax=1.1.0
 - rich=14.1.0
 - rnanorm=2.1.0
-- rpds-py=0.27.0
+- rpds-py=0.27.1
 - samtools=1.22.1
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2
@@ -280,9 +280,9 @@ dependencies:
 - typer-slim=0.16.1
 - typer-slim-standard=0.16.1
 - types-python-dateutil=2.9.0.20250822
-- typing-extensions=4.14.1
+- typing-extensions=4.15.0
 - typing-inspection=0.4.1
-- typing_extensions=4.14.1
+- typing_extensions=4.15.0
 - typing_inspect=0.9.0
 - typing_utils=0.1.0
 - tzdata=2025b

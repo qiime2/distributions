@@ -5,6 +5,7 @@ channels:
 dependencies:
 - _libgcc_mutex=0.1
 - _openmp_mutex=4.5
+- _python_abi3_support=1.0
 - _r-mutex=1.0.1
 - alabaster=1.0.0
 - alsa-lib=1.2.11
@@ -120,10 +121,13 @@ dependencies:
 - click=8.1.8
 - clustalw=2.1
 - colorama=0.4.6
+- coloredlogs=15.0.1
+- colormath=3.0.0
 - comm=0.2.3
 - commonmark=0.9.1
 - conda-pack=0.8.1
 - contourpy=1.3.2
+- cpython=3.10.18
 - cryptography=45.0.7
 - curl=8.8.0
 - cutadapt=5.1
@@ -151,7 +155,7 @@ dependencies:
 - expat=2.7.1
 - fastcluster=1.3.0
 - fastp=0.24.0
-- fasttree=2.1.11
+- fasttree=2.2.0
 - feedparser=6.0.11
 - filelock=3.19.1
 - flufl.lock=8.2.0
@@ -198,6 +202,7 @@ dependencies:
 - htslib=1.21
 - httpcore=1.0.9
 - httpx=0.28.1
+- humanfriendly=10.0
 - humanize=4.13.0
 - hyperframe=6.1.0
 - icu=73.2
@@ -234,6 +239,7 @@ dependencies:
 - jupyterlab_widgets=3.0.15
 - k8=0.2.5
 - kaiju=1.10.1
+- kaleido-core=0.2.1
 - kernel-headers_linux-64=5.14.0
 - keyutils=1.6.3
 - kiwisolver=1.4.9
@@ -327,10 +333,12 @@ dependencies:
 - lz4-c=1.10.0
 - mafft=7.526
 - make=4.4.1
+- markdown=3.9
 - markdown-it-py=4.0.0
 - marko=2.2.0
 - markupsafe=3.0.2
 - mason=2.0.9
+- mathjax=2.7.7
 - matplotlib=3.8.4
 - matplotlib-base=3.8.4
 - matplotlib-inline=0.1.7
@@ -347,6 +355,7 @@ dependencies:
 - mpfr=4.2.1
 - mpg123=1.32.9
 - mpi=1.0
+- multiqc=1.30
 - munkres=1.1.4
 - muscle=3.8.1551
 - mypy_extensions=1.1.0
@@ -465,9 +474,11 @@ dependencies:
 - pip=25.2
 - pixman=0.46.4
 - platformdirs=4.4.0
+- plotly=6.3.0
 - pluggy=1.6.0
 - ply=3.11
 - pockets=0.9.1
+- polars-lts-cpu=1.33.0
 - popt=1.16
 - prank=170427
 - prodigal=2.6.3
@@ -478,6 +489,7 @@ dependencies:
 - ptyprocess=0.7.0
 - pulseaudio-client=17.0
 - pure_eval=0.2.3
+- pyaml-env=1.2.2
 - pycparser=2.22
 - pydantic=2.11.7
 - pydantic-core=2.33.2
@@ -492,13 +504,15 @@ dependencies:
 - pyqt5-sip=12.12.2
 - pysam=0.22.1
 - pysocks=1.7.1
-- pytest=8.4.1
+- pytest=8.4.2
 - python=3.10.14
 - python-dateutil=2.9.0.post0
 - python-dotenv=1.1.1
 - python-fastjsonschema=2.21.2
+- python-gil=3.10.18
 - python-isal=1.7.2
 - python-json-logger=2.0.7
+- python-kaleido=0.2.1
 - python-slugify=8.0.4
 - python-tzdata=2025.2
 - python-zlib-ng=0.5.1
@@ -516,6 +530,7 @@ dependencies:
 - q2-diversity=2025.10.0.dev0+1.g7d790d3
 - q2-diversity-lib=2025.10.0.dev0+1.g4565c49
 - q2-emperor=2025.10.0.dev0+1.gf3712a1
+- q2-fastp=0.0.1+8.g429c0a8.dirty
 - q2-feature-classifier=2025.10.0.dev0+1.g04099b2
 - q2-feature-table=2025.10.0.dev0+1.g4ca1f5f
 - q2-fondue=2025.10.0.dev0+2.g4e5baf7
@@ -622,7 +637,7 @@ dependencies:
 - r-glue=1.8.0
 - r-gmp=0.7_5
 - r-googledrive=2.1.1
-- r-googlesheets4=1.1.1
+- r-googlesheets4=1.1.2
 - r-gridextra=2.3
 - r-gsl=2.1_8
 - r-gtable=0.3.6
@@ -724,7 +739,7 @@ dependencies:
 - r-rmarkdown=2.29
 - r-rmpfr=1.1_1
 - r-rngtools=1.5.2
-- r-robustbase=0.99_4_1
+- r-robustbase=0.99_6
 - r-rootsolve=1.8.2.4
 - r-rpart=4.1.24
 - r-rprojroot=2.1.1
@@ -782,6 +797,7 @@ dependencies:
 - readline=8.2
 - recommonmark=0.7.1
 - referencing=0.36.2
+- regex=2025.7.34
 - repeatmasker=4.2.1
 - requests=2.32.5
 - rescript=2025.10.0.dev0+4.g925436a
@@ -790,6 +806,7 @@ dependencies:
 - rfc3986-validator=0.1.1
 - rfc3987-syntax=1.1.0
 - rich=14.1.0
+- rich-click=1.8.9
 - rmblast=2.14.1
 - rnanorm=2.1.0
 - rpds-py=0.27.1
@@ -822,6 +839,7 @@ dependencies:
 - soupsieve=2.8
 - sourmash-minimal=4.8.14
 - spades=4.0.0
+- spectra=0.0.11
 - sphinx=8.1.3
 - sphinxcontrib-applehelp=2.0.0
 - sphinxcontrib-devhelp=2.0.0
@@ -844,6 +862,7 @@ dependencies:
 - terminado=0.18.1
 - text-unidecode=1.3
 - threadpoolctl=3.6.0
+- tiktoken=0.11.0
 - tinycss2=1.4.0
 - tk=8.6.13
 - tktable=2.10
@@ -891,7 +910,7 @@ dependencies:
 - xcb-util-wm=0.4.1
 - xkeyboard-config=2.42
 - xlsxwriter=3.2.5
-- xmltodict=0.14.2
+- xmltodict=0.15.0
 - xopen=2.0.2
 - xorg-fixesproto=5.0
 - xorg-inputproto=2.3.2

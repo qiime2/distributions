@@ -41,6 +41,7 @@ dependencies:
 - q2-diversity-lib=2025.10.0.dev0+1.g4565c49
 - q2-diversity=2025.10.0.dev0+1.g7d790d3
 - q2-emperor=2025.10.0.dev0+1.gf3712a1
+- q2-fastp=0.0.1+8.g429c0a8.dirty
 - q2-feature-classifier=2025.10.0.dev0+1.g04099b2
 - q2-feature-table=2025.10.0.dev0+1.g4ca1f5f
 - q2-fondue=2025.10.0.dev0+2.g4e5baf7

@@ -42,7 +42,7 @@ dependencies:
 - q2-longitudinal=2025.10.0.dev0+1.gd354994
 - q2-metadata=2025.10.0.dev0+1.g61b847b
 - q2-mystery-stew=2025.10.0.dev0+1.g25270e3
-- q2-phylogeny=2025.10.0.dev0+2.g28cf19f
+- q2-phylogeny=2025.10.0.dev0+3.g9fcf08f
 - q2-quality-control=2025.10.0.dev0+1.g1d6e788
 - q2-quality-filter=2025.10.0.dev0
 - q2-sample-classifier=2025.10.0.dev0+2.g0ce9769

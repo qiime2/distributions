@@ -74,7 +74,7 @@ dependencies:
 - globus-sdk=3.62.0
 - gmp=6.3.0
 - graphite2=1.3.14
-- h2=4.2.0
+- h2=4.3.0
 - h5py=3.11.0
 - harfbuzz=9.0.0
 - hdf5=1.14.3
@@ -97,7 +97,7 @@ dependencies:
 - isoduration=20.11.0
 - jedi=0.19.2
 - jinja2=3.1.6
-- joblib=1.5.1
+- joblib=1.5.2
 - jsonpointer=3.0.0
 - jsonschema=4.25.1
 - jsonschema-specifications=2025.4.1
@@ -159,7 +159,7 @@ dependencies:
 - markupsafe=3.0.2
 - matplotlib-inline=0.1.7
 - mdurl=0.1.2
-- mistune=3.1.3
+- mistune=3.1.4
 - mpc=1.3.1
 - mpfr=4.2.1
 - mpi=1.0.1
@@ -179,8 +179,8 @@ dependencies:
 - overrides=7.7.0
 - packaging=25.0
 - pandas=2.2.2
-- pandera=0.26.0
-- pandera-base=0.26.0
+- pandera=0.26.1
+- pandera-base=0.26.1
 - pandocfilters=1.5.0
 - pango=1.54.0
 - paramiko=4.0.0
@@ -196,7 +196,7 @@ dependencies:
 - platformdirs=4.4.0
 - pluggy=1.6.0
 - prometheus_client=0.22.1
-- prompt-toolkit=3.0.51
+- prompt-toolkit=3.0.52
 - psutil=7.0.0
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
@@ -224,8 +224,8 @@ dependencies:
 - pyzmq=24.0.1
 - q2-metadata=2025.10.0.dev0+1.g61b847b
 - q2-mystery-stew=2025.10.0.dev0+1.g25270e3
-- q2-types=2025.10.0.dev0+3.g79aae14
-- q2cli=2025.10.0.dev0
+- q2-types=2025.10.0.dev0+4.gd973090
+- q2cli=2025.10.0.dev0+1.gaa33e37
 - q2templates=2025.10.0.dev0+1.g695609d
 - qiime2=2025.10.0.dev0+3.g812fd09
 - r-base=4.3.3
@@ -263,7 +263,7 @@ dependencies:
 - simpleeval=1.0.3
 - six=1.17.0
 - sniffio=1.3.1
-- soupsieve=2.7
+- soupsieve=2.8
 - stack_data=0.6.3
 - statsmodels=0.14.5
 - stringcase=1.2.0

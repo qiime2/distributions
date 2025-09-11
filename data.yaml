@@ -78,7 +78,7 @@ packages:
 
 - name: q2-fondue
   repo: bokulich-lab/q2-fondue
-  distros: [moshpit]
+  distros: [amplicon, moshpit]
 
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion

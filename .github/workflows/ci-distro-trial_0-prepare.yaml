@@ -123,8 +123,10 @@ jobs:
           python-version: 3.8
 
       - name: install dependencies
+        # ghapi is pinned due to this newly introduced bug as of 9.16.25
+        # https://github.com/AnswerDotAI/ghapi/issues/197
         run: |
-          pip install pyyaml jinja2 networkx conda-mirror ghapi gitpython
+          pip install pyyaml jinja2 networkx conda-mirror ghapi==1.0.6
           conda install -c conda-forge -q conda-build
 
       - name: make matrix dir

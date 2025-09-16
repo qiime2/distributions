@@ -124,7 +124,7 @@ jobs:
 
       - name: install dependencies
         run: |
-          pip install pyyaml jinja2 networkx conda-mirror ghapi
+          pip install pyyaml jinja2 networkx conda-mirror ghapi gitpython
           conda install -c conda-forge -q conda-build
 
       - name: make matrix dir

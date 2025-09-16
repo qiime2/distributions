@@ -56,7 +56,7 @@ dependencies:
 - q2cli=2025.10.0.dev0+2.g2976552
 - q2galaxy=2025.10.0.dev0
 - q2templates=2025.10.0.dev0+1.g695609d
-- qiime2=2025.10.0.dev0+4.g19b7135
+- qiime2=2025.10.0.dev0+6.g65a1488
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0

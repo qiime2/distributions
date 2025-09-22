@@ -334,7 +334,7 @@ dependencies:
 - platformdirs=4.4.0
 - pluggy=1.6.0
 - prank=170427
-- prometheus_client=0.22.1
+- prometheus_client=0.23.1
 - prompt-toolkit=3.0.52
 - psutil=7.1.0
 - pthread-stubs=0.4
@@ -370,7 +370,7 @@ dependencies:
 - pyzotero=1.6.11
 - q2-alignment=2025.10.0.dev0
 - q2-boots=0.0.1+162.g946b12e
-- q2-composition=2025.10.0.dev0+3.g196488c
+- q2-composition=2025.10.0.dev0+6.g9faf6fc
 - q2-cutadapt=2025.10.0.dev0+1.g3399978
 - q2-dada2=2025.10.0.dev0+3.g5ebd800
 - q2-deblur=2025.10.0.dev0+1.g71e17c2
@@ -395,7 +395,7 @@ dependencies:
 - q2-types=2025.10.0.dev0+5.g4a8aaa7
 - q2-vizard=2025.10.0.dev0+13.g6acebbb
 - q2-vsearch=2025.10.0.dev0
-- q2cli=2025.10.0.dev0+2.g2976552
+- q2cli=2025.10.0.dev0+3.g3740acc
 - q2galaxy=2025.10.0.dev0
 - q2templates=2025.10.0.dev0+1.g695609d
 - qiime2=2025.10.0.dev0+6.g65a1488

@@ -32,7 +32,7 @@ dependencies:
 - q2-cutadapt=2025.10.0.dev0+1.g3399978
 - q2-dada2=2025.10.0.dev0+3.g5ebd800
 - q2-deblur=2025.10.0.dev0+1.g71e17c2
-- q2-demux=2025.10.0.dev0+5.g12f814d
+- q2-demux=2025.10.0.dev0+6.g207c783
 - q2-diversity-lib=2025.10.0.dev0+1.g4565c49
 - q2-diversity=2025.10.0.dev0+2.gb13b6a1
 - q2-emperor=2025.10.0.dev0+1.gf3712a1
@@ -56,12 +56,12 @@ dependencies:
 - q2cli=2025.10.0.dev0+3.g3740acc
 - q2galaxy=2025.10.0.dev0
 - q2templates=2025.10.0.dev0+1.g695609d
-- qiime2=2025.10.0.dev0+6.g65a1488
+- qiime2=2025.10.0.dev0+7.gb38668f
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
-- rescript=2025.10.0.dev0+4.g925436a
+- rescript=2025.10.0.dev0+6.g3625f2a
 - rnanorm=2.1.0
 - rpy2=3.5.11
 - samtools=1.21
@@ -80,4 +80,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.10'
-# modified: 2025-09-28

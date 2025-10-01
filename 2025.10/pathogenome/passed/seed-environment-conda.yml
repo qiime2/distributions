@@ -26,8 +26,8 @@ dependencies:
 - python=3.10
 - q2-alignment=2025.10.0.dev0
 - q2-amrfinderplus=2025.10.0.dev0+1.g894ba71
-- q2-assembly=2025.10.0.dev0+3.g543baf8
-- q2-demux=2025.10.0.dev0+5.g12f814d
+- q2-assembly=2025.10.0.dev0+4.ga84d457
+- q2-demux=2025.10.0.dev0+6.g207c783
 - q2-feature-classifier=2025.10.0.dev0+1.g04099b2
 - q2-feature-table=2025.10.0.dev0+1.g4ca1f5f
 - q2-fondue=2025.10.0.dev0+2.g4e5baf7
@@ -42,11 +42,11 @@ dependencies:
 - q2-vizard=2025.10.0.dev0+13.g6acebbb
 - q2cli=2025.10.0.dev0+3.g3740acc
 - q2templates=2025.10.0.dev0+1.g695609d
-- qiime2=2025.10.0.dev0+6.g65a1488
+- qiime2=2025.10.0.dev0+7.gb38668f
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
-- rescript=2025.10.0.dev0+4.g925436a
+- rescript=2025.10.0.dev0+6.g3625f2a
 - rnanorm=2.1.0
 - samtools=1.21
 - scikit-bio=0.6.2

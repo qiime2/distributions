@@ -15,7 +15,7 @@ dependencies:
 - atpublic=6.0.2
 - attrs=25.3.0
 - bcrypt=5.0.0
-- beautifulsoup4=4.13.5
+- beautifulsoup4=4.14.2
 - bibtexparser=1.4.3
 - biom-format=2.1.16
 - bleach=6.2.0
@@ -46,7 +46,7 @@ dependencies:
 - compiler-rt=18.1.7
 - compiler-rt_osx-64=18.1.7
 - conda-pack=0.8.1
-- cryptography=46.0.1
+- cryptography=46.0.2
 - curl=8.8.0
 - debugpy=1.8.17
 - decorator=4.4.2
@@ -148,7 +148,7 @@ dependencies:
 - libxml2=2.12.7
 - libxslt=1.1.39
 - libzlib=1.2.13
-- llvm-openmp=21.1.0
+- llvm-openmp=21.1.2
 - llvm-tools=18.1.7
 - lxml=5.2.2
 - lz4=4.4.4
@@ -156,7 +156,7 @@ dependencies:
 - make=4.4.1
 - markdown-it-py=4.0.0
 - marko=2.2.0
-- markupsafe=3.0.2
+- markupsafe=3.0.3
 - matplotlib-inline=0.1.7
 - mdurl=0.1.2
 - mistune=3.1.4
@@ -175,7 +175,7 @@ dependencies:
 - notebook=6.5.5
 - notebook-shim=0.2.4
 - numpy=1.26.4
-- openssl=3.5.3
+- openssl=3.5.4
 - overrides=7.7.0
 - packaging=25.0
 - pandas=2.2.2
@@ -225,9 +225,9 @@ dependencies:
 - q2-metadata=2025.10.0.dev0+1.g61b847b
 - q2-mystery-stew=2025.10.0.dev0+1.g25270e3
 - q2-types=2025.10.0.dev0+5.g4a8aaa7
-- q2cli=2025.10.0.dev0+3.g3740acc
-- q2templates=2025.10.0.dev0+1.g695609d
-- qiime2=2025.10.0.dev0+7.gb38668f
+- q2cli=2025.10.0.dev0+5.ga79704e
+- q2templates=2025.10.0.dev0+3.gb37fcb0
+- qiime2=2025.10.0.dev0+8.g263e734
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.9.1
@@ -286,7 +286,7 @@ dependencies:
 - typer-slim-standard=0.19.2
 - types-python-dateutil=2.9.0.20250822
 - typing-extensions=4.15.0
-- typing-inspection=0.4.1
+- typing-inspection=0.4.2
 - typing_extensions=4.15.0
 - typing_inspect=0.9.0
 - typing_utils=0.1.0

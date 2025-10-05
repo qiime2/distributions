@@ -53,10 +53,10 @@ dependencies:
 - q2-types=2025.10.0.dev0+5.g4a8aaa7
 - q2-vizard=2025.10.0.dev0+13.g6acebbb
 - q2-vsearch=2025.10.0.dev0
-- q2cli=2025.10.0.dev0+3.g3740acc
+- q2cli=2025.10.0.dev0+5.ga79704e
 - q2galaxy=2025.10.0.dev0
-- q2templates=2025.10.0.dev0+1.g695609d
-- qiime2=2025.10.0.dev0+7.gb38668f
+- q2templates=2025.10.0.dev0+4.g50d1dd7
+- qiime2=2025.10.0.dev0+8.g263e734
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
@@ -80,4 +80,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2025.10'
-# modified: 2025-10-05

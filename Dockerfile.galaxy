@@ -17,7 +17,7 @@ VOLUME ["/export/", "/data/", "/var/lib/docker"]
 
 RUN /export/tool_deps/_conda/bin/conda create -y --quiet --solver libmamba --override-channels \
     --channel https://packages.qiime2.org/qiime2/${EPOCH}/${DISTRO}/released --channel iuc --channel \
-    conda-forge --channel bioconda --name __qiime2-${DISTRO}@${EPOCH} qiime2-${DISTRO}=${EPOCH}
+    conda-forge --channel bioconda --name __qiime2-${DISTRO}@${EPOCH} qiime2-${DISTRO}=${METAPACKAGE}
 
 EXPOSE 80
 EXPOSE 21

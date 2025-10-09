@@ -8,6 +8,9 @@ on:
       distro:
         required: true
         type: string
+      metapackage:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -36,6 +39,7 @@ jobs:
           build-args: |
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
+            METAPACKAGE=${{ inputs.metapackage }}
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

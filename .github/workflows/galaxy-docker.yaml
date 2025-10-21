@@ -1,0 +1,59 @@
+name: release-docker
+on:
+  workflow_dispatch:
+    inputs:
+      epoch:
+        required: true
+        type: string
+      distro:
+        required: true
+        type: string
+      metapackage:
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: qiime2/action-library-packaging/clean-disk@beta
+        name: "Clean disk on linux"
+
+      - uses: actions/checkout@v4
+
+      # Do we pull prebuilt tools or do we pull q2galaxy and build?
+      - name: Get Tools
+        id: get-tools
+        uses: actions/checkout@v4
+        with:
+          repository: 'qiime2/q2galaxy-tools'
+
+      - name: Build Galaxy Image
+        id: build-galaxy-image
+        # Replaces redhat-actions/buildah-build@v2
+        uses: qiime2-cutlery/buildah-build@v2
+        with:
+          containerfiles: |
+            ./Dockerfile.galaxy
+          build-args: |
+            EPOCH=${{ inputs.epoch }}
+            DISTRO=${{ inputs.distro }}
+            METAPACKAGE=${{ inputs.metapackage }}
+          image: ${{ inputs.distro }}-galaxy
+          tags: latest ${{ inputs.epoch }}
+
+      - name: Push Galaxy Image To quay.io
+        id: push-galaxy-image-to-quay
+        # Replaces redhat-actions/push-to-registry@v2
+        uses: qiime2-cutlery/push-to-registry@v2
+        with:
+          image: ${{ steps.build-galaxy-image.outputs.image }}
+          tags: ${{ steps.build-galaxy-image.outputs.tags }}
+          registry: quay.io/qiime2
+          username: qiime2+q2d2
+          password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
+
+      - name: Print image url
+        run: |
+          echo "Galaxy image pushed to ${{ steps.push-galaxy-image-to-quay.outputs.registry-paths }}"

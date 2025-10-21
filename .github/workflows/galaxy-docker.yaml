@@ -1,4 +1,4 @@
-name: release-docker
+name: galaxy-docker
 on:
   workflow_dispatch:
     inputs:

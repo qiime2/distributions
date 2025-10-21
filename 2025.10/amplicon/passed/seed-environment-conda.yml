@@ -37,7 +37,7 @@ dependencies:
 - q2-diversity=2025.10.0.dev0+2.gb13b6a1
 - q2-emperor=2025.10.0.dev0+1.gf3712a1
 - q2-feature-classifier=2025.10.0.dev0+1.g04099b2
-- q2-feature-table=2025.10.0.dev0+1.g4ca1f5f
+- q2-feature-table=2025.10.0.dev0+2.g44d39fc
 - q2-fondue=2025.10.0.dev0+2.g4e5baf7
 - q2-fragment-insertion=2025.10.0.dev0+1.g09bdead
 - q2-kmerizer=0.0.1+37.gfd404f7
@@ -50,13 +50,13 @@ dependencies:
 - q2-sample-classifier=2025.10.0.dev0+2.g0ce9769
 - q2-stats=2025.10.0.dev0+3.g0e345b9
 - q2-taxa=2025.10.0.dev0+1.ga8d6203
-- q2-types=2025.10.0.dev0+6.g51a6de2
+- q2-types=2025.10.0.dev0+7.ge29df78
 - q2-vizard=2025.10.0.dev0+13.g6acebbb
 - q2-vsearch=2025.10.0.dev0
 - q2cli=2025.10.0.dev0+5.ga79704e
 - q2galaxy=2025.10.0.dev0
 - q2templates=2025.10.0.dev0+4.g50d1dd7
-- qiime2=2025.10.0.dev0+9.gdeba9d1
+- qiime2=2025.10.0.dev0+11.g92032a6
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0

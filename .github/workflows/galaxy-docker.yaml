@@ -36,19 +36,7 @@ jobs:
           path: distributions
 
       - name: come one now
-        run: ls $GITHUB_WORKSPACE
-
-      - name: come on now
-        run: ls $GITHUB_WORKSPACE/distributions
-
-      - name: this is getting
-        run: ls $GITHUB_WORKSPACE/galaxy-tools
-
-      - name: pretty annoying
-        run: ls $GITHUB_WORKSPACE/galaxy-tools/tools
-
-      - name: where am I
-        run: ls
+        run: ls /home/runner/work/distributions/galaxy-tools/tools/
 
       - name: Build Galaxy Image
         id: build-galaxy-image
@@ -61,7 +49,6 @@ jobs:
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
-            SOURCE=${{ github.workspace }}/galaxy-tools/tools/
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

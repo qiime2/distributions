@@ -6,7 +6,8 @@ GALAXY_CONFIG_CONDA_AUTO_INSTALL=true \
 GALAXY_CONFIG_CONDA_ENSURE_CHANNELS=https://packages.qiime2.org/qiime2/${EPOCH}/${DISTRO}/released,iuc,conda-forge,bioconda
 
 # Install Visualisation
-RUN install-biojs msa
+# This step no longer appears to be working, I am not positive it is mandatory
+# RUN install-biojs msa
 
 COPY ${GITHUB_WORKSPACE}/tools/ /qiime2_tools/
 # This file does not exist in the galaxy-tools repo

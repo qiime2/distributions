@@ -27,7 +27,7 @@ jobs:
         id: get-tools
         uses: actions/checkout@v4
         with:
-          repository: 'qiime2/q2galaxy-tools'
+          repository: 'qiime2/galaxy-tools'
 
       - name: Build Galaxy Image
         id: build-galaxy-image

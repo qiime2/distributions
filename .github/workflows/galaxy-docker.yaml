@@ -53,7 +53,7 @@ jobs:
         uses: qiime2-cutlery/buildah-build@v2
         with:
           containerfiles: |
-            $GITHUB_WORKSPACE/distributions/Dockerfile.galaxy
+            /distributions/Dockerfile.galaxy
           build-args: |
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}

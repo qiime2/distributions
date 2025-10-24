@@ -28,16 +28,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'qiime2/galaxy-tools'
-          path: 'galaxy-tools'
           sparse-checkout: 'tools/'
 
       - uses: actions/checkout@v4
 
       - name: we'll put it under $GITHUB_WORKSPACE they said
         run: ls /home/runner/work/
-
-      - name: we'll put it under $GITHUB_WORKSPACE they said
-        run: ls /home/runner/work/distributions
 
       - name: we'll put it under $GITHUB_WORKSPACE they said
         run: ls /home/runner/work/distributions

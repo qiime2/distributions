@@ -35,15 +35,6 @@ jobs:
           path: distributions/galaxy-tools
           sparse-checkout: 'tools/'
 
-      - name: come on now
-        run: ls ${{ github.workspace }}/distributions/
-
-      - name: come on now
-        run: ls ${{ github.workspace }}/distributions/galaxy-tools/
-
-      - name: come on now
-        run: ls ${{ github.workspace }}/distributions/galaxy-tools/tools
-
       - name: Build Galaxy Image
         id: build-galaxy-image
         # Replaces redhat-actions/buildah-build@v2

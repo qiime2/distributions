@@ -42,8 +42,6 @@ jobs:
         with:
           containerfiles: |
             ./distributions/Dockerfile.galaxy
-          context: |
-            /home/runner/work/distributions/
           build-args: |
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}

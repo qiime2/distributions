@@ -47,6 +47,9 @@ jobs:
       - name: pretty annoying
         run: ls $GITHUB_WORKSPACE/galaxy-tools/tools
 
+      - name: where am I
+        run: ls
+
       - name: Build Galaxy Image
         id: build-galaxy-image
         # Replaces redhat-actions/buildah-build@v2

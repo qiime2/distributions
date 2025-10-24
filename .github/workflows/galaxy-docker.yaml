@@ -17,10 +17,8 @@ jobs:
     name: Build and push image
     runs-on: ubuntu-latest
     steps:
-      # I can probably get away with not taking the 10 years it takes to run
-      # this action
-      # - uses: qiime2/action-library-packaging/clean-disk@beta
-      #   name: "Clean disk on linux"
+      - uses: qiime2/action-library-packaging/clean-disk@beta
+        name: "Clean disk on linux"
 
       # Do we pull prebuilt tools or do we pull q2galaxy and build?
       - uses: actions/checkout@v4

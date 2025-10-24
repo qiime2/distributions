@@ -44,7 +44,7 @@ jobs:
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
-            SOURCE=$GITHUB_WORKSPACE/galaxy-tools/tools/
+            SOURCE=${{ github.workspace }} /galaxy-tools/tools/
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

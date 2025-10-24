@@ -56,12 +56,12 @@ jobs:
         uses: qiime2-cutlery/buildah-build@v2
         with:
           containerfiles: |
-            /distributions/Dockerfile.galaxy
+            ./distributions/Dockerfile.galaxy
           build-args: |
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
-            SOURCE=$GITHUB_WORKSPACE/galaxy-tools/tools/
+            SOURCE=${{ github.workspace }}/galaxy-tools/tools/
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

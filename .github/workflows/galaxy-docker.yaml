@@ -17,8 +17,10 @@ jobs:
     name: Build and push image
     runs-on: ubuntu-latest
     steps:
-      - uses: qiime2/action-library-packaging/clean-disk@beta
-        name: "Clean disk on linux"
+      # I can probably get away with not taking the 10 years it takes to run
+      # this action
+      # - uses: qiime2/action-library-packaging/clean-disk@beta
+      #   name: "Clean disk on linux"
 
       - uses: actions/checkout@v4
 
@@ -29,9 +31,6 @@ jobs:
         with:
           repository: 'qiime2/galaxy-tools'
           sparse-checkout: 'tools/'
-
-      - name: Where am I
-        run: 'ls'
 
       - name: Build Galaxy Image
         id: build-galaxy-image

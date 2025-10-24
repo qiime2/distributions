@@ -35,7 +35,13 @@ jobs:
         with:
           path: distributions
 
-      - name: come one now
+      - name: echo
+        run: echo $GITHUB_WORKSPACE
+
+      - name: ls
+        run: ls $GITHUB_WORKSPACE
+
+      - name: come on now
         run: ls /home/runner/work/distributions/galaxy-tools/tools/
 
       - name: Build Galaxy Image

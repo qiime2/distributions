@@ -53,8 +53,8 @@ jobs:
       - name: come on now
         run: ls ${{ github.workspace }}/galaxy-tools/tools
 
-      - name: exit
-        run: exit 1
+      # - name: exit
+      #   run: exit 1
 
       - name: Build Galaxy Image
         id: build-galaxy-image
@@ -67,6 +67,7 @@ jobs:
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
+            SOURCE=${{ github.workspace }}/galaxy-tools/tools
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

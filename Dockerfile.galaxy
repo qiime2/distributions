@@ -8,7 +8,7 @@ GALAXY_CONFIG_CONDA_ENSURE_CHANNELS=https://packages.qiime2.org/qiime2/${EPOCH}/
 # Install Visualisation
 RUN install-biojs msa
 
-COPY /galaxy_tools/tools/ /qiime2_tools/
+COPY ${GITHUB_WORKSPACE}/galaxy_tools/tools/ /qiime2_tools/
 # This file does not exist in the galaxy-tools repo
 # COPY qiime2_tool_conf.xml /qiime2_tools/
 

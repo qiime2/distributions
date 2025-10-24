@@ -22,18 +22,15 @@ jobs:
       # - uses: qiime2/action-library-packaging/clean-disk@beta
       #   name: "Clean disk on linux"
 
-      - uses: actions/checkout@v4
-        with:
-          path: '/distributions'
-
       # Do we pull prebuilt tools or do we pull q2galaxy and build?
       - name: Get Tools
         id: get-tools
         uses: actions/checkout@v4
         with:
           repository: 'qiime2/galaxy-tools'
-          path: '/galaxy_tools'
           sparse-checkout: 'tools/'
+
+      - uses: actions/checkout@v4
 
       - name: Build Galaxy Image
         id: build-galaxy-image
@@ -41,8 +38,9 @@ jobs:
         uses: qiime2-cutlery/buildah-build@v2
         with:
           containerfiles: |
-            /distributions/Dockerfile.galaxy
+            ./Dockerfile.galaxy
           build-args: |
+            GITHUB_WORKSPACE=${{ GITHUB_WORKSPACE }}
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}

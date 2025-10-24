@@ -43,7 +43,7 @@ jobs:
           containerfiles: |
             ./distributions/Dockerfile.galaxy
           context: |
-            ${{ github.workspace }}
+            /home/runner/work/distributions/
           build-args: |
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}

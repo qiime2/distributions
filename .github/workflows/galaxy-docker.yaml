@@ -28,8 +28,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'qiime2/galaxy-tools'
-          path: 'tools'
+          path: 'galaxy-tools'
           sparse-checkout: 'tools/'
+
+      - name: come one now
+        run: ls $GITHUB_WORKSPACE
+
+      - name: this is getting
+        run: ls $GITHUB_WORKSPACE/galaxy-tools
+
+      - name: pretty annoying
+        run: ls $GITHUB_WORKSPACE/galaxy-tools/tools
 
       - uses: actions/checkout@v4
 

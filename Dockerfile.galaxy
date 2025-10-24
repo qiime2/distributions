@@ -3,7 +3,6 @@ FROM quay.io/bgruening/galaxy:24.2
 ARG EPOCH
 ARG DISTRO
 ARG METAPACKAGE
-ARG SOURCE
 
 ENV \
 GALAXY_CONFIG_TOOL_CONFIG_FILE=/qiime2_tools/qiime2_tool_conf.xml \
@@ -14,7 +13,7 @@ GALAXY_CONFIG_CONDA_ENSURE_CHANNELS=https://packages.qiime2.org/qiime2/${EPOCH}/
 # This step no longer appears to be working, I am not positive it is mandatory
 # RUN install-biojs msa
 
-COPY ${SOURCE} /qiime2_tools/
+COPY /galaxy-tools/tools /qiime2_tools/
 # This file does not exist in the galaxy-tools repo
 # COPY qiime2_tool_conf.xml /qiime2_tools/
 

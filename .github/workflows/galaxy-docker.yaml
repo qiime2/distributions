@@ -23,38 +23,26 @@ jobs:
       #   name: "Clean disk on linux"
 
       # Do we pull prebuilt tools or do we pull q2galaxy and build?
+      - uses: actions/checkout@v4
+        with:
+          path: distributions
+
       - name: Get Tools
         id: get-tools
         uses: actions/checkout@v4
         with:
           repository: 'qiime2/galaxy-tools'
-          path: galaxy-tools
+          path: distributions/galaxy-tools
           sparse-checkout: 'tools/'
 
-      - uses: actions/checkout@v4
-        with:
-          path: distributions
-
-      - name: echo
-        run: echo $GITHUB_WORKSPACE
-
-      - name: ls
-        run: ls $GITHUB_WORKSPACE
-
-      - name: echo
-        run: echo ${{ github.workspace }}
-
-      - name: ls
-        run: ls ${{ github.workspace }}
+      - name: come on now
+        run: ls ${{ github.workspace }}/distributions/
 
       - name: come on now
-        run: ls ${{ github.workspace }}/galaxy-tools/
+        run: ls ${{ github.workspace }}/distributions/galaxy-tools/
 
       - name: come on now
-        run: ls ${{ github.workspace }}/galaxy-tools/tools
-
-      # - name: exit
-      #   run: exit 1
+        run: ls ${{ github.workspace }}/distributions/galaxy-tools/tools
 
       - name: Build Galaxy Image
         id: build-galaxy-image
@@ -67,7 +55,6 @@ jobs:
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
-            SOURCE=${{ github.workspace }}/galaxy-tools/tools
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

@@ -30,6 +30,9 @@ jobs:
           repository: 'qiime2/galaxy-tools'
           sparse-checkout: 'tools/'
 
+      - name: Where am I
+        run: 'ls'
+
       - name: Build Galaxy Image
         id: build-galaxy-image
         # Replaces redhat-actions/buildah-build@v2

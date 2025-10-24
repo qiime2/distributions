@@ -33,6 +33,15 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: come one now
+        run: ls ${{ github.workspace }}
+
+      - name: this is getting
+        run: ls ${{ github.workspace }}/galaxy-tools
+
+      - name: pretty annoying
+        run: ls ${{ github.workspace }}/galaxy-tools/tools
+
       - name: Build Galaxy Image
         id: build-galaxy-image
         # Replaces redhat-actions/buildah-build@v2

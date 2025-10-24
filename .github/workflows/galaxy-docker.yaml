@@ -41,10 +41,10 @@ jobs:
           containerfiles: |
             ./Dockerfile.galaxy
           build-args: |
-            SOURCE=$GITHUB_WORKSPACE/galaxy-tools/tools/
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
+            SOURCE=$GITHUB_WORKSPACE/galaxy-tools/tools/
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

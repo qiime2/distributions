@@ -40,7 +40,7 @@ jobs:
           containerfiles: |
             ./Dockerfile.galaxy
           build-args: |
-            GITHUB_WORKSPACE=${{ GITHUB_WORKSPACE }}
+            GITHUB_WORKSPACE=$GITHUB_WORKSPACE
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}

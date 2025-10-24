@@ -41,8 +41,20 @@ jobs:
       - name: ls
         run: ls $GITHUB_WORKSPACE
 
+      - name: echo
+        run: echo ${{ github.workspace }}
+
+      - name: ls
+        run: ls ${{ github.workspace }}
+
       - name: come on now
-        run: ls /home/runner/work/distributions/galaxy-tools/tools/
+        run: ls ${{ github.workspace }}/galaxy-tools/
+
+      - name: come on now
+        run: ls ${{ github.workspace }}/galaxy-tools/tools
+
+      - name: exit
+        run: exit 1
 
       - name: Build Galaxy Image
         id: build-galaxy-image

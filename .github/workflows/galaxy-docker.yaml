@@ -44,7 +44,7 @@ jobs:
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
-          image: ${{ inputs.distro }}-galaxy
+          image: q2galaxy
           tags: latest ${{ inputs.epoch }}
 
       - name: Push Galaxy Image To quay.io

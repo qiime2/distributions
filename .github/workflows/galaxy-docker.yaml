@@ -31,15 +31,6 @@ jobs:
           path: 'galaxy-tools'
           sparse-checkout: 'tools/'
 
-      - name: come one now
-        run: ls $GITHUB_WORKSPACE
-
-      - name: this is getting
-        run: ls $GITHUB_WORKSPACE/galaxy-tools
-
-      - name: pretty annoying
-        run: ls $GITHUB_WORKSPACE/galaxy-tools/tools
-
       - uses: actions/checkout@v4
 
       - name: Build Galaxy Image
@@ -50,7 +41,7 @@ jobs:
           containerfiles: |
             ./Dockerfile.galaxy
           build-args: |
-            GITHUB_WORKSPACE=$GITHUB_WORKSPACE
+            SOURCE=$GITHUB_WORKSPACE/galaxy-tools/tools/
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}

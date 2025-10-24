@@ -38,11 +38,8 @@ jobs:
       - name: come one now
         run: ls $GITHUB_WORKSPACE
 
-      - name: come one now
+      - name: come on now
         run: ls $GITHUB_WORKSPACE/distributions
-
-      - name: come one now
-        run: ls $GITHUB_WORKSPACE/distributions/distributions
 
       - name: this is getting
         run: ls $GITHUB_WORKSPACE/galaxy-tools
@@ -56,12 +53,12 @@ jobs:
         uses: qiime2-cutlery/buildah-build@v2
         with:
           containerfiles: |
-            ./Dockerfile.galaxy
+            $GITHUB_WORKSPACE/distributions/Dockerfile.galaxy
           build-args: |
             EPOCH=${{ inputs.epoch }}
             DISTRO=${{ inputs.distro }}
             METAPACKAGE=${{ inputs.metapackage }}
-            SOURCE=${{ github.workspace }}/galaxy-tools/tools/
+            SOURCE=$GITHUB_WORKSPACE/galaxy-tools/tools/
           image: ${{ inputs.distro }}-galaxy
           tags: latest ${{ inputs.epoch }}
 

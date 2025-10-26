@@ -38,7 +38,7 @@ dependencies:
 - q2-composition=2025.10.0.dev0+6.g9faf6fc
 - q2-cutadapt=2025.10.0.dev0+1.g3399978
 - q2-demux=2025.10.0.dev0+6.g207c783
-- q2-diversity-lib=2025.10.0.dev0+1.g4565c49
+- q2-diversity-lib=2025.10.0.dev0+2.g05cc49e
 - q2-diversity=2025.10.0.dev0+2.gb13b6a1
 - q2-emperor=2025.10.0.dev0+1.gf3712a1
 - q2-fastp=0.0.1+9.g01beef7
@@ -59,9 +59,9 @@ dependencies:
 - q2-types=2025.10.0.dev0+7.ge29df78
 - q2-vizard=2025.10.0.dev0+13.g6acebbb
 - q2-vsearch=2025.10.0.dev0
-- q2cli=2025.10.0.dev0+5.ga79704e
+- q2cli=2025.10.0.dev0+6.gabb0107
 - q2templates=2025.10.0.dev0+4.g50d1dd7
-- qiime2=2025.10.0.dev0+11.g92032a6
+- qiime2=2025.10.0.dev0+13.g4d3da37
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0

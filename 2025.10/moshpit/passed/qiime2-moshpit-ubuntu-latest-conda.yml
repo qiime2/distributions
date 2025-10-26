@@ -10,7 +10,6 @@ dependencies:
 - alabaster=1.0.0
 - alsa-lib=1.2.11
 - altair=5.5.0
-- anndata=0.11.4
 - annotated-types=0.7.0
 - anyio=4.11.0
 - appdirs=1.4.4
@@ -18,7 +17,6 @@ dependencies:
 - argon2-cffi=25.1.0
 - argon2-cffi-bindings=25.1.0
 - aria2=1.37.0
-- array-api-compat=1.12.0
 - arrow=1.4.0
 - asttokens=3.0.0
 - atpublic=6.0.2
@@ -135,7 +133,7 @@ dependencies:
 - curl=8.8.0
 - cutadapt=5.1
 - cycler=0.12.1
-- cython=3.1.5
+- cython=3.1.6
 - dbus=1.13.6
 - debugpy=1.8.17
 - decorator=4.4.2
@@ -178,7 +176,6 @@ dependencies:
 - future=1.0.0
 - gawk=5.3.1
 - gcc_impl_linux-64=15.2.0
-- get-annotations=0.1.2
 - gettext=0.25.1
 - gettext-tools=0.25.1
 - gfatools=0.5
@@ -187,7 +184,7 @@ dependencies:
 - glib=2.80.2
 - glib-tools=2.80.2
 - glimmerhmm=3.0.4
-- globus-sdk=4.0.1
+- globus-sdk=4.1.0
 - glpk=5.0
 - gmp=6.3.0
 - graphite2=1.3.14
@@ -277,7 +274,7 @@ dependencies:
 - libev=4.33
 - libevent=2.1.12
 - libexpat=2.7.1
-- libffi=3.4.6
+- libffi=3.5.2
 - libflac=1.4.3
 - libgcc=15.2.0
 - libgcc-devel_linux-64=15.2.0
@@ -347,7 +344,7 @@ dependencies:
 - mathjax=2.7.7
 - matplotlib=3.8.4
 - matplotlib-base=3.8.4
-- matplotlib-inline=0.1.7
+- matplotlib-inline=0.2.1
 - mdurl=0.1.2
 - megahit=1.2.9
 - metabat2=2.17
@@ -361,7 +358,7 @@ dependencies:
 - mpfr=4.2.1
 - mpg123=1.32.9
 - mpi=1.0
-- multiqc=1.31
+- multiqc=1.32
 - multivolumefile=0.2.3
 - munkres=1.1.4
 - muscle=3.8.1551
@@ -417,8 +414,8 @@ dependencies:
 - perl-class-method-modifiers=2.13
 - perl-clone=0.46
 - perl-common-sense=3.75
-- perl-compress-raw-bzip2=2.213
-- perl-compress-raw-zlib=2.213
+- perl-compress-raw-bzip2=2.214
+- perl-compress-raw-zlib=2.214
 - perl-config-general=2.67
 - perl-constant=1.33
 - perl-dbi=1.647
@@ -509,7 +506,7 @@ dependencies:
 - pygments=2.19.2
 - pyhmmer=0.11.1
 - pyjwt=2.10.1
-- pymongo=4.14.1
+- pymongo=4.15.3
 - pynacl=1.5.0
 - pynndescent=0.5.13
 - pyparsing=3.2.5
@@ -534,7 +531,7 @@ dependencies:
 - pytz=2025.2
 - pyyaml=6.0.3
 - pyzmq=24.0.1
-- pyzotero=1.6.11
+- pyzotero=1.7.3
 - pyzstd=0.16.2
 - q2-alignment=2025.10.0.dev0
 - q2-annotate=2025.10.0.dev0+7.g733f943
@@ -543,7 +540,7 @@ dependencies:
 - q2-cutadapt=2025.10.0.dev0+1.g3399978
 - q2-demux=2025.10.0.dev0+6.g207c783
 - q2-diversity=2025.10.0.dev0+2.gb13b6a1
-- q2-diversity-lib=2025.10.0.dev0+1.g4565c49
+- q2-diversity-lib=2025.10.0.dev0+2.g05cc49e
 - q2-emperor=2025.10.0.dev0+1.gf3712a1
 - q2-fastp=0.0.1+9.g01beef7
 - q2-feature-classifier=2025.10.0.dev0+1.g04099b2
@@ -561,9 +558,9 @@ dependencies:
 - q2-types=2025.10.0.dev0+7.ge29df78
 - q2-vizard=2025.10.0.dev0+13.g6acebbb
 - q2-vsearch=2025.10.0.dev0
-- q2cli=2025.10.0.dev0+5.ga79704e
+- q2cli=2025.10.0.dev0+6.gabb0107
 - q2templates=2025.10.0.dev0+4.g50d1dd7
-- qiime2=2025.10.0.dev0+11.g92032a6
+- qiime2=2025.10.0.dev0+13.g4d3da37
 - qt-main=5.15.8
 - quast=5.3.0
 - r-abind=1.4_5
@@ -812,7 +809,7 @@ dependencies:
 - readline=8.2
 - recommonmark=0.7.1
 - referencing=0.37.0
-- regex=2025.9.18
+- regex=2025.10.23
 - repeatmasker=4.2.1
 - requests=2.32.5
 - rescript=2025.10.0.dev0+6.g3625f2a
@@ -821,15 +818,14 @@ dependencies:
 - rfc3986-validator=0.1.1
 - rfc3987-syntax=1.1.0
 - rich=14.2.0
-- rich-click=1.9.3
+- rich-click=1.9.4
 - rmblast=2.14.1
 - rnanorm=2.1.0
-- rpds-py=0.27.1
+- rpds-py=0.28.0
 - rpsbproc=0.5.0
 - rpy2=3.5.11
 - rsync=3.1.3
 - samtools=1.21
-- scanpy=1.9.8
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2
 - scipy=1.13.0
@@ -840,7 +836,6 @@ dependencies:
 - send2trash=1.8.3
 - sepp=4.5.5
 - seqtk=1.4
-- session-info=1.0.0
 - setproctitle=1.3.6
 - setuptools=80.9.0
 - sgmllib3k=1.0.0
@@ -868,7 +863,6 @@ dependencies:
 - sqlite=3.46.0
 - stack_data=0.6.3
 - statsmodels=0.14.5
-- stdlib-list=0.11.1
 - stringcase=1.2.0
 - suitesparse=5.10.1
 - sysroot_linux-64=2.34
@@ -919,6 +913,7 @@ dependencies:
 - websocket-client=1.9.0
 - wget=1.21.4
 - wheel=0.45.1
+- whenever=0.9.3
 - widgetsnbextension=4.0.14
 - wrapt=2.0.0
 - xcb-util=0.4.0

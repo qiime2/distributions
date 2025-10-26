@@ -19,9 +19,9 @@ dependencies:
 - q2-metadata=2025.10.0.dev0+1.g61b847b
 - q2-mystery-stew=2025.10.0.dev0+1.g25270e3
 - q2-types=2025.10.0.dev0+7.ge29df78
-- q2cli=2025.10.0.dev0+5.ga79704e
+- q2cli=2025.10.0.dev0+6.gabb0107
 - q2templates=2025.10.0.dev0+4.g50d1dd7
-- qiime2=2025.10.0.dev0+11.g92032a6
+- qiime2=2025.10.0.dev0+13.g4d3da37
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rnanorm=2.1.0

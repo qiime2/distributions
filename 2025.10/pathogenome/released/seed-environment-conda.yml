@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2025.10/pathogenome/staged
+- https://packages.qiime2.org/qiime2/2025.10/pathogenome/released
 - conda-forge
 - bioconda
 dependencies:
@@ -24,7 +24,6 @@ dependencies:
 - patsy=0.5.6
 - pysam=0.22.1
 - python=3.10
-- python_abi=3.9
 - q2-alignment=2025.10.0
 - q2-amrfinderplus=2025.10.0
 - q2-assembly=2025.10.0

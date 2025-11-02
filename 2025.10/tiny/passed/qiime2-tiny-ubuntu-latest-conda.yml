@@ -1,7 +1,7 @@
 channels:
-- https://packages.qiime2.org/qiime2/2025.10/tiny/passed
 - conda-forge
 - bioconda
+- https://packages.qiime2.org/qiime2/2025.10/tiny/passed
 dependencies:
 - _libgcc_mutex=0.1
 - _openmp_mutex=4.5
@@ -202,7 +202,7 @@ dependencies:
 - pydantic=2.12.3
 - pydantic-core=2.41.4
 - pygments=2.19.2
-- pyhmmer=0.11.1
+- pyhmmer=0.11.2
 - pyjwt=2.10.1
 - pynacl=1.5.0
 - pyparsing=3.2.5
@@ -218,12 +218,12 @@ dependencies:
 - pytz=2025.2
 - pyyaml=6.0.3
 - pyzmq=24.0.1
-- q2-metadata=2025.10.0
-- q2-mystery-stew=2025.10.0
-- q2-types=2025.10.0
-- q2cli=2025.10.0
-- q2templates=2025.10.0
-- qiime2=2025.10.0
+- q2-metadata=2026.1.0.dev0
+- q2-mystery-stew=2026.1.0.dev0
+- q2-types=2026.1.0.dev0
+- q2cli=2026.1.0.dev0
+- q2templates=2026.1.0.dev0+1.g2412fdc
+- qiime2=2026.1.0.dev0
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=2.0.0
@@ -293,7 +293,7 @@ dependencies:
 - urllib3=2.5.0
 - validators=0.35.0
 - wcwidth=0.2.14
-- webcolors=24.11.1
+- webcolors=25.10.0
 - webencodings=0.5.1
 - websocket-client=1.9.0
 - wheel=0.45.1

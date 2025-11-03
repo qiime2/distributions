@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
+- ncbi-amrfinderplus=4.0.23
 - biom-format=2.1.16
 - blast=2.16.0
 - bowtie2=2.5.1

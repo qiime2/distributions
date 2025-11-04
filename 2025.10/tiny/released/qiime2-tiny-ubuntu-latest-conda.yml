@@ -1,7 +1,7 @@
 channels:
 - conda-forge
 - bioconda
-- https://packages.qiime2.org/qiime2/2025.10/tiny/passed
+- https://packages.qiime2.org/qiime2/2025.10/tiny/released
 dependencies:
 - _libgcc_mutex=0.1
 - _openmp_mutex=4.5

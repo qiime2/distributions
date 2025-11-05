@@ -135,7 +135,7 @@ dependencies:
 - libpng=1.6.50
 - libsanitizer=15.2.0
 - libsodium=1.0.18
-- libsqlite=3.50.4
+- libsqlite=3.51.0
 - libssh2=1.11.1
 - libstdcxx=15.2.0
 - libstdcxx-devel_linux-64=15.2.0

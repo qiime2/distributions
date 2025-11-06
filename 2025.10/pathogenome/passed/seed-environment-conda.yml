@@ -1,3 +1,4 @@
+# 2025.10.1 patch for qiime2 & q2cli
 channels:
 - https://packages.qiime2.org/qiime2/2025.10/pathogenome/passed
 - conda-forge

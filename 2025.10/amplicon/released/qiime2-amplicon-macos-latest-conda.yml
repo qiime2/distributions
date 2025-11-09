@@ -1,7 +1,7 @@
 channels:
-- https://packages.qiime2.org/qiime2/2025.10/amplicon/released
 - conda-forge
 - bioconda
+- https://packages.qiime2.org/qiime2/2025.10/amplicon/released
 dependencies:
 - _r-mutex=1.0.1
 - altair=5.5.0
@@ -361,7 +361,7 @@ dependencies:
 - pyparsing=3.2.5
 - pyppmd=1.1.0
 - pysocks=1.7.1
-- pytest=8.4.2
+- pytest=9.0.0
 - python=3.10.14
 - python-dateutil=2.9.0.post0
 - python-dotenv=1.2.1
@@ -642,7 +642,7 @@ dependencies:
 - readline=8.2
 - referencing=0.37.0
 - requests=2.32.5
-- rescript=2025.10.0
+- rescript=2025.10.1
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
@@ -718,7 +718,7 @@ dependencies:
 - wheel=0.45.1
 - whenever=0.9.3
 - widgetsnbextension=4.0.15
-- wrapt=2.0.0
+- wrapt=2.0.1
 - xmltodict=1.0.2
 - xopen=2.0.2
 - xorg-libxau=1.0.12

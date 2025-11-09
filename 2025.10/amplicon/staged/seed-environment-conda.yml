@@ -62,7 +62,7 @@ dependencies:
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
-- rescript=2025.10.0
+- rescript=2025.10.1
 - rnanorm=2.1.0
 - rpy2=3.5.11
 - samtools=1.21

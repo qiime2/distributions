@@ -1,7 +1,7 @@
 channels:
-- https://packages.qiime2.org/qiime2/2025.10/amplicon/released
 - conda-forge
 - bioconda
+- https://packages.qiime2.org/qiime2/2025.10/amplicon/released
 dependencies:
 - _r-mutex=1.0.1
 - altair=5.5.0
@@ -176,7 +176,7 @@ dependencies:
 - ipykernel=6.29.5
 - ipython=8.21.0
 - ipython_genutils=0.2.0
-- ipywidgets=8.1.7
+- ipywidgets=8.1.8
 - iqtree=3.0.1
 - isa-l=2.31.1
 - isl=0.26
@@ -196,7 +196,7 @@ dependencies:
 - jupyter_server=2.17.0
 - jupyter_server_terminals=0.5.3
 - jupyterlab_pygments=0.3.0
-- jupyterlab_widgets=3.0.15
+- jupyterlab_widgets=3.0.16
 - kiwisolver=1.4.9
 - krb5=1.21.3
 - lark=1.3.1
@@ -212,7 +212,7 @@ dependencies:
 - libcblas=3.9.0
 - libclang-cpp18.1=18.1.7
 - libcurl=8.8.0
-- libcxx=21.1.4
+- libcxx=21.1.5
 - libdeflate=1.20
 - libedit=3.1.20250104
 - libev=4.33
@@ -227,7 +227,7 @@ dependencies:
 - libiconv=1.18
 - libidn2=2.3.8
 - libintl=0.25.1
-- libjpeg-turbo=3.1.0
+- libjpeg-turbo=3.1.2
 - liblapack=3.9.0
 - liblapacke=3.9.0
 - libllvm14=14.0.6
@@ -247,11 +247,11 @@ dependencies:
 - libxml2=2.12.7
 - libxslt=1.1.39
 - libzlib=1.2.13
-- llvm-openmp=21.1.4
+- llvm-openmp=21.1.5
 - llvm-tools=18.1.7
 - llvmlite=0.42.0
 - lxml=5.2.2
-- lz4=4.4.4
+- lz4=4.4.5
 - lz4-c=1.10.0
 - mafft=7.526
 - make=4.4.1
@@ -270,7 +270,7 @@ dependencies:
 - munkres=1.1.4
 - muscle=3.8.1551
 - mypy_extensions=1.1.0
-- narwhals=2.10.0
+- narwhals=2.10.2
 - natsort=8.4.0
 - nbclassic=1.3.3
 - nbclient=0.10.2
@@ -340,7 +340,7 @@ dependencies:
 - prank=170427
 - prometheus_client=0.23.1
 - prompt-toolkit=3.0.52
-- psutil=7.1.2
+- psutil=7.1.3
 - pthread-stubs=0.4
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
@@ -348,8 +348,8 @@ dependencies:
 - pybcj=1.0.6
 - pycparser=2.22
 - pycryptodomex=3.23.0
-- pydantic=2.12.3
-- pydantic-core=2.41.4
+- pydantic=2.12.4
+- pydantic-core=2.41.5
 - pygments=2.19.2
 - pyhmmer=0.11.2
 - pyjwt=2.10.1
@@ -361,7 +361,7 @@ dependencies:
 - pyparsing=3.2.5
 - pyppmd=1.1.0
 - pysocks=1.7.1
-- pytest=8.4.2
+- pytest=9.0.0
 - python=3.10.14
 - python-dateutil=2.9.0.post0
 - python-dotenv=1.2.1
@@ -378,13 +378,13 @@ dependencies:
 - pyzotero=1.7.3
 - pyzstd=0.16.2
 - q2-alignment=2025.10.0
-- q2-boots=2025.10.0
+- q2-boots=2025.10.1
 - q2-composition=2025.10.0
 - q2-cutadapt=2025.10.0
 - q2-dada2=2025.10.0
 - q2-deblur=2025.10.0
 - q2-demux=2025.10.0
-- q2-diversity=2025.10.0
+- q2-diversity=2025.10.1
 - q2-diversity-lib=2025.10.0
 - q2-emperor=2025.10.0
 - q2-feature-classifier=2025.10.0
@@ -404,10 +404,10 @@ dependencies:
 - q2-types=2025.10.0
 - q2-vizard=2025.10.0
 - q2-vsearch=2025.10.0
-- q2cli=2025.10.0
+- q2cli=2025.10.1
 - q2galaxy=2025.10.0
 - q2templates=2025.10.0
-- qiime2=2025.10.0
+- qiime2=2025.10.1
 - r-abind=1.4_5
 - r-ade4=1.7_23
 - r-ape=5.8_1
@@ -642,7 +642,7 @@ dependencies:
 - readline=8.2
 - referencing=0.37.0
 - requests=2.32.5
-- rescript=2025.10.0
+- rescript=2025.10.1
 - rfc3339-validator=0.1.4
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
@@ -677,7 +677,7 @@ dependencies:
 - tabulate=0.9.0
 - tapi=1100.0.11
 - tbb=2022.1.0
-- tblib=3.1.0
+- tblib=3.2.1
 - terminado=0.18.1
 - text-unidecode=1.3
 - texttable=1.7.0
@@ -703,7 +703,7 @@ dependencies:
 - tzdata=2025b
 - tzlocal=2.1
 - umap-learn=0.5.7
-- unicodedata2=16.0.0
+- unicodedata2=17.0.0
 - unifrac=1.3
 - unifrac-binaries=1.4
 - uri-template=1.3.0
@@ -711,14 +711,14 @@ dependencies:
 - validators=0.35.0
 - vsearch=2.22.1
 - wcwidth=0.2.14
-- webcolors=24.11.1
+- webcolors=25.10.0
 - webencodings=0.5.1
 - websocket-client=1.9.0
 - wget=1.21.4
 - wheel=0.45.1
 - whenever=0.9.3
-- widgetsnbextension=4.0.14
-- wrapt=2.0.0
+- widgetsnbextension=4.0.15
+- wrapt=2.0.1
 - xmltodict=1.0.2
 - xopen=2.0.2
 - xorg-libxau=1.0.12

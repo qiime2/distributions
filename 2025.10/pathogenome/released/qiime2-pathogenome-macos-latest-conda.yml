@@ -1,7 +1,7 @@
 channels:
 - conda-forge
 - bioconda
-- https://packages.qiime2.org/qiime2/2025.10/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2025.10/pathogenome/released
 dependencies:
 - _r-mutex=1.0.1
 - annotated-types=0.7.0

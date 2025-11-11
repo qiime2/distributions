@@ -40,13 +40,13 @@ dependencies:
 - q2-types=2025.10.0
 - q2-viromics=2025.10.0
 - q2-vizard=2025.10.0
-- q2cli=2025.10.0
+- q2cli=2025.10.1
 - q2templates=2025.10.0
-- qiime2=2025.10.0
+- qiime2=2025.10.1
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
-- rescript=2025.10.0
+- rescript=2025.10.1
 - rnanorm=2.1.0
 - samtools=1.21
 - scikit-bio=0.6.2

@@ -1,7 +1,7 @@
 channels:
-- https://packages.qiime2.org/qiime2/2025.10/pathogenome/released
 - conda-forge
 - bioconda
+- https://packages.qiime2.org/qiime2/2025.10/pathogenome/released
 dependencies:
 - _libgcc_mutex=0.1
 - _openmp_mutex=4.5
@@ -373,7 +373,7 @@ dependencies:
 - pexpect=4.9.0
 - pickleshare=0.7.5
 - pillow=10.3.0
-- pip=25.2
+- pip=25.3
 - pixman=0.46.4
 - platformdirs=4.5.0
 - pluggy=1.6.0
@@ -415,7 +415,7 @@ dependencies:
 - pytz=2025.2
 - pyyaml=6.0.3
 - pyzmq=24.0.1
-- pyzotero=1.7.3
+- pyzotero=1.7.5
 - pyzstd=0.16.2
 - q2-alignment=2025.10.0
 - q2-amrfinderplus=2025.10.0

@@ -1,4 +1,3 @@
-# patch 2025.10.1
 channels:
 - https://packages.qiime2.org/qiime2/2025.10/amplicon/passed
 - conda-forge

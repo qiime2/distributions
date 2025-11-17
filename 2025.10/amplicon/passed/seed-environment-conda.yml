@@ -16,6 +16,7 @@ dependencies:
 - frictionless=5.5.0
 - h5py=3.11.0
 - hdf5=1.14.3
+- libsystemd0=257.3 # [linux]
 - mafft=7.526
 - matplotlib=3.8.4
 - ncbi-datasets-pyclient=18.4.0

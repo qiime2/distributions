@@ -28,7 +28,7 @@ env:
 
 jobs:
   setup-version:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       version: ${{ steps.create-version.outputs.version }}
     steps:
@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-15-intel]
+        os: [ubuntu-22.04, macos-15-intel]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: qiime2/action-library-packaging/clean-disk@beta
@@ -109,7 +109,7 @@ jobs:
   finalize:
     name: 'Finalize metapackage'
     needs: [build-metapackage]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
 
       - uses: actions/download-artifact@v4

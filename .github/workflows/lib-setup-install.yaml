@@ -20,7 +20,7 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       epoch: ${{ inputs.target-stage == 'qiime2-latest' && fromJSON(steps.yaml.outputs.data).active_epoch || fromJSON(steps.yaml.outputs.data).released_epoch }}
       pip-spec: ${{ steps.set-vars.outputs.repo }} @ git+${{ github.repositoryUrl }}
@@ -41,7 +41,7 @@ jobs:
             REPO=$(echo "${{ github.repository }}" | cut -d '/' -f 2)
             echo "repo=$REPO" >> $GITHUB_OUTPUT
   job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [setup]
     steps:
       - uses: actions/setup-python@v5

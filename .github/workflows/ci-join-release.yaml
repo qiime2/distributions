@@ -4,7 +4,7 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       release-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
       new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).next_epoch }}
@@ -23,7 +23,7 @@ jobs:
 
   join-release:
     needs: [setup]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       RELEASE_EPOCH: ${{ needs.setup.outputs.release-epoch }}
       RELEASE_TAG: ${{ needs.setup.outputs.release-epoch }}.0

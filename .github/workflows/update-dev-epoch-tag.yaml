@@ -8,7 +8,7 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       new-dev-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
       plugin-matrix: ${{ steps.yaml.outputs.data }}
@@ -26,7 +26,7 @@ jobs:
 
   update-tags:
     needs: [setup]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       OLD_DEV_TAG: ${{ inputs.old-dev-epoch }}.0.dev0
       NEW_DEV_TAG: ${{ needs.setup.outputs.new-dev-epoch }}.0.dev0

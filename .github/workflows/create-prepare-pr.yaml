@@ -21,7 +21,7 @@ on:
 
 jobs:
   create-pr:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       sha: ${{ steps.pr.outputs.pull-request-head-sha }}
       pr: ${{ steps.pr.outputs.pull-request-number }}
@@ -67,7 +67,7 @@ jobs:
 
   await-workflow:
     needs: [create-pr]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       gh-response: ${{ steps.merge-trial.outputs.gh-response }}
     steps:
@@ -115,7 +115,7 @@ jobs:
 
   update-latest-envs:
     needs: [create-pr, await-workflow]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       env-pr: ${{ steps.env-updates-pr.outputs.pull-request-number }}
     steps:
@@ -148,7 +148,7 @@ jobs:
 
   merge-latest-env-pr:
     needs: [update-latest-envs]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: merge env updates
         id: merge-env-pr

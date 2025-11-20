@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     name: Build and push image
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: qiime2/action-library-packaging/clean-disk@beta
         name: "Clean disk on linux"

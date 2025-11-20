@@ -55,7 +55,7 @@ env:
 
 jobs:
   detect-vars:
-    runs-on: ubuntu-22.04  # this job is always run on linux
+    runs-on: ubuntu-latest  # this job is always run on linux
     outputs:
       epoch: ${{ steps.set-vars.outputs.epoch }}
       distro: ${{ steps.set-vars.outputs.distro }}
@@ -99,7 +99,7 @@ jobs:
   # this job will parse a diff from cbc, and use that to generate a DAG
   prepare:
     needs: detect-vars
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       rev-deps-key: ${{ env.rev_deps_key }}
       # patched-channel-key includes a hash which is calculated in this step

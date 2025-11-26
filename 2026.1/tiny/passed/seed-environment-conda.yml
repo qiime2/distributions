@@ -32,4 +32,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2026.1'
+    rachis_epoch: '2026.1'

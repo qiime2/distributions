@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/amplicon/passed
+- https://packages.qiime2.org/qiime2/2026.1/qiime2/staged
 - conda-forge
 - bioconda
 dependencies:
@@ -79,4 +79,4 @@ dependencies:
 - vsearch=2.22.1
 extras:
   variant_override:
-    qiime2_epoch: '2026.1'
+    rachis_epoch: '2026.1'

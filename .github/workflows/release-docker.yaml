@@ -39,7 +39,7 @@ jobs:
         with:
           image: ${{ steps.build-image.outputs.image }}
           tags: ${{ steps.build-image.outputs.tags }}
-          registry: quay.io/qiime2
+          registry: quay.io/rachis
           username: qiime2+q2d2
           password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
 
@@ -63,7 +63,7 @@ jobs:
         with:
           image: ${{ steps.build-workshop-image.outputs.image }}
           tags: ${{ steps.build-workshop-image.outputs.tags }}
-          registry: quay.io/qiime2
+          registry: quay.io/rachis
           username: qiime2+q2d2
           password: ${{ secrets.QUAY_IO_REGISTRY_TOKEN }}
 

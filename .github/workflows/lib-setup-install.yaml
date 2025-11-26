@@ -22,7 +22,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      epoch: ${{ inputs.target-stage == 'qiime2-latest' && fromJSON(steps.yaml.outputs.data).active_epoch || fromJSON(steps.yaml.outputs.data).released_epoch }}
+      epoch: ${{ inputs.target-stage == 'rachis-latest' && fromJSON(steps.yaml.outputs.data).active_epoch || fromJSON(steps.yaml.outputs.data).released_epoch }}
       pip-spec: ${{ steps.set-vars.outputs.repo }} @ git+${{ github.repositoryUrl }}
       repo: ${{ steps.set-vars.outputs.repo }}
     steps:

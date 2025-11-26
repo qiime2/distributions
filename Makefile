@@ -9,8 +9,8 @@ DISTRO := moshpit
 docker:
 	docker build \
 		-f Dockerfile.base \
-		-t quay.io/qiime2/$(DISTRO):$(EPOCH) \
-		-t quay.io/qiime2/$(DISTRO):latest \
+		-t quay.io/rachis/$(DISTRO):$(EPOCH) \
+		-t quay.io/rachis/$(DISTRO):latest \
 		--build-arg EPOCH=$(EPOCH) \
 		--build-arg DISTRO=$(DISTRO) \
 		--no-cache \
@@ -19,7 +19,7 @@ docker:
 docker-workshop:
 	docker build \
 		-f Dockerfile.workshop \
-		-t quay.io/qiime2/$(DISTRO)-workshop:$(EPOCH) \
+		-t quay.io/rachis/$(DISTRO)-workshop:$(EPOCH) \
 		--build-arg EPOCH=$(EPOCH) \
 		--build-arg DISTRO=$(DISTRO) \
 		--no-cache \

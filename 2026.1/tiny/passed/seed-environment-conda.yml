@@ -18,7 +18,7 @@ dependencies:
 - q2-metadata=2026.1.0.dev0
 - q2-mystery-stew=2026.1.0.dev0
 - q2-types=2026.1.0.dev0
-- q2cli=2026.1.0.dev0+1.gde542e2
+- q2cli=2026.1.0.dev0+2.g256f250
 - q2templates=2026.1.0.dev0+1.g2412fdc
 - qiime2=2026.1.0.dev0+1.g95bef35
 - r-base=4.3.3
@@ -33,4 +33,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.1'
-# modified: 2025-11-30

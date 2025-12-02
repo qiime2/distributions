@@ -1,0 +1,164 @@
+# TODO: consolidate to a single workflow with os as input
+name: create-prepare-pr-linux
+on:
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+        type: string
+      draft:
+        required: false
+        type: boolean
+        default: false
+  workflow_dispatch:
+    inputs:
+      distro:
+        required: true
+        type: string
+      draft:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.pr.outputs.pull-request-head-sha }}
+      pr: ${{ steps.pr.outputs.pull-request-number }}
+      epoch: ${{ steps.vars.outputs.epoch }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+      - name: set epoch and date
+        id: vars
+        shell: bash
+        run: |
+          echo epoch=${{ fromJSON(steps.yaml.outputs.data).active_epoch }} >> $GITHUB_OUTPUT
+          echo today=$(date +'%Y-%m-%d') >> $GITHUB_OUTPUT
+
+      - name: modify file
+        shell: bash
+        run: |
+          echo '# modified: ${{ steps.vars.outputs.today }}' >> '${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/passed/seed-environment-conda.yml'
+
+      - name: Create Pull Request
+        id: pr
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}
+          draft: ${{ inputs.draft }}
+          title: "[${{ inputs.distro }}] Automated Trial (Prepare)"
+          body: |
+            Automated updates from `create-prepare-pr.yaml`
+            triggered by ${{ github.event_name }}.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            Automated updates to seed environment: ${{ inputs.distro }}
+
+  await-workflow:
+    needs: [create-pr]
+    runs-on: ubuntu-latest
+    outputs:
+      gh-response: ${{ steps.merge-trial.outputs.gh-response }}
+    steps:
+      - name: get workflow id
+        id: get-id
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30  # let the workflow start
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial-linux").id' | head -n 1
+          ) >> $GITHUB_OUTPUT
+
+      - name: await workflow id ${{ steps.get-id.outputs.run-id }}
+        # Forked from Codex-/await-remote-run@v1.0.0
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+      - name: merge trial
+        id: merge-trial
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          GH_RESPONSE=$(
+            gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
+          )
+
+          echo "gh-response=$GH_RESPONSE" >> $GITHUB_OUTPUT
+
+  update-latest-envs:
+    needs: [create-pr, await-workflow]
+    runs-on: ubuntu-latest
+    outputs:
+      env-pr: ${{ steps.env-updates-pr.outputs.pull-request-number }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: copy updated env file from merged prepare pr
+        id: copy-env
+        if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
+        run: |
+          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
+          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' './latest/passed/'
+
+      - name: Open Pull Request to update latest env files
+        id: env-updates-pr
+        # Replaces qiime2/create-pull-request@v5
+        # (previously forked from peter-evans/create-pull-request)
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: update-latest-envs-from-PR-${{ needs.create-pr.outputs.pr }}
+          title: "[${{ inputs.distro }}] latest env updates from PR ${{ needs.create-pr.outputs.pr }}"
+          add-paths: ./latest/passed/
+          body: |
+            Automated updates to latest env files from `create-prepare-pr.yaml`
+            triggered by ${{ github.event_name }}.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            Automated updates to latest resolved environment files: ${{ needs.create-pr.outputs.epoch }} ${{ inputs.distro }}
+
+  merge-latest-env-pr:
+    needs: [update-latest-envs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: merge env updates
+        id: merge-env-pr
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.update-latest-envs.outputs.env-pr }}/merge

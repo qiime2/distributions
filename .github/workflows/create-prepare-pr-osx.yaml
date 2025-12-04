@@ -31,6 +31,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: debug workflows
+        run: ls -R .github/workflows
+
       - name: "get distro info"
         id: yaml
         uses: qiime2/distributions/.github/actions/read-yaml@dev

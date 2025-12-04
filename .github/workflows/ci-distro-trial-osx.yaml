@@ -24,7 +24,7 @@ on:
 #       - 20*.*/*/released/seed-environment-conda.yml
 
 concurrency:
-  group: ci-distro-trial-osx-${{ inputs.pr }}
+  group: ci-distro-trial-osx-${{ github.run_id }}
   cancel-in-progress: true
 
 jobs:

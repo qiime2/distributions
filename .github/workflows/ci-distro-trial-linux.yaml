@@ -1,14 +1,30 @@
 name: ci-distro-trial-linux
 
 on:
-  pull_request:
-    branches: [dev]
-    paths:
-      - 20*.*/*/passed/seed-environment-conda.yml
-      - 20*.*/*/released/seed-environment-conda.yml
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+        type: string
+      pr:
+        required: true
+        type: number
+      sha:
+        required: true
+        type: string
+      pr-ref:
+        required: true
+        type: string
+
+# on:
+#   pull_request:
+#     branches: [dev]
+#     paths:
+#       - 20*.*/*/passed/seed-environment-conda.yml
+#       - 20*.*/*/released/seed-environment-conda.yml
 
 concurrency:
-  group: ${{ github.head_ref }}
+  group: ci-distro-trial-linux-${{ inputs.pr }}
   cancel-in-progress: true
 
 jobs:
@@ -166,7 +182,7 @@ jobs:
       epoch: ${{ needs.prepare.outputs.epoch }}
       distro: ${{ needs.prepare.outputs.distro }}
       is-release: ${{ needs.prepare.outputs.is-release }}
-      pr-ref: ${{ github.event.pull_request.head.ref }}
+      pr-ref: ${{ inputs.pr-ref }}
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
       repodata-patches-key: ${{ needs.prepare.outputs.repodata-patches-key }}

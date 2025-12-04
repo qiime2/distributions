@@ -89,19 +89,19 @@ jobs:
     outputs:
       gh-response: ${{ steps.merge-trial.outputs.gh-response }}
     steps:
-      id: merge-trial
-      shell: bash
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        GH_RESPONSE=$(
-          gh api \
-            --method PUT \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
-        )
-        echo "gh-response=$GH_RESPONSE" >> "$GITHUB_OUTPUT"
+      - id: merge-trial
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          GH_RESPONSE=$(
+            gh api \
+              --method PUT \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
+          )
+          echo "gh-response=$GH_RESPONSE" >> "$GITHUB_OUTPUT"
 
   update-latest-envs:
     needs: [create-pr, merge-trial]
@@ -113,7 +113,7 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-env
-        if: contains(${{ needs.merge-trial.outputs.gh-response }}, 'merged:true')
+        if: contains(needs.merge-trial.outputs.gh-response, 'merged:true')
         run: |
           cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
 

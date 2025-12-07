@@ -9,8 +9,10 @@ def get_github_runner_ips():
     data = requests.get(url).json()
     return data.get("actions", [])
 
+
 ip_list = get_github_runner_ips()
 ip_list = [ipaddress.ip_network(ip) for ip in ip_list]
+
 
 def check_ci_runner(ip: str) -> bool:
     ip = ipaddress.ip_address(ip)
@@ -20,12 +22,14 @@ def check_ci_runner(ip: str) -> bool:
 
     return False
 
-def count_frequencies_ip(info: list, type: str)->list:
+
+def count_frequencies_ip(info: list, type: str) -> list:
     data_dict = {'total': 0}
 
     for i in range(len(info)):
         try:
-            if info[i]['ip'] == info[i+1]['ip'] and info[i][type] == info[i+1][type]:
+            if (info[i]['ip'] == info[i+1]['ip'] and info[i][type]
+                    == info[i+1][type]):
                 continue
             else:
                 if info[i][type] in data_dict.keys():
@@ -40,14 +44,14 @@ def count_frequencies_ip(info: list, type: str)->list:
                 data_dict[info[i][type]] = 1
                 data_dict['total'] += 1
 
-
     data_list = data_dict.items()
-
-    data_list= sorted(data_list, key=lambda x: x[1], reverse=True)
+    data_list = sorted(data_list, key=lambda x: x[1], reverse=True)
 
     return data_list
 
+
 logs = ["access-logs/access.log." + str(i) + ".gz" for i in range(1, 52)]
+
 
 def split_line(line: str) -> dict:
     info = {'is_download': False, 'line': line, 'distribution': None}
@@ -62,7 +66,7 @@ def split_line(line: str) -> dict:
     method = method[0] if method else None
     info['method'] = method
 
-    download = re.search('\.tar|\.whl|\.conda|\.qza|\.qzv|\.yml|\.yaml', line)
+    download = re.search(r'\.tar|\.whl|\.conda|\.qza|\.qzv|\.yml|\.yaml', line)
     if download:
         info['is_download'] = True
 
@@ -110,6 +114,7 @@ def read_logs(logs: list) -> list:
 
     return info
 
+
 def check_version(info: list) -> bool:
     flag = True
     for info in info:
@@ -118,8 +123,10 @@ def check_version(info: list) -> bool:
 
     return flag
 
+
 def to_downloads(info: list) -> list:
     return [inf for inf in info if inf.get('is_download')]
+
 
 info_temp = read_logs(logs)
 distributions_count = count_frequencies_ip(info_temp, 'distribution')

@@ -27,7 +27,7 @@ jobs:
       sha: ${{ steps.pr.outputs.pull-request-head-sha }}
       pr: ${{ steps.pr.outputs.pull-request-number }}
       epoch: ${{ steps.vars.outputs.epoch }}
-      pr-ref: ${{ steps.branch.outputs.branch }}
+      branch: ${{ steps.branch.outputs.branch }}
     steps:
       - uses: actions/checkout@v3
 
@@ -51,7 +51,7 @@ jobs:
         id: branch
         shell: bash
         run: |
-          echo "branch=Prepare-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}" >> "$GITHUB_OUTPUT"
+          echo "branch=Prepare-osx-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}" >> "$GITHUB_OUTPUT"
 
       - name: modify file
         shell: bash
@@ -83,7 +83,7 @@ jobs:
       distro: ${{ inputs.distro }}
       pr: ${{ needs.create-pr.outputs.pr }}
       sha: ${{ needs.create-pr.outputs.sha }}
-      pr-ref: ${{ needs.create-pr.outputs.pr-ref }}
+      branch: ${{ needs.create-pr.outputs.branch }}
     secrets: inherit
 
   merge-trial:

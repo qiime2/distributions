@@ -1,34 +1,19 @@
 name: ci-distro-trial-osx
 
 on:
-  workflow_call:
-    inputs:
-      distro:
-        required: true
-        type: string
-      pr:
-        required: true
-        type: number
-      sha:
-        required: true
-        type: string
-      pr-ref:
-        required: true
-        type: string
+  pull_request:
+    branches: [dev]
+    paths:
+      - 20*.*/*/passed/seed-environment-conda.yml
+      - 20*.*/*/released/seed-environment-conda.yml
 
-# on:
-#   pull_request:
-#     branches: [dev]
-#     paths:
-#       - 20*.*/*/passed/seed-environment-conda.yml
-#       - 20*.*/*/released/seed-environment-conda.yml
-
-# concurrency:
-#   group: ci-distro-trial-osx-${{ github.run_id }}
-#   cancel-in-progress: true
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
 
 jobs:
   prepare:
+    if: startsWith(github.head_ref, 'Prepare-osx-')
     uses: ./.github/workflows/ci-distro-trial_0-prepare.yaml
 
   rebuild-0:
@@ -182,7 +167,7 @@ jobs:
       epoch: ${{ needs.prepare.outputs.epoch }}
       distro: ${{ needs.prepare.outputs.distro }}
       is-release: ${{ needs.prepare.outputs.is-release }}
-      pr-ref: ${{ inputs.pr-ref }}
+      branch: ${{ inputs.branch }}
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
       repodata-patches-key: ${{ needs.prepare.outputs.repodata-patches-key }}

@@ -76,38 +76,56 @@ jobs:
           commit-message: |
             Automated updates to seed environment: ${{ inputs.distro }}
 
-  run-osx-trial:
+  await-workflow:
     needs: [create-pr]
-    uses: ./.github/workflows/ci-distro-trial-osx.yaml
-    with:
-      distro: ${{ inputs.distro }}
-      pr: ${{ needs.create-pr.outputs.pr }}
-      sha: ${{ needs.create-pr.outputs.sha }}
-      branch: ${{ needs.create-pr.outputs.branch }}
-    secrets: inherit
-
-  merge-trial:
-    needs: [create-pr, run-osx-trial]
     runs-on: ubuntu-latest
     outputs:
       gh-response: ${{ steps.merge-trial.outputs.gh-response }}
     steps:
-      - id: merge-trial
+      - name: get workflow id
+        id: get-id
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30  # let the workflow start
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial").id' | head -n 1
+          ) >> $GITHUB_OUTPUT
+
+      - name: await workflow id ${{ steps.get-id.outputs.run-id }}
+        # Forked from Codex-/await-remote-run@v1.0.0
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+      - name: merge trial
+        id: merge-trial
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           GH_RESPONSE=$(
             gh api \
-              --method PUT \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
           )
-          echo "gh-response=$GH_RESPONSE" >> "$GITHUB_OUTPUT"
+
+          echo "gh-response=$GH_RESPONSE" >> $GITHUB_OUTPUT
 
   update-latest-envs:
-    needs: [create-pr, merge-trial]
+    needs: [create-pr, await-workflow]
     runs-on: ubuntu-latest
     outputs:
       env-pr: ${{ steps.env-updates-pr.outputs.pull-request-number }}
@@ -116,7 +134,7 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-env
-        if: contains(needs.merge-trial.outputs.gh-response, 'merged:true')
+        if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
           cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
 

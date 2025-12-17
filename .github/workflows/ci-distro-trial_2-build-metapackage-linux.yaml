@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-alma-aarch64:9
-      options: --entrypoint /bin/bash
+      options: --entrypoint /bin/sh
     steps:
       - uses: qiime2/action-library-packaging/clean-disk@beta
         if: ${{ runner.os == 'Linux' }}

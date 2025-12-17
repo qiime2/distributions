@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-alma-aarch64:9
-      options: --entrypoint /bin/bash
+      options: --entrypoint /bin/sh
     steps:
 
       - uses: actions/setup-python@v4

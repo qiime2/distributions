@@ -122,7 +122,7 @@ jobs:
           echo "gh-response=$GH_RESPONSE" >> $GITHUB_OUTPUT
 
   update-latest-envs:
-    needs: [create-pr, merge-trial]
+    needs: [create-pr, await-workflow]
     runs-on: ubuntu-latest
     outputs:
       env-pr: ${{ steps.env-updates-pr.outputs.pull-request-number }}
@@ -131,7 +131,7 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-env
-        if: contains(needs.merge-trial.outputs.gh-response, 'merged:true')
+        if: contains(needs.await-workflow.outputs.gh-response, 'merged:true')
         run: |
           cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' './latest/passed/'
 

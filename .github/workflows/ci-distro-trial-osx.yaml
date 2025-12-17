@@ -167,7 +167,7 @@ jobs:
       epoch: ${{ needs.prepare.outputs.epoch }}
       distro: ${{ needs.prepare.outputs.distro }}
       is-release: ${{ needs.prepare.outputs.is-release }}
-      branch: ${{ inputs.branch }}
+      pr-ref: ${{ github.head_ref }}
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
       repodata-patches-key: ${{ needs.prepare.outputs.repodata-patches-key }}

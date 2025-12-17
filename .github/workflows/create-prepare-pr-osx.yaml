@@ -134,7 +134,7 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-env
-        if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
+        if: contains(needs.await-workflow.outputs.gh-response, 'merged:true')
         run: |
           cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
 

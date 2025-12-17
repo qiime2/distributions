@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-alma-aarch64:9
+      options: --entrypoint /bin/bash
     steps:
       - name: get environment path
         uses: actions/download-artifact@v4

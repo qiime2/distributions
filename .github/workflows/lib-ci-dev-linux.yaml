@@ -68,6 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-alma-aarch64:9
+      options: --entrypoint /bin/bash
     env:
       plugin_path: ./repo
       built_channel_path: ./built-channel

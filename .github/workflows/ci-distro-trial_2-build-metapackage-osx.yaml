@@ -79,7 +79,7 @@ jobs:
           channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
           metapackage-name: ${{ inputs.distro-name }}
           metapackage-version: ${{ needs.setup-version.outputs.version }}
-          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda.yml'
+          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
 
       - name: Install metapackage, create env file, and cache

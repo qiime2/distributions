@@ -70,7 +70,7 @@ jobs:
       plugin_path: ./repo
       built_channel_path: ./built-channel
       epoch: ${{ needs.setup.outputs.active-epoch }}
-      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
+      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda-osx.yml
       env_prefix: ./test-env
     steps:
       - uses: actions/checkout@v4

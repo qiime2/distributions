@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   prepare:
-    uses: ./.github/workflows/ci-distro-trial_0-prepare.yaml
+    uses: ./.github/workflows/ci-distro-trial_0-prepare-linux.yaml
 
   rebuild-0:
     needs: [prepare]

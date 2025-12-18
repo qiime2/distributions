@@ -4,8 +4,8 @@ on:
   pull_request:
     branches: [dev]
     paths:
-      - 20*.*/*/passed/seed-environment-conda.yml
-      - 20*.*/*/released/seed-environment-conda.yml
+      - 20*.*/*/passed/seed-environment-conda-linux.yml
+      - 20*.*/*/released/seed-environment-conda-linux.yml
 
 concurrency:
   group: ci-distro-trial-linux-${{ github.head_ref }}
@@ -13,7 +13,6 @@ concurrency:
 
 jobs:
   prepare:
-    if: startsWith(github.head_ref, 'Prepare-linux-')
     uses: ./.github/workflows/ci-distro-trial_0-prepare.yaml
 
   rebuild-0:

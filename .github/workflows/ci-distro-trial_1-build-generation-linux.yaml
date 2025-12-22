@@ -68,7 +68,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-alma-aarch64:9
+      image: condaforge/linux-anvil-alma-x86_64:9
       options: --entrypoint /bin/sh
     steps:
 

@@ -45,7 +45,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-alma-aarch64:9
+      image: condaforge/linux-anvil-alma-x86_64:9
       options: --entrypoint /bin/sh
     steps:
       - uses: qiime2/action-library-packaging/clean-disk@beta

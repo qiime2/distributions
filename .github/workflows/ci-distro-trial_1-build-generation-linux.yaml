@@ -72,12 +72,18 @@ jobs:
       options: --entrypoint /bin/sh
     steps:
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
+      # not available within the container image, need to install manually
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.8'
 
-      - shell: bash
-        run: pip install pyyaml
+      - name: Install python 3.8
+        shell: bash
+        run: |
+          conda install -y -c conda-forge python=3.8 pyyaml
+
+      # - shell: bash
+      #   run: pip install pyyaml
 
       - uses: actions/download-artifact@v4
         name: 'Fetch base channel with patches'

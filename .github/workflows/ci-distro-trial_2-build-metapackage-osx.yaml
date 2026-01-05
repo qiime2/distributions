@@ -82,6 +82,13 @@ jobs:
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
 
+      # TODO: this can't be a permanent solution but adding it for
+      # debugging purposes so i can get the workflow to complete
+      - name: Fresh miniconda bootstrap prefix
+        shell: bash
+        run: |
+          rm -rf /Users/runner/miniconda3
+
       - name: Install metapackage, create env file, and cache
         id: cache-env
         uses: qiime2/action-library-packaging/create-env@beta

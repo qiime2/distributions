@@ -78,7 +78,7 @@ jobs:
 
           MINICONDA_DIR=$GITHUB_WORKSPACE/miniconda3
           curl -fsSL -o miniconda.sh \
-            https://repo.anaconda.com/miniconda/Miniconda3-py38_24.11.1-0-Linux-x86_64.sh
+            wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
           bash miniconda.sh -b -p "$MINICONDA_DIR"
 
           echo "$MINICONDA_DIR/bin" >> "$GITHUB_PATH"

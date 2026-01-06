@@ -44,12 +44,6 @@ jobs:
           echo epoch=${{ fromJSON(steps.yaml.outputs.data).active_epoch }} >> $GITHUB_OUTPUT
           echo today=$(date +'%Y-%m-%d') >> $GITHUB_OUTPUT
 
-      - name: set prepare branch name
-        id: branch
-        shell: bash
-        run: |
-          echo "branch=Prepare-osx-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}" >> "$GITHUB_OUTPUT"
-
       - name: modify file
         shell: bash
         run: |
@@ -62,7 +56,7 @@ jobs:
         uses: qiime2-cutlery/create-pull-request@v5
         with:
           token: ${{ secrets.BOT_PAT }}
-          branch: ${{ steps.branch.outputs.branch }}
+          branch: Prepare-osx-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}/${{ steps.vars.outputs.today }}
           draft: ${{ inputs.draft }}
           title: "[${{ inputs.distro }}] Automated Trial (Prepare)"
           body: |
@@ -71,7 +65,7 @@ jobs:
           author: "q2d2 <q2d2.noreply@gmail.com>"
           committer: "q2d2 <q2d2.noreply@gmail.com>"
           commit-message: |
-            Automated updates to seed environment: ${{ inputs.distro }}
+            Automated updates to osx seed environment: ${{ inputs.distro }}
 
   await-workflow:
     needs: [create-pr]
@@ -135,7 +129,7 @@ jobs:
         run: |
           cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-macos-latest-conda.yml' './latest/passed/'
 
-      - name: Open Pull Request to update latest env files
+      - name: Open Pull Request to update latest env file
         id: env-updates-pr
         # Replaces qiime2/create-pull-request@v5
         # (previously forked from peter-evans/create-pull-request)
@@ -151,7 +145,7 @@ jobs:
           author: "q2d2 <q2d2.noreply@gmail.com>"
           committer: "q2d2 <q2d2.noreply@gmail.com>"
           commit-message: |
-            Automated updates to latest resolved environment files: ${{ needs.create-pr.outputs.epoch }} ${{ inputs.distro }}
+            Automated updates to latest resolved osx environment file: ${{ needs.create-pr.outputs.epoch }} ${{ inputs.distro }}
 
   merge-latest-env-pr:
     needs: [update-latest-envs]

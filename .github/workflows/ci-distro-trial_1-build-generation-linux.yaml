@@ -68,7 +68,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
     runs-on: ubuntu-latest
     container:
-      image: condaforge/condaforge/linux-anvil-x86_64:cos7
+      image: condaforge/linux-anvil-x86_64:cos7
     steps:
 
       - uses: actions/download-artifact@v4

@@ -67,7 +67,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: condaforge/condaforge/linux-anvil-x86_64:cos7
+      image: condaforge/linux-anvil-x86_64:cos7
       options: --entrypoint /bin/sh
     env:
       plugin_path: ./repo

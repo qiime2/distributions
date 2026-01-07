@@ -49,7 +49,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     container:
-      image: condaforge/condaforge/linux-anvil-x86_64:cos7
+      image: condaforge/linux-anvil-x86_64:cos7
       options: --entrypoint /bin/sh
     steps:
       - name: get environment path

@@ -160,7 +160,7 @@ jobs:
   upload-builds:
     needs: [prepare, test-metapackage]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/ci-distro-trial_4-upload-builds.yaml
+    uses: ./.github/workflows/ci-distro-trial_4-upload-builds-linux.yaml
     secrets: inherit
     with:
       epoch: ${{ needs.prepare.outputs.epoch }}

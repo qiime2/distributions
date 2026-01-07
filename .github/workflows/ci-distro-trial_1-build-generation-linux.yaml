@@ -60,7 +60,7 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package }} (linux-alma9)'
+    name: '${{ matrix.package }} (alma-linux-cos7)'
     needs: configure_matrix
     strategy:
       fail-fast: false
@@ -68,40 +68,8 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-alma-x86_64:9
+      image: condaforge/condaforge/linux-anvil-x86_64:cos7
     steps:
-
-      - name: Install miniconda, python 3.8 + friends
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          MINICONDA_DIR=$GITHUB_WORKSPACE/miniconda3
-          curl -fsSL -o miniconda.sh \
-            wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-          bash miniconda.sh -b -p "$MINICONDA_DIR"
-
-          echo "$MINICONDA_DIR/bin" >> "$GITHUB_PATH"
-
-          conda config --set always_yes yes --set changeps1 no
-          conda config --add channels conda-forge
-          conda config --set channel_priority strict
-
-          conda install python=3.8 pyyaml packaging conda-build conda-index
-          conda clean -a -y
-
-      # not available within the container image, need to install manually
-      # - uses: actions/setup-python@v4
-      #   with:
-      #     python-version: '3.8'
-
-      - name: Install python 3.8
-        shell: bash
-        run: |
-          conda install -y -c conda-forge python=3.8 pyyaml
-
-      # - shell: bash
-      #   run: pip install pyyaml
 
       - uses: actions/download-artifact@v4
         name: 'Fetch base channel with patches'
@@ -182,7 +150,7 @@ jobs:
         name: 'Try to fetch an existing build'
         id: fetch-build
         with:
-          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (linux-alma9) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
+          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (alma-linux-cos7) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - uses: qiime2/action-library-packaging/make-conda-config@beta
@@ -218,7 +186,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-linux-alma9
+          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-alma-linux-cos7
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.package-version }}-*
 
       - id: setup-version-info
@@ -231,7 +199,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-linux-alma9
+          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-alma-linux-cos7
           path: ${{ env.version_path }}
 
 
@@ -336,14 +304,10 @@ jobs:
         if: ${{ inputs.is-rebuild != 'true' }}
         run: |
           mkdir -p ${{ env.repodata_patches_path }}/linux-64
-          mkdir -p ${{ env.repodata_patches_path }}/osx-64
           mkdir -p ${{ env.repodata_patches_path }}/noarch
 
           cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
              ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
-
-          cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
-             ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
 
           cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
              ${{ env.repodata_patches_path }}/noarch/patch_instructions.json

@@ -61,13 +61,13 @@ jobs:
           file: data.yaml
 
   build-and-test:
-    name: '${{ github.event.repository.name }} (linux-alma9)'
+    name: '${{ github.event.repository.name }} (alma-linux-cos7)'
     needs: setup
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-alma-x86_64:9
+      image: condaforge/condaforge/linux-anvil-x86_64:cos7
       options: --entrypoint /bin/sh
     env:
       plugin_path: ./repo

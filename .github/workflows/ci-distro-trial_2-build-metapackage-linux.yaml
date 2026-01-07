@@ -45,7 +45,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-x86_64:cos7
+      image: condaforge/linux-anvil-x86_64:alma8
       options: --entrypoint /bin/sh
     steps:
       - uses: qiime2/action-library-packaging/clean-disk@beta
@@ -90,7 +90,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
-          environment-file: ${{ inputs.distro-name }}-alma-linux-cos7-conda.yml
+          environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
           channels: ${{ steps.build-meta.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
@@ -98,13 +98,13 @@ jobs:
       - name: upload rebuilt channel with metapackage
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-alma-linux-cos7
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
           path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
 
       - name: upload environment file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.solved-environment-key }}-alma-linux-cos7
+          name: ${{ inputs.solved-environment-key }}-linux-alma8
           path: ${{ steps.cache-env.outputs.environment-file }}
 
   finalize:

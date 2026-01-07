@@ -60,7 +60,7 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package }} (alma-linux-cos7)'
+    name: '${{ matrix.package }} (linux-alma8)'
     needs: configure_matrix
     strategy:
       fail-fast: false
@@ -68,7 +68,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-x86_64:cos7
+      image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
       - uses: actions/download-artifact@v4
@@ -150,7 +150,7 @@ jobs:
         name: 'Try to fetch an existing build'
         id: fetch-build
         with:
-          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (alma-linux-cos7) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
+          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (linux-alma8) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - uses: qiime2/action-library-packaging/make-conda-config@beta
@@ -186,7 +186,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-alma-linux-cos7
+          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-linux-alma8
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.package-version }}-*
 
       - id: setup-version-info
@@ -199,7 +199,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-alma-linux-cos7
+          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-linux-alma8
           path: ${{ env.version_path }}
 
 

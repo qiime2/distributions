@@ -41,7 +41,7 @@ jobs:
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
   run_matrix:
-    name: '${{ matrix.package }} (alma-linux-cos7)'
+    name: '${{ matrix.package }} (linux-alma8)'
     needs: configure_matrix
     strategy:
       fail-fast: false
@@ -49,7 +49,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     container:
-      image: condaforge/linux-anvil-x86_64:cos7
+      image: condaforge/linux-anvil-x86_64:alma8
       options: --entrypoint /bin/sh
     steps:
       - name: get environment path
@@ -88,7 +88,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-alma-linux-cos7-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-linux-alma8-conda.yml
 
       - name: run qiime info
         shell: bash

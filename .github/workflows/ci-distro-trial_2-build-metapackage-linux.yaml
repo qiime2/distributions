@@ -46,10 +46,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-x86_64:alma8
-      options: --entrypoint /bin/sh
     steps:
+
       - uses: qiime2/action-library-packaging/clean-disk@beta
-        if: ${{ runner.os == 'Linux' }}
         name: "Clean disk on linux"
 
       - name: fetch seed env
@@ -87,7 +86,7 @@ jobs:
 
       - name: Install metapackage, create env file, and cache
         id: cache-env
-        uses: qiime2/action-library-packaging/create-env@beta
+        uses: qiime2/action-library-packaging/create-env-linux@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
           environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml

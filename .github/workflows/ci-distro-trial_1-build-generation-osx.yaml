@@ -47,16 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: 'Echo runner info'
-        run: |
-          echo "===== WORKSPACE ====="
-          echo ${{ github.workspace }}
-          ls -la ${{ github.workspace }}
-          echo "===== ACTION PATH ====="
-          echo ${{ github.action_path }}
-          ls -la ${{ github.action_path }}
 
+    steps:
       - uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.matrix-key }}

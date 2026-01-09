@@ -48,6 +48,14 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - name: 'Echo runner info'
+        run: |
+          echo "===== WORKSPACE ====="
+          echo ${{ github.workspace }}
+          ls -la ${{ github.workspace }}
+          echo "===== ACTION PATH ====="
+          echo ${{ github.action_path }}
+          ls -la ${{ github.action_path }}
 
       - uses: actions/download-artifact@v4
         with:

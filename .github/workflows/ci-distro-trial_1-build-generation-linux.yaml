@@ -143,7 +143,7 @@ jobs:
         name: 'Set up build environment'
         id: setup-conda
 
-      - uses: qiime2/action-library-packaging/build-package@beta
+      - uses: qiime2/action-library-packaging/build-package-linux@beta
         name: 'Determine package data for ${{ matrix.package }}'
         id: get-package-data
         with:

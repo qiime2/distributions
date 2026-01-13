@@ -86,7 +86,7 @@ jobs:
 
       - name: 'collect package path'
         id: 'collect-package'
-        uses: qiime2/action-library-packaging/collect-package@beta
+        uses: qiime2/action-library-packaging/collect-package-linux@beta
         with:
           runner: ubuntu-latest
           package: ${{ matrix.package }}

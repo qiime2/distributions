@@ -48,9 +48,6 @@ jobs:
       image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
-      - uses: qiime2/action-library-packaging/clean-disk@beta
-        name: "Clean disk on linux"
-
       - name: fetch seed env
         uses: actions/download-artifact@v4
         with:
@@ -69,11 +66,11 @@ jobs:
           name: ${{ inputs.rebuilt-channel-key }}
           path: ${{ env.rebuilt_channel_path }}
 
-      - uses: qiime2/action-library-packaging/environment@beta
+      - uses: qiime2/action-library-packaging/environment-linux@beta
         id: build-env
         name: "Set up build env"
 
-      - uses: qiime2/action-library-packaging/build-metapackage@beta
+      - uses: qiime2/action-library-packaging/build-metapackage-linux@beta
         name: "Build metapackage"
         id: build-meta
         with:

@@ -70,13 +70,14 @@ jobs:
       image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
-      - name: install npm
+      - name: install npm & git
         shell: bash
         run: |
           dnf -y install curl
           curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
-          dnf -y install nodejs
-          node -v && npm -v
+          dnf -y install nodejs git
+          echo "===== NPM & GIT VERSIONS ====="
+          node -v && npm -v && git --version
 
       - uses: actions/download-artifact@v4
         name: 'Fetch base channel with patches'

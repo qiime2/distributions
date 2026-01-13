@@ -41,16 +41,13 @@ jobs:
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
   run_matrix:
-    name: '${{ matrix.package }} (linux-alma8)'
+    name: '${{ matrix.package }} (ubuntu-latest)'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
-    container:
-      image: condaforge/linux-anvil-x86_64:alma8
-      options: --entrypoint /bin/sh
     steps:
       - name: get environment path
         uses: actions/download-artifact@v4
@@ -70,18 +67,6 @@ jobs:
         with:
           name: ${{ inputs.rebuilt-channel-key }}
           path: ${{ env.rebuilt_channel_path }}
-
-      - name: Maximize build space for linux
-        shell: bash
-        if: ${{ runner.os == 'Linux' }}
-        run: |
-          echo "Removing unwanted software... "
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          sudo docker image prune --all --force
-          echo "... done"
 
       - name: install environment
         id: env

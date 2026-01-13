@@ -17,10 +17,10 @@ dependencies:
 - python=3.10
 - q2-metadata=2026.1.0.dev0+1.g380374d
 - q2-mystery-stew=2026.1.0.dev0+1.g86e0327
-- q2-types=2026.1.0.dev0+2.gf36c829
+- q2-types=2026.1.0.dev0+3.g089eaa7
 - q2cli=2026.1.0.dev0+4.g70cffef
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+9.g4c47003
+- qiime2=2026.1.0.dev0+10.g9f4fd70
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rnanorm=2.1.0

@@ -161,7 +161,7 @@ jobs:
           key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (linux-alma8) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
-      - uses: qiime2/action-library-packaging/make-conda-config@beta
+      - uses: qiime2/action-library-packaging/make-conda-config-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Create conda build config'
         id: make-cbc

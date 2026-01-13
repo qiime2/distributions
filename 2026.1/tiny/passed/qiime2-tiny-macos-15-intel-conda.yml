@@ -57,7 +57,7 @@ dependencies:
 - exceptiongroup=1.3.1
 - executing=2.2.1
 - expat=2.7.3
-- filelock=3.20.2
+- filelock=3.20.3
 - flufl.lock=9.0.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -100,9 +100,9 @@ dependencies:
 - jinja2=3.1.6
 - joblib=1.5.3
 - jsonpointer=3.0.0
-- jsonschema=4.25.1
+- jsonschema=4.26.0
 - jsonschema-specifications=2025.9.1
-- jsonschema-with-format-nongpl=4.25.1
+- jsonschema-with-format-nongpl=4.26.0
 - jupyter_client=7.4.9
 - jupyter_core=5.9.1
 - jupyter_events=0.12.0
@@ -182,8 +182,8 @@ dependencies:
 - overrides=7.7.0
 - packaging=25.0
 - pandas=2.2.2
-- pandera=0.27.1
-- pandera-base=0.27.1
+- pandera=0.28.1
+- pandera-base=0.28.1
 - pandocfilters=1.5.0
 - pango=1.54.0
 - paramiko=4.0.0
@@ -227,10 +227,10 @@ dependencies:
 - pyzmq=24.0.1
 - q2-metadata=2026.1.0.dev0+1.g380374d
 - q2-mystery-stew=2026.1.0.dev0+1.g86e0327
-- q2-types=2026.1.0.dev0+2.gf36c829
+- q2-types=2026.1.0.dev0+3.g089eaa7
 - q2cli=2026.1.0.dev0+4.g70cffef
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+9.g4c47003
+- qiime2=2026.1.0.dev0+10.g9f4fd70
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.9.1
@@ -279,7 +279,7 @@ dependencies:
 - tinycss2=1.5.1
 - tk=8.6.13
 - tktable=2.10
-- tomli=2.3.0
+- tomli=2.4.0
 - tomlkit=0.13.3
 - tornado=6.5.4
 - traitlets=5.9.0

@@ -85,8 +85,8 @@ jobs:
         id: cache-env
         uses: qiime2/action-library-packaging/create-env-linux@beta
         with:
-          conda-prefix: ${{ github.workspace }}/${{ env.environment_prefix }}
-          environment-file: ${{ github.workspace }}/${{ inputs.distro-name }}-linux-alma8-conda.yml
+          conda-prefix: ${{ env.environment_prefix }}
+          environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
           channels: ${{ steps.build-meta.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}

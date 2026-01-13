@@ -48,15 +48,6 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: 'Echo runner info'
-        run: |
-          echo "===== WORKSPACE ====="
-          echo ${{ github.workspace }}
-          ls -la ${{ github.workspace }}
-          echo "===== ACTION PATH ====="
-          echo ${{ github.action_path }}
-          ls -la ${{ github.action_path }}
-
       - uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.matrix-key }}
@@ -78,6 +69,14 @@ jobs:
     container:
       image: condaforge/linux-anvil-x86_64:alma8
     steps:
+
+      - name: install npm
+        shell: bash
+        run: |
+          dnf -y install curl
+          curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
+          dnf -y install nodejs
+          node -v && npm -v
 
       - uses: actions/download-artifact@v4
         name: 'Fetch base channel with patches'

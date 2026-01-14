@@ -1,0 +1,140 @@
+on:
+  workflow_call:
+    inputs:
+      seed-environment-key:
+        required: true
+        type: string
+      solved-environment-key:
+        required: true
+        type: string
+      rebuilt-channel-key:
+        required: true
+        type: string
+      patched-channel-key:
+        required: true
+        type: string
+      distro-name:
+        required: true
+        type: string
+      channels:
+        required: true
+        type: string
+    outputs:
+      distro-version:
+        value: ${{ jobs.setup-version.outputs.version }}
+
+env:
+  patched_channel_path: './patched-channel'
+  rebuilt_channel_path: './rebuilt-channel'
+  seed_environment_path: './seed-env'
+  environment_prefix: './test-env/'
+
+jobs:
+  setup-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.create-version.outputs.version }}
+    steps:
+      - id: create-version
+        shell: bash
+        run: |
+          echo version=$(
+            python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))"
+          ) >> $GITHUB_OUTPUT
+
+  install-metapackage:
+    needs: [setup-version]
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    container:
+      image: condaforge/linux-anvil-x86_64:alma8
+    steps:
+
+      - name: fetch seed env
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - uses: actions/download-artifact@v4
+        name: 'Fetch base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: fetch rebuilt channel
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - uses: qiime2/action-library-packaging/environment-linux@beta
+        id: build-env
+        name: "Set up build env"
+
+      - name: Install metapackage, create env file, and cache
+        id: cache-env
+        uses: qiime2/action-library-packaging/create-env-linux@beta
+        with:
+          conda-prefix: ${{ env.environment_prefix }}
+          environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
+          channels: ${{ inputs.channels }}
+          package-name: ${{ inputs.distro-name }}
+          package-version: ${{ needs.setup-version.outputs.version }}
+
+      - name: upload rebuilt channel with metapackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
+
+      - name: upload environment file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.solved-environment-key }}-linux-alma8
+          path: ${{ steps.cache-env.outputs.environment-file }}
+
+  finalize:
+    name: 'Finalize metapackage'
+    needs: [install-metapackage]
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/download-artifact@v4
+        name: 'Collate rebuilt channel'
+        with:
+          pattern: ${{ inputs.rebuilt-channel-key }}-*
+          path: ${{ env.rebuilt_channel_path }}
+          merge-multiple: true
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: install pyyaml & packaging
+        shell: bash
+        run: pip install pyyaml packaging
+
+      - name: install conda-build
+        run: conda install -c conda-forge -q conda-build
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - name: 'Reindex rebuilt channel'
+        shell: bash
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          python -m conda_index ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/upload-artifact@v4
+        name: 'Upload final rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: |
+            ${{ env.rebuilt_channel_path }}/**
+            !${{ env.rebuilt_channel_path }}/*/.cache/*
+          overwrite: true

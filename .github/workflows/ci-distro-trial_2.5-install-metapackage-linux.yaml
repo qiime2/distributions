@@ -16,12 +16,15 @@ on:
       distro-name:
         required: true
         type: string
+      distro-version:
+        required: true
+        type: string
       channels:
         required: true
         type: string
     outputs:
       distro-version:
-        value: ${{ jobs.setup-version.outputs.version }}
+        value: ${{ inputs.distro-version }}
 
 env:
   patched_channel_path: './patched-channel'
@@ -30,20 +33,7 @@ env:
   environment_prefix: './test-env/'
 
 jobs:
-  setup-version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.create-version.outputs.version }}
-    steps:
-      - id: create-version
-        shell: bash
-        run: |
-          echo version=$(
-            python -c "import datetime; print(datetime.datetime.utcnow().strftime('%Y.%m.%d.%H.%M.%S'))"
-          ) >> $GITHUB_OUTPUT
-
   install-metapackage:
-    needs: [setup-version]
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
@@ -57,16 +47,16 @@ jobs:
           name: ${{ inputs.seed-environment-key }}
           path: ${{ env.seed_environment_path }}
 
-      - uses: actions/download-artifact@v4
-        name: 'Fetch base channel with patches'
-        with:
-          name: ${{ inputs.patched-channel-key }}
-          path: ${{ env.patched_channel_path }}
-
-      - name: fetch rebuilt channel
+      - name: 'Fetch rebuilt channel'
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: fetch rebuilt channel (including metapackage)
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
           path: ${{ env.rebuilt_channel_path }}
 
       - uses: qiime2/action-library-packaging/environment-linux@beta
@@ -81,13 +71,13 @@ jobs:
           environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
           channels: ${{ inputs.channels }}
           package-name: ${{ inputs.distro-name }}
-          package-version: ${{ needs.setup-version.outputs.version }}
+          package-version: ${{ inputs.distro-version }}
 
       - name: upload rebuilt channel with metapackage
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
-          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ inputs.distro-version }}-*
 
       - name: upload environment file
         uses: actions/upload-artifact@v4

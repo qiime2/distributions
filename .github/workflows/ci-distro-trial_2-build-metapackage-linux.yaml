@@ -84,3 +84,9 @@ jobs:
           metapackage-version: ${{ needs.setup-version.outputs.version }}
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-linux.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
+
+      - name: upload rebuilt channel with metapackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*

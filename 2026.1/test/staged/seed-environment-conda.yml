@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2025.4/test/staged
+- https://packages.qiime2.org/qiime2/2026.1/tiny/staged
 - conda-forge
 - bioconda
 dependencies:
@@ -21,4 +21,4 @@ dependencies:
 - unifrac=1.3
 extras:
   variant_override:
-    qiime2_epoch: '2025.4'
+    qiime2_epoch: '2026.1'

@@ -46,6 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-x86_64:alma8
+    outputs:
+      channels: ${{ steps.build-meta.outputs.channels }}
     steps:
 
       - name: fetch seed env
@@ -81,13 +83,22 @@ jobs:
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-linux.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
 
+  install-metapackage:
+    needs: [build-metapackage]
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    container:
+      image: condaforge/linux-anvil-x86_64:alma8
+    steps:
+
       - name: Install metapackage, create env file, and cache
         id: cache-env
         uses: qiime2/action-library-packaging/create-env-linux@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
           environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
-          channels: ${{ steps.build-meta.outputs.channels }}
+          channels: ${{ needs.build-meta.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
 
@@ -105,7 +116,7 @@ jobs:
 
   finalize:
     name: 'Finalize metapackage'
-    needs: [build-metapackage]
+    needs: [install-metapackage]
     runs-on: ubuntu-latest
     steps:
 

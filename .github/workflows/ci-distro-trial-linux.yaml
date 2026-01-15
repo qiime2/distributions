@@ -146,20 +146,8 @@ jobs:
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
       distro-name: qiime2-${{ needs.prepare.outputs.distro }}
 
-  install-metapackage:
-    needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7, build-metapackage]
-    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/ci-distro-trial_2.5-install-metapackage-linux.yaml
-    with:
-      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
-      solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
-      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
-      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      distro-name: qiime2-${{ needs.prepare.outputs.distro }}
-      channels: ${{ needs.build-metapackage.outputs.channels }}
-
   test-metapackage:
-    needs: [prepare, install-metapackage]
+    needs: [prepare, build-metapackage]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_3-test-metapackage-linux.yaml
     with:

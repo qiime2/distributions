@@ -19,8 +19,6 @@ on:
     outputs:
       distro-version:
         value: ${{ jobs.setup-version.outputs.version }}
-      channels:
-        value: ${{ jobs.build-metapackage.outputs.channels }}
 
 env:
   patched_channel_path: './patched-channel'
@@ -48,8 +46,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-x86_64:alma8
-    outputs:
-      channels: ${{ steps.build-meta.outputs.channels }}
     steps:
 
       - name: fetch seed env
@@ -84,3 +80,69 @@ jobs:
           metapackage-version: ${{ needs.setup-version.outputs.version }}
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-linux.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
+
+      - name: Install metapackage, create env file, and cache
+        id: cache-env
+        uses: qiime2/action-library-packaging/create-env-linux@beta
+        with:
+          conda-prefix: ${{ env.environment_prefix }}
+          environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
+          channels: ${{ steps.build-meta.outputs.channels }}
+          package-name: ${{ inputs.distro-name }}
+          package-version: ${{ needs.setup-version.outputs.version }}
+
+      - name: upload rebuilt channel with metapackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
+
+      - name: upload environment file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.solved-environment-key }}-linux-alma8
+          path: ${{ steps.cache-env.outputs.environment-file }}
+
+  finalize:
+    name: 'Finalize metapackage'
+    needs: [build-metapackage]
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/download-artifact@v4
+        name: 'Collate rebuilt channel'
+        with:
+          pattern: ${{ inputs.rebuilt-channel-key }}-*
+          path: ${{ env.rebuilt_channel_path }}
+          merge-multiple: true
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: install pyyaml & packaging
+        shell: bash
+        run: pip install pyyaml packaging
+
+      - name: install conda-build
+        run: conda install -c conda-forge -q conda-build
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - name: 'Reindex rebuilt channel'
+        shell: bash
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          python -m conda_index ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/upload-artifact@v4
+        name: 'Upload final rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: |
+            ${{ env.rebuilt_channel_path }}/**
+            !${{ env.rebuilt_channel_path }}/*/.cache/*
+          overwrite: true

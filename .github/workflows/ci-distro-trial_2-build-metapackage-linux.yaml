@@ -116,6 +116,16 @@ jobs:
           name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
           path: ${{ env.rebuilt_channel_path }}
 
+      - name: set up conda
+        uses: qiime2/action-library-packaging/environment-linux@beta
+        id: setup-conda
+
+      - name: reindex rebuilt channel
+        shell: bash
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          python -m conda_index ${{ env.rebuilt_channel_path }}
+
       - name: Install metapackage, create env file, and cache
         id: cache-env
         uses: qiime2/action-library-packaging/create-env-linux@beta

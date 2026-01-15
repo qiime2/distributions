@@ -113,7 +113,7 @@ jobs:
       - name: fetch metapackage build
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.rebuild-channel-key }}${{ inputs.distro-name }}-linux-alma8
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
           path: ${{ env.rebuilt_channel_path }}
 
       - name: Install metapackage, create env file, and cache

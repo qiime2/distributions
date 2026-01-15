@@ -83,8 +83,14 @@ jobs:
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-linux.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
 
+      - name: upload rebuilt channel with metapackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-linux-alma8
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
+
   install-metapackage:
-    needs: [build-metapackage]
+    needs: [setup-version, build-metapackage]
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
@@ -92,13 +98,31 @@ jobs:
       image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
+      - name: fetch base channel with patches
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: fetch rebuilt channel
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: fetch metapackage build
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.rebuild-channel-key }}${{ inputs.distro-name }}-linux-alma8
+          path: ${{ env.rebuilt_channel_path }}
+
       - name: Install metapackage, create env file, and cache
         id: cache-env
         uses: qiime2/action-library-packaging/create-env-linux@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
           environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
-          channels: ${{ needs.build-meta.outputs.channels }}
+          channels: ${{ needs.build-metapackage.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
 

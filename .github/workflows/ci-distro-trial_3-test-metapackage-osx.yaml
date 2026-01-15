@@ -88,6 +88,7 @@ jobs:
           environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-macos-15-intel-conda.yml
 
       - name: run qiime info
+        if: ${{ inputs.distro-name != 'test' }}
         shell: bash
         run: |
           ${{ steps.env.outputs.conda-activate }}

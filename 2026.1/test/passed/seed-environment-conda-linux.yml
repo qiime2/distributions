@@ -3,20 +3,30 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
-- biom-format=2.1.15
+- biom-format=2.1.16
+- click=8.1.8
+- decorator=4.4.2
+- frictionless=5.5.0
 - h5py=3.11.0
 - hdf5=1.14.3
+- networkx=3.1
 - notebook=6.5.5
 - numpy=1.26.4
 - pandas=2.2.2
 - parsl=2024.4.15
 - python=3.10
-- q2templates=2025.4.0.dev0
+- q2-fondue=2026.1.0.dev0
+- q2-types=2026.1.0.dev0+4.g3b335ce
+- q2cli=2026.1.0.dev0+8.gaddaf36
+- q2templates=2026.1.0.dev0+2.gb2fee14
+- qiime2=2026.1.0.dev0+14.g5742640
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- scikit-bio=0.6.0
+- rnanorm=2.1.0
+- scikit-bio=0.6.2
 - scikit-learn=1.4.2
 - scipy=1.13.0
+- tzlocal=2.1
 - unifrac-binaries=1.4
 - unifrac=1.3
 extras:

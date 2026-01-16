@@ -78,7 +78,7 @@ packages:
 
 - name: q2-fondue
   repo: bokulich-lab/q2-fondue
-  distros: [amplicon, moshpit]
+  distros: [amplicon, moshpit, test]
 
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion
@@ -134,7 +134,7 @@ packages:
 
 - name: q2-types
   repo: qiime2/q2-types
-  distros: [tiny, amplicon, moshpit, pathogenome]
+  distros: [tiny, amplicon, moshpit, pathogenome, test]
 
 - name: q2-viromics
   repo: bokulich-lab/q2-viromics
@@ -150,7 +150,7 @@ packages:
 
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [tiny, amplicon, moshpit, pathogenome]
+  distros: [tiny, amplicon, moshpit, pathogenome, test]
 
 - name: q2galaxy
   repo: qiime2/q2galaxy
@@ -162,7 +162,7 @@ packages:
 
 - name: qiime2
   repo: qiime2/qiime2
-  distros: [tiny, amplicon, moshpit, pathogenome]
+  distros: [tiny, amplicon, moshpit, pathogenome, test]
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt

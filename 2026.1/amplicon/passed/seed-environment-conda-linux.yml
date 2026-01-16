@@ -26,6 +26,7 @@ dependencies:
 - parsl=2024.4.15
 - patsy=0.5.6
 - pillow=10.3.0
+- py7zr=1.0.0
 - python=3.10
 - q2-alignment=2026.1.0.dev0
 - q2-boots=0.0.1+165.g989dd41
@@ -39,7 +40,7 @@ dependencies:
 - q2-emperor=2026.1.0.dev0
 - q2-feature-classifier=2026.1.0.dev0
 - q2-feature-table=2026.1.0.dev0
-# - q2-fondue=2026.1.0.dev0
+- q2-fondue=2026.1.0.dev0
 - q2-fragment-insertion=2026.1.0.dev0
 - q2-kmerizer=0.0.1+37.gfd404f7
 - q2-longitudinal=2026.1.0.dev0

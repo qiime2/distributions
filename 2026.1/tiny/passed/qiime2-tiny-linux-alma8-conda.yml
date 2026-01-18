@@ -98,7 +98,7 @@ dependencies:
 - jupyter_core=5.9.1
 - jupyter_events=0.12.0
 - jupyter_server=2.17.0
-- jupyter_server_terminals=0.5.3
+- jupyter_server_terminals=0.5.4
 - jupyterlab_pygments=0.3.0
 - kernel-headers_linux-64=4.18.0
 - keyutils=1.6.3
@@ -221,7 +221,7 @@ dependencies:
 - pyzmq=24.0.1
 - q2-metadata=2026.1.0.dev0+1.g380374d
 - q2-mystery-stew=2026.1.0.dev0+1.g86e0327
-- q2-types=2026.1.0.dev0+4.g3b335ce
+- q2-types=2026.1.0.dev0+5.gaecaa84
 - q2cli=2026.1.0.dev0+8.gaddaf36
 - q2templates=2026.1.0.dev0+2.gb2fee14
 - qiime2=2026.1.0.dev0+14.g5742640

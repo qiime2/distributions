@@ -94,8 +94,8 @@ jobs:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
-    container:
-      image: condaforge/linux-anvil-x86_64:alma8
+    # container:
+    #   image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
       - name: fetch base channel with patches

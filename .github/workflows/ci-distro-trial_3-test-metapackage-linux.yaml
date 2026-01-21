@@ -48,8 +48,8 @@ jobs:
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
-    # container:
-    #   image: condaforge/linux-anvil-x86_64:alma8
+    container:
+      image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
       - name: get environment path

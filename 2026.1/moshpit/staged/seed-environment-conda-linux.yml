@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/moshpit/passed
+- https://packages.qiime2.org/qiime2/2026.1/moshpit/staged
 - conda-forge
 - bioconda
 dependencies:

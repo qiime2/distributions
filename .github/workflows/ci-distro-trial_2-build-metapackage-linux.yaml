@@ -94,9 +94,11 @@ jobs:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
-    container:
-      image: condaforge/linux-anvil-x86_64:alma8
+    # container:
+    #   image: condaforge/linux-anvil-x86_64:alma8
     steps:
+      - uses: qiime2/action-library-packaging/clean-disk@beta
+        name: "Clean disk on linux"
 
       - name: fetch base channel with patches
         uses: actions/download-artifact@v4
@@ -117,7 +119,7 @@ jobs:
           path: ${{ env.rebuilt_channel_path }}
 
       - name: set up conda
-        uses: qiime2/action-library-packaging/environment-linux@beta
+        uses: qiime2/action-library-packaging/environment@beta
         id: setup-conda
 
       - name: reindex rebuilt channel
@@ -128,7 +130,7 @@ jobs:
 
       - name: Install metapackage, create env file, and cache
         id: cache-env
-        uses: qiime2/action-library-packaging/create-env-linux@beta
+        uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
           environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml

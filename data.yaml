@@ -7,6 +7,7 @@ next_epoch: "2026.4"
 distros: [tiny, amplicon, moshpit, pathogenome, test]
 packages:
 
+# moshpit proxy package
 - name: moshpit
   repo: bokulich-lab/MOSHPIT
   distros: [moshpit]
@@ -148,6 +149,11 @@ packages:
   repo: qiime2/q2-vsearch
   distros: [amplicon, moshpit]
 
+# qiime2 proxy package
+- name: qiime2
+  repo: qiime2/q2
+  distros: [tiny, amplicon, moshpit, pathogenome, test]
+
 - name: q2cli
   repo: qiime2/q2cli
   distros: [tiny, amplicon, moshpit, pathogenome, test]
@@ -160,8 +166,9 @@ packages:
   repo: qiime2/q2templates
   distros: [tiny, amplicon, moshpit, pathogenome, test]
 
-- name: qiime2
-  repo: qiime2/qiime2
+# formerly qiime2
+- name: rachis
+  repo: rachis-org/rachis
   distros: [tiny, amplicon, moshpit, pathogenome, test]
 
 - name: rescript

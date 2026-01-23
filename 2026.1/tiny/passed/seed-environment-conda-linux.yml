@@ -21,6 +21,7 @@ dependencies:
 - q2cli=2026.1.0.dev0+8.gaddaf36
 - q2templates=2026.1.0.dev0+2.gb2fee14
 - qiime2=2026.1.0.dev0+14.g5742640
+- rachis=0
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rnanorm=2.1.0

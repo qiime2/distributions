@@ -150,7 +150,7 @@ packages:
   distros: [amplicon, moshpit]
 
 # qiime2 proxy package
-- name: q2
+- name: qiime2
   repo: qiime2/q2
   distros: [tiny, amplicon, moshpit, pathogenome, test]
 

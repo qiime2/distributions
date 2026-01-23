@@ -20,7 +20,7 @@ dependencies:
 - q2-types=2026.1.0.dev0+5.gaecaa84
 - q2cli=2026.1.0.dev0+8.gaddaf36
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev1
+- qiime2=2026.1.1.dev0
 - rachis=2026.1.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0

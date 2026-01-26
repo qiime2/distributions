@@ -43,7 +43,8 @@ dependencies:
 - q2-vizard=2026.1.0.dev0+2.g60b0462
 - q2cli=2026.1.0.dev0+8.gaddaf36
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+15.gee7d6ee
+- qiime2=2026.1.1.dev0+1.gf16fb43
+- rachis=2026.1.0.dev0+56.gab4ddd1
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0

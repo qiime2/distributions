@@ -36,7 +36,7 @@ dependencies:
 - q2-annotate=2026.1.0.dev0+4.g3e85584
 - q2-assembly=2026.1.0.dev0+2.gba8dae8
 - q2-composition=2026.1.0.dev0+4.g74fc4d9
-- q2-cutadapt=2026.1.0.dev0+1.g3215e59
+- q2-cutadapt=2026.1.0.dev0+2.gd886312
 - q2-demux=2026.1.0.dev0+1.g0e16052
 - q2-diversity-lib=2026.1.0.dev0+1.g8697863
 - q2-diversity=2026.1.0.dev0+2.g2da1714
@@ -57,13 +57,14 @@ dependencies:
 - q2-types=2026.1.0.dev0+5.gaecaa84
 - q2-vizard=2026.1.0.dev0+2.g60b0462
 - q2-vsearch=2026.1.0.dev0+1.gf6ac3dd
-- q2cli=2026.1.0.dev0+8.gaddaf36
+- q2cli=2026.1.0.dev0+9.gd3d060b
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+15.gee7d6ee
+- qiime2=2026.1.1.dev0+1.gf16fb43
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
+- rachis=2026.1.0.dev0+56.gab4ddd1
 - rescript=2026.1.0.dev0+9.g73deb7b
 - rnanorm=2.1.0
 - rpy2=3.5.11

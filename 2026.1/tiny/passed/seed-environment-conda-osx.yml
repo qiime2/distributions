@@ -20,9 +20,10 @@ dependencies:
 - q2-types=2026.1.0.dev0+3.g089eaa7
 - q2cli=2026.1.0.dev0+4.g70cffef
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+10.g9f4fd70
+- qiime2=2026.1.1.dev0+1.gf16fb43
 - r-base=4.3.3
 - r-reticulate=1.36.0
+- rachis=2026.1.0.dev0+56.gab4ddd1
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

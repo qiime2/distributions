@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/tiny/staged
+- https://packages.qiime2.org/qiime2/2026.1/tiny/released
 - conda-forge
 - bioconda
 dependencies:

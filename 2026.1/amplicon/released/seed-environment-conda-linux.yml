@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/amplicon/passed
+- https://packages.qiime2.org/qiime2/2026.1/amplicon/released
 - conda-forge
 - bioconda
 dependencies:

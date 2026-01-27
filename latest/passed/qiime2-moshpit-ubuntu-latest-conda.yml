@@ -251,7 +251,7 @@ dependencies:
 - lcms2=2.16
 - ld_impl_linux-64=2.45
 - lerc=4.0.0
-- libaec=1.1.4
+- libaec=1.1.5
 - libasprintf=0.25.1
 - libblas=3.11.0
 - libboost=1.85.0
@@ -330,7 +330,7 @@ dependencies:
 - lz4-c=1.10.0
 - mafft=7.526
 - make=4.4.1
-- markdown=3.10
+- markdown=3.10.1
 - markdown-it-py=4.0.0
 - marko=2.2.2
 - markupsafe=3.0.3
@@ -384,7 +384,7 @@ dependencies:
 - openmpi=4.1.6
 - openssl=3.6.0
 - overrides=7.7.0
-- packaging=25.0
+- packaging=26.0
 - pandas=2.2.2
 - pandera=0.28.1
 - pandera-base=0.28.1
@@ -497,7 +497,7 @@ dependencies:
 - pydantic=2.12.5
 - pydantic-core=2.41.5
 - pygments=2.19.2
-- pyhmmer=0.11.4
+- pyhmmer=0.12.0
 - pyjwt=2.10.1
 - pymongo=4.16.0
 - pynacl=1.5.0
@@ -530,7 +530,7 @@ dependencies:
 - q2-annotate=2026.1.0.dev0+4.g3e85584
 - q2-assembly=2026.1.0.dev0+2.gba8dae8
 - q2-composition=2026.1.0.dev0+4.g74fc4d9
-- q2-cutadapt=2026.1.0.dev0+1.g3215e59
+- q2-cutadapt=2026.1.0.dev0+2.gd886312
 - q2-demux=2026.1.0.dev0+1.g0e16052
 - q2-diversity=2026.1.0.dev0+2.g2da1714
 - q2-diversity-lib=2026.1.0.dev0+1.g8697863
@@ -551,9 +551,9 @@ dependencies:
 - q2-types=2026.1.0.dev0+5.gaecaa84
 - q2-vizard=2026.1.0.dev0+2.g60b0462
 - q2-vsearch=2026.1.0.dev0+1.gf6ac3dd
-- q2cli=2026.1.0.dev0+8.gaddaf36
+- q2cli=2026.1.0.dev0+9.gd3d060b
 - q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+15.gee7d6ee
+- qiime2=2026.1.1.dev0+1.gf16fb43
 - qt-main=5.15.8
 - quast=5.3.0
 - r-abind=1.4_5
@@ -798,6 +798,7 @@ dependencies:
 - r-yaml=2.3.10
 - r-yulab.utils=0.2.1
 - r-zoo=1.8_14
+- rachis=2026.1.0.dev0+56.gab4ddd1
 - raxml=8.2.13
 - readline=8.3
 - recommonmark=0.7.1
@@ -810,7 +811,7 @@ dependencies:
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
 - rfc3987-syntax=1.1.0
-- rich=14.2.0
+- rich=14.3.1
 - rich-click=1.9.6
 - rmblast=2.14.1
 - rnanorm=2.1.0
@@ -900,12 +901,12 @@ dependencies:
 - urllib3=2.5.0
 - validators=0.35.0
 - vsearch=2.22.1
-- wcwidth=0.2.14
+- wcwidth=0.4.0
 - webcolors=25.10.0
 - webencodings=0.5.1
 - websocket-client=1.9.0
 - wget=1.21.4
-- wheel=0.45.1
+- wheel=0.46.3
 - whenever=0.9.5
 - widgetsnbextension=4.0.15
 - wrapt=2.0.1

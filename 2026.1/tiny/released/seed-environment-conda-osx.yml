@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/tiny/passed
+- https://packages.qiime2.org/qiime2/2026.1/tiny/released
 - conda-forge
 - bioconda
 dependencies:
@@ -15,15 +15,15 @@ dependencies:
 - pandas=2.2.2
 - parsl=2024.4.15
 - python=3.10
-- q2-metadata=2026.1.0.dev0+1.g380374d
-- q2-mystery-stew=2026.1.0.dev0+1.g86e0327
-- q2-types=2026.1.0.dev0+5.gaecaa84
-- q2cli=2026.1.0.dev0+9.gd3d060b
-- q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.1.dev0+1.gf16fb43
+- q2-metadata=2026.1.0
+- q2-mystery-stew=2026.1.0
+- q2-types=2026.1.0
+- q2cli=2026.1.0
+- q2templates=2026.1.0
+- qiime2=2026.1.0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rachis=2026.1.0.dev0+56.gab4ddd1
+- rachis=2026.1.0
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

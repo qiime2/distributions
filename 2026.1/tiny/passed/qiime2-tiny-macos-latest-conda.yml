@@ -225,12 +225,12 @@ dependencies:
 - pytz=2025.2
 - pyyaml=6.0.3
 - pyzmq=24.0.1
-- q2-metadata=2026.1.0.dev0+1.g380374d
-- q2-mystery-stew=2026.1.0.dev0+1.g86e0327
-- q2-types=2026.1.0.dev0+5.gaecaa84
-- q2cli=2026.1.0.dev0+9.gd3d060b
-- q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.1.dev0+1.gf16fb43
+- q2-metadata=2026.1.0
+- q2-mystery-stew=2026.1.0
+- q2-types=2026.1.0
+- q2cli=2026.1.0
+- q2templates=2026.1.0
+- qiime2=2026.1.0
 - r-base=4.3.3
 - r-here=1.0.1
 - r-jsonlite=1.9.1
@@ -244,7 +244,7 @@ dependencies:
 - r-rlang=1.1.6
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.1.0.dev0+56.gab4ddd1
+- rachis=2026.1.0
 - readline=8.3
 - referencing=0.37.0
 - requests=2.32.5

@@ -26,5 +26,9 @@ RUN python -c "from qiime2.sdk.parallel_config import get_vendored_config; get_v
 RUN echo "source activate qiime2-${DISTRO}-${EPOCH}" >> /root/.bashrc
 RUN echo "source tab-qiime" >> /root/.bashrc
 
+# HACK: regression in libc 2.41 causes:
+# libssu_nv_avx2.so: cannot enable executable stack as shared object requires: Invalid argument
+ENV GLIBC_TUNABLES glibc.rtld.execstack=2
+
 VOLUME ["/data"]
 WORKDIR /data

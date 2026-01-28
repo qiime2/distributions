@@ -149,11 +149,6 @@ packages:
   repo: qiime2/q2-vsearch
   distros: [amplicon, moshpit]
 
-# qiime2 proxy package
-- name: qiime2
-  repo: qiime2/q2
-  distros: [tiny, amplicon, moshpit, pathogenome, test]
-
 - name: q2cli
   repo: qiime2/q2cli
   distros: [tiny, amplicon, moshpit, pathogenome, test]
@@ -164,6 +159,11 @@ packages:
 
 - name: q2templates
   repo: qiime2/q2templates
+  distros: [tiny, amplicon, moshpit, pathogenome, test]
+
+# qiime2 proxy package
+- name: qiime2
+  repo: qiime2/q2
   distros: [tiny, amplicon, moshpit, pathogenome, test]
 
 # formerly qiime2

@@ -175,7 +175,7 @@ jobs:
       - shell: bash
         run: |
           echo "===== CHECKING CHANGED FILES ====="
-          git diff ${{ env.plugin_path }}
+          git diff /__w/distributions/distributions/plugin/
 
       - uses: qiime2/action-library-packaging/build-package-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}

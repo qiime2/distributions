@@ -35,7 +35,7 @@ packages:
 
 - name: q2-composition
   repo: qiime2/q2-composition
-  distros: [amplicon, moshpit]
+  distros: [amplicon, moshpit, test]
 
 - name: q2-cutadapt
   repo: qiime2/q2-cutadapt

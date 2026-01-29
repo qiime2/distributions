@@ -176,7 +176,8 @@ jobs:
         run: |
           echo "===== CHECKING CHANGED FILES ====="
           pwd
-          git diff ./plugin
+          cd ./plugin
+          git diff
 
       - uses: qiime2/action-library-packaging/build-package-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}

@@ -175,6 +175,7 @@ jobs:
       - shell: bash
         run: |
           echo "===== CHECKING CHANGED FILES ====="
+          pwd
           git diff ./plugin
 
       - uses: qiime2/action-library-packaging/build-package-linux@beta

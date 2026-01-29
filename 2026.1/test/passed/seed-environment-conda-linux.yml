@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/tiny/passed
+- https://packages.qiime2.org/qiime2/2026.1/amplicon/passed
 - conda-forge
 - bioconda
 dependencies:
@@ -16,11 +16,7 @@ dependencies:
 - pandas=2.2.2
 - parsl=2024.4.15
 - python=3.10
-- q2-fondue=2026.1.0.dev0
-- q2-types=2026.1.0.dev0+4.g3b335ce
-- q2cli=2026.1.0.dev0+8.gaddaf36
-- q2templates=2026.1.0.dev0+2.gb2fee14
-- qiime2=2026.1.0.dev0+14.g5742640
+- q2templates=2026.1.0
 - r-base=4.3.3
 - r-reticulate=1.36.0
 - rnanorm=2.1.0

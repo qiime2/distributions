@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.1/pathogenome/released
+- https://packages.qiime2.org/qiime2/2026.4/pathogenome/staged
 - conda-forge
 - bioconda
 dependencies:

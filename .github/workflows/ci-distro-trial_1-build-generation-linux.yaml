@@ -172,13 +172,6 @@ jobs:
           channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
           skip-first-channel: true
 
-      - shell: bash
-        run: |
-          echo "===== CHECKING CHANGED FILES ====="
-          pwd
-          cd ./plugin
-          git diff
-
       - uses: qiime2/action-library-packaging/build-package-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Build ${{ matrix.package }}'

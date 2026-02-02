@@ -1,4 +1,3 @@
-# TODO: consolidate to a single workflow with os as input
 name: cron-prepare-osx
 on:
   workflow_dispatch: {}
@@ -18,17 +17,3 @@ jobs:
     secrets: inherit
     with:
       distro: amplicon
-
-  moshpit:
-    needs: [tiny, amplicon]
-    uses: ./.github/workflows/create-prepare-pr-osx.yaml
-    secrets: inherit
-    with:
-      distro: moshpit
-
-  pathogenome:
-    needs: [tiny, amplicon, moshpit]
-    uses: ./.github/workflows/create-prepare-pr-osx.yaml
-    secrets: inherit
-    with:
-      distro: pathogenome

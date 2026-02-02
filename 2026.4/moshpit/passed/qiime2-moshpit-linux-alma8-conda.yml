@@ -412,7 +412,7 @@ dependencies:
 - perl-config-general=2.67
 - perl-constant=1.33
 - perl-dbi=1.647
-- perl-digest-perl-md5=1.9
+- perl-digest-perl-md5=1.91
 - perl-encode=3.21
 - perl-exporter=5.74
 - perl-exporter-tiny=1.002002
@@ -427,7 +427,7 @@ dependencies:
 - perl-font-ttf=1.06
 - perl-gd=2.76
 - perl-inc-latest=0.500
-- perl-io-compress=2.214
+- perl-io-compress=2.216
 - perl-io-string=1.08
 - perl-io-zlib=1.15
 - perl-json=4.10
@@ -468,7 +468,7 @@ dependencies:
 - pickleshare=0.7.5
 - pigz=2.8
 - pillow=10.3.0
-- pip=25.3
+- pip=26.0
 - pixman=0.46.4
 - platformdirs=4.5.1
 - plotly=6.5.2
@@ -498,7 +498,7 @@ dependencies:
 - pydantic-core=2.41.5
 - pygments=2.19.2
 - pyhmmer=0.12.0
-- pyjwt=2.10.1
+- pyjwt=2.11.0
 - pymongo=4.16.0
 - pynacl=1.5.0
 - pynndescent=0.5.13
@@ -811,8 +811,8 @@ dependencies:
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
 - rfc3987-syntax=1.1.0
-- rich=14.3.1
-- rich-click=1.9.6
+- rich=14.3.2
+- rich-click=1.9.7
 - rmblast=2.14.1
 - rnanorm=2.1.0
 - rpds-py=0.30.0
@@ -901,7 +901,7 @@ dependencies:
 - urllib3=2.5.0
 - validators=0.35.0
 - vsearch=2.22.1
-- wcwidth=0.5.2
+- wcwidth=0.5.3
 - webcolors=25.10.0
 - webencodings=0.5.1
 - websocket-client=1.9.0
@@ -909,7 +909,7 @@ dependencies:
 - wheel=0.46.3
 - whenever=0.9.5
 - widgetsnbextension=4.0.15
-- wrapt=2.0.1
+- wrapt=2.1.0
 - xcb-util=0.4.0
 - xcb-util-image=0.4.0
 - xcb-util-keysyms=0.4.0

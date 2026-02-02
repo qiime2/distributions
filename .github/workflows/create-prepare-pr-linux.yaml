@@ -64,14 +64,14 @@ jobs:
           token: ${{ secrets.BOT_PAT }}
           branch: ${{ steps.branch.outputs.branch }}
           draft: ${{ inputs.draft }}
-          title: "[${{ inputs.distro }}] Automated Trial (Prepare)"
+          title: "[${{ inputs.distro }}] Automated Trial (Prepare) - linux"
           body: |
             Automated updates from `create-prepare-pr-linux.yaml`
             triggered by ${{ github.event_name }}.
           author: "q2d2 <q2d2.noreply@gmail.com>"
           committer: "q2d2 <q2d2.noreply@gmail.com>"
           commit-message: |
-            Automated updates to seed environment: ${{ inputs.distro }}
+            Automated updates to linux seed environment: ${{ inputs.distro }}
 
   await-workflow:
     needs: [create-pr]
@@ -131,9 +131,9 @@ jobs:
 
       - name: copy updated env file from merged prepare pr
         id: copy-env
-        if: contains(needs.await-workflow.outputs.gh-response, 'merged:true')
+        if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
-          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml' './latest/passed/'
+          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-linux-alma8-conda.yml' './latest/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml'
 
       - name: Open Pull Request to update latest env files
         id: env-updates-pr
@@ -151,7 +151,7 @@ jobs:
           author: "q2d2 <q2d2.noreply@gmail.com>"
           committer: "q2d2 <q2d2.noreply@gmail.com>"
           commit-message: |
-            Automated updates to latest resolved environment files: ${{ needs.create-pr.outputs.epoch }} ${{ inputs.distro }}
+            Automated updates to latest resolved linux environment file: ${{ needs.create-pr.outputs.epoch }} ${{ inputs.distro }}
 
   merge-latest-env-pr:
     needs: [update-latest-envs]

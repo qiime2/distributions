@@ -17,7 +17,7 @@ dependencies:
 - attrs=25.4.0
 - bcrypt=5.0.0
 - beautifulsoup4=4.14.3
-- bibtexparser=1.4.3
+- bibtexparser=1.4.4
 - biom-format=2.1.16
 - bleach=6.3.0
 - bleach-with-css=6.3.0

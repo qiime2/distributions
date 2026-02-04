@@ -19,7 +19,7 @@ dependencies:
 - attrs=25.4.0
 - bcrypt=5.0.0
 - beautifulsoup4=4.14.3
-- bibtexparser=1.4.3
+- bibtexparser=1.4.4
 - bioconductor-ancombc=2.4.0
 - bioconductor-beachmat=2.18.0
 - bioconductor-biobase=2.62.0
@@ -273,7 +273,7 @@ dependencies:
 - munkres=1.1.4
 - muscle=3.8.1551
 - mypy_extensions=1.1.0
-- narwhals=2.15.0
+- narwhals=2.16.0
 - natsort=8.4.0
 - nbclassic=1.3.3
 - nbclient=0.10.4
@@ -320,7 +320,7 @@ dependencies:
 - perl-exporter=5.74
 - perl-exporter-tiny=1.002002
 - perl-extutils-makemaker=7.70
-- perl-io-compress=2.214
+- perl-io-compress=2.216
 - perl-io-zlib=1.15
 - perl-json=4.10
 - perl-json-xs=4.04
@@ -336,7 +336,7 @@ dependencies:
 - pickleshare=0.7.5
 - pigz=2.8
 - pillow=10.3.0
-- pip=25.3
+- pip=26.0
 - pixman=0.46.4
 - platformdirs=4.5.1
 - pluggy=1.6.0
@@ -355,7 +355,7 @@ dependencies:
 - pydantic-core=2.41.5
 - pygments=2.19.2
 - pyhmmer=0.12.0
-- pyjwt=2.10.1
+- pyjwt=2.11.0
 - pymongo=4.16.0
 - pynacl=1.5.0
 - pynndescent=0.5.13
@@ -651,7 +651,7 @@ dependencies:
 - rfc3986=2.0.0
 - rfc3986-validator=0.1.1
 - rfc3987-syntax=1.1.0
-- rich=14.3.1
+- rich=14.3.2
 - rnanorm=2.1.0
 - rpds-py=0.30.0
 - rpsbproc=0.5.0
@@ -715,7 +715,7 @@ dependencies:
 - urllib3=2.5.0
 - validators=0.35.0
 - vsearch=2.22.1
-- wcwidth=0.5.2
+- wcwidth=0.5.3
 - webcolors=25.10.0
 - webencodings=0.5.1
 - websocket-client=1.9.0
@@ -723,7 +723,7 @@ dependencies:
 - wheel=0.46.3
 - whenever=0.9.5
 - widgetsnbextension=4.0.15
-- wrapt=2.0.1
+- wrapt=2.1.0
 - xmltodict=1.0.2
 - xopen=2.0.2
 - xorg-libxau=1.0.12

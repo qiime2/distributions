@@ -107,7 +107,7 @@ packages:
 
 - name: q2-quality-control
   repo: qiime2/q2-quality-control
-  distros: [amplicon, moshpit]
+  distros: [amplicon, moshpit, pathogenome]
 
 - name: q2-quality-filter
   repo: qiime2/q2-quality-filter
@@ -131,7 +131,7 @@ packages:
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
-  distros: [amplicon, moshpit]
+  distros: [amplicon, moshpit, pathogenome]
 
 - name: q2-types
   repo: qiime2/q2-types

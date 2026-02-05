@@ -14,7 +14,7 @@ packages:
 
 - name: q2-alignment
   repo: qiime2/q2-alignment
-  distros: [amplicon]
+  distros: [amplicon, moshpit, pathogenome]
 
 - name: q2-amrfinderplus
   repo: bokulich-lab/q2-amrfinderplus
@@ -71,7 +71,7 @@ packages:
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
-  distros: [amplicon]
+  distros: [amplicon, moshpit, pathogenome]
 
 - name: q2-feature-table
   repo: qiime2/q2-feature-table

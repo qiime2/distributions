@@ -14,7 +14,7 @@ packages:
 
 - name: q2-alignment
   repo: qiime2/q2-alignment
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon]
 
 - name: q2-amrfinderplus
   repo: bokulich-lab/q2-amrfinderplus
@@ -27,7 +27,7 @@ packages:
 
 - name: q2-assembly
   repo: bokulich-lab/q2-assembly
-  distros: [moshpit, pathogenome]
+  distros: [moshpit]
 
 - name: q2-boots
   repo: caporaso-lab/q2-boots
@@ -35,7 +35,7 @@ packages:
 
 - name: q2-composition
   repo: qiime2/q2-composition
-  distros: [amplicon, moshpit, test]
+  distros: [amplicon, test]
 
 - name: q2-cutadapt
   repo: qiime2/q2-cutadapt
@@ -53,17 +53,17 @@ packages:
   repo: qiime2/q2-demux
   distros: [amplicon, moshpit, pathogenome]
 
-- name: q2-diversity
-  repo: qiime2/q2-diversity
-  distros: [amplicon, moshpit]
-
 - name: q2-diversity-lib
   repo: qiime2/q2-diversity-lib
-  distros: [amplicon, moshpit]
+  distros: [amplicon]
+
+- name: q2-diversity
+  repo: qiime2/q2-diversity
+  distros: [amplicon]
 
 - name: q2-emperor
   repo: qiime2/q2-emperor
-  distros: [amplicon, moshpit]
+  distros: [amplicon]
 
 - name: q2-fastp
   repo: bokulich-lab/q2-fastp
@@ -71,7 +71,7 @@ packages:
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
-  distros: [amplicon, pathogenome]
+  distros: [amplicon]
 
 - name: q2-feature-table
   repo: qiime2/q2-feature-table
@@ -91,7 +91,7 @@ packages:
 
 - name: q2-longitudinal
   repo: qiime2/q2-longitudinal
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon]
 
 - name: q2-metadata
   repo: qiime2/q2-metadata
@@ -111,11 +111,11 @@ packages:
 
 - name: q2-quality-filter
   repo: qiime2/q2-quality-filter
-  distros: [amplicon, moshpit]
+  distros: [amplicon]
 
 - name: q2-sample-classifier
   repo: qiime2/q2-sample-classifier
-  distros: [amplicon, moshpit]
+  distros: [amplicon]
 
 - name: q2-sapienns
   repo: caporaso-lab/q2-sapienns
@@ -131,7 +131,7 @@ packages:
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
-  distros: [amplicon, community, moshpit]
+  distros: [amplicon, moshpit]
 
 - name: q2-types
   repo: qiime2/q2-types
@@ -147,7 +147,7 @@ packages:
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch
-  distros: [amplicon, moshpit]
+  distros: [amplicon]
 
 - name: q2cli
   repo: qiime2/q2cli

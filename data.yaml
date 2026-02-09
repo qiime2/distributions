@@ -95,7 +95,7 @@ packages:
 
 - name: q2-metadata
   repo: qiime2/q2-metadata
-  distros: [tiny, amplicon, moshpit]
+  distros: [tiny, amplicon, moshpit, pathogenome]
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew

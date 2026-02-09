@@ -14,7 +14,7 @@ packages:
 
 - name: q2-alignment
   repo: qiime2/q2-alignment
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon]
 
 - name: q2-amrfinderplus
   repo: bokulich-lab/q2-amrfinderplus
@@ -71,7 +71,7 @@ packages:
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon]
 
 - name: q2-feature-table
   repo: qiime2/q2-feature-table
@@ -107,7 +107,7 @@ packages:
 
 - name: q2-quality-control
   repo: qiime2/q2-quality-control
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon]
 
 - name: q2-quality-filter
   repo: qiime2/q2-quality-filter
@@ -131,7 +131,7 @@ packages:
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon, moshpit]
 
 - name: q2-types
   repo: qiime2/q2-types
@@ -173,4 +173,4 @@ packages:
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt
-  distros: [amplicon, moshpit, pathogenome]
+  distros: [amplicon, moshpit]

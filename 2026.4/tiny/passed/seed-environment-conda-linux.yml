@@ -23,7 +23,7 @@ dependencies:
 - qiime2=2026.4.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rachis=2026.4.0.dev0+6.gb453895
+- rachis=2026.4.0.dev0+7.ge8ca0ec
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

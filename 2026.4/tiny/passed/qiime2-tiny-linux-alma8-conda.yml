@@ -6,6 +6,7 @@ dependencies:
 - _libgcc_mutex=0.1
 - _openmp_mutex=4.5
 - _r-mutex=1.0.1
+- annotated-doc=0.0.4
 - annotated-types=0.7.0
 - anyio=4.12.1
 - appdirs=1.4.4
@@ -38,8 +39,8 @@ dependencies:
 - click=8.1.8
 - colorama=0.4.6
 - comm=0.2.3
-- conda-pack=0.8.1
-- cryptography=46.0.4
+- conda-pack=0.9.1
+- cryptography=46.0.5
 - curl=8.18.0
 - debugpy=1.8.20
 - decorator=4.4.2
@@ -133,7 +134,7 @@ dependencies:
 - libnghttp2=1.67.0
 - libnsl=2.0.1
 - libopenblas=0.3.30
-- libpng=1.6.54
+- libpng=1.6.55
 - libsanitizer=15.2.0
 - libsodium=1.0.18
 - libsqlite=3.51.2
@@ -183,7 +184,7 @@ dependencies:
 - pango=1.56.4
 - paramiko=4.0.0
 - parsl=2024.4.15
-- parso=0.8.5
+- parso=0.8.6
 - patsy=1.0.2
 - pcre2=10.47
 - petl=1.7.17
@@ -238,7 +239,7 @@ dependencies:
 - r-rlang=1.1.6
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.4.0.dev0+6.gb453895
+- rachis=2026.4.0.dev0+7.ge8ca0ec
 - readline=8.3
 - referencing=0.37.0
 - requests=2.32.5
@@ -256,7 +257,7 @@ dependencies:
 - sed=4.9
 - send2trash=2.1.0
 - setproctitle=1.3.7
-- setuptools=81.0.0
+- setuptools=82.0.0
 - shellingham=1.5.4
 - simpleeval=1.0.3
 - six=1.17.0
@@ -270,7 +271,7 @@ dependencies:
 - terminado=0.18.1
 - text-unidecode=1.3
 - threadpoolctl=3.6.0
-- tinycss2=1.5.1
+- tinycss2=1.4.0
 - tk=8.6.13
 - tktable=2.10
 - tomli=2.4.0
@@ -278,9 +279,7 @@ dependencies:
 - tornado=6.5.3
 - traitlets=5.9.0
 - typeguard=4.4.4
-- typer=0.21.1
-- typer-slim=0.21.1
-- typer-slim-standard=0.21.1
+- typer=0.23.0
 - typing-extensions=4.15.0
 - typing-inspection=0.4.2
 - typing_extensions=4.15.0
@@ -293,14 +292,14 @@ dependencies:
 - uri-template=1.3.0
 - urllib3=2.6.3
 - validators=0.35.0
-- wcwidth=0.5.3
+- wcwidth=0.6.0
 - webcolors=25.10.0
 - webencodings=0.5.1
 - websocket-client=1.9.0
 - wheel=0.46.3
 - xorg-libice=1.1.2
 - xorg-libsm=1.2.6
-- xorg-libx11=1.8.12
+- xorg-libx11=1.8.13
 - xorg-libxau=1.0.12
 - xorg-libxdmcp=1.1.5
 - xorg-libxext=1.3.7

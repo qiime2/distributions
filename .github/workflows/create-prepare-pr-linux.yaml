@@ -133,7 +133,7 @@ jobs:
         id: copy-env
         if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
         run: |
-          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-linux-alma8-conda.yml' './latest/passed/qiime2-${{ inputs.distro }}-ubuntu-latest-conda.yml'
+          cp '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-linux-64-conda.yml' './latest/passed/'
 
       - name: Open Pull Request to update latest env files
         id: env-updates-pr

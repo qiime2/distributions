@@ -87,7 +87,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-linux-alma8-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-linux-64-conda.yml
 
       - name: run qiime info
         if: ${{ inputs.distro-name != 'test' }}

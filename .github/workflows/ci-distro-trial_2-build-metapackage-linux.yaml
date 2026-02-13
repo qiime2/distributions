@@ -133,7 +133,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
-          environment-file: ${{ inputs.distro-name }}-linux-alma8-conda.yml
+          environment-file: ${{ inputs.distro-name }}-linux-64-conda.yml
           channels: ${{ needs.build-metapackage.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}

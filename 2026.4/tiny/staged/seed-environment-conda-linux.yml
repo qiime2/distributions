@@ -18,12 +18,12 @@ dependencies:
 - q2-metadata=2026.4.0.dev0
 - q2-mystery-stew=2026.4.0.dev0
 - q2-types=2026.4.0.dev0
-- q2cli=2026.4.0.dev0
+- q2cli=2026.4.0.dev0+1.gdcaba1e
 - q2templates=2026.4.0.dev0+3.ge333dcb
 - qiime2=2026.4.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rachis=2026.4.0.dev0+7.ge8ca0ec
+- rachis=2026.4.0.dev0+8.g75f01b4
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.4.2

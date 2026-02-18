@@ -54,7 +54,7 @@ dependencies:
 - font-ttf-inconsolata=3.000
 - font-ttf-source-code-pro=2.038
 - font-ttf-ubuntu=0.83
-- fontconfig=2.15.0
+- fontconfig=2.17.1
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
 - fqdn=1.5.1
@@ -250,7 +250,7 @@ dependencies:
 - rpds-py=0.30.0
 - samtools=1.22.1
 - scikit-bio=0.6.2
-- scikit-learn=1.4.2
+- scikit-learn=1.6.1
 - scipy=1.17.0
 - sed=4.9
 - send2trash=2.1.0

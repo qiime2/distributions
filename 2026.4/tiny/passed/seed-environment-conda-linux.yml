@@ -26,7 +26,7 @@ dependencies:
 - rachis=2026.4.0.dev0+8.g75f01b4
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
-- scikit-learn=1.4.2
+- scikit-learn=1.6.1
 - scipy=1.17.0
 - tzlocal=2.1
 - unifrac-binaries=1.5.1

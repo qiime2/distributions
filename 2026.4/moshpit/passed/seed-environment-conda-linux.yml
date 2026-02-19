@@ -13,6 +13,7 @@ dependencies:
 - decorator=4.4.2
 - eggnog-mapper=2.1.13
 - entrezpy=2.1.2
+- fastcluster=1.3.0
 - fastp=0.24.0
 - frictionless=5.5.0
 - h5py=3.11.0

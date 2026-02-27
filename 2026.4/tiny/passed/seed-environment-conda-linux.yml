@@ -17,13 +17,13 @@ dependencies:
 - python=3.11
 - q2-metadata=2026.4.0.dev0
 - q2-mystery-stew=2026.4.0.dev0
-- q2-types=2026.4.0.dev0
+- q2-types=2026.4.0.dev0+1.gaba63b0
 - q2cli=2026.1.0.dev0+10.g537fa80
-- q2templates=2026.4.0.dev0+3.ge333dcb
+- q2templates=2026.4.0.dev0+7.g4e67019
 - qiime2=2026.4.0.dev0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rachis=2026.4.0.dev0+8.g75f01b4
+- rachis=2026.4.0.dev0+10.ge27e7a9
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.6.1

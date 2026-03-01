@@ -18,7 +18,7 @@ dependencies:
 - q2-metadata=2026.4.0.dev0
 - q2-mystery-stew=2026.4.0.dev0
 - q2-types=2026.4.0.dev0+1.gaba63b0
-- q2cli=2026.1.0.dev0+10.g537fa80
+- q2cli=2026.4.0.dev0+2.gcfcff79
 - q2templates=2026.4.0.dev0+7.g4e67019
 - qiime2=2026.4.0.dev0
 - r-base=4.3.3

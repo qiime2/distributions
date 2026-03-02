@@ -50,7 +50,6 @@ on:
 jobs:
   build-and-test:
     name: '${{ github.event.repository.name }} (macos-15-intel)'
-    needs: setup
     strategy:
       fail-fast: false
     runs-on: macos-15-intel

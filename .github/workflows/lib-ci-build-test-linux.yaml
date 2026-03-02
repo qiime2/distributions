@@ -50,7 +50,6 @@ on:
 jobs:
   build-and-test:
     name: '${{ github.event.repository.name }} (linux-alma8)'
-    needs: setup
     runs-on: ubuntu-latest
     container:
       image: condaforge/linux-anvil-x86_64:alma8

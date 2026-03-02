@@ -121,7 +121,7 @@ jobs:
           channels: ${{ steps.make-cbc.outputs.channels }}
           output-channel: ${{ env.built_channel_path }}
 
-      - uses: qiime2/action-library-packaging/install-package@beta
+      - uses: qiime2/action-library-packaging/install-package-linux@beta
         name: 'Install ${{ github.event.repository.name }}'
         with:
           conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}

@@ -86,7 +86,7 @@ jobs:
 
   build-and-test-linux:
     needs: setup
-    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-linux.yaml
+    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-linux.yaml@dev
     with:
       distro: ${{ inputs.distro }}
       epoch: ${{ needs.setup.outputs.active-epoch }}
@@ -97,7 +97,7 @@ jobs:
 
   build-and-test-osx:
     needs: setup
-    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-osx.yaml
+    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-osx.yaml@dev
     with:
       distro: ${{ inputs.distro }}
       epoch: ${{ needs.setup.outputs.active-epoch }}

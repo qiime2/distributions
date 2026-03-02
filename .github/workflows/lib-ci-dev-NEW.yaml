@@ -1,0 +1,105 @@
+# # Example of workflow trigger for calling workflow (the client).
+# name: ci-dev
+# on:
+#   pull_request:
+#     branches: ["dev"]
+#   push:
+#     branches: ["dev"]
+# jobs:
+#   ci:
+#     uses: qiime2/distributions/.github/workflows/lib-ci-dev.yaml@dev
+#     with:
+#       distro: core
+
+on:
+  workflow_call:
+    inputs:
+      distro:
+        description: "Distro to test with"
+        type: string
+        required: true
+
+      recipe-path:
+        description: "Path to recipe"
+        type: string
+        required: false
+        default: 'conda-recipe/'
+
+      additional-reports-path:
+        description: "Path of additional reports to store in GH artifact"
+        type: string
+        required: false
+        default: ''
+
+      additional-reports-name:
+        description: "Name of GH artifact for additional reports"
+        type: string
+        required: false
+        default: 'reports'
+
+    outputs:
+      additional-reports-path:
+        value: ${{ inputs.additional-reports-path }}
+      additional-reports-name:
+        value: ${{ inputs.additional-reports-name }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      active-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          sparse-checkout: |
+            data.yaml
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout source
+      uses: actions/checkout@v3
+
+    - name: set up python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -q toml
+        pip install -q https://github.com/qiime2/q2lint/archive/master.zip
+        pip install -q flake8
+
+    - name: run flake8
+      run: flake8
+
+    - name: run q2lint
+      run: q2lint
+
+  build-and-test-linux:
+    needs: setup
+    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-linux.yaml
+    with:
+      distro: ${{ inputs.distro }}
+      epoch: ${{ needs.setup.outputs.active-epoch }}
+      recipe-path: ${{ inputs.recipe-path }}
+      additional-reports-name: ${{ inputs.additional-reports-name }}
+      additional-reports-path: ${{ inputs.additional-reports-path }}
+    secrets: inherit
+
+  build-and-test-osx:
+    needs: setup
+    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-osx.yaml
+    with:
+      distro: ${{ inputs.distro }}
+      epoch: ${{ needs.setup.outputs.active-epoch }}
+      recipe-path: ${{ inputs.recipe-path }}
+    secrets: inherit

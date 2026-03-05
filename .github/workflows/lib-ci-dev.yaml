@@ -60,104 +60,6 @@ jobs:
         with:
           file: data.yaml
 
-  build-and-test:
-    name: '${{ github.event.repository.name }} (${{ matrix.os }})'
-    needs: setup
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-15-intel]
-    runs-on: ${{ matrix.os }}
-    env:
-      plugin_path: ./repo
-      built_channel_path: ./built-channel
-      epoch: ${{ needs.setup.outputs.active-epoch }}
-      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
-      env_prefix: ./test-env
-    steps:
-      - uses: actions/checkout@v4
-        id: checkout-repo
-        with:
-          path: ${{ env.plugin_path }}
-          fetch-depth: 0
-          submodules: true
-
-      - uses: actions/checkout@v3
-        with:
-          repository: qiime2/distributions
-          path: ./distro
-          sparse-checkout: ${{ env.seed_env_path }}
-
-      - uses: qiime2/action-library-packaging/environment@beta
-        name: 'Set up build environment'
-        id: setup-conda
-
-      - name: 'Set up test environment'
-        run: |
-          conda create -y -p ${{ env.env_prefix }}
-          mkdir -p ${{ env.env_prefix }}/etc
-          cat <<EOF > '${{ env.env_prefix }}/etc/activate.sh'
-            . "$CONDA/etc/profile.d/conda.sh"
-            conda activate '${{ env.env_prefix }}'
-          EOF
-          chmod +x '${{ env.env_prefix }}/etc/activate.sh'
-
-      - name: 'Set up built channel'
-        run: |
-          ${{ steps.setup-conda.outputs.conda-activate }}
-          mkdir -p ${{ env.built_channel_path }}
-          python -m conda_index ${{ env.built_channel_path }}
-
-      - uses: qiime2/action-library-packaging/make-conda-config@beta
-        name: 'Create conda build config'
-        id: make-cbc
-        with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
-          seed-environment: ./distro/${{ env.seed_env_path }}
-          conda-build-config: 'conda_build_config.yml'
-          channels: '["${{ env.built_channel_path }}"]'
-
-      - uses: qiime2/action-library-packaging/build-package@beta
-        name: 'Build ${{ github.event.repository.name }}'
-        id: build-package
-        with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
-          recipe-path: ${{ env.plugin_path }}/${{ inputs.recipe-path }}
-          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
-          channels: ${{ steps.make-cbc.outputs.channels }}
-          output-channel: ${{ env.built_channel_path }}
-
-      - uses: qiime2/action-library-packaging/install-package@beta
-        name: 'Install ${{ github.event.repository.name }}'
-        with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
-          package-name: ${{ steps.build-package.outputs.package-name }}
-          package-version: ${{ steps.build-package.outputs.package-version }}
-          conda-prefix: ${{ env.env_prefix }}
-          channels: ${{ steps.make-cbc.outputs.channels }}
-
-      - name: 'set up yaml for test env'
-        shell: bash
-        run: |
-          source ${{ env.env_prefix }}/etc/activate.sh
-          conda activate '${{ env.env_prefix }}'
-          pip install pyyaml
-
-      - uses: qiime2/action-library-packaging/test-package@beta
-        name: 'Test ${{ github.event.repository.name }}'
-        with:
-          conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
-          package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
-          channels: ${{ steps.make-cbc.outputs.channels }}
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ inputs.additional-reports-path != '' && matrix.os == 'ubuntu-latest' }}
-        name: 'Upload additional reports: ${{ inputs.additional-reports-name }}'
-        with:
-          name: ${{ inputs.additional-reports-name }}
-          path: ${{ inputs.additional-reports-path }}
-          overwrite: true
-
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -181,3 +83,23 @@ jobs:
 
     - name: run q2lint
       run: q2lint
+
+  build-and-test-linux:
+    needs: setup
+    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-linux.yaml@dev
+    with:
+      distro: ${{ inputs.distro }}
+      epoch: ${{ needs.setup.outputs.active-epoch }}
+      recipe-path: ${{ inputs.recipe-path }}
+      additional-reports-name: ${{ inputs.additional-reports-name }}
+      additional-reports-path: ${{ inputs.additional-reports-path }}
+    secrets: inherit
+
+  build-and-test-osx:
+    needs: setup
+    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-osx.yaml@dev
+    with:
+      distro: ${{ inputs.distro }}
+      epoch: ${{ needs.setup.outputs.active-epoch }}
+      recipe-path: ${{ inputs.recipe-path }}
+    secrets: inherit

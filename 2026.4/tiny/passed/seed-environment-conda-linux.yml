@@ -20,10 +20,10 @@ dependencies:
 - q2-types=2026.4.0.dev0+1.gaba63b0
 - q2cli=2026.4.0.dev0+2.gcfcff79
 - q2templates=2026.4.0.dev0+7.g4e67019
-- qiime2=2026.4.0.dev0
+- qiime2=2026.4.0.dev0+5.g308d2a0
 - r-base=4.3.3
 - r-reticulate=1.36.0
-- rachis=2026.4.0.dev0+10.ge27e7a9
+- rachis=2026.4.0.dev0+11.g395f618
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scikit-learn=1.6.1
@@ -34,4 +34,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.4'
-# modified: 2026-03-08

@@ -17,19 +17,19 @@ dependencies:
 - pandas=2.2.2
 - parsl=2024.4.15
 - python=3.11
-- q2-amrfinderplus=2026.4.0.dev0
+- q2-amrfinderplus=2026.4.0.dev0+4.g43e72e4
 - q2-demux=2026.4.0.dev0
 - q2-feature-table=2026.4.0.dev0+1.g91bba88
 - q2-metadata=2026.4.0.dev0
 - q2-mystery-stew=2026.4.0.dev0
-- q2-types=2026.4.0.dev0
+- q2-types=2026.4.0.dev0+1.gaba63b0
 - q2-viromics=2026.4.0.dev0+3.g65ec498
 - q2-vizard=2026.4.0.dev0
-- q2cli=2026.1.0.dev0+10.g537fa80
-- q2templates=2026.4.0.dev0+3.ge333dcb
-- qiime2=2026.4.0.dev0
+- q2cli=2026.4.0.dev0+2.gcfcff79
+- q2templates=2026.4.0.dev0+7.g4e67019
+- qiime2=2026.4.0.dev0+5.g308d2a0
 - r-reticulate=1.36.0
-- rachis=2026.4.0.dev0+8.g75f01b4
+- rachis=2026.4.0.dev0+11.g395f618
 - rnanorm=2.1.0
 - scikit-bio=0.6.2
 - scipy=1.17.0
@@ -41,4 +41,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.4'
-# modified: 2026-03-08

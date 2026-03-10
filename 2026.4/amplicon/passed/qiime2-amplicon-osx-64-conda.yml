@@ -78,7 +78,7 @@ dependencies:
 - brotli=1.2.0
 - brotli-bin=1.2.0
 - brotli-python=1.2.0
-- brotlicffi=1.2.0.0
+- brotlicffi=1.2.0.1
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.6
@@ -90,7 +90,7 @@ dependencies:
 - certifi=2026.2.25
 - cffi=2.0.0
 - chardet=5.2.0
-- charset-normalizer=3.4.4
+- charset-normalizer=3.4.5
 - clang=21.1.0
 - clang-21=21.1.0
 - clang_impl_osx-64=21.1.0
@@ -140,7 +140,7 @@ dependencies:
 - fonttools=4.61.1
 - formulaic=1.2.1
 - fqdn=1.5.1
-- freetype=2.14.1
+- freetype=2.14.2
 - fribidi=1.0.16
 - frictionless=5.5.0
 - future=1.0.0
@@ -222,8 +222,8 @@ dependencies:
 - libev=4.33
 - libexpat=2.7.4
 - libffi=3.5.2
-- libfreetype=2.14.1
-- libfreetype6=2.14.1
+- libfreetype=2.14.2
+- libfreetype6=2.14.2
 - libgcc=15.2.0
 - libgettextpo=0.25.1
 - libgfortran=15.2.0
@@ -244,7 +244,7 @@ dependencies:
 - libpng=1.6.55
 - libsigtool=0.1.3
 - libsodium=1.0.18
-- libsqlite=3.51.2
+- libsqlite=3.52.0
 - libssh2=1.11.1
 - libtiff=4.7.1
 - libunistring=0.9.10
@@ -369,7 +369,7 @@ dependencies:
 - pyppmd=1.1.0
 - pysocks=1.7.1
 - pytest=9.0.2
-- python=3.11.14
+- python=3.11.15
 - python-dateutil=2.9.0.post0
 - python-dotenv=1.2.2
 - python-fastjsonschema=2.21.2
@@ -645,7 +645,7 @@ dependencies:
 - r-yaml=2.3.10
 - r-yulab.utils=0.2.1
 - r-zoo=1.8_14
-- rachis=2026.4.0.dev0+10.ge27e7a9
+- rachis=2026.4.0.dev0+11.g395f618
 - raxml=8.2.13
 - readline=8.3
 - referencing=0.37.0
@@ -683,7 +683,7 @@ dependencies:
 - stack_data=0.6.3
 - statsmodels=0.14.5
 - stringcase=1.2.0
-- tabulate=0.9.0
+- tabulate=0.10.0
 - tapi=1300.6.5
 - tbb=2022.3.0
 - tblib=3.2.2
@@ -725,7 +725,7 @@ dependencies:
 - wheel=0.46.3
 - whenever=0.9.5
 - widgetsnbextension=4.0.15
-- wrapt=2.1.1
+- wrapt=2.1.2
 - xmltodict=1.0.4
 - xopen=2.0.2
 - xorg-libxau=1.0.12

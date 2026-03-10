@@ -62,7 +62,7 @@ dependencies:
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
-- rachis=2026.4.0.dev0+10.ge27e7a9
+- rachis=2026.4.0.dev0+11.g395f618
 - rescript=2026.4.0.dev0+16.g72292cd
 - rnanorm=2.1.0
 - rpy2=3.5.11

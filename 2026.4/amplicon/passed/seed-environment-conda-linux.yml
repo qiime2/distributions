@@ -8,7 +8,6 @@ dependencies:
 - click=8.1.8
 - cutadapt=5.2
 - deblur=1.1.1
-- decorator=4.4.2
 - emperor=1.0.5
 - entrezpy=2.1.3
 - fastp=1.0.1

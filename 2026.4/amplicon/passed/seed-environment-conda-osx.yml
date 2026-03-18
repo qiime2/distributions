@@ -29,7 +29,7 @@ dependencies:
 - python=3.11
 - q2-alignment=2026.4.0.dev0+1.g5a4fb79
 - q2-boots=2026.4.0.dev0
-- q2-composition=2026.4.0.dev0+2.g0a9bdc5
+- q2-composition=2026.4.0.dev0+3.g47f4c7c
 - q2-cutadapt=2026.4.0.dev0
 - q2-dada2=2026.4.0.dev0
 - q2-deblur=2026.4.0.dev0
@@ -38,7 +38,7 @@ dependencies:
 - q2-diversity=2026.4.0.dev0+1.ga99e306
 - q2-emperor=2026.4.0.dev0
 - q2-feature-classifier=2026.4.0.dev0
-- q2-feature-table=2026.4.0.dev0+1.g91bba88
+- q2-feature-table=2026.4.0.dev0+2.g7ecfa15
 - q2-fondue=2026.4.0.dev0+2.gb87ab61
 - q2-fragment-insertion=2026.4.0.dev0
 - q2-kmerizer=2026.4.0.dev0
@@ -56,13 +56,13 @@ dependencies:
 - q2-vsearch=2026.4.0.dev0+1.g67f9c86
 - q2cli=2026.4.0.dev0+2.gcfcff79
 - q2galaxy=2026.4.0.dev0
-- q2templates=2026.4.0.dev0+7.g4e67019
+- q2templates=2026.4.0.dev0+8.g569ccbd
 - qiime2=2026.4.0.dev0+5.g308d2a0
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.36.0
 - r-vegan=2.6_8
-- rachis=2026.4.0.dev0+11.g395f618
+- rachis=2026.4.0.dev0+22.g8b1394c
 - rescript=2026.4.0.dev0+16.g72292cd
 - rnanorm=2.1.0
 - rpy2=3.5.11

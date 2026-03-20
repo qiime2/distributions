@@ -23,7 +23,7 @@ dependencies:
 - r-reticulate=1.45.0
 - rachis=2026.4.0.dev0+17.g1479de5
 - rnanorm=2.1.0
-- scikit-bio=0.7.1
+- scikit-bio=0.7.2
 - scikit-learn=1.7.1
 - scipy=1.17.1
 - tzlocal=5.3.1

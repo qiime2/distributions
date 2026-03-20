@@ -17,11 +17,11 @@ dependencies:
 - q2-mystery-stew=2026.4.0.dev0
 - q2-types=2026.4.0.dev0+1.gaba63b0
 - q2cli=2026.1.0.dev0+13.g81f62e5
-- q2templates=2026.4.0.dev0+8.gde2fdbe
+- q2templates=2026.4.0.dev0+8.g569ccbd
 - qiime2=2026.4.0.dev0+5.g308d2a0
 - r-base=4.5.2
 - r-reticulate=1.45.0
-- rachis=2026.4.0.dev0+17.g1479de5
+- rachis=2026.4.0.dev0+22.g8b1394c
 - rnanorm=2.1.0
 - scikit-bio=0.7.2
 - scikit-learn=1.7.1

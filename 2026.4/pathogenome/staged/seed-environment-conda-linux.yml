@@ -43,7 +43,7 @@ dependencies:
 - q2-viromics=2026.4.0.dev0+3.g65ec498
 - q2-vizard=2026.4.0.dev0+1.gbc47bb6
 - q2cli=2026.1.0.dev0+13.g81f62e5
-- q2templates=2026.4.0.dev0+8.g569ccbd
+- q2templates=2026.4.0.dev0+8.gde2fdbe
 - qiime2=2026.4.0.dev0+5.g308d2a0
 - r-base=4.3.3
 - r-optparse=1.7.5
@@ -52,7 +52,7 @@ dependencies:
 - rescript=2026.4.0.dev0
 - rnanorm=2.1.0
 - samtools=1.21
-- scikit-bio=0.7.1
+- scikit-bio=0.7.2
 - scikit-learn=1.4.2
 - scipy=1.17.1
 - seaborn=0.13.2

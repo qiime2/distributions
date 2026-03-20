@@ -355,7 +355,7 @@ dependencies:
 - q2-longitudinal=2026.4.0.dev0+1.gb23c1e4
 - q2-metadata=2026.4.0.dev0
 - q2-mystery-stew=2026.4.0.dev0
-- q2-phylogeny=2026.4.0.dev0+1.g9c44ab5
+- q2-phylogeny=2026.4.0.dev0+2.g5a6988a
 - q2-quality-control=2026.4.0.dev0
 - q2-quality-filter=2026.4.0.dev0
 - q2-sample-classifier=2026.4.0.dev0+3.g802233e

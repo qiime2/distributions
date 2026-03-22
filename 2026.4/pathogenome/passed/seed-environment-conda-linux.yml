@@ -22,12 +22,12 @@ dependencies:
 - q2-mystery-stew=2026.4.0.dev0
 - q2-types=2026.4.0.dev0+1.gaba63b0
 - q2-viromics=2026.4.0.dev0+3.g65ec498
-- q2-vizard=2026.4.0.dev0+1.gbc47bb6
-- q2cli=2026.1.0.dev0+13.g81f62e5
-- q2templates=2026.4.0.dev0+8.gde2fdbe
+- q2-vizard=2026.4.0.dev0+1.gf997d5b
+- q2cli=2026.4.0.dev0+2.gcfcff79
+- q2templates=2026.4.0.dev0+8.g569ccbd
 - qiime2=2026.4.0.dev0+5.g308d2a0
 - r-reticulate=1.45.0
-- rachis=2026.4.0.dev0+22.g8b1394c
+- rachis=2026.4.0.dev0+23.gddfa22a
 - rnanorm=2.1.0
 - scikit-bio=0.7.2
 - scipy=1.17.1

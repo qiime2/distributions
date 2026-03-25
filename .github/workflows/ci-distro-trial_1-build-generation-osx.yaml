@@ -60,13 +60,17 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package }} (macos-15-intel)'
+    name: '${{ matrix.package }} (${{ matrix.target == ''intel'' && ''macos-15-intel'' || ''macos-15'' }})'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
-    runs-on: macos-15-intel
+        target: [intel, arm64]
+    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    env:
+      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
+      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
     steps:
 
       - uses: actions/setup-python@v4
@@ -155,7 +159,7 @@ jobs:
         name: 'Try to fetch an existing build'
         id: fetch-build
         with:
-          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (macos-15-intel) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
+          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ env.conda_subdir }}) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - uses: qiime2/action-library-packaging/make-conda-config@beta
@@ -191,7 +195,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-macos-15-intel
+          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-${{ env.conda_subdir }}
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.package-version }}-*
 
       - id: setup-version-info
@@ -204,7 +208,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-macos-15-intel
+          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-${{ env.conda_subdir }}
           path: ${{ env.version_path }}
 
 
@@ -308,14 +312,14 @@ jobs:
       - name: copy repodata patches
         if: ${{ inputs.is-rebuild != 'true' }}
         run: |
-          mkdir -p ${{ env.repodata_patches_path }}/osx-64
-          mkdir -p ${{ env.repodata_patches_path }}/noarch
-
-          cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
-             ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
-
-          cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
-             ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
+          for subdir in osx-64 osx-arm64 noarch
+          do
+            if [ -f "${{ env.patched_channel_path }}/$subdir/patch_instructions.json" ]; then
+              mkdir -p "${{ env.repodata_patches_path }}/$subdir"
+              cp "${{ env.patched_channel_path }}/$subdir/patch_instructions.json" \
+                 "${{ env.repodata_patches_path }}/$subdir/patch_instructions.json"
+            fi
+          done
 
       - name: store repodata patches
         if: ${{ inputs.is-rebuild != 'true' }}

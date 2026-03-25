@@ -41,13 +41,17 @@ jobs:
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
   run_matrix:
-    name: '${{ matrix.package }} (macos-15-intel)'
+    name: '${{ matrix.package }} (${{ matrix.target == ''intel'' && ''macos-15-intel'' || ''macos-15'' }})'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
-    runs-on: macos-15-intel
+        target: [intel, arm64]
+    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    env:
+      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
+      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
     steps:
       - name: get environment path
         uses: actions/download-artifact@v4
@@ -85,7 +89,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-osx-64-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ env.conda_subdir }}-conda.yml
 
       - name: run qiime info
         if: ${{ inputs.distro-name != 'test' }}
@@ -98,7 +102,7 @@ jobs:
         id: 'collect-package'
         uses: qiime2/action-library-packaging/collect-package@beta
         with:
-          runner: macos-15-intel
+          runner: ${{ env.runner_label }}
           package: ${{ matrix.package }}
           channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
 

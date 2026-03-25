@@ -43,7 +43,12 @@ jobs:
     needs: [setup-version]
     strategy:
       fail-fast: false
-    runs-on: macos-15-intel
+      matrix:
+        target: [intel, arm64]
+    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    env:
+      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
+      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
     steps:
 
       - name: fetch seed env
@@ -84,7 +89,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
-          environment-file: ${{ inputs.distro-name }}-osx-64-conda.yml
+          environment-file: ${{ inputs.distro-name }}-${{ env.conda_subdir }}-conda.yml
           channels: ${{ steps.build-meta.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
@@ -92,13 +97,13 @@ jobs:
       - name: upload rebuilt channel with metapackage
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-macos-15-intel
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.conda_subdir }}
           path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
 
       - name: upload environment file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.solved-environment-key }}-macos-15-intel
+          name: ${{ inputs.solved-environment-key }}-${{ env.conda_subdir }}
           path: ${{ steps.cache-env.outputs.environment-file }}
 
   finalize:

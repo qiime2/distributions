@@ -143,6 +143,16 @@ jobs:
         name: 'Set up build environment'
         id: setup-conda
 
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        name: 'Create conda build config'
+        id: make-cbc
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
+          conda-build-config: 'conda_build_config.yml'
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+          skip-first-channel: true
+
       - uses: qiime2/action-library-packaging/build-package@beta
         name: 'Determine package data for ${{ matrix.package }}'
         id: get-package-data
@@ -171,17 +181,6 @@ jobs:
         with:
           key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ steps.get-package-data.outputs.conda-subdir }}) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
-
-      - uses: qiime2/action-library-packaging/make-conda-config@beta
-        if: ${{ steps.detect-target.outputs.should-build == 'true' && !steps.fetch-build.outputs.cache-hit }}
-        name: 'Create conda build config'
-        id: make-cbc
-        with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
-          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
-          conda-build-config: 'conda_build_config.yml'
-          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
-          skip-first-channel: true
 
       - uses: qiime2/action-library-packaging/build-package@beta
         if: ${{ steps.detect-target.outputs.should-build == 'true' && !steps.fetch-build.outputs.cache-hit }}

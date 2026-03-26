@@ -139,31 +139,11 @@ jobs:
           path: ${{ env.plugin_path }}
           fetch-depth: 0
 
-      - name: 'Determine output target'
-        id: detect-target
-        shell: bash
-        run: |
-          recipe='${{ env.plugin_path }}/conda-recipe/meta.yaml'
-          subdir='${{ env.conda_subdir }}'
-          should_build='true'
-
-          if grep -Eq '^[[:space:]]*noarch:[[:space:]]*(python|generic)' "$recipe"; then
-            subdir='noarch'
-            if [ '${{ matrix.target }}' = 'arm64' ]; then
-              should_build='false'
-            fi
-          fi
-
-          echo "subdir=$subdir" >> "$GITHUB_OUTPUT"
-          echo "should-build=$should_build" >> "$GITHUB_OUTPUT"
-
       - uses: qiime2/action-library-packaging/environment@beta
-        if: ${{ steps.detect-target.outputs.should-build == 'true' && !steps.fetch-build.outputs.cache-hit }}
         name: 'Set up build environment'
         id: setup-conda
 
       - uses: qiime2/action-library-packaging/build-package@beta
-        if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Determine package data for ${{ matrix.package }}'
         id: get-package-data
         with:
@@ -174,12 +154,22 @@ jobs:
           output-channel: ${{ env.rebuilt_channel_path }}
           dry-run: true
 
+      - name: 'Determine whether build is needed'
+        id: detect-target
+        shell: bash
+        run: |
+          should_build='true'
+          if [ '${{ steps.get-package-data.outputs.conda-subdir }}' = 'noarch' ] && [ '${{ matrix.target }}' = 'arm64' ]; then
+            should_build='false'
+          fi
+          echo "should-build=$should_build" >> "$GITHUB_OUTPUT"
+
       - uses: actions/cache/restore@v3
         if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Try to fetch an existing build'
         id: fetch-build
         with:
-          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ steps.detect-target.outputs.subdir }}) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
+          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ steps.get-package-data.outputs.conda-subdir }}) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - uses: qiime2/action-library-packaging/make-conda-config@beta
@@ -216,7 +206,7 @@ jobs:
         if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-${{ steps.detect-target.outputs.subdir }}
+          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.conda-subdir }}
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.package-version }}-*
 
       - id: setup-version-info
@@ -231,7 +221,7 @@ jobs:
         if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-${{ steps.detect-target.outputs.subdir }}
+          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.conda-subdir }}
           path: ${{ env.version_path }}
 
 

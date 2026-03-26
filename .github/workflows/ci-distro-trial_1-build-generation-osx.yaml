@@ -140,18 +140,9 @@ jobs:
           fetch-depth: 0
 
       - uses: qiime2/action-library-packaging/environment@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Set up build environment'
         id: setup-conda
-
-      - uses: qiime2/action-library-packaging/make-conda-config@beta
-        name: 'Create conda build config'
-        id: make-cbc
-        with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
-          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
-          conda-build-config: 'conda_build_config.yml'
-          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
-          skip-first-channel: true
 
       - uses: qiime2/action-library-packaging/build-package@beta
         name: 'Determine package data for ${{ matrix.package }}'
@@ -164,26 +155,26 @@ jobs:
           output-channel: ${{ env.rebuilt_channel_path }}
           dry-run: true
 
-      - name: 'Determine whether build is needed'
-        id: detect-target
-        shell: bash
-        run: |
-          should_build='true'
-          if [ '${{ steps.get-package-data.outputs.conda-subdir }}' = 'noarch' ] && [ '${{ matrix.target }}' = 'arm64' ]; then
-            should_build='false'
-          fi
-          echo "should-build=$should_build" >> "$GITHUB_OUTPUT"
-
       - uses: actions/cache/restore@v3
-        if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Try to fetch an existing build'
         id: fetch-build
         with:
-          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ steps.get-package-data.outputs.conda-subdir }}) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
+          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (${{ env.runner_label }}) (${{ hashFiles(format('{0}/seed-environment-conda-osx.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Create conda build config'
+        id: make-cbc
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
+          conda-build-config: 'conda_build_config.yml'
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+          skip-first-channel: true
+
       - uses: qiime2/action-library-packaging/build-package@beta
-        if: ${{ steps.detect-target.outputs.should-build == 'true' && !steps.fetch-build.outputs.cache-hit }}
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Build ${{ matrix.package }}'
         id: build-package
         with:
@@ -194,7 +185,7 @@ jobs:
           output-channel: ${{ env.rebuilt_channel_path }}
 
       - uses: actions/cache/save@v3
-        if: ${{ steps.detect-target.outputs.should-build == 'true' && !steps.fetch-build.outputs.cache-hit }}
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Cache build of ${{ matrix.package }}'
         id: cache-build
         with:
@@ -202,14 +193,12 @@ jobs:
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - uses: actions/upload-artifact@v4
-        if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.conda-subdir }}
+          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-${{ matrix.target }}
           path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.package-version }}-*
 
       - id: setup-version-info
-        if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Capture info about package'
         shell: bash
         run: |
@@ -217,10 +206,9 @@ jobs:
           echo '${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }}' > '${{ env.version_path }}/${{ steps.get-package-data.outputs.package-name }}.txt'
 
       - uses: actions/upload-artifact@v4
-        if: ${{ steps.detect-target.outputs.should-build == 'true' }}
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.conda-subdir }}
+          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-${{ matrix.target }}
           path: ${{ env.version_path }}
 
 
@@ -234,8 +222,27 @@ jobs:
         name: 'Collate rebuilt channel'
         with:
           pattern: ${{ inputs.rebuilt-channel-key }}-*
-          path: ${{ env.rebuilt_channel_path }}
-          merge-multiple: true
+          path: ./downloaded-rebuilt-artifacts
+
+      - name: 'Deduplicate rebuilt channel artifacts'
+        shell: bash
+        run: |
+          mkdir -p '${{ env.rebuilt_channel_path }}'
+
+          find ./downloaded-rebuilt-artifacts -type f \( -name '*.conda' -o -name '*.tar.bz2' \) | while read -r pkg; do
+            subdir="$(basename "$(dirname "$pkg")")"
+            target_dir='${{ env.rebuilt_channel_path }}/'"$subdir"
+            target_pkg="$target_dir/$(basename "$pkg")"
+
+            mkdir -p "$target_dir"
+
+            if [ -e "$target_pkg" ]; then
+              echo "Skipping duplicate package: $target_pkg"
+              continue
+            fi
+
+            cp "$pkg" "$target_pkg"
+          done
 
       - name: set up python 3.8
         uses: actions/setup-python@v4

@@ -84,21 +84,60 @@ jobs:
           seed-environment: '${{ env.seed_environment_path }}/seed-environment-conda-osx.yml'
           output-channel: ${{ env.rebuilt_channel_path }}
 
+      - name: upload rebuilt channel with metapackage
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.conda_subdir }}
+          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
+
+  install-metapackage:
+    needs: [setup-version, build-metapackage]
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [intel, arm64]
+    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    env:
+      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
+      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    steps:
+      - name: fetch base channel with patches
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - name: fetch rebuilt channel
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - name: fetch metapackage build
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.conda_subdir }}
+          path: ${{ env.rebuilt_channel_path }}
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        id: build-env
+        name: "Set up build env"
+
+      - name: reindex rebuilt channel
+        shell: bash
+        run: |
+          ${{ steps.build-env.outputs.conda-activate }}
+          python -m conda_index ${{ env.rebuilt_channel_path }}
+
       - name: Install metapackage, create env file, and cache
         id: cache-env
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
           environment-file: ${{ inputs.distro-name }}-${{ env.conda_subdir }}-conda.yml
-          channels: ${{ steps.build-meta.outputs.channels }}
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
-
-      - name: upload rebuilt channel with metapackage
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.conda_subdir }}
-          path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
 
       - name: upload environment file
         uses: actions/upload-artifact@v4
@@ -108,7 +147,7 @@ jobs:
 
   finalize:
     name: 'Finalize metapackage'
-    needs: [build-metapackage]
+    needs: [install-metapackage]
     runs-on: ubuntu-latest
     steps:
 

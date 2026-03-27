@@ -43,14 +43,12 @@ jobs:
     needs: [setup-version]
     strategy:
       fail-fast: false
-      matrix:
-        target: [intel, arm64]
     outputs:
       channels: ${{ steps.build-meta.outputs.channels }}
-    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    runs-on: macos-15
     env:
-      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
-      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+      conda_subdir: osx-arm64
+      runner_label: macos-15
     steps:
 
       - name: fetch seed env
@@ -96,12 +94,10 @@ jobs:
     needs: [setup-version, build-metapackage]
     strategy:
       fail-fast: false
-      matrix:
-        target: [intel, arm64]
-    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    runs-on: macos-15
     env:
-      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
-      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+      conda_subdir: osx-arm64
+      runner_label: macos-15
     steps:
       - name: fetch base channel with patches
         uses: actions/download-artifact@v4

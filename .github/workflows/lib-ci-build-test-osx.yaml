@@ -49,14 +49,12 @@ on:
 
 jobs:
   build-and-test:
-    name: '${{ github.event.repository.name }} (${{ matrix.target == ''intel'' && ''macos-15-intel'' || ''macos-15'' }})'
+    name: '${{ github.event.repository.name }} (macos-15-intel)'
     strategy:
       fail-fast: false
-      matrix:
-        target: [intel, arm64]
-    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    runs-on: macos-15-intel
     env:
-      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+      runner_label: macos-15-intel
       plugin_path: ./repo
       built_channel_path: ./built-channel
       seed_env_path: ${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda-osx.yml

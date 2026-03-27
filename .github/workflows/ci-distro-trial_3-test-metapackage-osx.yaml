@@ -41,17 +41,16 @@ jobs:
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
   run_matrix:
-    name: '${{ matrix.package }} (${{ matrix.target == ''intel'' && ''macos-15-intel'' || ''macos-15'' }})'
+    name: '${{ matrix.package }} (arm64)'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
-        target: [intel, arm64]
-    runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+    runs-on: macos-15
     env:
-      conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
-      runner_label: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
+      conda_subdir: osx-arm64
+      runner_label: macos-15
     steps:
       - name: get environment path
         uses: actions/download-artifact@v4

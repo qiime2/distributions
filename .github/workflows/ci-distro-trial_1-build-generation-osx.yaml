@@ -60,7 +60,7 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package }} (${{ matrix.target == ''intel'' && ''macos-15-intel'' || ''macos-15'' }})'
+    name: '${{ matrix.package }} (${{ matrix.target }})'
     needs: configure_matrix
     strategy:
       fail-fast: false

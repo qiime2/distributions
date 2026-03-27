@@ -45,6 +45,8 @@ jobs:
       fail-fast: false
       matrix:
         target: [intel, arm64]
+    outputs:
+      channels: ${{ steps.build-meta.outputs.channels }}
     runs-on: ${{ matrix.target == 'intel' && 'macos-15-intel' || 'macos-15' }}
     env:
       conda_subdir: ${{ matrix.target == 'intel' && 'osx-64' || 'osx-arm64' }}
@@ -135,7 +137,7 @@ jobs:
         with:
           conda-prefix: ${{ env.environment_prefix }}
           environment-file: ${{ inputs.distro-name }}-${{ env.conda_subdir }}-conda.yml
-          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+          channels: ${{ needs.build-metapackage.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
 

@@ -266,14 +266,14 @@ jobs:
         if: ${{ needs.detect-vars.outputs.is-rebuild != 'true' }}
         run: |
           mkdir -p ${{ env.repodata_patches_path }}/linux-64
-          mkdir -p ${{ env.repodata_patches_path }}/osx-64
+          mkdir -p ${{ env.repodata_patches_path }}/osx-arm64
           mkdir -p ${{ env.repodata_patches_path }}/noarch
 
           cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
              ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
 
-          cp ${{ env.patched_channel_path }}/osx-64/patch_instructions.json \
-             ${{ env.repodata_patches_path }}/osx-64/patch_instructions.json
+          cp ${{ env.patched_channel_path }}/osx-arm64/patch_instructions.json \
+             ${{ env.repodata_patches_path }}/osx-arm64/patch_instructions.json
 
           cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
              ${{ env.repodata_patches_path }}/noarch/patch_instructions.json

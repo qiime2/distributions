@@ -45,10 +45,10 @@ jobs:
       fail-fast: false
     outputs:
       channels: ${{ steps.build-meta.outputs.channels }}
-    runs-on: macos-15-intel
+    runs-on: macos-15
     env:
-      conda_subdir: osx-64
-      runner_label: macos-15-intel
+      conda_subdir: osx-arm64
+      runner_label: macos-15
     steps:
 
       - name: fetch seed env
@@ -94,10 +94,10 @@ jobs:
     needs: [setup-version, build-metapackage]
     strategy:
       fail-fast: false
-    runs-on: macos-15-intel
+    runs-on: macos-15
     env:
-      conda_subdir: osx-64
-      runner_label: macos-15-intel
+      conda_subdir: osx-arm64
+      runner_label: macos-15
     steps:
       - name: fetch base channel with patches
         uses: actions/download-artifact@v4

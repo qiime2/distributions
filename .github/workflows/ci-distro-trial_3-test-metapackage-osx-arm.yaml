@@ -41,16 +41,16 @@ jobs:
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
   run_matrix:
-    name: '${{ matrix.package }} (macos-15-intel)'
+    name: '${{ matrix.package }} (arm64)'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
-    runs-on: macos-15-intel
+    runs-on: macos-15
     env:
-      conda_subdir: osx-64
-      runner_label: macos-15-intel
+      conda_subdir: osx-arm64
+      runner_label: macos-15
     steps:
       - name: get environment path
         uses: actions/download-artifact@v4

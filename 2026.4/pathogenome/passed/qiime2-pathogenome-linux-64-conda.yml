@@ -120,7 +120,7 @@ dependencies:
 - importlib-metadata=8.8.0
 - iniconfig=2.3.0
 - iow=1.0.8
-- ipython=9.11.0
+- ipython=9.12.0
 - ipython_pygments_lexers=1.1.1
 - ipywidgets=8.1.8
 - isodate=0.7.2
@@ -162,7 +162,7 @@ dependencies:
 - libegl=1.7.0
 - libev=4.33
 - libevent=2.1.12
-- libexpat=2.7.4
+- libexpat=2.7.5
 - libffi=3.5.2
 - libfreetype=2.14.3
 - libfreetype6=2.14.3
@@ -192,11 +192,11 @@ dependencies:
 - libnghttp2=1.68.1
 - libnsl=2.0.1
 - libntlm=1.8
-- libopenblas=0.3.30
+- libopenblas=0.3.32
 - libopengl=1.7.0
 - libparquet=16.1.0
 - libpciaccess=0.18
-- libpng=1.6.55
+- libpng=1.6.56
 - libpq=17.7
 - libprotobuf=5.28.3
 - libre2-11=2024.07.02
@@ -244,7 +244,7 @@ dependencies:
 - namex=0.1.0
 - natsort=8.4.0
 - ncbi-amrfinderplus=4.2.7
-- ncbi-vdb=3.4.0
+- ncbi-vdb=3.4.1
 - ncurses=6.5
 - networkx=3.6.1
 - numba=0.64.0
@@ -277,7 +277,7 @@ dependencies:
 - perl-extutils-makemaker=7.70
 - perl-io-compress=2.216
 - perl-io-zlib=1.15
-- perl-json=4.10
+- perl-json=4.11
 - perl-json-xs=4.04
 - perl-list-moreutils=0.430
 - perl-list-moreutils-xs=0.430
@@ -351,11 +351,11 @@ dependencies:
 - r-rlang=1.1.7
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.4.0.dev0+23.gddfa22a
+- rachis=2026.4.0.dev0+26.gaa5ccc3
 - re2=2024.07.02
 - readline=8.3
 - referencing=0.37.0
-- requests=2.32.5
+- requests=2.33.0
 - rfc3986=2.0.0
 - rich=14.3.3
 - rich-click=1.9.7
@@ -395,7 +395,7 @@ dependencies:
 - threadpoolctl=3.6.0
 - tk=8.6.13
 - tktable=2.10
-- tomli=2.4.0
+- tomli=2.4.1
 - tomlkit=0.14.0
 - tornado=6.5.5
 - tqdm=4.67.3

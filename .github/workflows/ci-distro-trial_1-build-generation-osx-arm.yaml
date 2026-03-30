@@ -68,7 +68,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
     runs-on: macos-15
     env:
-      conda_subdir: osx-arm64
+      CONDA_SUBDIR: osx-arm64
       runner_label: macos-15
     steps:
 

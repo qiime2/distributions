@@ -49,7 +49,7 @@ jobs:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
     runs-on: macos-15
     env:
-      conda_subdir: osx-arm64
+      CONDA_SUBDIR: osx-arm64
       runner_label: macos-15
     steps:
       - name: get environment path
@@ -88,7 +88,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: './test-env'
-          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ env.conda_subdir }}-conda.yml
+          environment-file: ${{ env.solved_environment_path }}/${{ inputs.distro-name }}-${{ env.CONDA_SUBDIR }}-conda.yml
 
       - name: run qiime info
         if: ${{ inputs.distro-name != 'test' }}

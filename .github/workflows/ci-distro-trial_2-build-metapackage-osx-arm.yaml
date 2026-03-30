@@ -47,7 +47,7 @@ jobs:
       channels: ${{ steps.build-meta.outputs.channels }}
     runs-on: macos-15
     env:
-      conda_subdir: osx-arm64
+      CONDA_SUBDIR: osx-arm64
       runner_label: macos-15
     steps:
 
@@ -87,7 +87,7 @@ jobs:
       - name: upload rebuilt channel with metapackage
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.conda_subdir }}
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.CONDA_SUBDIR }}
           path: ${{ env.rebuilt_channel_path }}/*/${{ inputs.distro-name }}-${{ needs.setup-version.outputs.version }}-*
 
   install-metapackage:
@@ -96,7 +96,7 @@ jobs:
       fail-fast: false
     runs-on: macos-15
     env:
-      conda_subdir: osx-arm64
+      CONDA_SUBDIR: osx-arm64
       runner_label: macos-15
     steps:
       - name: fetch base channel with patches
@@ -114,7 +114,7 @@ jobs:
       - name: fetch metapackage build
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.conda_subdir }}
+          name: ${{ inputs.rebuilt-channel-key }}-${{ inputs.distro-name }}-${{ env.CONDA_SUBDIR }}
           path: ${{ env.rebuilt_channel_path }}
 
       - uses: qiime2/action-library-packaging/environment@beta
@@ -132,7 +132,7 @@ jobs:
         uses: qiime2/action-library-packaging/create-env@beta
         with:
           conda-prefix: ${{ env.environment_prefix }}
-          environment-file: ${{ inputs.distro-name }}-${{ env.conda_subdir }}-conda.yml
+          environment-file: ${{ inputs.distro-name }}-${{ env.CONDA_SUBDIR }}-conda.yml
           channels: ${{ needs.build-metapackage.outputs.channels }}
           package-name: ${{ inputs.distro-name }}
           package-version: ${{ needs.setup-version.outputs.version }}
@@ -140,7 +140,7 @@ jobs:
       - name: upload environment file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.solved-environment-key }}-${{ env.conda_subdir }}
+          name: ${{ inputs.solved-environment-key }}-${{ env.CONDA_SUBDIR }}
           path: ${{ steps.cache-env.outputs.environment-file }}
 
   finalize:

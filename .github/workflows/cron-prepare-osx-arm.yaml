@@ -1,4 +1,4 @@
-name: cron-prepare-osx
+name: cron-prepare-osx-arm
 on:
   workflow_dispatch: {}
   schedule:
@@ -6,14 +6,14 @@ on:
 
 jobs:
   tiny:
-    uses: ./.github/workflows/create-prepare-pr-osx.yaml
+    uses: ./.github/workflows/create-prepare-pr-osx-arm.yaml
     secrets: inherit
     with:
       distro: tiny
 
   amplicon:
     needs: [tiny]
-    uses: ./.github/workflows/create-prepare-pr-osx.yaml
+    uses: ./.github/workflows/create-prepare-pr-osx-arm.yaml
     secrets: inherit
     with:
       distro: amplicon

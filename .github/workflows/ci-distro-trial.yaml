@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   prepare:
-    if: ${{ !startsWith(github.head_ref, 'Prepare-osx-') && !startsWith(github.head_ref, 'Prepare-linux-') }}
+    if: ${{ !startsWith(github.head_ref, 'Prepare-osx-intel-') && !startsWith(github.head_ref, 'Prepare-osx-arm-') && !startsWith(github.head_ref, 'Prepare-linux-') }}
     uses: ./.github/workflows/ci-distro-trial_0-prepare.yaml
 
   rebuild-0:

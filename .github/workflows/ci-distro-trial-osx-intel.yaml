@@ -1,4 +1,4 @@
-name: ci-distro-trial-osx
+name: ci-distro-trial-osx-intel
 
 on:
   pull_request:
@@ -8,17 +8,17 @@ on:
       - 20*.*/*/released/seed-environment-conda-osx.yml
 
 concurrency:
-  group: ci-distro-trial-osx-${{ github.head_ref }}
+  group: ci-distro-trial-osx-intel-${{ github.head_ref }}
   cancel-in-progress: true
 
 jobs:
   prepare:
-    uses: ./.github/workflows/ci-distro-trial_0-prepare-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_0-prepare-osx-intel.yaml
 
   rebuild-0:
     needs: [prepare]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[0] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -33,7 +33,7 @@ jobs:
   rebuild-1:
     needs: [prepare, rebuild-0]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[1] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -48,7 +48,7 @@ jobs:
   rebuild-2:
     needs: [prepare, rebuild-1]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[2] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -63,7 +63,7 @@ jobs:
   rebuild-3:
     needs: [prepare, rebuild-2]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[3] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -78,7 +78,7 @@ jobs:
   rebuild-4:
     needs: [prepare, rebuild-3]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[4] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -93,7 +93,7 @@ jobs:
   rebuild-5:
     needs: [prepare, rebuild-4]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[5] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -108,7 +108,7 @@ jobs:
   rebuild-6:
     needs: [prepare, rebuild-5]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[6] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -123,7 +123,7 @@ jobs:
   rebuild-7:
     needs: [prepare, rebuild-6]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[7] != null }}
-    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-osx-intel.yaml
     with:
       is-language: ${{ needs.prepare.outputs.is-language }}
       is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
@@ -138,7 +138,7 @@ jobs:
   build-metapackage:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/ci-distro-trial_2-build-metapackage-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_2-build-metapackage-osx-intel.yaml
     with:
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
@@ -149,7 +149,7 @@ jobs:
   test-metapackage:
     needs: [prepare, build-metapackage]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    uses: ./.github/workflows/ci-distro-trial_3-test-metapackage-osx.yaml
+    uses: ./.github/workflows/ci-distro-trial_3-test-metapackage-osx-intel.yaml
     with:
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}

@@ -1,11 +1,8 @@
 name: ci-distro-trial-osx-arm
 
 on:
-  pull_request:
-    branches: [dev]
-    paths:
-      - 20*.*/*/passed/seed-environment-conda-osx.yml
-      - 20*.*/*/released/seed-environment-conda-osx.yml
+  workflow_call:
+  workflow_dispatch:
 
 concurrency:
   group: ci-distro-trial-osx-arm-${{ github.head_ref }}

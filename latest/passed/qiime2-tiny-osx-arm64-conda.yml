@@ -164,7 +164,7 @@ dependencies:
 - psutil=7.2.2
 - pydantic=2.12.5
 - pydantic-core=2.41.5
-- pygments=2.20.0
+- pygments=2.19.2
 - pyhmmer=0.12.0
 - pyparsing=3.3.2
 - pysocks=1.7.1
@@ -188,7 +188,7 @@ dependencies:
 - r-here=1.0.2
 - r-jsonlite=2.0.0
 - r-lattice=0.22_9
-- r-matrix=1.7_5
+- r-matrix=1.7_4
 - r-png=0.1_9
 - r-rappdirs=0.3.4
 - r-rcpp=1.1.1

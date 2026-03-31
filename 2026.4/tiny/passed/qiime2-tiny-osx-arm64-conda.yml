@@ -200,7 +200,7 @@ dependencies:
 - rachis=2026.4.0.dev0+26.gaa5ccc3
 - readline=8.3
 - referencing=0.37.0
-- requests=2.33.0
+- requests=2.33.1
 - rfc3986=2.0.0
 - rich=14.3.3
 - rnanorm=2.1.0

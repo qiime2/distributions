@@ -213,7 +213,7 @@ dependencies:
 - libtiff=4.7.1
 - libunistring=0.9.10
 - libutf8proc=2.10.0
-- libuuid=2.41.4
+- libuuid=2.42
 - libwebp-base=1.6.0
 - libxcb=1.17.0
 - libxcrypt=4.4.36
@@ -325,7 +325,7 @@ dependencies:
 - pytz=2026.1.post1
 - pyyaml=6.0.3
 - pyzmq=27.1.0
-- q2-amrfinderplus=2026.4.0.dev0+4.g43e72e4
+- q2-amrfinderplus=2026.4.0.dev0+5.ge632434
 - q2-demux=2026.4.0.dev0
 - q2-feature-table=2026.4.0.dev0+2.g7ecfa15
 - q2-metadata=2026.4.0.dev0

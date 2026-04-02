@@ -41,7 +41,7 @@ dependencies:
 - bibtexparser=1.4.4
 - binutils_impl_linux-64=2.45.1
 - biom-format=2.1.17
-- biopython=1.86
+- biopython=1.87
 - blast=2.17.0
 - brotli=1.1.0
 - brotli-bin=1.1.0
@@ -213,7 +213,7 @@ dependencies:
 - libtiff=4.7.1
 - libunistring=0.9.10
 - libutf8proc=2.10.0
-- libuuid=2.41.3
+- libuuid=2.41.4
 - libwebp-base=1.6.0
 - libxcb=1.17.0
 - libxcrypt=4.4.36
@@ -306,7 +306,7 @@ dependencies:
 - pycparser=2.22
 - pydantic=2.12.5
 - pydantic-core=2.41.5
-- pygments=2.19.2
+- pygments=2.20.0
 - pyhmmer=0.12.0
 - pyparsing=3.3.2
 - pyrodigal=3.7.1
@@ -342,7 +342,7 @@ dependencies:
 - r-here=1.0.2
 - r-jsonlite=2.0.0
 - r-lattice=0.22_9
-- r-matrix=1.7_4
+- r-matrix=1.7_5
 - r-png=0.1_9
 - r-rappdirs=0.3.4
 - r-rcpp=1.1.1
@@ -355,7 +355,7 @@ dependencies:
 - re2=2024.07.02
 - readline=8.3
 - referencing=0.37.0
-- requests=2.33.0
+- requests=2.33.1
 - rfc3986=2.0.0
 - rich=14.3.3
 - rich-click=1.9.7

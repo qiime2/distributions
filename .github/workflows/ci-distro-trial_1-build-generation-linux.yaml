@@ -59,7 +59,7 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package }} (linux-alma8)'
+    name: '${{ matrix.package.repo }} (linux-alma8)'
     needs: configure_matrix
     strategy:
       fail-fast: false
@@ -104,7 +104,7 @@ jobs:
         uses: qiime2-cutlery/request-action@v2.x
         id: get-branch
         with:
-          route: GET /repos/${{ matrix.package }}/branches/${{ inputs.sibling-ref }}
+          route: GET /repos/${{ matrix.package.repo }}/branches/${{ inputs.sibling-ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
@@ -122,44 +122,36 @@ jobs:
 
       - uses: actions/checkout@v3
         if: ${{ inputs.is-language == 'true' }}
-        name: 'Checkout ${{ matrix.package }} repository'
+        name: 'Checkout ${{ matrix.package.repo }} repository'
         with:
-          repository: ${{ matrix.package }}
+          repository: ${{ matrix.package.repo }}
           ref: ${{ steps.sibling-ref.outputs.sibling-ref }}
           path: ${{ env.plugin_path }}
           fetch-depth: 0
 
       - uses: actions/checkout@v3
         if: ${{ inputs.is-language != 'true' }}
-        name: 'Checkout ${{ matrix.package }} repository'
+        name: 'Checkout ${{ matrix.package.repo }} repository'
         with:
-          repository: ${{ matrix.package }}
+          repository: ${{ matrix.package.repo }}
           ref: ${{ inputs.sibling-ref }}
           path: ${{ env.plugin_path }}
           fetch-depth: 0
+
+      # Package metadata and build number are computed once during prepare &
+      # stored in rebuild_matrix.json, so generation can restore the correct
+      # cache entry before setting up the build environment
+      - uses: actions/cache/restore@v3
+        name: 'Try to fetch an existing build for precomputed package metadata'
+        id: fetch-build
+        with:
+          key: "(Conda Package) ${{ matrix.package.package_name }}=${{ matrix.package.package_version }} (linux-alma8) (build=${{ matrix.package.build_number }}) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
+          path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
 
       - uses: qiime2/action-library-packaging/environment-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Set up build environment'
         id: setup-conda
-
-      - uses: qiime2/action-library-packaging/build-package-linux@beta
-        name: 'Determine package data for ${{ matrix.package }}'
-        id: get-package-data
-        with:
-          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
-          recipe-path: ${{ env.plugin_path }}/conda-recipe/
-          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
-          channels: ${{ steps.make-cbc.outputs.channels }}
-          output-channel: ${{ env.rebuilt_channel_path }}
-          dry-run: true
-
-      - uses: actions/cache/restore@v3
-        name: 'Try to fetch an existing build'
-        id: fetch-build
-        with:
-          key: "(Conda Package) ${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }} (linux-alma8) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
-          path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
 
       - uses: qiime2/action-library-packaging/make-conda-config-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
@@ -174,7 +166,7 @@ jobs:
 
       - uses: qiime2/action-library-packaging/build-package-linux@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
-        name: 'Build ${{ matrix.package }}'
+        name: 'Build ${{ matrix.package.repo }}'
         id: build-package
         with:
           conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
@@ -182,6 +174,7 @@ jobs:
           conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
           channels: ${{ steps.make-cbc.outputs.channels }}
           output-channel: ${{ env.rebuilt_channel_path }}
+          build-number: ${{ matrix.package.build_number }}
 
       - uses: actions/cache/save@v3
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
@@ -189,25 +182,25 @@ jobs:
         id: cache-build
         with:
           key: ${{ steps.fetch-build.outputs.cache-primary-key }}
-          path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name}}-${{ steps.get-package-data.outputs.package-version}}-*
+          path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
 
       - uses: actions/upload-artifact@v4
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ steps.get-package-data.outputs.package-name }}-linux-alma8
-          path: ${{ env.rebuilt_channel_path }}/*/${{ steps.get-package-data.outputs.package-name }}-${{ steps.get-package-data.outputs.package-version }}-*
+          name: ${{ inputs.rebuilt-channel-key }}-${{ matrix.package.package_name }}-linux-alma8
+          path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
 
       - id: setup-version-info
         name: 'Capture info about package'
         shell: bash
         run: |
           mkdir -p ${{ env.version_path }}
-          echo '${{ steps.get-package-data.outputs.package-name }}=${{ steps.get-package-data.outputs.package-version }}' > '${{ env.version_path }}/${{ steps.get-package-data.outputs.package-name }}.txt'
+          echo '${{ matrix.package.package_name }}=${{ matrix.package.package_version }}' > '${{ env.version_path }}/${{ matrix.package.package_name }}.txt'
 
       - uses: actions/upload-artifact@v4
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ steps.get-package-data.outputs.package-name }}-linux-alma8
+          name: ${{ env.version_key }}-${{ matrix.package.package_name }}-linux-alma8
           path: ${{ env.version_path }}
 
 

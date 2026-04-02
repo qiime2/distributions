@@ -177,6 +177,22 @@ jobs:
           matrix-path: ${{ env.matrix_path }}
           rev-deps-path: ${{ env.rev_deps_path }}
 
+      - name: 'Enrich rebuild matrix with package metadata and build numbers'
+        shell: bash
+        run: |
+          args=(
+            --matrix-path '${{ env.matrix_path }}/rebuild_matrix.json'
+            --epoch '${{ needs.detect-vars.outputs.epoch }}'
+            --distro '${{ needs.detect-vars.outputs.distro }}'
+          )
+          if [[ -n '${{ needs.detect-vars.outputs.sibling-ref }}' ]]; then
+            args+=(--sibling-ref '${{ needs.detect-vars.outputs.sibling-ref }}')
+          fi
+          if [[ '${{ needs.detect-vars.outputs.is-language }}' == 'true' ]]; then
+            args+=(--is-language)
+          fi
+          python .github/workflows/bin/enrich-rebuild-matrix.py "${args[@]}"
+
       - name: hash of distro
         id: distro-hash
         shell: bash

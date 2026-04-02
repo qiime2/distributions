@@ -117,10 +117,10 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - name: set up python 3.8
+      - name: set up python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: '3.10'
 
       - name: install dependencies
         # ghapi is pinned due to this newly introduced bug as of 9.16.25

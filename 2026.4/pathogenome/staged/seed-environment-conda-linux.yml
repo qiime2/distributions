@@ -30,7 +30,7 @@ dependencies:
 - pysam=0.22.1
 - python=3.12
 - q2-alignment=2026.4.0.dev0
-- q2-amrfinderplus=2026.4.0.dev0+4.g43e72e4
+- q2-amrfinderplus=2026.4.0.dev0+5.ge632434
 - q2-assembly=2026.4.0.dev0
 - q2-demux=2026.4.0.dev0
 - q2-feature-classifier=2026.4.0.dev0

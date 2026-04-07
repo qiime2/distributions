@@ -33,7 +33,7 @@ dependencies:
 - pyarrow=16.1.0
 - pysam=0.23.3
 - python=3.12
-- q2-annotate=2026.4.0.dev0+9.g67e3db6
+- q2-annotate=2026.4.0.dev0+10.g1fbfc5f
 - q2-assembly=2026.4.0.dev0+7.g4a71c25
 - q2-cutadapt=2026.4.0.dev0+1.g52eff68
 - q2-demux=2026.4.0.dev0

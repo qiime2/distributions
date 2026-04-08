@@ -59,25 +59,14 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package.repo }} (linux-alma8)'
+    name: '${{ matrix.package.repo }} (linux-64)'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
     runs-on: ubuntu-latest
-    container:
-      image: condaforge/linux-anvil-x86_64:alma8
     steps:
-
-      - name: install npm & git
-        shell: bash
-        run: |
-          dnf -y install curl
-          curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
-          dnf -y install nodejs git
-          echo "===== NPM & GIT VERSIONS ====="
-          node -v && npm -v && git --version
 
       - uses: actions/download-artifact@v4
         name: 'Fetch base channel with patches'
@@ -145,15 +134,15 @@ jobs:
         name: 'Try to fetch an existing build for precomputed package metadata'
         id: fetch-build
         with:
-          key: "(Conda Package) ${{ matrix.package.package_name }}=${{ matrix.package.package_version }} (linux-alma8) (build=${{ matrix.package.build_number }}) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
+          key: "(Conda Package) ${{ matrix.package.package_name }}=${{ matrix.package.package_version }} (linux-64) (build=${{ matrix.package.build_number }}) (${{ hashFiles(format('{0}/seed-environment-conda-linux.yml', env.seed_environment_path)) }})"
           path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
 
-      - uses: qiime2/action-library-packaging/environment-linux@beta
+      - uses: qiime2/action-library-packaging/environment@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Set up build environment'
         id: setup-conda
 
-      - uses: qiime2/action-library-packaging/make-conda-config-linux@beta
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Create conda build config'
         id: make-cbc
@@ -164,7 +153,7 @@ jobs:
           channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
           skip-first-channel: true
 
-      - uses: qiime2/action-library-packaging/build-package-linux@beta
+      - uses: qiime2/action-library-packaging/build-package@beta
         if: ${{ !steps.fetch-build.outputs.cache-hit }}
         name: 'Build ${{ matrix.package.repo }}'
         id: build-package
@@ -187,7 +176,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ matrix.package.package_name }}-linux-alma8
+          name: ${{ inputs.rebuilt-channel-key }}-${{ matrix.package.package_name }}-linux-64
           path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
 
       - id: setup-version-info
@@ -200,7 +189,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ matrix.package.package_name }}-linux-alma8
+          name: ${{ env.version_key }}-${{ matrix.package.package_name }}-linux-64
           path: ${{ env.version_path }}
 
 

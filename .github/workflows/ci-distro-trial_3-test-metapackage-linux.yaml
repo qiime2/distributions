@@ -41,15 +41,13 @@ jobs:
           echo "matrix=$(cat ${{ env.matrix_path }}/retest_matrix.json)" >> $GITHUB_OUTPUT
 
   run_matrix:
-    name: '${{ matrix.package }} (linux-alma8)'
+    name: '${{ matrix.package }} (linux-64)'
     needs: configure_matrix
     strategy:
       fail-fast: false
       matrix:
         package: ${{ fromJSON(needs.configure_matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
-    # container:
-    #   image: condaforge/linux-anvil-x86_64:alma8
     steps:
 
       - name: get environment path

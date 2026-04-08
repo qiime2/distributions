@@ -10,7 +10,6 @@ import urllib.request
 
 
 REMOTE_CHANNEL_BASE = 'https://packages.qiime2.org/qiime2'
-TARGET_SUBDIRS = ('linux-64', 'noarch')
 
 
 def load_matrix(matrix_path):
@@ -25,7 +24,8 @@ def write_matrix(matrix_path, data):
 
 def branch_exists(repo, branch):
     result = subprocess.run(
-        ['git', 'ls-remote', '--heads', f'https://github.com/{repo}.git', branch],
+        ['git', 'ls-remote', '--heads',
+         f'https://github.com/{repo}.git', branch],
         check=True,
         capture_output=True,
         text=True,
@@ -80,11 +80,13 @@ def fetch_repodata(url):
         raise
 
 
-def get_next_build_number(epoch, distro, package_name, package_version):
+def get_next_build_number(epoch, distro, package_name, package_version,
+                          target_subdirs):
     max_build_number = -1
-    for subdir in TARGET_SUBDIRS:
+    for subdir in target_subdirs:
         repodata_url = (
-            f'{REMOTE_CHANNEL_BASE}/{epoch}/{distro}/staged/{subdir}/repodata.json'
+            f'{REMOTE_CHANNEL_BASE}/{epoch}/{distro}/staged/{subdir}'
+            '/repodata.json'
         )
         repodata = fetch_repodata(repodata_url)
 
@@ -100,9 +102,10 @@ def get_next_build_number(epoch, distro, package_name, package_version):
     return max_build_number + 1
 
 
-def main(matrix_path, epoch, distro, sibling_ref, is_language):
+def main(matrix_path, epoch, distro, sibling_ref, is_language, target_subdirs):
     matrix = load_matrix(matrix_path)
     resolved = {}
+    target_subdirs = json.loads(target_subdirs)
 
     with tempfile.TemporaryDirectory() as tmpdir:
         for generation in matrix:
@@ -118,7 +121,8 @@ def main(matrix_path, epoch, distro, sibling_ref, is_language):
                     repo_dir
                 )
                 build_number = get_next_build_number(
-                    epoch, distro, package_name, package_version
+                    epoch, distro, package_name, package_version,
+                    target_subdirs
                 )
 
                 resolved[repo] = {
@@ -144,6 +148,7 @@ if __name__ == '__main__':
     parser.add_argument('--matrix-path', required=True)
     parser.add_argument('--epoch', required=True)
     parser.add_argument('--distro', required=True)
+    parser.add_argument('--target-subdirs', required=True)
     parser.add_argument('--sibling-ref', default='')
     parser.add_argument('--is-language', action='store_true')
 
@@ -154,4 +159,5 @@ if __name__ == '__main__':
         distro=args.distro,
         sibling_ref=args.sibling_ref,
         is_language=args.is_language,
+        target_subdirs=args.target_subdirs,
     )

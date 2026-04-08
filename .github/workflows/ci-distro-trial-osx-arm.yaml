@@ -26,6 +26,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 0
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-1:
     needs: [prepare, rebuild-0]
@@ -41,6 +43,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 1
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-2:
     needs: [prepare, rebuild-1]
@@ -56,6 +60,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 2
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-3:
     needs: [prepare, rebuild-2]
@@ -71,6 +77,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 3
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-4:
     needs: [prepare, rebuild-3]
@@ -86,6 +94,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 4
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-5:
     needs: [prepare, rebuild-4]
@@ -101,6 +111,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 5
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-6:
     needs: [prepare, rebuild-5]
@@ -116,6 +128,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 6
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   rebuild-7:
     needs: [prepare, rebuild-6]
@@ -131,6 +145,8 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
       matrix-index: 7
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
 
   build-metapackage:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]

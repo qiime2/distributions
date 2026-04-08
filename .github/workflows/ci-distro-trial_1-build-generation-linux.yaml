@@ -19,6 +19,12 @@ on:
       matrix-index:
         required: true
         type: number
+      platform_label:
+        required: true
+        type: string
+      target_subdirs:
+        required: true
+        type: string
       sibling-ref:
         required: true
         type: string
@@ -59,7 +65,7 @@ jobs:
 
 
   run_matrix:
-    name: '${{ matrix.package.repo }} (linux-64)'
+    name: '${{ matrix.package.repo }} (${{ inputs.platform_label }})'
     needs: configure_matrix
     strategy:
       fail-fast: false
@@ -176,7 +182,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload updated build to rebuilt channel'
         with:
-          name: ${{ inputs.rebuilt-channel-key }}-${{ matrix.package.package_name }}-linux-64
+          name: ${{ inputs.rebuilt-channel-key }}-${{ matrix.package.package_name }}-${{ inputs.platform_label }}
           path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
 
       - id: setup-version-info
@@ -189,7 +195,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: 'Upload info about package'
         with:
-          name: ${{ env.version_key }}-${{ matrix.package.package_name }}-linux-64
+          name: ${{ env.version_key }}-${{ matrix.package.package_name }}-${{ inputs.platform_label }}
           path: ${{ env.version_path }}
 
 
@@ -293,14 +299,14 @@ jobs:
       - name: copy repodata patches
         if: ${{ inputs.is-rebuild != 'true' }}
         run: |
-          mkdir -p ${{ env.repodata_patches_path }}/linux-64
-          mkdir -p ${{ env.repodata_patches_path }}/noarch
-
-          cp ${{ env.patched_channel_path }}/linux-64/patch_instructions.json \
-             ${{ env.repodata_patches_path }}/linux-64/patch_instructions.json
-
-          cp ${{ env.patched_channel_path }}/noarch/patch_instructions.json \
-             ${{ env.repodata_patches_path }}/noarch/patch_instructions.json
+          for subdir in ${{ join(fromJSON(inputs.target_subdirs), ' ') }}
+          do
+            if [ -f "${{ env.patched_channel_path }}/$subdir/patch_instructions.json" ]; then
+              mkdir -p "${{ env.repodata_patches_path }}/$subdir"
+              cp "${{ env.patched_channel_path }}/$subdir/patch_instructions.json" \
+                 "${{ env.repodata_patches_path }}/$subdir/patch_instructions.json"
+            fi
+          done
 
       - name: store repodata patches
         if: ${{ inputs.is-rebuild != 'true' }}

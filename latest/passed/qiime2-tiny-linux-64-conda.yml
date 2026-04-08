@@ -28,7 +28,6 @@ dependencies:
 - chardet=5.2.0
 - charset-normalizer=3.4.7
 - click=8.1.8
-- colorama=0.4.6
 - conda-pack=0.9.1
 - cpython=3.12.13
 - curl=8.19.0
@@ -132,7 +131,7 @@ dependencies:
 - ncurses=6.5
 - networkx=3.6.1
 - numpy=2.4.2
-- openssl=3.6.1
+- openssl=3.6.2
 - packaging=26.0
 - pandas=2.3.3
 - pandera=0.30.1
@@ -153,7 +152,7 @@ dependencies:
 - pyhmmer=0.12.0
 - pyparsing=3.3.2
 - pysocks=1.7.1
-- pytest=9.0.2
+- pytest=9.0.3
 - python=3.12.13
 - python-dateutil=2.9.0.post0
 - python-gil=3.12.13

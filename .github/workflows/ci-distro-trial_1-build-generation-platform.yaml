@@ -1,0 +1,351 @@
+on:
+  workflow_call:
+    inputs:
+      rev-deps-key:
+        required: true
+        type: string
+      patched-channel-key:
+        required: true
+        type: string
+      rebuilt-channel-key:
+        required: true
+        type: string
+      seed-environment-key:
+        required: true
+        type: string
+      matrix-key:
+        required: true
+        type: string
+      matrix-index:
+        required: true
+        type: number
+      platform_label:
+        required: true
+        type: string
+      target_subdirs:
+        required: true
+        type: string
+      sibling-ref:
+        required: true
+        type: string
+      is-rebuild:
+        required: true
+        type: string
+      is-language:
+        required: true
+        type: string
+      runner_label:
+        required: true
+        type: string
+      seed_environment_file:
+        required: true
+        type: string
+      conda_subdir_env:
+        required: false
+        type: string
+        default: ''
+
+env:
+  matrix_path: './matrix'
+  rebuilt_channel_path: './rebuilt-channel'
+  patched_channel_path: './patched-channel'
+  rev_deps_path: './rev-deps'
+  seed_environment_path: './seed-env'
+  plugin_path: './plugin'
+  version_key: '(Version Files) Rebuilt version info'
+  version_path: './version-info'
+  repodata_patches_key: '(Repodata Patches) patch_instructions.json'
+  repodata_patches_path: './repodata-patches'
+
+jobs:
+  configure_matrix:
+    name: 'Set up build matrix'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.matrix-key }}
+          path: '${{ env.matrix_path }}'
+
+      - id: set-matrix
+        run: |
+          echo "matrix=$(cat ${{ env.matrix_path }}/rebuild_matrix.json)" >> $GITHUB_OUTPUT
+
+  run_matrix:
+    name: '${{ matrix.package.repo }} (${{ inputs.platform_label }})'
+    needs: configure_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.configure_matrix.outputs.matrix)[inputs.matrix-index] }}
+    runs-on: ${{ inputs.runner_label }}
+    env:
+      CONDA_SUBDIR: ${{ inputs.conda_subdir_env }}
+    steps:
+      - uses: actions/download-artifact@v4
+        name: 'Fetch base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - uses: actions/download-artifact@v4
+        name: 'Fetch rebuilt channel'
+        with:
+          pattern: ${{ inputs.rebuilt-channel-key }}-*
+          path: ${{ env.rebuilt_channel_path }}
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v4
+        name: 'Fetch seed environment.yml'
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - name: Try to retrieve branch name
+        if: ${{ inputs.is-language == 'true' }}
+        # Replaces octokit/request-action@v2.x
+        uses: qiime2-cutlery/request-action@v2.x
+        id: get-branch
+        with:
+          route: GET /repos/${{ matrix.package.repo }}/branches/${{ inputs.sibling-ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Determine which branch to checkout
+        if: ${{ inputs.is-language == 'true' }}
+        id: sibling-ref
+        run: |
+          if [[ '${{ steps.get-branch.outputs.status }}' = '200' ]]; then
+            sibling_ref="${{ inputs.sibling-ref }}"
+          else
+            sibling_ref=""
+          fi
+          echo "sibling-ref=$sibling_ref" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v3
+        if: ${{ inputs.is-language == 'true' }}
+        name: 'Checkout ${{ matrix.package.repo }} repository'
+        with:
+          repository: ${{ matrix.package.repo }}
+          ref: ${{ steps.sibling-ref.outputs.sibling-ref }}
+          path: ${{ env.plugin_path }}
+          fetch-depth: 0
+
+      - uses: actions/checkout@v3
+        if: ${{ inputs.is-language != 'true' }}
+        name: 'Checkout ${{ matrix.package.repo }} repository'
+        with:
+          repository: ${{ matrix.package.repo }}
+          ref: ${{ inputs.sibling-ref }}
+          path: ${{ env.plugin_path }}
+          fetch-depth: 0
+
+      # Package metadata and build number are computed during prepare and
+      # stored in rebuild_matrix.json for deterministic cache lookups.
+      - uses: actions/cache/restore@v3
+        name: 'Try to fetch an existing build'
+        id: fetch-build
+        with:
+          key: "(Conda Package) ${{ matrix.package.package_name }}=${{ matrix.package.package_version }} (${{ inputs.platform_label }}) (build=${{ matrix.package.build_number }}) (${{ hashFiles(format('{0}/{1}', env.seed_environment_path, inputs.seed_environment_file)) }})"
+          path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Create conda build config'
+        id: make-cbc
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          seed-environment: '${{ env.seed_environment_path }}/${{ inputs.seed_environment_file }}'
+          conda-build-config: 'conda_build_config.yml'
+          channels: '["${{ env.rebuilt_channel_path }}", "${{ env.patched_channel_path }}"]'
+          skip-first-channel: true
+
+      - uses: qiime2/action-library-packaging/build-package@beta
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Build ${{ matrix.package.repo }}'
+        id: build-package
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          recipe-path: ${{ env.plugin_path }}/conda-recipe/
+          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+          output-channel: ${{ env.rebuilt_channel_path }}
+          build-number: ${{ matrix.package.build_number }}
+
+      - uses: actions/cache/save@v3
+        if: ${{ !steps.fetch-build.outputs.cache-hit }}
+        name: 'Cache build of ${{ matrix.package.repo }}'
+        id: cache-build
+        with:
+          key: ${{ steps.fetch-build.outputs.cache-primary-key }}
+          path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
+
+      - uses: actions/upload-artifact@v4
+        name: 'Upload updated build to rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}-${{ matrix.package.package_name }}-${{ inputs.platform_label }}
+          path: ${{ env.rebuilt_channel_path }}/*/${{ matrix.package.package_name }}-${{ matrix.package.package_version }}-*
+
+      - id: setup-version-info
+        name: 'Capture info about package'
+        shell: bash
+        run: |
+          mkdir -p ${{ env.version_path }}
+          echo '${{ matrix.package.package_name }}=${{ matrix.package.package_version }}' > '${{ env.version_path }}/${{ matrix.package.package_name }}.txt'
+
+      - uses: actions/upload-artifact@v4
+        name: 'Upload info about package'
+        with:
+          name: ${{ env.version_key }}-${{ matrix.package.package_name }}-${{ inputs.platform_label }}
+          path: ${{ env.version_path }}
+
+  finalize:
+    name: 'Finalize generation'
+    needs: [run_matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        name: 'Collate rebuilt channel'
+        with:
+          pattern: ${{ inputs.rebuilt-channel-key }}-*
+          path: ./downloaded-rebuilt-artifacts
+
+      - name: 'Deduplicate rebuilt channel artifacts'
+        shell: bash
+        run: |
+          mkdir -p '${{ env.rebuilt_channel_path }}'
+
+          find ./downloaded-rebuilt-artifacts -type f \( -name '*.conda' -o -name '*.tar.bz2' \) | while read -r pkg; do
+            subdir="$(basename "$(dirname "$pkg")")"
+            target_dir='${{ env.rebuilt_channel_path }}/'"$subdir"
+            target_pkg="$target_dir/$(basename "$pkg")"
+
+            mkdir -p "$target_dir"
+
+            if [ -e "$target_pkg" ]; then
+              echo "Skipping duplicate package: $target_pkg"
+              continue
+            fi
+
+            cp "$pkg" "$target_pkg"
+          done
+
+      - name: set up python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: install pyyaml & packaging
+        shell: bash
+        run: pip install pyyaml packaging
+
+      - name: install conda-build
+        run: conda install -c conda-forge -q conda-build
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - name: 'Reindex rebuilt channel'
+        shell: bash
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          python -m conda_index ${{ env.rebuilt_channel_path }}
+
+      - uses: actions/upload-artifact@v4
+        name: 'Upload final rebuilt channel'
+        with:
+          name: ${{ inputs.rebuilt-channel-key }}
+          path: |
+            ${{ env.rebuilt_channel_path }}/**
+            !${{ env.rebuilt_channel_path }}/*/.cache/*
+          overwrite: true
+
+      - uses: actions/download-artifact@v4
+        name: 'Fetch updated versions'
+        with:
+          pattern: ${{ env.version_key }}-*
+          path: ${{ env.version_path }}
+          merge-multiple: true
+
+      - name: 'Collated updated versions'
+        shell: bash
+        run: cat ${{ env.version_path }}/*.txt > version_updates.txt
+
+      - uses: actions/download-artifact@v4
+        name: 'Fetch seed environment.yml'
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+
+      - uses: qiime2/action-library-packaging/patch-env@beta
+        name: 'Update seed environment file with new versions'
+        with:
+          environment-file: ${{ env.seed_environment_path }}/${{ inputs.seed_environment_file }}
+          versions-file: version_updates.txt
+
+      - uses: actions/upload-artifact@v4
+        name: 'Update seed environment.yml'
+        with:
+          name: ${{ inputs.seed-environment-key }}
+          path: ${{ env.seed_environment_path }}
+          overwrite: true
+
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.is-rebuild != 'true' }}
+        name: 'Fetch base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.is-rebuild != 'true' }}
+        name: 'Fetch rebuilt packages and their reverse dependencies'
+        with:
+          name: ${{ inputs.rev-deps-key }}
+          path: ${{ env.rev_deps_path }}
+
+      - name: 'Patch base channel'
+        if: ${{ inputs.is-rebuild != 'true' }}
+        uses: qiime2/action-library-packaging/patch-repodata@beta
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          channel: ${{ env.patched_channel_path }}
+          rev-deps: ${{ env.rev_deps_path }}/rev_deps.json
+          versions-file: version_updates.txt
+
+      - name: copy repodata patches
+        if: ${{ inputs.is-rebuild != 'true' }}
+        run: |
+          for subdir in ${{ join(fromJSON(inputs.target_subdirs), ' ') }}
+          do
+            if [ -f "${{ env.patched_channel_path }}/$subdir/patch_instructions.json" ]; then
+              mkdir -p "${{ env.repodata_patches_path }}/$subdir"
+              cp "${{ env.patched_channel_path }}/$subdir/patch_instructions.json" \
+                 "${{ env.repodata_patches_path }}/$subdir/patch_instructions.json"
+            fi
+          done
+
+      - name: store repodata patches
+        if: ${{ inputs.is-rebuild != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.repodata_patches_key }}
+          path: ${{ env.repodata_patches_path }}
+          overwrite: true
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.is-rebuild != 'true' }}
+        name: 'Upload base channel with patches'
+        with:
+          name: ${{ inputs.patched-channel-key }}
+          path: ${{ env.patched_channel_path }}
+          overwrite: true

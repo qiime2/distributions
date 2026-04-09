@@ -102,7 +102,7 @@ dependencies:
 - libnghttp2=1.68.1
 - libnsl=2.0.1
 - libopenblas=0.3.32
-- libpng=1.6.56
+- libpng=1.6.57
 - libsanitizer=15.2.0
 - libsodium=1.0.21
 - libsqlite=3.52.0

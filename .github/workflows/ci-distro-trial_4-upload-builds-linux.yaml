@@ -26,117 +26,17 @@ on:
         required: true
         type: string
 
-env:
-  distributions_repo: './distributions'
-  seed_environment_path: './seed_environment'
-  solved_environment_path: './solved_environment'
-
-concurrency:
-  group: lock-github
-  cancel-in-progress: false
-
 jobs:
-  commit-changes:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.pr-ref }}
-          path: ${{ env.distributions_repo }}
-
-      - name: get seed environment
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.seed-environment-key }}
-          path: ${{ env.seed_environment_path }}
-
-      - name: get solved environment
-        uses: actions/download-artifact@v4
-        with:
-          pattern: ${{ inputs.solved-environment-key }}-*
-          path: ${{ env.solved_environment_path }}
-          merge-multiple: true
-
-      - name: prep directories
-        shell: bash
-        run: |
-          mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
-          mkdir -p '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
-
-      - name: update seed environments (staged)
-        uses: qiime2/action-library-packaging/patch-env@beta
-        with:
-          environment-file: ${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda-linux.yml
-          mask-environment-file: ${{ env.seed_environment_path }}/seed-environment-conda-linux.yml
-
-      - name: fix channels on seed environment (staged)
-        shell: bash
-        run: |
-          file='${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda-linux.yml'
-          cat "$file" | sed -E 's/(\.\/|file:\/\/|https:\/\/).*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/staged/g' | uniq > "$file".tmp
-          mv "$file".tmp "$file"
-
-      - name: update seed environments (passed)
-        shell: bash
-        run: |
-          for file in ${{ env.seed_environment_path}}/*
-          do
-            cat "$file" | sed -E 's/(\.\/|file:\/\/|https:\/\/).*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
-            mv "$file".tmp "$file"
-          done
-          cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
-
-      - name: update seed environments (released)
-        if: ${{ inputs.is-release == 'true' }}
-        shell: bash
-        run: |
-          for file in ${{ env.seed_environment_path}}/*
-          do
-            cat "$file" | sed -E 's/(\.\/|file:\/\/|https:\/\/).*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
-            mv "$file".tmp "$file"
-          done
-          cp ${{ env.seed_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
-
-      - name: update solved environments (passed)
-        shell: bash
-        run: |
-          for file in ${{ env.solved_environment_path}}/*
-          do
-            cat "$file" | sed -E 's/(\.\/|file:\/\/|https:\/\/).*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/passed/g' | uniq > "$file".tmp
-            mv "$file".tmp "$file"
-          done
-          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/passed/'
-
-      - name: update solved environments (released)
-        if: ${{ inputs.is-release == 'true' }}
-        shell: bash
-        run: |
-          for file in ${{ env.solved_environment_path}}/*
-          do
-            cat "$file" | sed -E 's/(\.\/|file:\/\/|https:\/\/).*/https:\/\/packages.qiime2.org\/qiime2\/${{ inputs.epoch }}\/${{ inputs.distro }}\/released/g' | uniq > "$file".tmp
-            mv "$file".tmp "$file"
-          done
-          cp ${{ env.solved_environment_path}}/* '${{ env.distributions_repo }}/${{ inputs.epoch }}/${{ inputs.distro }}/released/'
-
-      # Replaces EndBug/add-and-commit@v9
-      - uses: qiime2-cutlery/add-and-commit@v9
-        with:
-          message: Update conda environments (${{ inputs.pr-ref }})
-          default_author: user_info
-          author_name: q2d2
-          author_email: q2d2.noreply@gmail.com
-          cwd: ${{ env.distributions_repo }}
-
-      - uses: qiime2/action-library-packaging/upload-channel@beta
-        if: ${{ !github.event.pull_request.draft }}
-        with:
-          distro: ${{ inputs.distro }}
-          epoch: ${{ inputs.epoch }}
-          passed-gate: true
-          released-gate: ${{ inputs.is-release == 'true' }}
-          repodata-patches-key: ${{ inputs.repodata-patches-key }}
-          rebuilt-channel-key: ${{ inputs.rebuilt-channel-key }}
-          remote-base: ${{ secrets.REMOTE_CHANNEL_BASE }}
-          ssh-user: ${{ secrets.REMOTE_CHANNEL_USER }}
-          ssh-key: ${{ secrets.REMOTE_CHANNEL_KEY }}
-          ssh-host: ${{ secrets.REMOTE_CHANNEL_HOST }}
+  upload-builds:
+    uses: ./.github/workflows/ci-distro-trial_4-upload-builds-platform.yaml
+    secrets: inherit
+    with:
+      epoch: ${{ inputs.epoch }}
+      distro: ${{ inputs.distro }}
+      is-release: ${{ inputs.is-release }}
+      pr-ref: ${{ inputs.pr-ref }}
+      seed-environment-key: ${{ inputs.seed-environment-key }}
+      solved-environment-key: ${{ inputs.solved-environment-key }}
+      repodata-patches-key: ${{ inputs.repodata-patches-key }}
+      rebuilt-channel-key: ${{ inputs.rebuilt-channel-key }}
+      seed_environment_file: seed-environment-conda-linux.yml

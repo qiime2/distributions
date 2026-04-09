@@ -70,6 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       gh-response: ${{ steps.merge-trial.outputs.gh-response }}
+      merged: ${{ steps.merge-trial.outputs.merged }}
     steps:
       - name: get workflow id
         id: get-id
@@ -110,8 +111,12 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
           )
+          MERGED=$(
+            python3 -c 'import json, sys; print(str(json.load(sys.stdin).get("merged", False)).lower())' <<< "$GH_RESPONSE"
+          )
 
           echo "gh-response=$GH_RESPONSE" >> $GITHUB_OUTPUT
+          echo "merged=$MERGED" >> $GITHUB_OUTPUT
 
   update-latest-envs:
     needs: [create-pr, await-workflow]
@@ -121,9 +126,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: refresh dev after prepare pr merge
+        if: ${{ needs.await-workflow.outputs.merged == 'true' }}
+        shell: bash
+        run: |
+          git fetch origin dev
+          git checkout --force -B dev origin/dev
+
       - name: copy updated env file from merged prepare pr
         id: copy-env
-        if: contains(${{ needs.await-workflow.outputs.gh-response }}, 'merged:true')
+        if: ${{ needs.await-workflow.outputs.merged == 'true' }}
         run: |
           for file in \
             '${{ needs.create-pr.outputs.epoch }}/${{ inputs.distro }}/passed/qiime2-${{ inputs.distro }}-osx-64-conda.yml' \
@@ -135,8 +147,20 @@ jobs:
             fi
           done
 
+      - name: detect latest env changes
+        id: latest-env-diff
+        if: ${{ needs.await-workflow.outputs.merged == 'true' }}
+        shell: bash
+        run: |
+          if git status --porcelain -- ./latest/passed/ | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Open Pull Request to update latest env files
         id: env-updates-pr
+        if: ${{ needs.await-workflow.outputs.merged == 'true' && steps.latest-env-diff.outputs.changed == 'true' }}
         # Replaces qiime2/create-pull-request@v5
         # (previously forked from peter-evans/create-pull-request)
         uses: qiime2-cutlery/create-pull-request@v5
@@ -156,6 +180,7 @@ jobs:
   merge-latest-env-pr:
     needs: [update-latest-envs]
     runs-on: ubuntu-latest
+    if: ${{ needs.update-latest-envs.outputs.env-pr != '' }}
     steps:
       - name: merge env updates
         id: merge-env-pr

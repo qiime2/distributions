@@ -119,7 +119,7 @@ dependencies:
 - liblzma=5.8.2
 - libnghttp2=1.68.1
 - libopenblas=0.3.32
-- libpng=1.6.56
+- libpng=1.6.57
 - libsigtool=0.1.3
 - libsodium=1.0.21
 - libsqlite=3.52.0
@@ -130,7 +130,7 @@ dependencies:
 - libxml2-16=2.15.2
 - libxslt=1.1.43
 - libzlib=1.3.2
-- llvm-openmp=22.1.2
+- llvm-openmp=22.1.3
 - llvm-tools=22.1.0
 - llvm-tools-22=22.1.0
 - lxml=6.0.2

@@ -197,7 +197,7 @@ dependencies:
 - r-rlang=1.2.0
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.4.0.dev0+26.gaa5ccc3
+- rachis=2026.4.0.dev0+27.gcb647ee
 - readline=8.3
 - referencing=0.37.0
 - requests=2.33.1

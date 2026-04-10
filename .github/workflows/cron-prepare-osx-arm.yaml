@@ -1,8 +1,6 @@
 name: cron-prepare-osx-arm
 on:
   workflow_dispatch: {}
-  schedule:
-    - cron: 0 0 * * SUN
 
 jobs:
   tiny:

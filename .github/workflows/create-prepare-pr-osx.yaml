@@ -1,0 +1,41 @@
+name: create-prepare-pr-osx
+on:
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+        type: string
+      draft:
+        required: false
+        type: boolean
+        default: false
+  workflow_dispatch:
+    inputs:
+      distro:
+        required: true
+        type: string
+      draft:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  osx-intel:
+    uses: ./.github/workflows/create-prepare-pr-platform.yaml
+    secrets: inherit
+    with:
+      distro: ${{ inputs.distro }}
+      platform_label: osx-64
+      seed_environment_file: seed-environment-conda-osx.yml
+      trial_workflow_name: ci-distro-trial-osx
+      draft: ${{ inputs.draft }}
+
+  osx-arm:
+    uses: ./.github/workflows/create-prepare-pr-platform.yaml
+    secrets: inherit
+    with:
+      distro: ${{ inputs.distro }}
+      platform_label: osx-arm64
+      seed_environment_file: seed-environment-conda-osx.yml
+      trial_workflow_name: ci-distro-trial-osx
+      draft: ${{ inputs.draft }}

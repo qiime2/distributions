@@ -14,10 +14,23 @@ concurrency:
 jobs:
   osx-intel:
     if: ${{ startsWith(github.head_ref, 'Prepare-osx-64-') }}
-    uses: ./.github/workflows/ci-distro-trial-osx-intel.yaml
+    uses: ./.github/workflows/ci-distro-trial-platform.yaml
     secrets: inherit
+    with:
+      platform_label: osx-64
+      target_subdirs: '["osx-64", "noarch"]'
+      runner_label: macos-15-intel
+      seed_environment_file: seed-environment-conda-osx.yml
+      pr_ref: ${{ github.head_ref }}
 
   osx-arm:
     if: ${{ startsWith(github.head_ref, 'Prepare-osx-arm64-') }}
-    uses: ./.github/workflows/ci-distro-trial-osx-arm.yaml
+    uses: ./.github/workflows/ci-distro-trial-platform.yaml
     secrets: inherit
+    with:
+      platform_label: osx-arm64
+      target_subdirs: '["osx-arm64", "noarch"]'
+      runner_label: macos-15
+      seed_environment_file: seed-environment-conda-osx.yml
+      pr_ref: ${{ github.head_ref }}
+      conda_subdir_env: osx-arm64

@@ -1,0 +1,232 @@
+on:
+  workflow_call:
+    inputs:
+      platform_label:
+        required: true
+        type: string
+      target_subdirs:
+        required: true
+        type: string
+      runner_label:
+        required: true
+        type: string
+      seed_environment_file:
+        required: true
+        type: string
+      pr_ref:
+        required: true
+        type: string
+      conda_subdir_env:
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  prepare:
+    uses: ./.github/workflows/ci-distro-trial_0-prepare-platform.yaml
+    with:
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+
+  rebuild-0:
+    needs: [prepare]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[0] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 0
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-1:
+    needs: [prepare, rebuild-0]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[1] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 1
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-2:
+    needs: [prepare, rebuild-1]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[2] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 2
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-3:
+    needs: [prepare, rebuild-2]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[3] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 3
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-4:
+    needs: [prepare, rebuild-3]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[4] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 4
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-5:
+    needs: [prepare, rebuild-4]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[5] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 5
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-6:
+    needs: [prepare, rebuild-5]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[6] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 6
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rebuild-7:
+    needs: [prepare, rebuild-6]
+    if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[7] != null }}
+    uses: ./.github/workflows/ci-distro-trial_1-build-generation-platform.yaml
+    with:
+      is-language: ${{ needs.prepare.outputs.is-language }}
+      is-rebuild: ${{ needs.prepare.outputs.is-rebuild }}
+      rev-deps-key: ${{ needs.prepare.outputs.rev-deps-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      sibling-ref: ${{ needs.prepare.outputs.sibling-ref }}
+      matrix-index: 7
+      platform_label: ${{ inputs.platform_label }}
+      target_subdirs: ${{ inputs.target_subdirs }}
+      runner_label: ${{ inputs.runner_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+      conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  build-metapackage:
+    needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    uses: ./.github/workflows/ci-distro-trial_2-build-metapackage-platform.yaml
+    with:
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      distro-name: qiime2-${{ needs.prepare.outputs.distro }}
+      runner_label: ${{ inputs.runner_label }}
+      platform_label: ${{ inputs.platform_label }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}
+
+  test-metapackage:
+    needs: [prepare, build-metapackage]
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    uses: ./.github/workflows/ci-distro-trial_3-test-metapackage-platform.yaml
+    with:
+      solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
+      matrix-key: ${{ needs.prepare.outputs.matrix-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
+      distro-name: qiime2-${{ needs.prepare.outputs.distro }}
+      runner_label: ${{ inputs.runner_label }}
+      platform_label: ${{ inputs.platform_label }}
+
+  upload-builds:
+    needs: [prepare, test-metapackage]
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    uses: ./.github/workflows/ci-distro-trial_4-upload-builds-platform.yaml
+    secrets: inherit
+    with:
+      epoch: ${{ needs.prepare.outputs.epoch }}
+      distro: ${{ needs.prepare.outputs.distro }}
+      is-release: ${{ needs.prepare.outputs.is-release }}
+      pr-ref: ${{ inputs.pr_ref }}
+      seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
+      solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
+      repodata-patches-key: ${{ needs.prepare.outputs.repodata-patches-key }}
+      rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
+      seed_environment_file: ${{ inputs.seed_environment_file }}

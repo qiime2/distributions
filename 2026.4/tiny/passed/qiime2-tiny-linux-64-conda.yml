@@ -95,10 +95,10 @@ dependencies:
 - libglib=2.86.4
 - libgomp=15.2.0
 - libiconv=1.18
-- libjpeg-turbo=3.1.2
+- libjpeg-turbo=3.1.4.1
 - liblapack=3.11.0
 - liblapacke=3.11.0
-- liblzma=5.8.2
+- liblzma=5.8.3
 - libnghttp2=1.68.1
 - libnsl=2.0.1
 - libopenblas=0.3.32
@@ -182,12 +182,12 @@ dependencies:
 - r-rlang=1.2.0
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.4.0.dev0+26.gaa5ccc3
+- rachis=2026.4.0.dev0+27.gcb647ee
 - readline=8.3
 - referencing=0.37.0
 - requests=2.33.1
 - rfc3986=2.0.0
-- rich=14.3.3
+- rich=14.3.4
 - rnanorm=2.1.0
 - rpds-py=0.30.0
 - samtools=1.23.1

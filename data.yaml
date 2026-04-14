@@ -153,9 +153,9 @@ packages:
   repo: qiime2/q2cli
   distros: [tiny, amplicon, moshpit, pathogenome, test]
 
-- name: q2galaxy
-  repo: qiime2/q2galaxy
-  distros: [amplicon, moshpit]
+# - name: q2galaxy
+#   repo: qiime2/q2galaxy
+#   distros: [amplicon, moshpit]
 
 - name: q2templates
   repo: qiime2/q2templates

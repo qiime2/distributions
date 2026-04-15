@@ -11,9 +11,9 @@ jobs:
     with:
       distro: tiny
 
-  amplicon:
+  qiime2:
     needs: [tiny]
     uses: ./.github/workflows/create-prepare-pr-osx.yaml
     secrets: inherit
     with:
-      distro: amplicon
+      distro: qiime2

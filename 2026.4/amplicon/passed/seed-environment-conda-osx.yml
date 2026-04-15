@@ -53,7 +53,6 @@ dependencies:
 - q2-vizard=2026.4.0.dev0+1.gf997d5b
 - q2-vsearch=2026.4.0.dev0+1.g67f9c86
 - q2cli=2026.4.0.dev0+2.gcfcff79
-- q2galaxy=2026.4.0.dev0+1.gbb0dffe
 - q2templates=2026.4.0.dev0+8.g569ccbd
 - qiime2=2026.4.0.dev0+5.g308d2a0
 - r-base=4.5.2

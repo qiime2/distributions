@@ -49,7 +49,7 @@ on:
 
 jobs:
   build-and-test:
-    name: '${{ github.event.repository.name }} (macos-15-intel)'
+    name: '${{ github.event.repository.name }} (osx-64)'
     strategy:
       fail-fast: false
     runs-on: macos-15-intel

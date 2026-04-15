@@ -49,10 +49,8 @@ on:
 
 jobs:
   build-and-test:
-    name: '${{ github.event.repository.name }} (linux-alma8)'
+    name: '${{ github.event.repository.name }} (linux-64)'
     runs-on: ubuntu-latest
-    container:
-      image: condaforge/linux-anvil-x86_64:alma8
     env:
       plugin_path: ./repo
       built_channel_path: ./built-channel
@@ -82,7 +80,7 @@ jobs:
           path: ./distro
           sparse-checkout: ${{ env.seed_env_path }}
 
-      - uses: qiime2/action-library-packaging/environment-linux@beta
+      - uses: qiime2/action-library-packaging/environment@beta
         name: 'Set up build environment'
         id: setup-conda
 
@@ -102,7 +100,7 @@ jobs:
           mkdir -p ${{ env.built_channel_path }}
           python -m conda_index ${{ env.built_channel_path }}
 
-      - uses: qiime2/action-library-packaging/make-conda-config-linux@beta
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
         name: 'Create conda build config'
         id: make-cbc
         with:
@@ -111,7 +109,7 @@ jobs:
           conda-build-config: 'conda_build_config.yml'
           channels: '["${{ env.built_channel_path }}"]'
 
-      - uses: qiime2/action-library-packaging/build-package-linux@beta
+      - uses: qiime2/action-library-packaging/build-package@beta
         name: 'Build ${{ github.event.repository.name }}'
         id: build-package
         with:
@@ -121,7 +119,7 @@ jobs:
           channels: ${{ steps.make-cbc.outputs.channels }}
           output-channel: ${{ env.built_channel_path }}
 
-      - uses: qiime2/action-library-packaging/install-package-linux@beta
+      - uses: qiime2/action-library-packaging/install-package@beta
         name: 'Install ${{ github.event.repository.name }}'
         with:
           conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
@@ -137,7 +135,7 @@ jobs:
           conda activate '${{ env.env_prefix }}'
           pip install pyyaml
 
-      - uses: qiime2/action-library-packaging/test-package-linux@beta
+      - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'
         with:
           conda-activate: source ${{ env.env_prefix }}/etc/activate.sh

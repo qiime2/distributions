@@ -54,7 +54,6 @@ jobs:
       fail-fast: false
     runs-on: macos-15-intel
     env:
-      runner_label: macos-15-intel
       plugin_path: ./repo
       built_channel_path: ./built-channel
       seed_env_path: ${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda-osx.yml

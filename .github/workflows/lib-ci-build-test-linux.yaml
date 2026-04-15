@@ -57,16 +57,6 @@ jobs:
       seed_env_path: ${{ inputs.epoch }}/${{ inputs.distro }}/staged/seed-environment-conda-linux.yml
       env_prefix: ./test-env
     steps:
-
-      - name: install npm & git
-        shell: bash
-        run: |
-          dnf -y install curl
-          curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
-          dnf -y install nodejs git
-          echo "===== NPM & GIT VERSIONS ====="
-          node -v && npm -v && git --version
-
       - uses: actions/checkout@v4
         id: checkout-repo
         with:

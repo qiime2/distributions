@@ -95,7 +95,7 @@ dependencies:
 - fastp=1.0.1
 - fasttree=2.2.0
 - feedparser=6.0.12
-- filelock=3.25.2
+- filelock=3.28.0
 - flufl.lock=9.0.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -261,7 +261,7 @@ dependencies:
 - openldap=2.6.13
 - openmpi=4.1.6
 - openssl=3.6.2
-- packaging=26.0
+- packaging=26.1
 - pandas=2.3.3
 - pandera=0.30.1
 - pandera-base=0.30.1
@@ -493,7 +493,7 @@ dependencies:
 - r-nloptr=2.2.1
 - r-nnet=7.3_20
 - r-numderiv=2016.8_1.1
-- r-openssl=2.3.5
+- r-openssl=2.4.0
 - r-optparse=1.7.5
 - r-osqp=1.0.0
 - r-permute=0.9_10

@@ -197,7 +197,7 @@ jobs:
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
       rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      distro-name: qiime2-${{ needs.prepare.outputs.distro }}
+      distro-name: rachis-${{ needs.prepare.outputs.distro }}
       runner_label: ${{ inputs.runner_label }}
       platform_label: ${{ inputs.platform_label }}
       seed_environment_file: ${{ inputs.seed_environment_file }}
@@ -211,7 +211,7 @@ jobs:
       matrix-key: ${{ needs.prepare.outputs.matrix-key }}
       rebuilt-channel-key: ${{ needs.prepare.outputs.rebuilt-channel-key }}
       patched-channel-key: ${{ needs.prepare.outputs.patched-channel-key }}
-      distro-name: qiime2-${{ needs.prepare.outputs.distro }}
+      distro-name: rachis-${{ needs.prepare.outputs.distro }}
       runner_label: ${{ inputs.runner_label }}
       platform_label: ${{ inputs.platform_label }}
 

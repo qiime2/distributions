@@ -44,7 +44,7 @@ jobs:
           epoch='${{ fromJSON(steps.yaml.outputs.data).active_epoch }}'
           today=$(date +'%Y-%m-%d')
           branch='Prepare-${{ inputs.platform_label }}-'"$epoch"'/${{ inputs.distro }}/'"$today"
-          solved_environment_file='qiime2-${{ inputs.distro }}-${{ inputs.platform_label }}-conda.yml'
+          solved_environment_file='rachis-${{ inputs.distro }}-${{ inputs.platform_label }}-conda.yml'
 
           echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
           echo "today=$today" >> "$GITHUB_OUTPUT"

@@ -47,18 +47,49 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      active-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+      active-epoch: ${{ steps.platform-support.outputs.active-epoch }}
+      has-linux-env: ${{ steps.platform-support.outputs.has-linux-env }}
+      has-osx-env: ${{ steps.platform-support.outputs.has-osx-env }}
     steps:
       - uses: actions/checkout@v3
         with:
           repository: qiime2/distributions
-          sparse-checkout: |
-            data.yaml
       - name: "get distro info"
         id: yaml
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
+      - name: detect staged platform environments
+        id: platform-support
+        shell: bash
+        run: |
+          epoch='${{ fromJSON(steps.yaml.outputs.data).active_epoch }}'
+          linux_env="$epoch/${{ inputs.distro }}/staged/seed-environment-conda-linux.yml"
+          osx_env="$epoch/${{ inputs.distro }}/staged/seed-environment-conda-osx.yml"
+
+          has_linux_env=false
+          has_osx_env=false
+
+          if [ -f "$linux_env" ]; then
+            has_linux_env=true
+          fi
+
+          if [ -f "$osx_env" ]; then
+            has_osx_env=true
+          fi
+
+          echo "active-epoch=$epoch" >> "$GITHUB_OUTPUT"
+          echo "has-linux-env=$has_linux_env" >> "$GITHUB_OUTPUT"
+          echo "has-osx-env=$has_osx_env" >> "$GITHUB_OUTPUT"
+
+          echo "Detected staged environments for distro '${{ inputs.distro }}' in epoch '$epoch':"
+          echo "  linux: $has_linux_env ($linux_env)"
+          echo "  osx:   $has_osx_env ($osx_env)"
+
+          if [ "$has_linux_env" = false ] && [ "$has_osx_env" = false ]; then
+            echo "::error::No staged Linux or macOS environment files were found for distro '${{ inputs.distro }}' in epoch '$epoch'."
+            exit 1
+          fi
 
   lint:
     runs-on: ubuntu-latest
@@ -86,6 +117,7 @@ jobs:
 
   build-and-test-linux:
     needs: setup
+    if: ${{ needs.setup.outputs.has-linux-env == 'true' }}
     uses: qiime2/distributions/.github/workflows/lib-ci-build-test-linux.yaml@dev
     with:
       distro: ${{ inputs.distro }}
@@ -97,6 +129,7 @@ jobs:
 
   build-and-test-osx:
     needs: setup
+    if: ${{ needs.setup.outputs.has-osx-env == 'true' }}
     uses: qiime2/distributions/.github/workflows/lib-ci-build-test-osx.yaml@dev
     with:
       distro: ${{ inputs.distro }}

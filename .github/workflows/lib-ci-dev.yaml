@@ -48,8 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       active-epoch: ${{ steps.platform-support.outputs.active-epoch }}
-      has-linux-env: ${{ steps.platform-support.outputs.has-linux-env }}
-      has-osx-env: ${{ steps.platform-support.outputs.has-osx-env }}
+      platform-matrix: ${{ steps.platform-support.outputs.platform-matrix }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -59,37 +58,63 @@ jobs:
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
-      - name: detect staged platform environments
+      - name: detect supported platform environments
         id: platform-support
         shell: bash
         run: |
           epoch='${{ fromJSON(steps.yaml.outputs.data).active_epoch }}'
-          linux_env="$epoch/${{ inputs.distro }}/staged/seed-environment-conda-linux.yml"
-          osx_env="$epoch/${{ inputs.distro }}/staged/seed-environment-conda-osx.yml"
+          distro='${{ inputs.distro }}'
+          passed_dir="$epoch/$distro/passed"
+          staged_dir="$epoch/$distro/staged"
 
-          has_linux_env=false
-          has_osx_env=false
+          matrix_entries=()
+          detected_platforms=()
 
-          if [ -f "$linux_env" ]; then
-            has_linux_env=true
+          add_platform() {
+            local platform_label="$1"
+            local runner_label="$2"
+            local seed_environment_file="$3"
+            local conda_subdir_env="$4"
+            local upload_reports="$5"
+            local staged_seed_env="$staged_dir/$seed_environment_file"
+
+            if [ ! -f "$staged_seed_env" ]; then
+              echo "::error::Found resolved environment support for '$platform_label' but missing staged seed environment '$staged_seed_env'."
+              exit 1
+            fi
+
+            matrix_entries+=("{\"platform_label\":\"$platform_label\",\"runner_label\":\"$runner_label\",\"seed_environment_file\":\"$seed_environment_file\",\"conda_subdir_env\":\"$conda_subdir_env\",\"upload_reports\":$upload_reports}")
+            detected_platforms+=("$platform_label")
+          }
+
+          if [ -f "$passed_dir/rachis-$distro-linux-64-conda.yml" ]; then
+            add_platform "linux-64" "ubuntu-latest" "seed-environment-conda-linux.yml" "" true
           fi
 
-          if [ -f "$osx_env" ]; then
-            has_osx_env=true
+          if [ -f "$passed_dir/rachis-$distro-osx-64-conda.yml" ]; then
+            add_platform "osx-64" "macos-15-intel" "seed-environment-conda-osx.yml" "" false
+          fi
+
+          if [ -f "$passed_dir/rachis-$distro-osx-arm64-conda.yml" ]; then
+            add_platform "osx-arm64" "macos-15" "seed-environment-conda-osx.yml" "osx-arm64" false
           fi
 
           echo "active-epoch=$epoch" >> "$GITHUB_OUTPUT"
-          echo "has-linux-env=$has_linux_env" >> "$GITHUB_OUTPUT"
-          echo "has-osx-env=$has_osx_env" >> "$GITHUB_OUTPUT"
 
-          echo "Detected staged environments for distro '${{ inputs.distro }}' in epoch '$epoch':"
-          echo "  linux: $has_linux_env ($linux_env)"
-          echo "  osx:   $has_osx_env ($osx_env)"
-
-          if [ "$has_linux_env" = false ] && [ "$has_osx_env" = false ]; then
-            echo "::error::No staged Linux or macOS environment files were found for distro '${{ inputs.distro }}' in epoch '$epoch'."
+          if [ ${#matrix_entries[@]} -eq 0 ]; then
+            echo "::error::No resolved environment files were found for distro '$distro' in '$passed_dir'."
             exit 1
           fi
+
+          matrix_json='{"include":['
+          matrix_json+=$(printf '%s,' "${matrix_entries[@]}")
+          matrix_json="${matrix_json%,}"
+          matrix_json+=']}'
+
+          echo "platform-matrix=$matrix_json" >> "$GITHUB_OUTPUT"
+
+          echo "Detected supported platforms for distro '$distro' in epoch '$epoch':"
+          printf '  %s\n' "${detected_platforms[@]}"
 
   lint:
     runs-on: ubuntu-latest
@@ -115,24 +140,99 @@ jobs:
     - name: run q2lint
       run: q2lint
 
-  build-and-test-linux:
+  build-and-test:
     needs: setup
-    if: ${{ needs.setup.outputs.has-linux-env == 'true' }}
-    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-linux.yaml@dev
-    with:
-      distro: ${{ inputs.distro }}
-      epoch: ${{ needs.setup.outputs.active-epoch }}
-      recipe-path: ${{ inputs.recipe-path }}
-      additional-reports-name: ${{ inputs.additional-reports-name }}
-      additional-reports-path: ${{ inputs.additional-reports-path }}
-    secrets: inherit
+    name: '${{ github.event.repository.name }} (${{ matrix.platform_label }})'
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.setup.outputs.platform-matrix) }}
+    runs-on: ${{ matrix.runner_label }}
+    env:
+      plugin_path: ./repo
+      built_channel_path: ./built-channel
+      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/${{ matrix.seed_environment_file }}
+      env_prefix: ./test-env
+      CONDA_SUBDIR: ${{ matrix.conda_subdir_env }}
+    steps:
+      - uses: actions/checkout@v4
+        id: checkout-repo
+        with:
+          path: ${{ env.plugin_path }}
+          fetch-depth: 0
+          submodules: true
 
-  build-and-test-osx:
-    needs: setup
-    if: ${{ needs.setup.outputs.has-osx-env == 'true' }}
-    uses: qiime2/distributions/.github/workflows/lib-ci-build-test-osx.yaml@dev
-    with:
-      distro: ${{ inputs.distro }}
-      epoch: ${{ needs.setup.outputs.active-epoch }}
-      recipe-path: ${{ inputs.recipe-path }}
-    secrets: inherit
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+          path: ./distro
+          sparse-checkout: ${{ env.seed_env_path }}
+
+      - uses: qiime2/action-library-packaging/environment@beta
+        name: 'Set up build environment'
+        id: setup-conda
+
+      - name: 'Set up test environment'
+        run: |
+          conda create -y -p ${{ env.env_prefix }}
+          mkdir -p ${{ env.env_prefix }}/etc
+          cat <<EOF > '${{ env.env_prefix }}/etc/activate.sh'
+            . "$CONDA/etc/profile.d/conda.sh"
+            conda activate '${{ env.env_prefix }}'
+          EOF
+          chmod +x '${{ env.env_prefix }}/etc/activate.sh'
+
+      - name: 'Set up built channel'
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+          mkdir -p ${{ env.built_channel_path }}
+          python -m conda_index ${{ env.built_channel_path }}
+
+      - uses: qiime2/action-library-packaging/make-conda-config@beta
+        name: 'Create conda build config'
+        id: make-cbc
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          seed-environment: ./distro/${{ env.seed_env_path }}
+          conda-build-config: 'conda_build_config.yml'
+          channels: '["${{ env.built_channel_path }}"]'
+
+      - uses: qiime2/action-library-packaging/build-package@beta
+        name: 'Build ${{ github.event.repository.name }}'
+        id: build-package
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          recipe-path: ${{ env.plugin_path }}/${{ inputs.recipe-path }}
+          conda-build-config: ${{ steps.make-cbc.outputs.conda-build-config }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+          output-channel: ${{ env.built_channel_path }}
+
+      - uses: qiime2/action-library-packaging/install-package@beta
+        name: 'Install ${{ github.event.repository.name }}'
+        with:
+          conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
+          package-name: ${{ steps.build-package.outputs.package-name }}
+          package-version: ${{ steps.build-package.outputs.package-version }}
+          conda-prefix: ${{ env.env_prefix }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+
+      - name: 'set up yaml for test env'
+        shell: bash
+        run: |
+          source ${{ env.env_prefix }}/etc/activate.sh
+          conda activate '${{ env.env_prefix }}'
+          pip install pyyaml
+
+      - uses: qiime2/action-library-packaging/test-package@beta
+        name: 'Test ${{ github.event.repository.name }}'
+        with:
+          conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
+          package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
+          channels: ${{ steps.make-cbc.outputs.channels }}
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ matrix.upload_reports && inputs.additional-reports-path != '' }}
+        name: 'Upload additional reports: ${{ inputs.additional-reports-name }}'
+        with:
+          name: ${{ inputs.additional-reports-name }}
+          path: ${{ inputs.additional-reports-path }}
+          overwrite: true

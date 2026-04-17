@@ -1,9 +1,9 @@
 channels:
 - conda-forge
 - bioconda
-- https://packages.qiime2.org/qiime2/2026.4/moshpit/passed
+- https://packages.qiime2.org/qiime2/2026.4/moshpit/released
 - defaults
-- https://packages.qiime2.org/qiime2/2026.4/moshpit/passed
+- https://packages.qiime2.org/qiime2/2026.4/moshpit/released
 dependencies:
 - _openmp_mutex=4.5
 - _python_abi3_support=1.0

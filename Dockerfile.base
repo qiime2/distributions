@@ -24,7 +24,7 @@ RUN /bin/bash -c "source activate rachis-${DISTRO}-${EPOCH}"
 ENV CONDA_PREFIX /opt/conda/envs/rachis-${DISTRO}-${EPOCH}/
 RUN qiime dev refresh-cache
 RUN python -c "from qiime2.sdk.parallel_config import get_vendored_config; get_vendored_config()"
-RUN echo "source activate qiime2-${DISTRO}-${EPOCH}" >> /root/.bashrc
+RUN echo "source activate rachis-${DISTRO}-${EPOCH}" >> /root/.bashrc
 RUN echo "source tab-qiime" >> /root/.bashrc
 
 # HACK: regression in libc 2.41 causes:

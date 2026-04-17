@@ -2,7 +2,7 @@ FROM continuumio/miniconda3:latest
 
 ARG EPOCH
 ARG DISTRO
-ARG STATUS=released
+ARG DISTRO_SUBDIR=released
 
 ENV PATH /opt/conda/envs/rachis-${DISTRO}-${EPOCH}/bin:$PATH
 ENV LC_ALL C.UTF-8

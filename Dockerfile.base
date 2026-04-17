@@ -21,7 +21,7 @@ RUN conda env create -n rachis-${DISTRO}-${EPOCH} --file released-env.yml \
  && rm released-env.yml
 
 RUN /bin/bash -c "source activate rachis-${DISTRO}-${EPOCH}"
-ENV CONDA_PREFIX /opt/conda/envs/qiime2-${DISTRO}-${EPOCH}/
+ENV CONDA_PREFIX /opt/conda/envs/rachis-${DISTRO}-${EPOCH}/
 RUN qiime dev refresh-cache
 RUN python -c "from qiime2.sdk.parallel_config import get_vendored_config; get_vendored_config()"
 RUN echo "source activate qiime2-${DISTRO}-${EPOCH}" >> /root/.bashrc

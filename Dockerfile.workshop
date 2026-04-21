@@ -24,7 +24,7 @@ RUN echo "export PS1=\"\nCurrent working directory: \\w\n\\$ \"" >> $HOME/.bashr
 
 # install jupyter lab, configure notebooks for displaying
 RUN pip install jupyterlab
-RUN jupyter serverextension enable --py qiime2 --sys-prefix
+# RUN jupyter serverextension enable --py qiime2 --sys-prefix
 
 # declare that a volume will be mounted to the working directory
 VOLUME "/home/qiime2"

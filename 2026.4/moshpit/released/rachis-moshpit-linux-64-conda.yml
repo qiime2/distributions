@@ -2,8 +2,6 @@ channels:
 - conda-forge
 - bioconda
 - https://packages.qiime2.org/qiime2/2026.4/moshpit/released
-- defaults
-- https://packages.qiime2.org/qiime2/2026.4/moshpit/released
 dependencies:
 - _openmp_mutex=4.5
 - _python_abi3_support=1.0
@@ -88,8 +86,6 @@ dependencies:
 - biopython=1.86
 - bitarray=3.8.0
 - bitstring=4.4.0
-- blas=2.139
-- blas-devel=3.9.0
 - blast=2.16.0
 - boost-cpp=1.85.0
 - bowtie2=2.5.5
@@ -152,7 +148,7 @@ dependencies:
 - fastp=1.0.1
 - fasttree=2.2.0
 - feedparser=6.0.12
-- filelock=3.28.0
+- filelock=3.29.0
 - flufl.lock=9.0.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -161,7 +157,7 @@ dependencies:
 - fontconfig=2.17.1
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.62.0
+- fonttools=4.62.1
 - freetype=2.14.3
 - fribidi=1.0.16
 - frictionless=5.5.0
@@ -301,7 +297,6 @@ dependencies:
 - libnghttp2=1.68.1
 - libnsl=2.0.1
 - libntlm=1.8
-- libopenblas=0.3.30
 - libopengl=1.7.0
 - libopenssl-static=3.6.2
 - libparquet=16.1.0
@@ -377,19 +372,17 @@ dependencies:
 - mysql-common=9.0.1
 - mysql-connector-c=6.1.11
 - mysql-libs=9.0.1
-- narwhals=2.19.0
+- narwhals=2.20.0
 - natsort=8.4.0
 - ncbi-datasets-pyclient=18.18.0
 - ncbi-vdb=3.4.1
 - ncurses=6.5
 - networkx=3.6.1
-- nomkl=3.0
 - nspr=4.38
 - nss=3.118
 - numexpr=2.14.1
 - numpy=2.4.2
 - oniguruma=6.9.10
-- openblas=0.3.30
 - openjdk=23.0.2
 - openjpeg=2.5.3
 - openldap=2.6.10
@@ -399,8 +392,8 @@ dependencies:
 - orc=2.1.1
 - packaging=26.1
 - pandas=2.3.3
-- pandera=0.30.1
-- pandera-base=0.30.1
+- pandera=0.31.0
+- pandera-base=0.31.0
 - pandoc=3.9.0.2
 - pango=1.56.3
 - parsl=2026.2.23
@@ -484,10 +477,10 @@ dependencies:
 - plotly=6.6.0
 - pluggy=1.6.0
 - pockets=0.9.1
-- polars=1.39.3
+- polars=1.40.0
 - polars-lts-cpu=1.34.0.deprecated
-- polars-runtime-32=1.39.3
-- polars-runtime-compat=1.39.3
+- polars-runtime-32=1.40.0
+- polars-runtime-compat=1.40.0
 - popt=1.19
 - pplacer=1.1.alpha19
 - prank=170427
@@ -508,8 +501,8 @@ dependencies:
 - pycoverm=0.6.2
 - pycparser=2.22
 - pycryptodomex=3.23.0
-- pydantic=2.13.1
-- pydantic-core=2.46.1
+- pydantic=2.13.3
+- pydantic-core=2.46.3
 - pygments=2.20.0
 - pyhmmer=0.12.0
 - pymongo=4.16.0
@@ -567,7 +560,7 @@ dependencies:
 - r-base64enc=0.1_6
 - r-bh=1.87.0_1
 - r-bit=4.6.0
-- r-bit64=4.6.0_1
+- r-bit64=4.8.0
 - r-bitops=1.0_9
 - r-blob=1.3.0
 - r-brio=1.1.5
@@ -741,7 +734,7 @@ dependencies:
 - shellingham=1.5.4
 - shortuuid=1.0.13
 - simpleeval=1.0.7
-- simplejson=3.20.2
+- simplejson=4.0.1
 - six=1.17.0
 - sleef=3.9.0
 - snappy=1.2.2

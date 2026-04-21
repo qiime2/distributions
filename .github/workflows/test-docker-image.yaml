@@ -37,7 +37,7 @@ jobs:
           import os
 
           distro = "${{ inputs.distro }}"
-          metapackage_name = f"qiime2-{distro}"
+          metapackage_name = f"rachis-{distro}"
 
           with open('retest-matrix/packages.json', 'r') as fh:
             packages = json.load(fh)

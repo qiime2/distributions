@@ -1,7 +1,7 @@
 channels:
 - conda-forge
 - bioconda
-- https://packages.qiime2.org/qiime2/2026.4/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2026.7/pathogenome/passed
 dependencies:
 - _openmp_mutex=4.5
 - _python_abi3_support=1.0
@@ -110,7 +110,7 @@ dependencies:
 - hdf5=1.14.6
 - hmmer=3.4
 - hpack=4.1.0
-- htslib=1.22.1
+- htslib=1.23
 - humanize=4.15.0
 - hyperframe=6.1.0
 - icu=75.1
@@ -324,18 +324,18 @@ dependencies:
 - pytz=2026.1.post1
 - pyyaml=6.0.3
 - pyzmq=27.1.0
-- q2-amrfinderplus=2026.4.0
-- q2-demux=2026.4.0
-- q2-feature-table=2026.4.0
-- q2-metadata=2026.4.0
-- q2-mystery-stew=2026.4.0
-- q2-types=2026.4.0
-- q2-viromics=2026.4.0
-- q2-vizard=2026.4.0
-- q2cli=2026.4.0
-- q2templates=2026.4.0
+- q2-amrfinderplus=2026.7.0.dev0
+- q2-demux=2026.7.0.dev0
+- q2-feature-table=2026.7.0.dev0
+- q2-metadata=2026.7.0.dev0
+- q2-mystery-stew=2026.7.0.dev0
+- q2-types=2026.7.0.dev0
+- q2-viromics=2026.7.0.dev0
+- q2-vizard=2026.7.0.dev0
+- q2cli=2026.7.0.dev0
+- q2templates=2026.7.0.dev0
 - qhull=2020.2
-- qiime2=2026.4.0
+- qiime2=2026.7.0.dev0
 - qt6-main=6.9.2
 - r-base=4.5.2
 - r-here=1.0.2
@@ -350,7 +350,7 @@ dependencies:
 - r-rlang=1.2.0
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.4.0
+- rachis=2026.7.0.dev0
 - re2=2024.07.02
 - readline=8.3
 - referencing=0.37.0
@@ -361,7 +361,7 @@ dependencies:
 - rnanorm=2.1.0
 - rpds-py=0.30.0
 - s2n=1.5.14
-- samtools=1.22.1
+- samtools=1.23
 - scikit-bio=0.7.2
 - scikit-learn=1.8.0
 - scipy=1.17.1

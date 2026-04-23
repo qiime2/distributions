@@ -12,8 +12,80 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  route:
+    runs-on: ubuntu-latest
+    outputs:
+      run-osx-intel: ${{ steps.route.outputs.run-osx-intel }}
+      run-osx-arm: ${{ steps.route.outputs.run-osx-arm }}
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ startsWith(github.head_ref, 'Release-') }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - id: route
+        name: 'Determine macOS routing'
+        shell: bash
+        run: |
+          head_ref='${{ github.head_ref }}'
+          run_osx_intel=false
+          run_osx_arm=false
+
+          if [[ "$head_ref" == Prepare-osx-64-* ]] || [[ "$head_ref" == Language-osx-64-* ]]; then
+            run_osx_intel=true
+          fi
+
+          if [[ "$head_ref" == Prepare-osx-arm64-* ]] || [[ "$head_ref" == Language-osx-arm64-* ]]; then
+            run_osx_arm=true
+          fi
+
+          if [[ "$head_ref" == Release-* ]]; then
+            git fetch origin '${{ github.base_ref }}' --depth=1
+
+            mapfile -t changed_paths < <(
+              git diff --name-only FETCH_HEAD...HEAD | \
+                grep -E '^[0-9]{4}\.[0-9]+/[^/]+/(passed|released)/seed-environment-conda-osx\.yml$' || true
+            )
+
+            if [[ ${#changed_paths[@]} -eq 0 ]]; then
+              echo "::error::Could not determine the distro for release branch '$head_ref' from changed macOS seed environment files."
+              exit 1
+            fi
+
+            IFS='/' read -r epoch distro _ <<< "${changed_paths[0]}"
+
+            for path in "${changed_paths[@]}"; do
+              IFS='/' read -r path_epoch path_distro _ <<< "$path"
+              if [[ "$path_epoch" != "$epoch" || "$path_distro" != "$distro" ]]; then
+                echo "::error::Release branch '$head_ref' changed multiple distro/epoch macOS seed environment files: ${changed_paths[*]}"
+                exit 1
+              fi
+            done
+
+            if [[ -f "$epoch/$distro/passed/rachis-$distro-osx-64-conda.yml" ]]; then
+              run_osx_intel=true
+            fi
+
+            if [[ -f "$epoch/$distro/passed/rachis-$distro-osx-arm64-conda.yml" ]]; then
+              run_osx_arm=true
+            fi
+
+            if [[ "$run_osx_intel" == false && "$run_osx_arm" == false ]]; then
+              echo "::error::No supported macOS resolved environments were found for release branch '$head_ref' in $epoch/$distro."
+              exit 1
+            fi
+
+            echo "Release branch '$head_ref' targets $epoch/$distro."
+          fi
+
+          echo "run-osx-intel=$run_osx_intel" >> "$GITHUB_OUTPUT"
+          echo "run-osx-arm=$run_osx_arm" >> "$GITHUB_OUTPUT"
+          echo "macOS routing: osx-64=$run_osx_intel osx-arm64=$run_osx_arm"
+
   osx-intel:
-    if: ${{ startsWith(github.head_ref, 'Prepare-osx-64-') }}
+    needs: [route]
+    if: ${{ needs.route.outputs.run-osx-intel == 'true' }}
     uses: ./.github/workflows/ci-distro-trial-platform.yaml
     secrets: inherit
     with:
@@ -24,7 +96,8 @@ jobs:
       pr_ref: ${{ github.head_ref }}
 
   osx-arm:
-    if: ${{ startsWith(github.head_ref, 'Prepare-osx-arm64-') }}
+    needs: [route]
+    if: ${{ needs.route.outputs.run-osx-arm == 'true' }}
     uses: ./.github/workflows/ci-distro-trial-platform.yaml
     secrets: inherit
     with:

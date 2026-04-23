@@ -1,3 +1,5 @@
+Created April 2026 by codex
+
 # Workflow Refactor Summary
 
 This note captures the earlier design discussion about reducing duplication in

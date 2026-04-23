@@ -1,9 +1,9 @@
 # this is the current release epoch (i.e. 20XX.REL)
-released_epoch: "2026.1"
+released_epoch: "2026.4"
 # this is the current dev cycle epoch (i.e. 20XX.REL+1)
-active_epoch: "2026.4"
+active_epoch: "2026.7"
 # this is the next dev cycle epoch (i.e. 20XX.REL+2)
-next_epoch: "2026.7"
+next_epoch: "2026.10"
 # qiime2 distro (formerly amplicon) renamed for rachis release 2026.4
 distros: [tiny, qiime2, moshpit, pathogenome, test]
 packages:

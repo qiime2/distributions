@@ -22,10 +22,6 @@ RUN chmod -R a+rwx /home/qiime2
 # update cli prompt to print working directory
 RUN echo "export PS1=\"\nCurrent working directory: \\w\n\\$ \"" >> $HOME/.bashrc
 
-# install jupyter lab, configure notebooks for displaying
-RUN pip install jupyterlab
-# RUN jupyter serverextension enable --py qiime2 --sys-prefix
-
 # declare that a volume will be mounted to the working directory
 VOLUME "/home/qiime2"
 
@@ -38,7 +34,8 @@ RUN yes | apt-get install tree vim iputils-ping nano less nodejs npm
 
 # install jupyter lab, configure notebooks for displaying
 RUN pip install jupyterlab
-RUN jupyter serverextension enable --py qiime2 --sys-prefix
+# pretty sure this is no longer necessary, commenting out for the time being
+# RUN jupyter serverextension enable --py qiime2 --sys-prefix
 
 # TODO: add to environment for 2026.7 release?
 RUN pip install https://github.com/rachis-org/jupyterlab-rachis/archive/refs/heads/main.zip

@@ -34,7 +34,14 @@ ENV SHELL /bin/bash
 
 # install various useful tools
 RUN apt-get update
-RUN yes | apt-get install tree vim iputils-ping nano less
+RUN yes | apt-get install tree vim iputils-ping nano less nodejs npm
+
+# install jupyter lab, configure notebooks for displaying
+RUN pip install jupyterlab
+RUN jupyter serverextension enable --py qiime2 --sys-prefix
+
+# TODO: add to environment for 2026.7 release?
+RUN pip install https://github.com/rachis-org/jupyterlab-rachis/archive/refs/heads/main.zip
 
 # launch jupyter lab on startup
 CMD ["jupyter", "lab", \

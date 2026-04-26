@@ -30,7 +30,7 @@ dependencies:
 - q2-alignment=2026.7.0.dev0
 - q2-boots=2026.7.0.dev0
 - q2-composition=2026.7.0.dev0
-- q2-cutadapt=2026.7.0.dev0
+- q2-cutadapt=2026.7.0.dev0+1.gdd2fc95
 - q2-dada2=2026.7.0.dev0
 - q2-deblur=2026.7.0.dev0
 - q2-demux=2026.7.0.dev0

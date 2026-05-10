@@ -31,6 +31,7 @@ dependencies:
 - charset-normalizer=3.4.7
 - clang=22.1.4
 - clang-22=22.1.4
+- clang-scan-deps=22.1.4
 - clang_impl_osx-64=22.1.4
 - clang_osx-64=22.1.4
 - clangxx_impl_osx-64=22.1.4
@@ -92,6 +93,7 @@ dependencies:
 - libblas=3.11.0
 - libcblas=3.11.0
 - libclang-cpp22.1=22.1.4
+- libclang13=22.1.4
 - libcompiler-rt=22.1.4
 - libcurl=8.20.0
 - libcxx=22.1.5
@@ -137,7 +139,7 @@ dependencies:
 - lz4=4.4.5
 - lz4-c=1.10.0
 - make=4.4.1
-- markdown-it-py=4.1.0
+- markdown-it-py=4.2.0
 - marko=2.2.2
 - markupsafe=3.0.3
 - mdurl=0.1.2
@@ -178,11 +180,11 @@ dependencies:
 - pytz=2026.2
 - pyyaml=6.0.3
 - pyzmq=27.1.0
-- q2-metadata=2026.7.0.dev0
-- q2-mystery-stew=2026.7.0.dev0
-- q2-types=2026.7.0.dev0
-- q2cli=2026.7.0.dev0
-- q2templates=2026.7.0.dev0
+- q2-metadata=2026.7.0.dev0+1.ge7c4816
+- q2-mystery-stew=2026.7.0.dev0+1.g888e3c1
+- q2-types=2026.7.0.dev0+1.g7579ca8
+- q2cli=2026.7.0.dev0+1.g32445fd
+- q2templates=2026.7.0.dev0+1.g4ad151f
 - qiime2=2026.7.0.dev0
 - r-base=4.5.3
 - r-here=1.0.2
@@ -197,7 +199,7 @@ dependencies:
 - r-rlang=1.2.0
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.7.0.dev0+2.g9b4f7c2
+- rachis=2026.7.0.dev0+4.gd6cfc47
 - readline=8.3
 - referencing=0.37.0
 - requests=2.33.1
@@ -238,7 +240,7 @@ dependencies:
 - tzlocal=5.3.1
 - unifrac=1.5.1
 - unifrac-binaries=1.5.1
-- urllib3=2.6.3
+- urllib3=2.7.0
 - validators=0.35.0
 - wheel=0.47.0
 - yaml=0.2.5

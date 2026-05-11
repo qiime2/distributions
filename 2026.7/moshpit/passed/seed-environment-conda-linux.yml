@@ -33,9 +33,9 @@ dependencies:
 - pyarrow=16.1.0
 - pysam=0.23.3
 - python=3.12
-- q2-annotate=2026.7.0.dev0
-- q2-assembly=2026.7.0.dev0
-- q2-cutadapt=2026.7.0.dev0
+- q2-annotate=2026.7.0.dev0+1.g1b6627a
+- q2-assembly=2026.7.0.dev0+1.gb11493c
+- q2-cutadapt=2026.7.0.dev0+1.gdd2fc95
 - q2-demux=2026.7.0.dev0
 - q2-fastp=2026.7.0.dev0
 - q2-feature-table=2026.7.0.dev0
@@ -54,8 +54,8 @@ dependencies:
 - r-base=4.4.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
-- rachis=2026.7.0.dev0
-- rescript=2026.7.0.dev0
+- rachis=2026.7.0.dev0+2.g9b4f7c2
+- rescript=2026.7.0.dev0+2.gbbcbc2a
 - rnanorm=2.1.0
 - samtools=1.22.1
 - scikit-bio=0.7.2

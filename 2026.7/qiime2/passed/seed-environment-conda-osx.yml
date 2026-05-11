@@ -4,6 +4,7 @@ channels:
 - bioconda
 dependencies:
 - biom-format=2.1.17
+- bioconductor-dada2=1.38.0
 - blast=2.17.0
 - click=8.1.8
 - cutadapt=5.2

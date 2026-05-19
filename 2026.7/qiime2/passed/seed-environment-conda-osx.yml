@@ -27,10 +27,10 @@ dependencies:
 - py7zr=1.0.0
 - python=3.12
 - q2-alignment=2026.7.0.dev0+1.gbcdc79f
-- q2-boots=2026.7.0.dev0
+- q2-boots=2026.7.0.dev0+1.ge47e84e
 - q2-composition=2026.7.0.dev0+1.gd509390
 - q2-cutadapt=2026.7.0.dev0+4.g1c7717d
-- q2-dada2=2026.7.0.dev0+1.gdec00ec
+- q2-dada2=2026.7.0.dev0+2.g7262a85
 - q2-deblur=2026.7.0.dev0+1.g4747b9b
 - q2-demux=2026.7.0.dev0+1.g04319c6
 - q2-diversity-lib=2026.7.0.dev0+1.ga924dce
@@ -42,7 +42,7 @@ dependencies:
 - q2-fragment-insertion=2026.7.0.dev0+1.g2774eec
 - q2-kmerizer=2026.7.0.dev0
 - q2-longitudinal=2026.7.0.dev0+1.gef07e9d
-- q2-metadata=2026.7.0.dev0+1.ge7c4816
+- q2-metadata=2026.7.0.dev0+2.geb1391f
 - q2-mystery-stew=2026.7.0.dev0+1.g888e3c1
 - q2-phylogeny=2026.7.0.dev0+1.ga7af334
 - q2-quality-control=2026.7.0.dev0+1.gc2305b9
@@ -53,15 +53,15 @@ dependencies:
 - q2-types=2026.7.0.dev0+1.g7579ca8
 - q2-vizard=2026.7.0.dev0
 - q2-vsearch=2026.7.0.dev0+1.g49791c1
-- q2cli=2026.7.0.dev0+1.g32445fd
+- q2cli=2026.7.0.dev0+2.gb268108
 - q2templates=2026.7.0.dev0+1.g4ad151f
 - qiime2=2026.7.0.dev0
 - r-base=4.5.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
 - r-vegan=2.7_3
-- rachis=2026.7.0.dev0+4.gd6cfc47
-- rescript=2026.7.0.dev0+3.gd8b7d0d
+- rachis=2026.7.0.dev0+7.g9cab297
+- rescript=2026.7.0.dev0+4.gfbbf996
 - rnanorm=2.1.0
 - rpy2=3.6.4
 - samtools=1.22.1
@@ -80,4 +80,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.7'
-# modified: 2026-05-17

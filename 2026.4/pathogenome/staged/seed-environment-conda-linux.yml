@@ -17,6 +17,7 @@ dependencies:
 - mafft=7.526
 - matplotlib=3.10.8
 - megahit=1.2.9
+- ncbi-amrfinderplus=4.2.7
 - ncbi-datasets-pyclient=18.4.0
 - networkx=3.6.1
 - notebook=6.5.5
@@ -30,7 +31,7 @@ dependencies:
 - pysam=0.22.1
 - python=3.12
 - q2-alignment=2026.4.0.dev0
-- q2-amrfinderplus=2026.4.0
+- q2-amrfinderplus=2026.4.1
 - q2-assembly=2026.4.0.dev0
 - q2-demux=2026.4.0
 - q2-feature-classifier=2026.4.0.dev0

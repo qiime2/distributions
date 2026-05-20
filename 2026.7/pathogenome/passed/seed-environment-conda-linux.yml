@@ -1,5 +1,6 @@
 channels:
 - https://packages.qiime2.org/qiime2/2026.7/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2026.7/moshpit/passed
 - conda-forge
 - bioconda
 dependencies:
@@ -19,6 +20,7 @@ dependencies:
 - pyarrow=16.1.0
 - python=3.12
 - q2-amrfinderplus=2026.7.0.dev0
+- q2-assembly=2026.7.0.dev0
 - q2-demux=2026.7.0.dev0
 - q2-feature-table=2026.7.0.dev0
 - q2-metadata=2026.7.0.dev0

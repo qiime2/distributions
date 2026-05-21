@@ -11,6 +11,7 @@ dependencies:
 - h5py=3.15.1
 - hdf5=1.14.6
 - matplotlib=3.10.8
+- ncbi-amrfinderplus=4.2.7
 - networkx=3.6.1
 - numpy=2.4.2
 - pandas=2.3.3
@@ -18,7 +19,7 @@ dependencies:
 - prodigal=2.6.3
 - pyarrow=16.1.0
 - python=3.12
-- q2-amrfinderplus=2026.7.0.dev0
+- q2-amrfinderplus=2026.7.0.dev0+2.g299cdef
 - q2-demux=2026.7.0.dev0+1.g04319c6
 - q2-feature-table=2026.7.0.dev0+1.gbc3a1f5
 - q2-metadata=2026.7.0.dev0+2.geb1391f

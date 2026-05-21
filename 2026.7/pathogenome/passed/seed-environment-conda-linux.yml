@@ -11,6 +11,7 @@ dependencies:
 - h5py=3.15.1
 - hdf5=1.14.6
 - matplotlib=3.10.8
+- ncbi-amrfinderplus=4.2.7
 - networkx=3.6.1
 - numpy=2.4.2
 - pandas=2.3.3

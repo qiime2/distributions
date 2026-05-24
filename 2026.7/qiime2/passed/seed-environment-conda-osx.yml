@@ -50,7 +50,7 @@ dependencies:
 - q2-sample-classifier=2026.7.0.dev0+1.g79f7ba0
 - q2-stats=2026.7.0.dev0+1.g385ea32
 - q2-taxa=2026.7.0.dev0+1.g2f00d83
-- q2-types=2026.7.0.dev0+1.g7579ca8
+- q2-types=2026.7.0.dev0+2.g732057a
 - q2-vizard=2026.7.0.dev0
 - q2-vsearch=2026.7.0.dev0+1.g49791c1
 - q2cli=2026.7.0.dev0+2.gb268108
@@ -60,8 +60,8 @@ dependencies:
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
 - r-vegan=2.7_3
-- rachis=2026.7.0.dev0+7.g9cab297
-- rescript=2026.7.0.dev0+4.gfbbf996
+- rachis=2026.7.0.dev0+17.gbff5e4f
+- rescript=2026.7.0.dev0+6.g25e04d3
 - rnanorm=2.1.0
 - rpy2=3.6.4
 - samtools=1.22.1
@@ -80,4 +80,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.7'
-# modified: 2026-05-24

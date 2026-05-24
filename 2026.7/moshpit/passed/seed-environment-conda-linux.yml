@@ -54,7 +54,7 @@ dependencies:
 - r-base=4.4.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
-- rachis=2026.7.0.dev0+7.g9cab297
+- rachis=2026.7.0.dev0+17.gbff5e4f
 - rescript=2026.7.0.dev0+6.g25e04d3
 - rnanorm=2.1.0
 - samtools=1.22.1

@@ -19,7 +19,7 @@ dependencies:
 - prodigal=2.6.3
 - pyarrow=16.1.0
 - python=3.12
-- q2-amrfinderplus=2026.7.0.dev0+2.g299cdef
+- q2-amrfinderplus=2026.7.0.dev0+11.gceba59e
 - q2-demux=2026.7.0.dev0+1.g04319c6
 - q2-feature-table=2026.7.0.dev0+1.gbc3a1f5
 - q2-metadata=2026.7.0.dev0+2.geb1391f
@@ -31,7 +31,7 @@ dependencies:
 - q2templates=2026.7.0.dev0+1.g4ad151f
 - qiime2=2026.7.0.dev0
 - r-reticulate=1.45.0
-- rachis=2026.7.0.dev0+7.g9cab297
+- rachis=2026.7.0.dev0+17.gbff5e4f
 - rnanorm=2.1.0
 - scikit-bio=0.7.2
 - scipy=1.17.1
@@ -45,4 +45,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.7'
-# modified: 2026-05-24

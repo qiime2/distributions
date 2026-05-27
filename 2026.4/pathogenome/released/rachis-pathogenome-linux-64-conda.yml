@@ -400,7 +400,7 @@ dependencies:
 - tqdm=4.67.3
 - traitlets=5.15.0
 - typeguard=4.5.2
-- typer=0.26.0
+- typer=0.26.2
 - typing-extensions=4.15.0
 - typing-inspection=0.4.2
 - typing_extensions=4.15.0

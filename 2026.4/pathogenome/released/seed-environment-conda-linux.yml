@@ -1,4 +1,3 @@
-# try another rebuild
 channels:
 - https://packages.qiime2.org/qiime2/2026.4/pathogenome/released
 - conda-forge

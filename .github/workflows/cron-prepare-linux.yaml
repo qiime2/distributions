@@ -1,4 +1,3 @@
-# TODO: consolidate to a single workflow with os as input
 name: cron-prepare-linux
 on:
   workflow_dispatch: {}
@@ -12,22 +11,22 @@ jobs:
     with:
       distro: tiny
 
-  amplicon:
+  qiime2:
     needs: [tiny]
     uses: ./.github/workflows/create-prepare-pr-linux.yaml
     secrets: inherit
     with:
-      distro: amplicon
+      distro: qiime2
 
   moshpit:
-    needs: [tiny, amplicon]
+    needs: [tiny, qiime2]
     uses: ./.github/workflows/create-prepare-pr-linux.yaml
     secrets: inherit
     with:
       distro: moshpit
 
   pathogenome:
-    needs: [tiny, amplicon, moshpit]
+    needs: [tiny, qiime2, moshpit]
     uses: ./.github/workflows/create-prepare-pr-linux.yaml
     secrets: inherit
     with:

@@ -47,33 +47,112 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      active-epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+      active-epoch: ${{ steps.platform-support.outputs.active-epoch }}
+      platform-matrix: ${{ steps.platform-support.outputs.platform-matrix }}
     steps:
       - uses: actions/checkout@v3
         with:
           repository: qiime2/distributions
-          sparse-checkout: |
-            data.yaml
       - name: "get distro info"
         id: yaml
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
+      - name: detect supported platform environments
+        id: platform-support
+        shell: bash
+        run: |
+          epoch='${{ fromJSON(steps.yaml.outputs.data).active_epoch }}'
+          distro='${{ inputs.distro }}'
+          passed_dir="$epoch/$distro/passed"
+          staged_dir="$epoch/$distro/staged"
+
+          matrix_entries=()
+          detected_platforms=()
+
+          add_platform() {
+            local platform_label="$1"
+            local runner_label="$2"
+            local seed_environment_file="$3"
+            local conda_subdir_env="$4"
+            local upload_reports="$5"
+            local staged_seed_env="$staged_dir/$seed_environment_file"
+
+            if [ ! -f "$staged_seed_env" ]; then
+              echo "::error::Found resolved environment support for '$platform_label' but missing staged seed environment '$staged_seed_env'."
+              exit 1
+            fi
+
+            matrix_entries+=("{\"platform_label\":\"$platform_label\",\"runner_label\":\"$runner_label\",\"seed_environment_file\":\"$seed_environment_file\",\"conda_subdir_env\":\"$conda_subdir_env\",\"upload_reports\":$upload_reports}")
+            detected_platforms+=("$platform_label")
+          }
+
+          if [ -f "$passed_dir/rachis-$distro-linux-64-conda.yml" ]; then
+            add_platform "linux-64" "ubuntu-latest" "seed-environment-conda-linux.yml" "" true
+          fi
+
+          if [ -f "$passed_dir/rachis-$distro-osx-64-conda.yml" ]; then
+            add_platform "osx-64" "macos-15-intel" "seed-environment-conda-osx.yml" "" false
+          fi
+
+          if [ -f "$passed_dir/rachis-$distro-osx-arm64-conda.yml" ]; then
+            add_platform "osx-arm64" "macos-15" "seed-environment-conda-osx.yml" "osx-arm64" false
+          fi
+
+          echo "active-epoch=$epoch" >> "$GITHUB_OUTPUT"
+
+          if [ ${#matrix_entries[@]} -eq 0 ]; then
+            echo "::error::No resolved environment files were found for distro '$distro' in '$passed_dir'."
+            exit 1
+          fi
+
+          matrix_json='{"include":['
+          matrix_json+=$(printf '%s,' "${matrix_entries[@]}")
+          matrix_json="${matrix_json%,}"
+          matrix_json+=']}'
+
+          echo "platform-matrix=$matrix_json" >> "$GITHUB_OUTPUT"
+
+          echo "Detected supported platforms for distro '$distro' in epoch '$epoch':"
+          printf '  %s\n' "${detected_platforms[@]}"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout source
+      uses: actions/checkout@v3
+
+    - name: set up python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -q toml
+        pip install -q https://github.com/qiime2/q2lint/archive/master.zip
+        pip install -q flake8
+
+    - name: run flake8
+      run: flake8
+
+    - name: run q2lint
+      run: q2lint
 
   build-and-test:
-    name: '${{ github.event.repository.name }} (${{ matrix.os }})'
     needs: setup
+    name: '${{ github.event.repository.name }} (${{ matrix.platform_label }})'
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-15-intel]
-    runs-on: ${{ matrix.os }}
+      matrix: ${{ fromJSON(needs.setup.outputs.platform-matrix) }}
+    runs-on: ${{ matrix.runner_label }}
     env:
       plugin_path: ./repo
       built_channel_path: ./built-channel
-      epoch: ${{ needs.setup.outputs.active-epoch }}
-      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/seed-environment-conda.yml
+      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/${{ matrix.seed_environment_file }}
       env_prefix: ./test-env
+      CONDA_SUBDIR: ${{ matrix.conda_subdir_env }}
     steps:
       - uses: actions/checkout@v4
         id: checkout-repo
@@ -151,33 +230,9 @@ jobs:
           channels: ${{ steps.make-cbc.outputs.channels }}
 
       - uses: actions/upload-artifact@v4
-        if: ${{ inputs.additional-reports-path != '' && matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.upload_reports && inputs.additional-reports-path != '' }}
         name: 'Upload additional reports: ${{ inputs.additional-reports-name }}'
         with:
           name: ${{ inputs.additional-reports-name }}
           path: ${{ inputs.additional-reports-path }}
           overwrite: true
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout source
-      uses: actions/checkout@v3
-
-    - name: set up python 3.10
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
-    - name: install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -q toml
-        pip install -q https://github.com/qiime2/q2lint/archive/master.zip
-        pip install -q flake8
-
-    - name: run flake8
-      run: flake8
-
-    - name: run q2lint
-      run: q2lint

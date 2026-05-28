@@ -12,7 +12,7 @@ on:
       distribution:
         required: false
         type: string
-        default: amplicon
+        default: qiime2
 
 jobs:
   pyproject-copier:

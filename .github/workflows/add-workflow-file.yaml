@@ -1,4 +1,4 @@
-name: Add New Workflow to Amplicon Repos
+name: Add New Workflow to QIIME 2 Distro Repos
 
 on:
   workflow_dispatch:
@@ -23,14 +23,14 @@ jobs:
           sudo wget https://github.com/mikefarah/yq/releases/download/v4.35.1/yq_linux_amd64 -O /usr/local/bin/yq
           sudo chmod +x /usr/local/bin/yq
 
-      - name: Parse data.yaml to find amplicon repos
+      - name: Parse data.yaml to find qiime2 distro repos
         id: parse_repos
         run: |
           REPOSITORIES=$(yq '.packages[]
-            | select(.distros[] == "amplicon")
+            | select(.distros[] == "qiime2")
             | .repo' data.yaml | paste -sd " " -)
 
-          echo "Found these amplicon repos: $REPOSITORIES"
+          echo "Found these qiime2 distro repos: $REPOSITORIES"
           echo "repositories=$REPOSITORIES" >> $GITHUB_OUTPUT
 
       - name: Configure Git

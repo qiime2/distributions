@@ -11,15 +11,15 @@ def date_to_date_object(date: str):
     format_string = '%d/%b/%Y:%H:%M:%S %z'
     obj = datetime.strptime(date, format_string)
     return obj
-    
+
 
 def find_edge_dates(info: list):
     dates = []
-    for inf in info: 
+    for inf in info:
         if inf['is_download']:
             date = date_to_date_object(inf['date'])
             dates.append((date, inf['line']))
-    
+
     max = dates[0]
     min = dates[len(dates) - 1]
     for date in dates:
@@ -27,10 +27,10 @@ def find_edge_dates(info: list):
             max = date
         if date[0] < min[0]:
             min = date
-    
+
     return (max, min)
-    
-    
+
+
 def get_github_runner_ips():
     url = "https://api.github.com/meta"
     data = requests.get(url).json()
@@ -41,6 +41,7 @@ ip_list = get_github_runner_ips()
 ip_list = [ipaddress.ip_network(ip) for ip in ip_list]
 
 count = 0
+
 
 def check_ci_runner(ip: str) -> bool:
     global count
@@ -62,11 +63,11 @@ def count_frequencies(info: list) -> dict:
                 frequencies[info[i]['distribution']] += 1
             else:
                 frequencies[info[i]['distribution']] = 1
-    
+
     frequencies['Total with CI'] = frequencies['Total'] + count
-    
+
     return frequencies
-    
+
 
 logs = ["access-logs/access.log." + str(i) + ".gz" for i in range(1, 52)]
 
@@ -106,7 +107,8 @@ def split_line(line: str) -> dict:
         info['version'] = version
 
     distribution = re.search(
-        r'amplicon|metagenome|pathogenome|tiny|shotgun|fmt', line
+        r'qiime2|amplicon|moshpit|metagenome|pathogenome|tiny|shotgun|fmt',
+        line
     )
 
     distribution = distribution[0] if distribution else None
@@ -115,7 +117,7 @@ def split_line(line: str) -> dict:
     if info['distribution']:
         if check_ci_runner(info['ip']):
             return {}
-    
+
     return info
 
 

@@ -8,7 +8,6 @@ dependencies:
 - _r-mutex=1.0.1
 - annotated-doc=0.0.4
 - annotated-types=0.7.0
-- appdirs=1.4.4
 - array-api-compat=1.14.0
 - atpublic=7.0.0
 - attrs=26.1.0
@@ -60,9 +59,9 @@ dependencies:
 - humanize=4.15.0
 - hyperframe=6.1.0
 - icu=78.3
-- idna=3.15
+- idna=3.17
 - ijson=3.5.0
-- importlib-metadata=8.8.0
+- importlib-metadata=9.0.0
 - iniconfig=2.3.0
 - iow=1.0.8
 - isodate=0.7.2
@@ -124,7 +123,7 @@ dependencies:
 - lz4-c=1.10.0
 - make=4.4.1
 - markdown-it-py=4.2.0
-- marko=2.2.2
+- marko=2.2.3
 - markupsafe=3.0.3
 - mdurl=0.1.2
 - mypy_extensions=1.1.0
@@ -141,9 +140,10 @@ dependencies:
 - parsl=2026.2.23
 - patsy=1.0.2
 - pcre2=10.47
-- petl=1.7.17
+- petl=1.7.18
 - pip=26.1.1
 - pixman=0.46.4
+- platformdirs=4.10.0
 - pluggy=1.6.0
 - psutil=7.2.2
 - pthread-stubs=0.4
@@ -182,14 +182,14 @@ dependencies:
 - r-rlang=1.2.0
 - r-rprojroot=2.1.1
 - r-withr=3.0.2
-- rachis=2026.7.0.dev0+17.gbff5e4f
+- rachis=2026.7.0.dev0+18.ge5d84d9
 - readline=8.3
 - referencing=0.37.0
 - requests=2.34.2
 - rfc3986=2.0.0
 - rich=15.0.0
 - rnanorm=2.1.0
-- rpds-py=0.30.0
+- rpds-py=2026.5.1
 - samtools=1.23.1
 - scikit-bio=0.7.2
 - scikit-learn=1.7.1
@@ -213,7 +213,7 @@ dependencies:
 - tomli=2.4.1
 - tomlkit=0.15.0
 - typeguard=4.5.2
-- typer=0.23.1
+- typer=0.26.4
 - typing-extensions=4.15.0
 - typing-inspection=0.4.2
 - typing_extensions=4.15.0

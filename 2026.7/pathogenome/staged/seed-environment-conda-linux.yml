@@ -31,7 +31,7 @@ dependencies:
 - pysam=0.22.1
 - python=3.12
 - q2-alignment=2026.4.0.dev0
-- q2-amrfinderplus=2026.7.0.dev0+11.gceba59e
+- q2-amrfinderplus=2026.7.0.dev0+13.g1855c94
 - q2-assembly=2026.4.0.dev0
 - q2-demux=2026.7.0.dev0+1.g04319c6
 - q2-feature-classifier=2026.4.0.dev0
@@ -43,8 +43,8 @@ dependencies:
 - q2-quality-control=2026.4.0.dev0
 - q2-sample-classifier=2026.4.0.dev0
 - q2-taxa=2026.4.0.dev0
-- q2-types=2026.7.0.dev0+2.g732057a
-- q2-viromics=2026.7.0.dev0
+- q2-types=2026.7.0.dev0+3.g9fa1982
+- q2-viromics=2026.7.0.dev0+1.g829e1c6
 - q2-vizard=2026.7.0.dev0
 - q2cli=2026.7.0.dev0+2.gb268108
 - q2templates=2026.7.0.dev0+1.g4ad151f
@@ -52,7 +52,7 @@ dependencies:
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
-- rachis=2026.7.0.dev0+17.gbff5e4f
+- rachis=2026.7.0.dev0+18.ge5d84d9
 - rescript=2026.4.0.dev0
 - rnanorm=2.1.0
 - samtools=1.21

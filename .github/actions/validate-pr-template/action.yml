@@ -1,0 +1,24 @@
+name: 'Validate PR Template'
+inputs:
+  gh-token:
+    required: true
+  gh-repo:
+    required: true
+  pr-number:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'validate-pr-template'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+        GH_TOKEN: ${{ inputs.gh-token }}
+      run: |
+        cat <<EOF | validate-pr-template.py
+        ${{ toJSON(inputs) }}
+        EOF

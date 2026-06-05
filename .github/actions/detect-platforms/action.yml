@@ -1,0 +1,29 @@
+name: 'Detect supported platform environments'
+inputs:
+  epoch:
+    type: string
+    required: true
+  distro:
+    type: string
+    required: true
+
+outputs:
+  active-epoch:
+    value: ${{ steps.detect-platforms.outputs.active-epoch }}
+  platform-matrix:
+    value: ${{ steps.detect-platforms.outputs.platform-matrix }}
+
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'detect-platforms'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | detect-platforms.py
+        ${{ toJSON(inputs) }}
+        EOF

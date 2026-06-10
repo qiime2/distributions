@@ -94,6 +94,10 @@ packages:
   repo: qiime2/q2-longitudinal
   distros: [qiime2]
 
+- name: q2-mag
+  repo: bokulich-lab/q2-mag
+  distros: [moshpit]
+
 - name: q2-metadata
   repo: qiime2/q2-metadata
   distros: [tiny, qiime2, moshpit, pathogenome]

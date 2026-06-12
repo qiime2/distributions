@@ -32,14 +32,14 @@ dependencies:
 - q2-boots=2026.7.0.dev0+2.g78d7765
 - q2-composition=2026.7.0.dev0+1.gd509390
 - q2-cutadapt=2026.7.0.dev0+4.g1c7717d
-- q2-dada2=2026.7.0.dev0+3.ga79ad74
+- q2-dada2=2026.7.0.dev0+4.g541a364
 - q2-deblur=2026.7.0.dev0+1.g4747b9b
 - q2-demux=2026.7.0.dev0+1.g04319c6
 - q2-diversity-lib=2026.7.0.dev0+1.ga924dce
 - q2-diversity=2026.7.0.dev0+1.gede190c
 - q2-emperor=2026.7.0.dev0+1.g674e3e6
 - q2-feature-classifier=2026.7.0.dev0+2.gcf8521d
-- q2-feature-table=2026.7.0.dev0+1.gbc3a1f5
+- q2-feature-table=2026.7.0.dev0+3.g367ce23
 - q2-fondue=2026.7.0.dev0+2.g68184c2
 - q2-fragment-insertion=2026.7.0.dev0+1.g2774eec
 - q2-kmerizer=2026.7.0.dev0+1.gd491a28
@@ -55,7 +55,7 @@ dependencies:
 - q2-types=2026.7.0.dev0+3.g9fa1982
 - q2-vizard=2026.7.0.dev0
 - q2-vsearch=2026.7.0.dev0+2.ge6bf137
-- q2cli=2026.7.0.dev0+2.gb268108
+- q2cli=2026.7.0.dev0+3.g937a10d
 - q2galaxy=2026.4.0.dev0+1.gbb0dffe
 - q2templates=2026.7.0.dev0+1.g4ad151f
 - qiime2=2026.7.0.dev0

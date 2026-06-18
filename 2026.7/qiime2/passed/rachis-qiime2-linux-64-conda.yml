@@ -6,7 +6,7 @@ dependencies:
 - _openmp_mutex=4.5
 - _python_abi3_support=1.0
 - _r-mutex=1.0.1
-- alsa-lib=1.2.16
+- alsa-lib=1.2.16.1
 - altair=6.2.1
 - annotated-doc=0.0.4
 - annotated-types=0.7.0
@@ -15,7 +15,7 @@ dependencies:
 - asttokens=3.0.1
 - atpublic=7.0.0
 - attrs=26.1.0
-- backports.zstd=1.5.0
+- backports.zstd=1.6.0
 - bibtexparser=1.4.4
 - binutils_impl_linux-64=2.45.1
 - bioconductor-ancombc=2.12.0
@@ -94,7 +94,7 @@ dependencies:
 - fastp=1.0.1
 - fasttree=2.2.0
 - feedparser=6.0.12
-- filelock=3.29.3
+- filelock=3.29.4
 - flufl.lock=9.1.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -355,16 +355,16 @@ dependencies:
 - q2-fondue=2026.7.0.dev0+3.g413eb8a
 - q2-fragment-insertion=2026.7.0.dev0+2.gac3a8a6
 - q2-kmerizer=2026.7.0.dev0+8.ga799419
-- q2-longitudinal=2026.7.0.dev0+2.g89d05b4
+- q2-longitudinal=2026.7.0.dev0+3.gf3fbda1
 - q2-metadata=2026.7.0.dev0+3.g7aed8f8
 - q2-mystery-stew=2026.7.0.dev0+2.g49c4191
 - q2-phylogeny=2026.7.0.dev0+2.g89746b0
 - q2-quality-control=2026.7.0.dev0+2.gf4a650c
 - q2-quality-filter=2026.7.0.dev0+2.ge55bb63
-- q2-sample-classifier=2026.7.0.dev0+2.gba7b087
+- q2-sample-classifier=2026.7.0.dev0+3.g681ee8a
 - q2-stats=2026.7.0.dev0+2.g42b46ec
 - q2-taxa=2026.7.0.dev0+3.g8b2ddc1
-- q2-types=2026.7.0.dev0+5.gfeb103a
+- q2-types=2026.7.0.dev0+6.g2839482
 - q2-vizard=2026.7.0.dev0
 - q2-vsearch=2026.7.0.dev0+3.g5e24d33
 - q2cli=2026.7.0.dev0+3.g937a10d
@@ -539,7 +539,7 @@ dependencies:
 - r-rootsolve=1.8.2.4
 - r-rpart=4.1.27
 - r-rprojroot=2.1.1
-- r-rstudioapi=0.18.0
+- r-rstudioapi=0.19.0
 - r-rtsne=0.17
 - r-rvest=1.0.5
 - r-s7=0.2.2
@@ -573,7 +573,7 @@ dependencies:
 - r-viridislite=0.4.3
 - r-vroom=1.7.1
 - r-withr=3.0.2
-- r-xfun=0.57
+- r-xfun=0.58
 - r-xml2=1.5.2
 - r-xtable=1.8_8
 - r-yaml=2.3.12

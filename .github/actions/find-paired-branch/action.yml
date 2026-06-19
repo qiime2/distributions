@@ -1,0 +1,42 @@
+name: 'Find paired ci-dev branch'
+description: >-
+  For a `Paired-<id>` ci-dev run, search every package in data.yaml (other
+  than the calling repo) for a repo that has a branch matching `pair-ref`,
+  and resolve the effective distro to use for the paired run. Fails the
+  step (and therefore the calling job) if no sibling repo has a matching
+  branch, or if an effective distro cannot be resolved.
+inputs:
+  packages:
+    description: "JSON array of the 'packages' list from data.yaml"
+    required: true
+  self-repo:
+    description: "The calling repo, as 'org/repo' (e.g. github.repository)"
+    required: true
+  self-distro:
+    description: "The distro this ci-dev run was configured for (inputs.distro)"
+    required: true
+  pair-ref:
+    description: "The shared Paired-<id> branch name to search for in sibling repos"
+    required: true
+outputs:
+  paired-repos:
+    description: "JSON array of {name, repo} for matched sibling repos"
+    value: ${{ steps.find-paired.outputs.paired-repos }}
+  effective-distro:
+    description: "The distro to use for platform detection and seed envs in this paired run"
+    value: ${{ steps.find-paired.outputs.effective-distro }}
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'find-paired'
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | find-paired-branch.py
+        ${{ toJSON(inputs) }}
+        EOF

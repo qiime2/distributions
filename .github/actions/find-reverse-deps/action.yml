@@ -1,0 +1,49 @@
+name: 'Find reverse dependencies for Paired- CI run'
+description: >-
+  For a Paired- CI run, search the staged conda channel for packages (in the
+  effective distribution, by primary_distro) whose conda run-deps include one
+  or more of the paired plugins. Writes a formatted markdown comment body so
+  the caller can post it to the PR for manual review.
+inputs:
+  packages:
+    description: "JSON array of the 'packages' list from data.yaml"
+    required: true
+  self-name:
+    description: "Conda package name of the calling plugin (github.event.repository.name)"
+    required: true
+  paired-repos:
+    description: "JSON array of {name, repo} for sibling repos (from find-paired-branch)"
+    required: true
+  effective-distro:
+    description: "Effective distro resolved for this Paired- run"
+    required: true
+  active-epoch:
+    description: "Active epoch (e.g. 2026.7)"
+    required: true
+outputs:
+  comment-body:
+    description: "Formatted markdown body for the reverse-deps PR comment"
+    value: ${{ steps.capture.outputs.comment-body }}
+
+runs:
+  using: composite
+  steps:
+    - id: setup-path
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+
+    - id: find-reverse-deps
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | find-reverse-deps.py
+        ${{ toJSON(inputs) }}
+        EOF
+
+    - id: capture
+      shell: bash
+      run: |
+        echo "comment-body<<REVERSE_DEPS_EOF" >> "$GITHUB_OUTPUT"
+        cat /tmp/reverse-deps-comment.md >> "$GITHUB_OUTPUT"
+        echo "REVERSE_DEPS_EOF" >> "$GITHUB_OUTPUT"

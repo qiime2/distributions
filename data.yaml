@@ -6,168 +6,215 @@ active_epoch: "2026.7"
 next_epoch: "2026.10"
 # qiime2 distro (formerly amplicon) renamed for rachis release 2026.4
 distros: [tiny, qiime2, moshpit, pathogenome, test]
+# primary_distro refers to the distribution used to run ci-dev for each plugin
 packages:
 
 # moshpit proxy package
 - name: moshpit
   repo: bokulich-lab/MOSHPIT
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-alignment
   repo: qiime2/q2-alignment
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-amrfinderplus
   repo: bokulich-lab/q2-amrfinderplus
   distros: [pathogenome]
+  primary_distro: pathogenome
 
 # formerly q2-moshpit
 - name: q2-annotate
   repo: bokulich-lab/q2-annotate
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-assembly
   repo: bokulich-lab/q2-assembly
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-boots
   repo: caporaso-lab/q2-boots
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-composition
   repo: qiime2/q2-composition
   distros: [qiime2, test]
+  primary_distro: qiime2
 
 - name: q2-cutadapt
   repo: qiime2/q2-cutadapt
   distros: [qiime2, moshpit]
+  primary_distro: qiime2
 
 - name: q2-dada2
   repo: qiime2/q2-dada2
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-deblur
   repo: qiime2/q2-deblur
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-demux
   repo: qiime2/q2-demux
   distros: [qiime2, moshpit, pathogenome]
+  primary_distro: qiime2
 
 - name: q2-diversity-lib
   repo: qiime2/q2-diversity-lib
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-diversity
   repo: qiime2/q2-diversity
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-emperor
   repo: qiime2/q2-emperor
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-fastp
   repo: bokulich-lab/q2-fastp
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-feature-table
   repo: qiime2/q2-feature-table
   distros: [qiime2, moshpit, pathogenome]
+  primary_distro: qiime2
 
 - name: q2-fondue
   repo: bokulich-lab/q2-fondue
   distros: [qiime2, moshpit, test]
+  primary_distro: moshpit
 
 - name: q2-fragment-insertion
   repo: qiime2/q2-fragment-insertion
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-kmerizer
   repo: bokulich-lab/q2-kmerizer
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-longitudinal
   repo: qiime2/q2-longitudinal
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-mag
   repo: bokulich-lab/q2-mag
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-metadata
   repo: qiime2/q2-metadata
   distros: [tiny, qiime2, moshpit, pathogenome]
+  primary_distro: tiny
 
 - name: q2-mystery-stew
   repo: qiime2/q2-mystery-stew
   distros: [tiny, qiime2, moshpit, pathogenome]
+  primary_distro: tiny
 
 - name: q2-phylogeny
   repo: qiime2/q2-phylogeny
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-quality-control
   repo: qiime2/q2-quality-control
   distros: [qiime2, moshpit]
+  primary_distro: qiime2
 
 - name: q2-quality-filter
   repo: qiime2/q2-quality-filter
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-sample-classifier
   repo: qiime2/q2-sample-classifier
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-sapienns
   repo: caporaso-lab/q2-sapienns
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-sourmash
   repo: dib-lab/q2-sourmash
   distros: [moshpit]
+  primary_distro: moshpit
 
 - name: q2-stats
   repo: qiime2/q2-stats
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2-taxa
   repo: qiime2/q2-taxa
   distros: [qiime2, moshpit]
+  primary_distro: qiime2
 
 - name: q2-types
   repo: qiime2/q2-types
   distros: [tiny, qiime2, moshpit, pathogenome, test]
+  primary_distro: tiny
 
 - name: q2-viromics
   repo: bokulich-lab/q2-viromics
   distros: [pathogenome]
+  primary_distro: pathogenome
 
 - name: q2-vizard
   repo: qiime2/q2-vizard
   distros: [qiime2, moshpit, pathogenome]
+  primary_distro: qiime2
 
 - name: q2-vsearch
   repo: qiime2/q2-vsearch
   distros: [qiime2]
+  primary_distro: qiime2
 
 - name: q2cli
   repo: qiime2/q2cli
   distros: [tiny, qiime2, moshpit, pathogenome, test]
+  primary_distro: tiny
 
 - name: q2templates
   repo: qiime2/q2templates
   distros: [tiny, qiime2, moshpit, pathogenome, test]
+  primary_distro: tiny
 
 # qiime2 proxy package
+# note: this repo does not use lib-ci-dev.yaml (custom nox/uv-based CI with no
+# `distro:` concept), so primary_distro is intentionally omitted.
+# Paired ci-dev discovery treats a missing primary_distro on a sibling as:
+# skip the sibling.primary_distro containment check
+# else: fall back to self.primary_distro in sibling.distros
 - name: qiime2
   repo: qiime2/q2
   distros: [tiny, qiime2, moshpit, pathogenome, test]
 
 # formerly qiime2
+# note: this repo does not use lib-ci-dev.yaml (custom nox/uv-based CI with no
+# `distro:` concept), so primary_distro is intentionally omitted.
+# See note on the `qiime2` proxy package above.
 - name: rachis
   repo: rachis-org/rachis
   distros: [tiny, qiime2, moshpit, pathogenome, test]
@@ -175,3 +222,4 @@ packages:
 - name: rescript
   repo: bokulich-lab/RESCRIPt
   distros: [qiime2, moshpit]
+  primary_distro: qiime2

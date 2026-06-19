@@ -55,21 +55,65 @@ jobs:
     outputs:
       active-epoch: ${{ steps.platform-support.outputs.active-epoch }}
       platform-matrix: ${{ steps.platform-support.outputs.platform-matrix }}
+      is-paired: ${{ steps.detect-paired.outputs.is-paired }}
+      pair-ref: ${{ steps.detect-paired.outputs.pair-ref }}
+      paired-repos: ${{ steps.find-paired.outputs.paired-repos }}
+      effective-distro: ${{ steps.effective-distro.outputs.effective-distro }}
     steps:
       - uses: actions/checkout@v3
         with:
           repository: qiime2/distributions
+
+      - name: "install ghapi"
+        run: |
+          pip install ghapi==1.0.6
+
       - name: "get distro info"
         id: yaml
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
+
+      - name: "detect Paired- branch"
+        id: detect-paired
+        shell: bash
+        run: |
+          head_ref='${{ github.head_ref }}'
+
+          if [[ "$head_ref" == Paired-* ]]; then
+            echo "is-paired=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is-paired=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "pair-ref=$(echo "$head_ref" | cut -f1 -d/)" >> "$GITHUB_OUTPUT"
+
+      - name: "find paired branch & resolve effective distro"
+        id: find-paired
+        if: steps.detect-paired.outputs.is-paired == 'true'
+        uses: qiime2/distributions/.github/actions/find-paired-branch@dev
+        with:
+          packages: ${{ toJSON(fromJSON(steps.yaml.outputs.data).packages) }}
+          self-repo: ${{ github.repository }}
+          self-distro: ${{ inputs.distro }}
+          pair-ref: ${{ steps.detect-paired.outputs.pair-ref }}
+
+      - name: "determine effective distro"
+        id: effective-distro
+        shell: bash
+        run: |
+          if [ '${{ steps.detect-paired.outputs.is-paired }}' == 'true' ]; then
+            echo "effective-distro=${{ steps.find-paired.outputs.effective-distro }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "effective-distro=${{ inputs.distro }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: detect supported platform environments
         id: platform-support
         uses: qiime2/distributions/.github/actions/detect-platforms@dev
         with:
           epoch: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
-          distro: ${{ inputs.distro }}
+          distro: ${{ steps.effective-distro.outputs.effective-distro }}
 
   lint:
     runs-on: ubuntu-latest
@@ -114,7 +158,7 @@ jobs:
     env:
       plugin_path: ./repo
       built_channel_path: ./built-channel
-      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ inputs.distro }}/staged/${{ matrix.seed_environment_file }}
+      seed_env_path: ${{ needs.setup.outputs.active-epoch }}/${{ needs.setup.outputs.effective-distro }}/staged/${{ matrix.seed_environment_file }}
       env_prefix: ./test-env
       CONDA_SUBDIR: ${{ matrix.conda_subdir_env }}
     steps:
@@ -138,7 +182,7 @@ jobs:
       - name: 'Set up test environment'
         run: |
           conda create -y -p ${{ env.env_prefix }}
-          mkdir -p ${{ env.env_prefix }}/etc
+          mkdir -p '${{ env.env_prefix }}/etc'
           cat <<EOF > '${{ env.env_prefix }}/etc/activate.sh'
             . "$CONDA/etc/profile.d/conda.sh"
             conda activate '${{ env.env_prefix }}'
@@ -170,14 +214,96 @@ jobs:
           channels: ${{ steps.make-cbc.outputs.channels }}
           output-channel: ${{ env.built_channel_path }}
 
+        # paired runs will skip conda install
+        # this is due to the dev build's version string, which may
+        # not satisfy other distro packages' constraints (e.g. a 2021.8.dev0
+        # build vs. a staged 2026.7 env)
+        # The 'Install paired package(s) deps' step handles seeding the env
+        # from the staged channel, and make dev replaces the staged version
+        # with the editable dev build.
       - uses: qiime2/action-library-packaging/install-package@beta
         name: 'Install ${{ github.event.repository.name }}'
+        if: needs.setup.outputs.is-paired != 'true'
         with:
           conda-activate: ${{ steps.setup-conda.outputs.conda-activate }}
           package-name: ${{ steps.build-package.outputs.package-name }}
           package-version: ${{ steps.build-package.outputs.package-version }}
           conda-prefix: ${{ env.env_prefix }}
           channels: ${{ steps.make-cbc.outputs.channels }}
+
+        # For paired runs, install both the primary package and its sibling(s)
+        # from the staged channel before running `make dev`
+        # This ensures all transitive deps (e.g. q2-feature-table, rachis)
+        # are present in the test env regardless of
+        # which direction the dependency runs
+        # `make dev` then replaces the staged conda versions
+        # with editable installs from the dev branches.
+      - name: 'Install paired package(s) deps into test environment'
+        if: needs.setup.outputs.is-paired == 'true'
+        shell: bash
+        env:
+          CHANNELS_JSON: ${{ steps.make-cbc.outputs.channels }}
+          PAIRED_REPOS: ${{ needs.setup.outputs.paired-repos }}
+          SELF_PKG: ${{ steps.build-package.outputs.package-name }}
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+
+          channel_args=()
+          while IFS= read -r channel; do
+            channel_args+=(-c "$channel")
+          done < <(python -c "import json, os; print('\n'.join(json.loads(os.environ['CHANNELS_JSON'])))")
+
+          sibling_names=()
+          while IFS= read -r name; do
+            sibling_names+=("$name")
+          done < <(echo "$PAIRED_REPOS" | jq -r '.[].name')
+
+          conda install -p '${{ env.env_prefix }}' \
+            "$SELF_PKG" "${sibling_names[@]}" \
+            "${channel_args[@]}" --override-channels --quiet -y
+
+      - name: 'Install ${{ github.event.repository.name }} into test environment via make dev'
+        if: needs.setup.outputs.is-paired == 'true'
+        shell: bash
+        run: |
+          source '${{ env.env_prefix }}/etc/activate.sh'
+          conda activate '${{ env.env_prefix }}'
+          pushd '${{ env.plugin_path }}'
+          make dev
+          popd
+
+      - name: 'Install paired dev package(s) into test environment'
+        if: needs.setup.outputs.is-paired == 'true'
+        shell: bash
+        env:
+          # passed via env to avoid shell quoting issues with embedded quotes
+          # in the JSON array
+          GH_TOKEN: ${{ github.token }}
+          PAIRED_REPOS: ${{ needs.setup.outputs.paired-repos }}
+          PAIR_REF: ${{ needs.setup.outputs.pair-ref }}
+        run: |
+          git config --global \
+            url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf \
+            "https://github.com/"
+
+          source '${{ env.env_prefix }}/etc/activate.sh'
+          conda activate '${{ env.env_prefix }}'
+
+          repos=()
+          while IFS= read -r repo_json; do
+            repos+=("$repo_json")
+          done < <(echo "$PAIRED_REPOS" | jq -c '.[]')
+          for repo_json in "${repos[@]}"; do
+            name=$(echo "$repo_json" | jq -r '.name')
+            repo=$(echo "$repo_json" | jq -r '.repo')
+            echo "Cloning ${repo} @ ${PAIR_REF}"
+            git clone --depth=1 --branch "${PAIR_REF}" \
+              "https://github.com/${repo}.git" "./paired-${name}"
+            pushd "./paired-${name}"
+            echo "Running make dev for ${name}"
+            make dev
+            popd
+          done
 
       - name: 'set up yaml for test env'
         shell: bash
@@ -186,12 +312,29 @@ jobs:
           conda activate '${{ env.env_prefix }}'
           pip install pyyaml
 
+        # paired runs skip test-package@beta
+        # normal process does a fresh conda install of the built packages'
+        # `requires` overwriting the make dev installs (paired dev versions)
+        # with staged conda packages and re-introduces
+        # the type/API conflicts that the Paired branches exist to resolve.
       - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'
+        if: needs.setup.outputs.is-paired != 'true'
         with:
           conda-activate: source ${{ env.env_prefix }}/etc/activate.sh
           package-path: ${{ env.built_channel_path }}/${{ steps.build-package.outputs.conda-subdir }}/${{ steps.build-package.outputs.package-filename }}
           channels: ${{ steps.make-cbc.outputs.channels }}
+
+      - name: 'Test ${{ github.event.repository.name }} (paired dev environment)'
+        if: needs.setup.outputs.is-paired == 'true'
+        shell: bash
+        run: |
+          source '${{ env.env_prefix }}/etc/activate.sh'
+          conda activate '${{ env.env_prefix }}'
+          # derive the Python module name from the package name (- -> _)
+          pkg_module='${{ steps.build-package.outputs.package-name }}'
+          pkg_module="${pkg_module//-/_}"
+          python -m pytest --pyargs "$pkg_module"
 
       - uses: actions/upload-artifact@v4
         if: ${{ matrix.upload_reports && inputs.additional-reports-path != '' }}
@@ -200,3 +343,60 @@ jobs:
           name: ${{ inputs.additional-reports-name }}
           path: ${{ inputs.additional-reports-path }}
           overwrite: true
+
+  # report on the listed reverse dependencies for each paired plugin as a
+  # comment on the PR, prompting the PR author to check each rev dep's calls
+  # to the parent in case of any API/breaking changes that need to be updated
+  comment-reverse-deps:
+    needs: [setup, build-and-test]
+    if: github.event_name == 'pull_request' && needs.setup.outputs.is-paired == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/distributions
+
+      - name: install dependencies
+        run: pip install ghapi==1.0.6
+
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+      - name: "find reverse dependencies"
+        id: find-reverse-deps
+        uses: qiime2/distributions/.github/actions/find-reverse-deps@dev
+        with:
+          packages: ${{ toJSON(fromJSON(steps.yaml.outputs.data).packages) }}
+          self-name: ${{ github.event.repository.name }}
+          paired-repos: ${{ needs.setup.outputs.paired-repos }}
+          effective-distro: ${{ needs.setup.outputs.effective-distro }}
+          active-epoch: ${{ needs.setup.outputs.active-epoch }}
+
+      - name: "post PR comment"
+        uses: actions/github-script@v7
+        env:
+          COMMENT_BODY: ${{ steps.find-reverse-deps.outputs.comment-body }}
+        with:
+          script: |
+            const marker = '<!-- paired-ci-dev-reverse-deps -->';
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            if (comments.some(c => c.body.includes(marker))) {
+              console.log('Reverse-deps comment already exists; skipping.');
+              return;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: process.env.COMMENT_BODY,
+            });

@@ -313,7 +313,7 @@ dependencies:
 - pyrodigal-gv=0.3.2
 - pyside6=6.9.2
 - pysocks=1.7.1
-- pytest=9.1.0
+- pytest=9.1.1
 - python=3.12.13
 - python-crfsuite=0.9.12
 - python-dateutil=2.9.0.post0
@@ -332,7 +332,7 @@ dependencies:
 - q2-mystery-stew=2026.7.0.dev0+2.g49c4191
 - q2-types=2026.7.0.dev0+7.g451ab0f
 - q2-viromics=2026.7.0.dev0+2.gef76c47
-- q2-vizard=2026.7.0.dev0
+- q2-vizard=2026.7.0.dev0+1.gf7ba317
 - q2cli=2026.7.0.dev0+3.g937a10d
 - q2templates=2026.7.0.dev0+2.g5165ab2
 - qhull=2020.2
@@ -350,7 +350,7 @@ dependencies:
 - r-reticulate=1.45.0
 - r-rlang=1.2.0
 - r-rprojroot=2.1.1
-- r-withr=3.0.2
+- r-withr=3.0.3
 - rachis=2026.7.0.dev0+19.gbc0066e
 - re2=2024.07.02
 - readline=8.3

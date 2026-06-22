@@ -25,16 +25,22 @@ These are used by maintainers to build and deploy various components of a QIIME 
 ### Specialized branch behavior
 For the distro-trial workflows, the behavior will depend on the branch name:
 
-The most general behavior is to identify what has changed in the environment, patch dependent plugins to support any different versions, and run tests. In the event a branch matching the name of the source PRs branch is found in the plugin, that plugin will be rebuilt from that branch before building the distro and testing.
+The most general behavior is to identify what has changed in the environment, patch dependent plugins to support any different versions, and run tests. In the event a branch matching the name of the source PR's branch is found in the plugin, that plugin will be rebuilt from that branch before building the distro and testing (not applicable to `Paired-*` runs).
 
+#### `Prepare-*`
 When the distributions branch matches the pattern `Prepare-<platform-label>-<epoch>/<distro>[anything else]`,
 the matching platform trial will run. Valid platform labels are `linux-64`, `osx-64`, and `osx-arm64`. All packages will be rebuilt and tested from the default branch. Built packages will be uploaded as a conda channel to [packages.qiime2.org](https://packages.qiime2.org/qiime2) under the respective `/qiime2/<epoch>/<distro>/passed/` directory.
 
+#### `Language-*`
 When the distributions branch matches the pattern `Language-<platform-label>-<anything>/<distro>[anything else]`,
 the matching platform trial will run. Packages will be rebuilt and tested from the plugin's `Language-<anything>` branch if it exists, else the default branch. It is recommended to set the PR to a draft so that built packages are not uploaded under the `/passed/` directory. Once this PR has passed all checks, it can be converted from draft status and the final action (`upload-builds/commit-changes`) will need to be re-run in order for all of the packages to be uploaded to the relevant channel.
 
+#### `Release-*`
 When the distributions branch matches the pattern `Release-<epoch>/<distro>[anything else]`,
 all available platform trials for that distro will run. `linux-64` runs from the Linux seed environment change, and macOS routing is determined by the resolved environment files present under `passed/` for that distro (currently `rachis-<distro>-osx-64-conda.yml` and `rachis-<distro>-osx-arm64-conda.yml`). Packages will be rebuilt and tested from the corresponding plugin `Release-<epoch>` branch if it exists, else the default branch. Built packages will be uploaded as a conda channel to [packages.qiime2.org](https://packages.qiime2.org/qiime2) under the respective `/qiime2/<epoch>/<distro>/released/` directory.
+
+#### `Paired-*`
+Unlike the distro trial branch patterns above, `Paired-*` is a convention used on plugin repositories. When a repository's branch matches the pattern `Paired-<anything>`, a modified version of the standard `ci-dev` workflow will run that will first install the shared distribution for all repositories that have a matching `Paired-*` branch. Within this environment, an editable install (via `make dev`) for each `Paired-*` branch will be used to run the tests. This allows for all necessary changes to be present within the environment, so multi-plugin dependent changes can be tested simultaneously. As an example, for a `Paired-*` branch shared by `q2-types` and `q2-sample-classifier`, the effective distribution resolved for the run would be `qiime2`. After the test suite passes on an open PR, an automated comment will be added that lists the reverse dependencies for the plugin associated with the open PR. This serves as a reminder for any API changes or compatibility updates associated with the `Paired-*` changes to be manually reviewed. An example of this paired PR behavior and automated comment format can be found in [q2-types](https://github.com/qiime2/q2-types/pull/396) and [q2-sample-classifier](https://github.com/qiime2/q2-sample-classifier/pull/248).
 
 ## Creating a new distribution
 When creating a new distribution, the following steps should be taken.

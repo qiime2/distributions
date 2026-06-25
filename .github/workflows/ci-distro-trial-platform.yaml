@@ -28,6 +28,16 @@ jobs:
       seed_environment_file: ${{ inputs.seed_environment_file }}
       target_subdirs: ${{ inputs.target_subdirs }}
 
+  rerun-prepare-on-failure:
+    needs: [prepare]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   rebuild-0:
     needs: [prepare]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[0] != null }}
@@ -47,6 +57,16 @@ jobs:
       runner_label: ${{ inputs.runner_label }}
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rerun-rebuild0-on-failure:
+    needs: [rebuild-0]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
 
   rebuild-1:
     needs: [prepare, rebuild-0]
@@ -68,6 +88,16 @@ jobs:
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
+  rerun-rebuild1-on-failure:
+    needs: [rebuild-1]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   rebuild-2:
     needs: [prepare, rebuild-1]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[2] != null }}
@@ -87,6 +117,16 @@ jobs:
       runner_label: ${{ inputs.runner_label }}
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rerun-rebuild2-on-failure:
+    needs: [rebuild-2]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
 
   rebuild-3:
     needs: [prepare, rebuild-2]
@@ -108,6 +148,16 @@ jobs:
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
+  rerun-rebuild3-on-failure:
+    needs: [rebuild-3]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   rebuild-4:
     needs: [prepare, rebuild-3]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[4] != null }}
@@ -127,6 +177,16 @@ jobs:
       runner_label: ${{ inputs.runner_label }}
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rerun-rebuild4-on-failure:
+    needs: [rebuild-4]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
 
   rebuild-5:
     needs: [prepare, rebuild-4]
@@ -148,6 +208,16 @@ jobs:
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
+  rerun-rebuild5-on-failure:
+    needs: [rebuild-5]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   rebuild-6:
     needs: [prepare, rebuild-5]
     if: ${{ fromJSON(needs.prepare.outputs.generation-matrix)[6] != null }}
@@ -167,6 +237,16 @@ jobs:
       runner_label: ${{ inputs.runner_label }}
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
+
+  rerun-rebuild6-on-failure:
+    needs: [rebuild-6]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
 
   rebuild-7:
     needs: [prepare, rebuild-6]
@@ -188,6 +268,16 @@ jobs:
       seed_environment_file: ${{ inputs.seed_environment_file }}
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
+  rerun-rebuild7-on-failure:
+    needs: [rebuild-7]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   build-metapackage:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
@@ -202,6 +292,16 @@ jobs:
       platform_label: ${{ inputs.platform_label }}
       seed_environment_file: ${{ inputs.seed_environment_file }}
 
+  rerun-build-metapackage-on-failure:
+    needs: [build-metapackage]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   test-metapackage:
     needs: [prepare, build-metapackage]
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
@@ -214,6 +314,16 @@ jobs:
       distro-name: rachis-${{ needs.prepare.outputs.distro }}
       runner_label: ${{ inputs.runner_label }}
       platform_label: ${{ inputs.platform_label }}
+
+  rerun-test-metapackage-on-failure:
+    needs: [test-metapackage]
+    if: failure() && fromJSON(github.run_attempt) < 3
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
 
   upload-builds:
     needs: [prepare, test-metapackage]

@@ -127,6 +127,16 @@ jobs:
           echo "gh-response=$GH_RESPONSE" >> "$GITHUB_OUTPUT"
           echo "merged=$MERGED" >> "$GITHUB_OUTPUT"
 
+  rerun-await-workflow-on-failure:
+  needs: [await-workflow]
+  if: failure() && fromJSON(github.run_attempt) < 3
+  runs-on: ubuntu-latest
+  steps:
+    - env:
+        GH_REPO: ${{ github.repository }}
+        GH_TOKEN: ${{ github.token }}
+      run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+
   update-latest-envs:
     needs: [create-pr, await-workflow]
     runs-on: ubuntu-latest

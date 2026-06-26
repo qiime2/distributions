@@ -25,7 +25,7 @@ These are used by maintainers to build and deploy various components of a QIIME 
 ### Specialized branch behavior
 For the distro-trial workflows, the behavior will depend on the branch name:
 
-The most general behavior is to identify what has changed in the environment, patch dependent plugins to support any different versions, and run tests. In the event a branch matching the name of the source PR's branch is found in the plugin, that plugin will be rebuilt from that branch before building the distro and testing (not applicable to `Paired-*` runs).
+The most general behavior is to identify what has changed in the environment, patch dependent plugins to support any different versions, and run tests. In the event a branch matching the name of the source PR's branch is found in the plugin, that plugin will be rebuilt from that branch before building the distro and testing (not applicable to `Paired-*` runs). Note that for all specialized branch behavior listed below, branches must be created from the canonical repositor(ies) in question, rather than from a fork of the canonical.
 
 #### `Prepare-*`
 When the distributions branch matches the pattern `Prepare-<platform-label>-<epoch>/<distro>[anything else]`,

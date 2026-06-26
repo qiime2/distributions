@@ -317,6 +317,48 @@ jobs:
         # `requires` overwriting the make dev installs (paired dev versions)
         # with staged conda packages and re-introduces
         # the type/API conflicts that the Paired branches exist to resolve.
+
+      - name: 'Install test dependencies for ${{ github.event.repository.name }}'
+        if: needs.setup.outputs.is-paired == 'true'
+        shell: bash
+        env:
+          CHANNELS_JSON: ${{ steps.make-cbc.outputs.channels }}
+        run: |
+          ${{ steps.setup-conda.outputs.conda-activate }}
+
+          test_requires=$(
+            conda render '${{ env.plugin_path }}/${{ inputs.recipe-path }}' \
+              2>/dev/null \
+            | python3 -c "
+          import sys, yaml
+          meta = yaml.safe_load(sys.stdin)
+          requires = meta.get('test', {}).get('requires', [])
+          for r in requires:
+              print(r)
+          "
+          )
+
+          if [ -z "$test_requires" ]; then
+            echo "No test requirements found in meta.yaml, skipping."
+            exit 0
+          fi
+
+          channel_args=()
+          while IFS= read -r channel; do
+            channel_args+=(-c "$channel")
+          done < <(python3 -c "
+          import json, os
+          print('\n'.join(json.loads(os.environ['CHANNELS_JSON'])))
+          ")
+
+          echo "Installing test requirements:"
+          echo "$test_requires"
+          mapfile -t test_req_array <<< "$test_requires"
+          conda install \
+            -p '${{ env.env_prefix }}' \
+            "${test_req_array[@]}" \
+            "${channel_args[@]}" --quiet -y
+
       - uses: qiime2/action-library-packaging/test-package@beta
         name: 'Test ${{ github.event.repository.name }}'
         if: needs.setup.outputs.is-paired != 'true'

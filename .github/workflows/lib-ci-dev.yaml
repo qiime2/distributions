@@ -324,19 +324,23 @@ jobs:
         env:
           CHANNELS_JSON: ${{ steps.make-cbc.outputs.channels }}
         run: |
-          ${{ steps.setup-conda.outputs.conda-activate }}
+          source '${{ env.env_prefix }}/etc/activate.sh'
 
-          test_requires=$(
-            conda render '${{ env.plugin_path }}/${{ inputs.recipe-path }}' \
-              2>/dev/null \
-            | python3 -c "
-          import sys, yaml
-          meta = yaml.safe_load(sys.stdin)
+          test_requires=$(python3 -c "
+          import re, yaml
+
+          recipe = '${{ env.plugin_path }}/${{ inputs.recipe-path }}/meta.yaml'
+          with open(recipe) as f:
+              content = f.read()
+
+          content = re.sub(r'\{%.*?%\}', '', content, flags=re.DOTALL)
+          content = re.sub(r'\{\{.*?\}\}', '\"\"', content)
+
+          meta = yaml.safe_load(content) or {}
           requires = meta.get('test', {}).get('requires', [])
           for r in requires:
               print(r)
-          "
-          )
+          ")
 
           if [ -z "$test_requires" ]; then
             echo "No test requirements found in meta.yaml, skipping."

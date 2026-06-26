@@ -13,6 +13,7 @@ dependencies:
 - entrezpy=2.1.3
 - fastp=1.0.1
 - frictionless=5.5.0
+- gfatools=0.5.5
 - h5py=3.15.1
 - hdf5=1.14.6
 - mafft=7.526
@@ -34,7 +35,7 @@ dependencies:
 - q2-deblur=2026.7.0.dev0+2.gee04a62
 - q2-demux=2026.7.0.dev0+2.g4b97f87
 - q2-diversity-lib=2026.7.0.dev0+2.g6f8390a
-- q2-diversity=2026.7.0.dev0+3.g409a438
+- q2-diversity=2026.7.0.dev0+4.gee448fe
 - q2-emperor=2026.7.0.dev0+2.g6eec0dc
 - q2-feature-classifier=2026.7.0.dev0+3.g0ca720a
 - q2-feature-table=2026.7.0.dev0+5.g996c120
@@ -45,15 +46,15 @@ dependencies:
 - q2-metadata=2026.7.0.dev0+3.g7aed8f8
 - q2-mystery-stew=2026.7.0.dev0+2.g49c4191
 - q2-phylogeny=2026.7.0.dev0+2.g89746b0
-- q2-quality-control=2026.7.0.dev0+2.gf4a650c
+- q2-quality-control=2026.7.0.dev0+3.g11fe8cf
 - q2-quality-filter=2026.7.0.dev0+2.ge55bb63
 - q2-sample-classifier=2026.7.0.dev0+3.g681ee8a
 - q2-stats=2026.7.0.dev0+2.g42b46ec
-- q2-taxa=2026.7.0.dev0+4.gebf576e
+- q2-taxa=2026.7.0.dev0+5.g4409de2
 - q2-types=2026.7.0.dev0+7.g451ab0f
 - q2-vizard=2026.7.0.dev0+1.gf7ba317
 - q2-vsearch=2026.7.0.dev0+3.g5e24d33
-- q2cli=2026.7.0.dev0+3.g937a10d
+- q2cli=2026.7.0.dev0+4.g2243ea4
 - q2templates=2026.7.0.dev0+2.g5165ab2
 - qiime2=2026.7.0.dev0
 - r-base=4.5.2

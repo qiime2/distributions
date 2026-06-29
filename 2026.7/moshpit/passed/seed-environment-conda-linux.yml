@@ -34,8 +34,8 @@ dependencies:
 - pyarrow=16.1.0
 - pysam=0.23.3
 - python=3.12
-- q2-annotate=2026.7.0.dev0+11.g1fc976f
-- q2-assembly=2026.7.0.dev0+4.g1357630
+- q2-annotate=2026.7.0.dev0+12.g8067502
+- q2-assembly=2026.7.0.dev0+5.gcfdd96c
 - q2-cutadapt=2026.7.0.dev0+6.gcb2b53c
 - q2-demux=2026.7.0.dev0+2.g4b97f87
 - q2-fastp=2026.7.0.dev0+2.gce929e0
@@ -44,12 +44,12 @@ dependencies:
 - q2-mag=2026.7.0.dev0
 - q2-metadata=2026.7.0.dev0+3.g7aed8f8
 - q2-mystery-stew=2026.7.0.dev0+2.g49c4191
-- q2-quality-control=2026.7.0.dev0+3.g11fe8cf
+- q2-quality-control=2026.7.0.dev0+4.ga964e20
 - q2-sapienns=2026.7.0.dev0+1.g3203792
 - q2-sourmash=2026.7.0.dev0+1.g4a229ff
 - q2-taxa=2026.7.0.dev0+5.g4409de2
 - q2-types=2026.7.0.dev0+7.g451ab0f
-- q2-vizard=2026.7.0.dev0+1.gf7ba317
+- q2-vizard=2026.7.0.dev0+2.g2d288d4
 - q2cli=2026.7.0.dev0+4.g2243ea4
 - q2templates=2026.7.0.dev0+2.g5165ab2
 - qiime2=2026.7.0.dev0

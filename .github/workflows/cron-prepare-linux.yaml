@@ -31,3 +31,10 @@ jobs:
     secrets: inherit
     with:
       distro: pathogenome
+
+  docker-moshpit:
+    needs: [moshpit]
+    uses: ./.github/workflows/dev-docker.yaml
+    secrets: inherit
+    with:
+      distro: moshpit

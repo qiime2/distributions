@@ -355,7 +355,10 @@ jobs:
           installed_pkgs=$(conda list -p '${{ env.env_prefix }}' \
             | grep -v '^#' | awk '{print $1}')
 
-          mapfile -t test_req_array <<< "$test_requires"
+          test_req_array=()
+          while IFS= read -r line; do
+            test_req_array+=("$line")
+          done <<< "$test_requires"
 
           to_install=()
           for req in "${test_req_array[@]}"; do

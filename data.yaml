@@ -37,7 +37,7 @@ packages:
   primary_distro: moshpit
 
 - name: q2-boots
-  repo: caporaso-lab/q2-boots
+  repo: qiime2/q2-boots
   distros: [qiime2]
   primary_distro: qiime2
 

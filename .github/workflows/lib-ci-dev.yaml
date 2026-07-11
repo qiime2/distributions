@@ -351,12 +351,32 @@ jobs:
           print('\n'.join(json.loads(os.environ['CHANNELS_JSON'])))
           ")
 
-          echo "Installing test requirements:"
-          echo "$test_requires"
+          # get installed package names (covers both conda and pip-installed packages)
+          installed_pkgs=$(conda list -p '${{ env.env_prefix }}' --no-header \
+            | awk '{print $1}')
+
           mapfile -t test_req_array <<< "$test_requires"
+
+          to_install=()
+          for req in "${test_req_array[@]}"; do
+            pkg_name=$(echo "$req" | sed 's/[>=<!].*//' | tr -d ' ')
+            if echo "$installed_pkgs" | grep -qx "$pkg_name"; then
+              echo "Skipping '$req' (already present in environment)"
+            else
+              to_install+=("$req")
+            fi
+          done
+
+          if [ ${#to_install[@]} -eq 0 ]; then
+            echo "All test requirements already satisfied, skipping."
+            exit 0
+          fi
+
+          echo "Installing test requirements:"
+          printf '  %s\n' "${to_install[@]}"
           conda install \
             -p '${{ env.env_prefix }}' \
-            "${test_req_array[@]}" \
+            "${to_install[@]}" \
             "${channel_args[@]}" --quiet -y
 
       - uses: qiime2/action-library-packaging/test-package@beta

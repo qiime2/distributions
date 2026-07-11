@@ -363,7 +363,10 @@ jobs:
             if echo "$installed_pkgs" | grep -qx "$pkg_name"; then
               echo "Skipping '$req' (already present in environment)"
             else
-              to_install+=("$req")
+              # strip Jinja2-templated version constraints that became invalid
+              # after regex stripping (e.g. '>=""' from '{{ version }}')
+              clean_req=$(echo "$req" | sed 's/ *[>=<!]*""$//')
+              to_install+=("$clean_req")
             fi
           done
 

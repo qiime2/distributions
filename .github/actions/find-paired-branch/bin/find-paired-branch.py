@@ -1,16 +1,33 @@
 #!/usr/bin/env python
-from ghapi.all import GhApi, paged
+import os
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from alp.common import ActionAdapter
 from alp.paired import resolve_effective_distro_for_matches, PairedDistroError
 
 
-def is_branch_in_pager(pager, branch):
-    for page in pager:
-        for page_branch in page:
-            if branch == page_branch['name']:
-                return True
-    return False
+def branch_exists(repo, branch):
+    owner, repo_name = repo.split('/')
+    encoded = urllib.parse.quote(branch, safe='')
+    url = (f'https://api.github.com/repos/{owner}/{repo_name}'
+           f'/branches/{encoded}')
+    headers = {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+    }
+    token = os.environ.get('GITHUB_TOKEN', '')
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+    req = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(req):
+            return True
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return False
+        raise
 
 
 def main(packages, self_repo, self_distro, pair_ref):
@@ -25,12 +42,10 @@ def main(packages, self_repo, self_distro, pair_ref):
 
     candidates = [p for p in packages if p['repo'] != self_repo]
 
-    api = GhApi()
     matches = []
     for package in candidates:
         repo = package['repo']
-        pager = paged(api.repos.list_branches, *repo.split('/'))
-        if is_branch_in_pager(pager, pair_ref):
+        if branch_exists(repo, pair_ref):
             matches.append(package)
 
     if not matches:

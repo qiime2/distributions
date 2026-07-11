@@ -64,10 +64,6 @@ jobs:
         with:
           repository: qiime2/distributions
 
-      - name: "install ghapi"
-        run: |
-          pip install ghapi==1.0.6
-
       - name: "get distro info"
         id: yaml
         uses: qiime2/distributions/.github/actions/read-yaml@dev
@@ -401,9 +397,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: qiime2/distributions
-
-      - name: install dependencies
-        run: pip install ghapi==1.0.6
 
       - name: "get distro info"
         id: yaml

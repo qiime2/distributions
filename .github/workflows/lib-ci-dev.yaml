@@ -352,8 +352,8 @@ jobs:
           ")
 
           # get installed package names (covers both conda and pip-installed packages)
-          installed_pkgs=$(conda list -p '${{ env.env_prefix }}' --no-header \
-            | awk '{print $1}')
+          installed_pkgs=$(conda list -p '${{ env.env_prefix }}' \
+            | grep -v '^#' | awk '{print $1}')
 
           mapfile -t test_req_array <<< "$test_requires"
 

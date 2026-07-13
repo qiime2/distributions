@@ -18,6 +18,14 @@ inputs:
   pair-ref:
     description: "The shared Paired-<id> branch name to search for in sibling repos"
     required: true
+  fork-owner:
+    description: >-
+      If the PR is opened from a fork, the GitHub user/org that owns the fork.
+      When provided, sibling repos are checked under this owner
+      before falling back to the canonical repo org.
+      Leave empty for non-fork PRs.
+    required: false
+    default: ''
 outputs:
   paired-repos:
     description: "JSON array of {name, repo} for matched sibling repos"

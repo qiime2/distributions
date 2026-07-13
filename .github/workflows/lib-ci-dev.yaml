@@ -84,6 +84,22 @@ jobs:
 
           echo "pair-ref=$(echo "$head_ref" | cut -f1 -d/)" >> "$GITHUB_OUTPUT"
 
+          # detect fork owner: if the PR head is from a different org/user
+          # than the canonical repo, extract it so paired-branch search can
+          # also check the fork's sibling repos
+          canonical_owner='${{ github.repository_owner }}'
+          head_full='${{ github.event.pull_request.head.repo.full_name }}'
+          if [ -n "$head_full" ]; then
+            fork_owner="${head_full%%/*}"
+            if [ "$fork_owner" != "$canonical_owner" ]; then
+              echo "fork-owner=${fork_owner}" >> "$GITHUB_OUTPUT"
+            else
+              echo "fork-owner=" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "fork-owner=" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: "find paired branch & resolve effective distro"
         id: find-paired
         if: steps.detect-paired.outputs.is-paired == 'true'
@@ -93,6 +109,7 @@ jobs:
           self-repo: ${{ github.repository }}
           self-distro: ${{ inputs.distro }}
           pair-ref: ${{ steps.detect-paired.outputs.pair-ref }}
+          fork-owner: ${{ steps.detect-paired.outputs.fork-owner }}
 
       - name: "determine effective distro"
         id: effective-distro

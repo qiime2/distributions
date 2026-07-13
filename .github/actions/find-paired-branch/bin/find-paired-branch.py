@@ -30,7 +30,7 @@ def branch_exists(repo, branch):
         raise
 
 
-def main(packages, self_repo, self_distro, pair_ref):
+def main(packages, self_repo, self_distro, pair_ref, fork_owner=''):
     self_entry = next(
         (p for p in packages if p['repo'] == self_repo), None)
     if self_entry is None:
@@ -44,8 +44,20 @@ def main(packages, self_repo, self_distro, pair_ref):
 
     matches = []
     for package in candidates:
-        repo = package['repo']
-        if branch_exists(repo, pair_ref):
+        canonical_repo = package['repo']
+        repo_name = canonical_repo.split('/', 1)[1]
+
+        # When the PR comes from a fork, check the fork owner's copy of each
+        # sibling repo before falling back to the canonical. This supports
+        # paired PRs across forks of the same user, e.g.:
+        # lizgehret/q2-diversity + lizgehret/q2-types
+        if fork_owner:
+            fork_repo = f'{fork_owner}/{repo_name}'
+            if branch_exists(fork_repo, pair_ref):
+                matches.append({**package, 'repo': fork_repo})
+                continue
+
+        if branch_exists(canonical_repo, pair_ref):
             matches.append(package)
 
     if not matches:

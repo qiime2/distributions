@@ -1,0 +1,60 @@
+# Reusable workflow for posting the paired CI-dev reverse-deps PR comment.
+# Called from per-plugin post-paired-comment.yml workflows that are triggered
+# by workflow_run. The workflow_run event always runs in the base branch
+# context with a write-capable GITHUB_TOKEN, so the comment can be posted
+# even when the originating PR came from a fork.
+on:
+  workflow_call:
+    inputs:
+      run-id:
+        description: >-
+          Run ID of the ci-dev workflow run that produced the
+          paired-reverse-deps-comment artifact.
+        type: string
+        required: true
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "download comment artifact"
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: paired-reverse-deps-comment
+          run-id: ${{ inputs.run-id }}
+          github-token: ${{ github.token }}
+          path: /tmp/comment-artifact
+
+      - name: "post PR comment"
+        if: steps.download.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const prNumber = parseInt(
+              fs.readFileSync('/tmp/comment-artifact/pr-number.txt', 'utf8').trim()
+            );
+            const body = fs.readFileSync(
+              '/tmp/comment-artifact/reverse-deps-comment.md', 'utf8'
+            );
+            const marker = '<!-- paired-ci-dev-reverse-deps -->';
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+
+            if (comments.some(c => c.body.includes(marker))) {
+              console.log('Reverse-deps comment already exists; skipping.');
+              return;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: body,
+            });

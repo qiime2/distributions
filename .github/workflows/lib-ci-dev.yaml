@@ -457,12 +457,31 @@ jobs:
           effective-distro: ${{ needs.setup.outputs.effective-distro }}
           active-epoch: ${{ needs.setup.outputs.active-epoch }}
 
+        # Save comment body + PR number as an artifact so that
+        # post-paired-comment.yml (workflow_run trigger, per plugin repo) can
+        # pick it up and post on fork PRs where github.token is read-only.
+      - name: "save PR number for comment artifact"
+        run: echo '${{ github.event.pull_request.number }}' > /tmp/pr-number.txt
+
+      - name: "upload comment artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: paired-reverse-deps-comment
+          path: |
+            /tmp/reverse-deps-comment.md
+            /tmp/pr-number.txt
+          retention-days: 1
+
+        # For non-fork PRs github.token has write access and this succeeds.
+        # For fork PRs it will 403; continue-on-error lets the artifact
+        # upload above still happen, and lib-post-paired-comment.yaml handles
+        # posting via the workflow_run path.
       - name: "post PR comment"
+        continue-on-error: true
         uses: actions/github-script@v7
         env:
           COMMENT_BODY: ${{ steps.find-reverse-deps.outputs.comment-body }}
         with:
-          github-token: ${{ secrets.BOT_PAT }}
           script: |
             const marker = '<!-- paired-ci-dev-reverse-deps -->';
 

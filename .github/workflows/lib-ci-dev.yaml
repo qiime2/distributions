@@ -462,6 +462,7 @@ jobs:
         env:
           COMMENT_BODY: ${{ steps.find-reverse-deps.outputs.comment-body }}
         with:
+          github-token: ${{ secrets.BOT_PAT }}
           script: |
             const marker = '<!-- paired-ci-dev-reverse-deps -->';
 

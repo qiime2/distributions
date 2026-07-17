@@ -45,11 +45,26 @@ jobs:
         run: |
           sed -i 's|/passed|/released|g' environment-files/readthedocs.yml
 
+      - name: "update versioned xrefs to ${{ inputs.active-epoch }}"
+        run: |
+          for domain in \
+            "use\.qiime2\.org" \
+            "develop\.qiime2\.org" \
+            "gut-to-soil-tutorial\.readthedocs\.io" \
+            "moving-pictures-tutorial\.readthedocs\.io" \
+            "amplicon-docs\.qiime2\.org" \
+            "amplicon-docs\.readthedocs\.io"; do
+            find . -type f ! -path "*/_build/*" \
+              \( -name "*.md" -o -name "*.yml" -o -name "*.yaml" \) \
+              | xargs sed -i \
+                "s|${domain}/en/latest/|${domain}/en/${{ inputs.active-epoch }}/|g"
+          done
+
       - name: "commit and push ${{ inputs.active-epoch }} branch"
         run: |
           git config user.email "q2d2.noreply@gmail.com"
           git config user.name "q2d2"
-          git add environment-files/readthedocs.yml
+          git add -A
           git commit -m "REL: ${{ inputs.active-epoch }}"
           git push origin ${{ inputs.active-epoch }}
 

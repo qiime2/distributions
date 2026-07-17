@@ -33,7 +33,7 @@ jobs:
             rtd-slug: using-qiime2
           - repo: rachis-org/developing-with-qiime2
             rtd-slug: developing-with-qiime-2
-    uses: qiime2/distributions/.github/workflows/lib-release-docs-repo.yaml@dev
+    uses: qiime2/distributions/.github/workflows/lib-release-docs.yaml@dev
     with:
       repo: ${{ matrix.repo }}
       rtd-slug: ${{ matrix.rtd-slug }}
@@ -52,7 +52,7 @@ jobs:
             rtd-slug: moving-pictures-tutorial
           - repo: qiime2/gut-to-soil-tutorial
             rtd-slug: gut-to-soil-tutorial
-    uses: qiime2/distributions/.github/workflows/lib-release-docs-repo.yaml@dev
+    uses: qiime2/distributions/.github/workflows/lib-release-docs.yaml@dev
     with:
       repo: ${{ matrix.repo }}
       rtd-slug: ${{ matrix.rtd-slug }}
@@ -63,7 +63,7 @@ jobs:
   # Generation 3: distro & plugin documentation
   gen-3:
     needs: [setup, gen-2]
-    uses: qiime2/distributions/.github/workflows/lib-release-docs-repo.yaml@dev
+    uses: qiime2/distributions/.github/workflows/lib-release-docs.yaml@dev
     with:
       repo: qiime2/amplicon-docs
       rtd-slug: amplicon-docs

@@ -1,0 +1,66 @@
+name: bump-docs
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      active-epoch: ${{ steps.epoch.outputs.active-epoch }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: epoch
+        run: |
+          epoch=$(python3 -c "
+          import yaml
+          print(yaml.safe_load(open('data.yaml'))['active_epoch'])
+          ")
+          echo "active-epoch=$epoch" >> "$GITHUB_OUTPUT"
+
+  open-prs:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repo: rachis-org/using-qiime2
+          - repo: rachis-org/developing-with-qiime2
+          - repo: qiime2/moving-pictures-tutorial
+          - repo: qiime2/gut-to-soil-tutorial
+          - repo: qiime2/amplicon-docs
+    steps:
+      - name: "checkout ${{ matrix.repo }}"
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ matrix.repo }}
+          token: ${{ secrets.RTD_PAT }}
+
+      - name: "create dev-bump/${{ needs.setup.outputs.active-epoch }} branch"
+        run: git checkout -b dev-bump/${{ needs.setup.outputs.active-epoch }}
+
+      - name: "update readthedocs environment file"
+        run: |
+          EPOCH="${{ needs.setup.outputs.active-epoch }}"
+          sed -i -E \
+            "s|(packages\.qiime2\.org/qiime2/)[^/]+/([^/]+)/[^[:space:]]+|\1${EPOCH}/\2/passed|g" \
+            environment-files/readthedocs.yml
+
+      - name: "commit and push branch"
+        run: |
+          git config user.email "q2d2.noreply@gmail.com"
+          git config user.name "q2d2"
+          git add environment-files/readthedocs.yml
+          git commit -m "DEV: ${{ needs.setup.outputs.active-epoch }} dev bump"
+          git push origin dev-bump/${{ needs.setup.outputs.active-epoch }}
+
+      - name: "open PR against main"
+        env:
+          GH_TOKEN: ${{ secrets.RTD_PAT }}
+        run: |
+          gh pr create \
+            --repo ${{ matrix.repo }} \
+            --head dev-bump/${{ needs.setup.outputs.active-epoch }} \
+            --base main \
+            --title "DEV: ${{ needs.setup.outputs.active-epoch }} dev bump" \
+            --body "Updates the readthedocs build environment to the ${{ needs.setup.outputs.active-epoch }} development (passed) channel."

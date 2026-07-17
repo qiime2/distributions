@@ -1,0 +1,91 @@
+on:
+  workflow_call:
+    inputs:
+      repo:
+        description: 'GitHub repository (org/repo) to update'
+        type: string
+        required: true
+      rtd-slug:
+        description: 'ReadTheDocs project slug'
+        type: string
+        required: true
+      prior-epoch:
+        description: 'Prior release epoch (branch to remove stable tag from)'
+        type: string
+        required: true
+      active-epoch:
+        description: 'Active release epoch (from data.yaml)'
+        type: string
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout ${{ inputs.repo }}"
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ inputs.repo }}
+          token: ${{ secrets.RTD_PAT }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: "remove stable tag from ${{ inputs.prior-epoch }}"
+        run: |
+          git checkout ${{ inputs.prior-epoch }}
+          git tag -d stable
+          git push origin :refs/tags/stable
+
+      - name: "create ${{ inputs.active-epoch }} branch from main"
+        run: |
+          git checkout main
+          git checkout -b ${{ inputs.active-epoch }}
+
+      - name: "update readthedocs environment file"
+        run: |
+          sed -i 's|/passed|/released|g' environment-files/readthedocs.yml
+
+      - name: "commit and push ${{ inputs.active-epoch }} branch"
+        run: |
+          git config user.email "q2d2.noreply@gmail.com"
+          git config user.name "q2d2"
+          git add environment-files/readthedocs.yml
+          git commit -m "REL: ${{ inputs.active-epoch }}"
+          git push origin ${{ inputs.active-epoch }}
+
+      - name: "tag stable on ${{ inputs.active-epoch }}"
+        run: |
+          git tag -a stable -m "REL: bump stable tag to ${{ inputs.active-epoch }}"
+          git push origin ${{ inputs.active-epoch }} --tags stable
+
+      - name: "wait for ReadTheDocs stable build"
+        env:
+          RTD_API_TOKEN: ${{ secrets.RTD_API_TOKEN }}
+        run: |
+          echo "Waiting 90s for RTD to queue the build..."
+          sleep 90
+
+          BUILD_ID=$(curl -sf \
+            -H "Authorization: Token $RTD_API_TOKEN" \
+            "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/?version_slug=stable&limit=1" \
+            | python3 -c "import sys, json; print(json.load(sys.stdin)['results'][0]['id'])")
+          echo "Polling build ID: $BUILD_ID"
+
+          while true; do
+            RESULT=$(curl -sf \
+              -H "Authorization: Token $RTD_API_TOKEN" \
+              "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/$BUILD_ID/")
+            STATE=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['state']['code'])")
+            echo "State: $STATE"
+            if [ "$STATE" = "finished" ]; then
+              SUCCESS=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['success'])")
+              if [ "$SUCCESS" = "True" ]; then
+                echo "RTD stable build succeeded."
+                exit 0
+              else
+                echo "RTD stable build failed."
+                exit 1
+              fi
+            fi
+            sleep 30
+          done

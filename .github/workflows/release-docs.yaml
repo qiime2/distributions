@@ -1,0 +1,72 @@
+name: release-docs
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      active-epoch: ${{ steps.epoch.outputs.active-epoch }}
+      released-epoch: ${{ steps.epoch.outputs.released-epoch }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: epoch
+        run: |
+          python3 -c "
+          import yaml
+          data = yaml.safe_load(open('data.yaml'))
+          print('active-epoch=' + data['active_epoch'])
+          print('released-epoch=' + data['released_epoch'])
+          " >> "$GITHUB_OUTPUT"
+
+  # myst xref levels:
+  # https://develop.qiime2.org/en/stable/docs/xref-reference.html
+
+  # Generation 1: framework references
+  gen-1:
+    needs: [setup]
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - repo: rachis-org/using-qiime2
+            rtd-slug: using-qiime2
+          - repo: rachis-org/developing-with-qiime2
+            rtd-slug: developing-with-qiime-2
+    uses: qiime2/distributions/.github/workflows/lib-release-docs-repo.yaml@dev
+    with:
+      repo: ${{ matrix.repo }}
+      rtd-slug: ${{ matrix.rtd-slug }}
+      prior-epoch: ${{ needs.setup.outputs.released-epoch }}
+      active-epoch: ${{ needs.setup.outputs.active-epoch }}
+    secrets: inherit
+
+  # Generation 2: dataset focused tutorials
+  gen-2:
+    needs: [setup, gen-1]
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - repo: qiime2/moving-pictures-tutorial
+            rtd-slug: moving-pictures-tutorial
+          - repo: qiime2/gut-to-soil-tutorial
+            rtd-slug: gut-to-soil-tutorial
+    uses: qiime2/distributions/.github/workflows/lib-release-docs-repo.yaml@dev
+    with:
+      repo: ${{ matrix.repo }}
+      rtd-slug: ${{ matrix.rtd-slug }}
+      prior-epoch: ${{ needs.setup.outputs.released-epoch }}
+      active-epoch: ${{ needs.setup.outputs.active-epoch }}
+    secrets: inherit
+
+  # Generation 3: distro & plugin documentation
+  gen-3:
+    needs: [setup, gen-2]
+    uses: qiime2/distributions/.github/workflows/lib-release-docs-repo.yaml@dev
+    with:
+      repo: qiime2/amplicon-docs
+      rtd-slug: amplicon-docs
+      prior-epoch: ${{ needs.setup.outputs.released-epoch }}
+      active-epoch: ${{ needs.setup.outputs.active-epoch }}
+    secrets: inherit

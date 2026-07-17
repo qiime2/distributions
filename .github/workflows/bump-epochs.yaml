@@ -1,0 +1,64 @@
+name: bump-epochs
+on:
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout distributions"
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: "bump epochs in data.yaml"
+        id: bump
+        run: |
+          python3 - <<'EOF'
+          import re
+
+          SCHEDULE = [1, 4, 7, 10]
+
+          def next_epoch(epoch):
+              year, minor = epoch.split('.')
+              year, minor = int(year), int(minor)
+              idx = SCHEDULE.index(minor)
+              if idx + 1 < len(SCHEDULE):
+                  return f"{year}.{SCHEDULE[idx + 1]}"
+              else:
+                  return f"{year + 1}.{SCHEDULE[0]}"
+
+          with open('data.yaml', 'r') as f:
+              content = f.read()
+
+          released = re.search(r'^released_epoch:\s*"([^"]+)"', content, re.MULTILINE).group(1)
+          active   = re.search(r'^active_epoch:\s*"([^"]+)"', content, re.MULTILINE).group(1)
+          next     = re.search(r'^next_epoch:\s*"([^"]+)"', content, re.MULTILINE).group(1)
+
+          new_released = active
+          new_active   = next
+          new_next     = next_epoch(next)
+
+          content = re.sub(r'^(released_epoch:\s*)"[^"]+"', rf'\1"{new_released}"', content, flags=re.MULTILINE)
+          content = re.sub(r'^(active_epoch:\s*)"[^"]+"',   rf'\1"{new_active}"',   content, flags=re.MULTILINE)
+          content = re.sub(r'^(next_epoch:\s*)"[^"]+"',     rf'\1"{new_next}"',     content, flags=re.MULTILINE)
+
+          with open('data.yaml', 'w') as f:
+              f.write(content)
+
+          print(f"released_epoch: {released} -> {new_released}")
+          print(f"active_epoch:   {active} -> {new_active}")
+          print(f"next_epoch:     {next} -> {new_next}")
+
+          with open('/tmp/new_active', 'w') as f:
+              f.write(new_active)
+          EOF
+          echo "new-active=$(cat /tmp/new_active)" >> "$GITHUB_OUTPUT"
+
+      - name: "commit and push"
+        run: |
+          git config user.email "q2d2.noreply@gmail.com"
+          git config user.name "q2d2"
+          git add data.yaml
+          git commit -m "REL: ${{ steps.bump.outputs.new-active }} epoch bump"
+          git push origin dev

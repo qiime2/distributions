@@ -1,0 +1,132 @@
+on:
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+        type: string
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    outputs:
+      pr: ${{ steps.pr.outputs.pull-request-number }}
+      sha: ${{ steps.pr.outputs.pull-request-head-sha }}
+      epoch: ${{ steps.vars.outputs.epoch }}
+      has-osx: ${{ steps.vars.outputs.has-osx }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: set epoch and check osx
+        id: vars
+        run: |
+          epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+          echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
+          if [ -f "$epoch/${{ inputs.distro }}/passed/seed-environment-conda-osx.yml" ]; then
+            echo "has-osx=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has-osx=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: copy seed envs to released
+        run: |
+          epoch='${{ steps.vars.outputs.epoch }}'
+          distro='${{ inputs.distro }}'
+          mkdir -p "$epoch/$distro/released"
+          cp "$epoch/$distro/passed/seed-environment-conda-linux.yml" \
+             "$epoch/$distro/released/"
+          if [ '${{ steps.vars.outputs.has-osx }}' = 'true' ]; then
+            cp "$epoch/$distro/passed/seed-environment-conda-osx.yml" \
+               "$epoch/$distro/released/"
+          fi
+
+      - name: create pull request
+        id: pr
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: Release-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }}
+          title: "REL: ${{ steps.vars.outputs.epoch }} (${{ inputs.distro }})"
+          body: |
+            Automated release build for `${{ inputs.distro }}` triggered by `release-builds.yaml`.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            REL: ${{ steps.vars.outputs.epoch }} (${{ inputs.distro }})
+
+  await-linux:
+    needs: [create-pr]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get linux trial run id
+        id: get-id
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial-linux").id' | head -n 1
+          ) >> "$GITHUB_OUTPUT"
+
+      - name: await linux trial ${{ steps.get-id.outputs.run-id }}
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+  await-osx:
+    needs: [create-pr]
+    if: ${{ needs.create-pr.outputs.has-osx == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: get osx trial run id
+        id: get-id
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial-osx").id' | head -n 1
+          ) >> "$GITHUB_OUTPUT"
+
+      - name: await osx trial ${{ steps.get-id.outputs.run-id }}
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+  merge-pr:
+    needs: [create-pr, await-linux, await-osx]
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+      needs.create-pr.result == 'success' &&
+      needs.await-linux.result == 'success' &&
+      (needs.await-osx.result == 'success' || needs.await-osx.result == 'skipped')
+    steps:
+      - name: merge release pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge

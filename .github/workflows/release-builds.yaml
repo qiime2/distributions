@@ -1,0 +1,31 @@
+name: release-builds
+on:
+  workflow_dispatch:
+
+jobs:
+  tiny:
+    uses: qiime2/distributions/.github/workflows/lib-release-builds.yaml@dev
+    with:
+      distro: tiny
+    secrets: inherit
+
+  qiime2:
+    needs: [tiny]
+    uses: qiime2/distributions/.github/workflows/lib-release-builds.yaml@dev
+    with:
+      distro: qiime2
+    secrets: inherit
+
+  moshpit:
+    needs: [tiny, qiime2]
+    uses: qiime2/distributions/.github/workflows/lib-release-builds.yaml@dev
+    with:
+      distro: moshpit
+    secrets: inherit
+
+  pathogenome:
+    needs: [tiny, qiime2, moshpit]
+    uses: qiime2/distributions/.github/workflows/lib-release-builds.yaml@dev
+    with:
+      distro: pathogenome
+    secrets: inherit

@@ -1,0 +1,346 @@
+on:
+  workflow_call:
+    inputs:
+      distro:
+        required: true
+        type: string
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      active-epoch: ${{ steps.vars.outputs.active-epoch }}
+      released-epoch: ${{ steps.vars.outputs.released-epoch }}
+      has-osx: ${{ steps.vars.outputs.has-osx }}
+      has-osx-arm: ${{ steps.vars.outputs.has-osx-arm }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: read epochs and check platform support
+        id: vars
+        run: |
+          python3 - <<'EOF'
+          import os, yaml
+
+          data = yaml.safe_load(open('data.yaml'))
+          active_epoch = data['active_epoch']
+          released_epoch = data['released_epoch']
+          distro = '${{ inputs.distro }}'
+          passed = f'{released_epoch}/{distro}/passed'
+
+          has_osx = os.path.isfile(f'{passed}/seed-environment-conda-osx.yml')
+          has_osx_arm = os.path.isfile(f'{passed}/rachis-{distro}-osx-arm64-conda.yml')
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'active-epoch={active_epoch}\n')
+              f.write(f'released-epoch={released_epoch}\n')
+              f.write(f'has-osx={"true" if has_osx else "false"}\n')
+              f.write(f'has-osx-arm={"true" if has_osx_arm else "false"}\n')
+          EOF
+
+  # ── linux-64 ──────────────────────────────────────────────────────────────
+
+  create-linux-pr:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    outputs:
+      pr: ${{ steps.pr.outputs.pull-request-number }}
+      sha: ${{ steps.pr.outputs.pull-request-head-sha }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: create linux seed env files
+        run: |
+          python3 - <<'EOF'
+          import os, re
+
+          active_epoch = '${{ needs.setup.outputs.active-epoch }}'
+          released_epoch = '${{ needs.setup.outputs.released-epoch }}'
+          distro = '${{ inputs.distro }}'
+
+          for subdir in ('passed', 'staged'):
+              src = f'{released_epoch}/{distro}/{subdir}/seed-environment-conda-linux.yml'
+              dst_dir = f'{active_epoch}/{distro}/{subdir}'
+              os.makedirs(dst_dir, exist_ok=True)
+              with open(src) as f:
+                  content = f.read()
+              content = re.sub(
+                  r'(?m)^(- https://packages\.qiime2\.org/qiime2/)[^\s]+',
+                  rf'\1{released_epoch}/{distro}/released',
+                  content, count=1
+              )
+              content = re.sub(
+                  r"(qiime2_epoch:\s*')[^']+'",
+                  rf"\1{active_epoch}'",
+                  content
+              )
+              with open(f'{dst_dir}/seed-environment-conda-linux.yml', 'w') as f:
+                  f.write(content)
+          EOF
+
+      - name: create linux pull request
+        id: pr
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: Prepare-linux-64-${{ needs.setup.outputs.active-epoch }}-devbump/${{ inputs.distro }}
+          title: "PREP: ${{ needs.setup.outputs.active-epoch }} dev bump (${{ inputs.distro }}/linux-64)"
+          body: |
+            Automated dev bump for `${{ inputs.distro }}` linux-64 triggered by `bump-builds.yaml`.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            PREP: ${{ needs.setup.outputs.active-epoch }} dev bump (${{ inputs.distro }}/linux-64)
+
+  await-linux:
+    needs: [create-linux-pr]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get linux trial run id
+        id: get-id
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-linux-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial-linux").id' | head -n 1
+          ) >> "$GITHUB_OUTPUT"
+
+      - name: await linux trial ${{ steps.get-id.outputs.run-id }}
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+  merge-linux:
+    needs: [create-linux-pr, await-linux]
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+      needs.create-linux-pr.result == 'success' &&
+      needs.await-linux.result == 'success'
+    steps:
+      - name: merge linux pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-linux-pr.outputs.pr }}/merge
+
+  # ── osx-64 ────────────────────────────────────────────────────────────────
+
+  create-osx-64-pr:
+    needs: [setup]
+    if: ${{ needs.setup.outputs.has-osx == 'true' }}
+    runs-on: ubuntu-latest
+    outputs:
+      pr: ${{ steps.pr.outputs.pull-request-number }}
+      sha: ${{ steps.pr.outputs.pull-request-head-sha }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: create osx seed env files
+        run: |
+          python3 - <<'EOF'
+          import os, re
+
+          active_epoch = '${{ needs.setup.outputs.active-epoch }}'
+          released_epoch = '${{ needs.setup.outputs.released-epoch }}'
+          distro = '${{ inputs.distro }}'
+
+          for subdir in ('passed', 'staged'):
+              src = f'{released_epoch}/{distro}/{subdir}/seed-environment-conda-osx.yml'
+              dst_dir = f'{active_epoch}/{distro}/{subdir}'
+              os.makedirs(dst_dir, exist_ok=True)
+              with open(src) as f:
+                  content = f.read()
+              content = re.sub(
+                  r'(?m)^(- https://packages\.qiime2\.org/qiime2/)[^\s]+',
+                  rf'\1{released_epoch}/{distro}/released',
+                  content, count=1
+              )
+              content = re.sub(
+                  r"(qiime2_epoch:\s*')[^']+'",
+                  rf"\1{active_epoch}'",
+                  content
+              )
+              with open(f'{dst_dir}/seed-environment-conda-osx.yml', 'w') as f:
+                  f.write(content)
+          EOF
+
+      - name: create osx-64 pull request
+        id: pr
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: Prepare-osx-64-${{ needs.setup.outputs.active-epoch }}-devbump/${{ inputs.distro }}
+          title: "PREP: ${{ needs.setup.outputs.active-epoch }} dev bump (${{ inputs.distro }}/osx-64)"
+          body: |
+            Automated dev bump for `${{ inputs.distro }}` osx-64 triggered by `bump-builds.yaml`.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            PREP: ${{ needs.setup.outputs.active-epoch }} dev bump (${{ inputs.distro }}/osx-64)
+
+  await-osx-64:
+    needs: [create-osx-64-pr]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get osx trial run id
+        id: get-id
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-osx-64-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial-osx").id' | head -n 1
+          ) >> "$GITHUB_OUTPUT"
+
+      - name: await osx trial ${{ steps.get-id.outputs.run-id }}
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+  merge-osx-64:
+    needs: [create-osx-64-pr, await-osx-64]
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+      needs.create-osx-64-pr.result == 'success' &&
+      needs.await-osx-64.result == 'success'
+    steps:
+      - name: merge osx-64 pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-osx-64-pr.outputs.pr }}/merge
+
+  # ── osx-arm64 ─────────────────────────────────────────────────────────────
+
+  create-osx-arm64-pr:
+    needs: [setup]
+    if: ${{ needs.setup.outputs.has-osx-arm == 'true' }}
+    runs-on: ubuntu-latest
+    outputs:
+      pr: ${{ steps.pr.outputs.pull-request-number }}
+      sha: ${{ steps.pr.outputs.pull-request-head-sha }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: create osx seed env files
+        run: |
+          python3 - <<'EOF'
+          import os, re
+
+          active_epoch = '${{ needs.setup.outputs.active-epoch }}'
+          released_epoch = '${{ needs.setup.outputs.released-epoch }}'
+          distro = '${{ inputs.distro }}'
+
+          for subdir in ('passed', 'staged'):
+              src = f'{released_epoch}/{distro}/{subdir}/seed-environment-conda-osx.yml'
+              dst_dir = f'{active_epoch}/{distro}/{subdir}'
+              os.makedirs(dst_dir, exist_ok=True)
+              with open(src) as f:
+                  content = f.read()
+              content = re.sub(
+                  r'(?m)^(- https://packages\.qiime2\.org/qiime2/)[^\s]+',
+                  rf'\1{released_epoch}/{distro}/released',
+                  content, count=1
+              )
+              content = re.sub(
+                  r"(qiime2_epoch:\s*')[^']+'",
+                  rf"\1{active_epoch}'",
+                  content
+              )
+              with open(f'{dst_dir}/seed-environment-conda-osx.yml', 'w') as f:
+                  f.write(content)
+          EOF
+
+      - name: create osx-arm64 pull request
+        id: pr
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: Prepare-osx-arm64-${{ needs.setup.outputs.active-epoch }}-devbump/${{ inputs.distro }}
+          title: "PREP: ${{ needs.setup.outputs.active-epoch }} dev bump (${{ inputs.distro }}/osx-arm64)"
+          body: |
+            Automated dev bump for `${{ inputs.distro }}` osx-arm64 triggered by `bump-builds.yaml`.
+          author: "q2d2 <q2d2.noreply@gmail.com>"
+          committer: "q2d2 <q2d2.noreply@gmail.com>"
+          commit-message: |
+            PREP: ${{ needs.setup.outputs.active-epoch }} dev bump (${{ inputs.distro }}/osx-arm64)
+
+  await-osx-arm64:
+    needs: [create-osx-arm64-pr]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get osx trial run id
+        id: get-id
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 30
+          echo run-id=$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-osx-arm64-pr.outputs.sha }} \
+              -q '.workflow_runs[] | select(.name == "ci-distro-trial-osx").id' | head -n 1
+          ) >> "$GITHUB_OUTPUT"
+
+      - name: await osx trial ${{ steps.get-id.outputs.run-id }}
+        uses: qiime2-cutlery/await-remote-run@v1.0.0
+        with:
+          token: ${{ github.token }}
+          repo: distributions
+          owner: qiime2
+          run_id: ${{ steps.get-id.outputs.run-id }}
+          run_timeout_seconds: 21600
+          poll_interval_ms: 45000
+
+  merge-osx-arm64:
+    needs: [create-osx-arm64-pr, await-osx-arm64]
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+      needs.create-osx-arm64-pr.result == 'success' &&
+      needs.await-osx-arm64.result == 'success'
+    steps:
+      - name: merge osx-arm64 pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/qiime2/distributions/pulls/${{ needs.create-osx-arm64-pr.outputs.pr }}/merge

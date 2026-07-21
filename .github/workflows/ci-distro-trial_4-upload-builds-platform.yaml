@@ -124,7 +124,7 @@ jobs:
       # Replaces EndBug/add-and-commit@v9
       - uses: qiime2-cutlery/add-and-commit@v9
         with:
-          message: Update conda environments (${{ inputs.pr-ref }})
+          message: "Update conda environments (${{ inputs.pr-ref }}) [skip ci]"
           default_author: user_info
           author_name: q2d2
           author_email: q2d2.noreply@gmail.com

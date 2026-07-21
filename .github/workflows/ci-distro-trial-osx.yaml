@@ -41,7 +41,7 @@ jobs:
           fi
 
           if [[ "$head_ref" == Release-* ]]; then
-            git fetch origin '${{ github.base_ref }}' --depth=1
+            git fetch origin '${{ github.base_ref }}'
 
             mapfile -t changed_paths < <(
               git diff --name-only FETCH_HEAD...HEAD | \

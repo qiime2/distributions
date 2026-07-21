@@ -6,7 +6,27 @@ on:
         type: string
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: check if already released
+        id: check
+        run: |
+          epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+          if [ -f "$epoch/${{ inputs.distro }}/released/seed-environment-conda-linux.yml" ]; then
+            echo "Released directory already exists for ${{ inputs.distro }}, skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
   create-pr:
+    needs: [check]
+    if: ${{ needs.check.outputs.skip != 'true' }}
     runs-on: ubuntu-latest
     outputs:
       pr: ${{ steps.pr.outputs.pull-request-number }}
@@ -56,67 +76,115 @@ jobs:
             REL: ${{ steps.vars.outputs.epoch }} (${{ inputs.distro }})
 
   await-linux:
-    needs: [create-pr]
+    needs: [check, create-pr]
+    if: ${{ needs.check.outputs.skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: get linux trial run id
-        id: get-id
+      - name: await linux trial
         env:
           GH_TOKEN: ${{ github.token }}
+          PR: ${{ needs.create-pr.outputs.pr }}
         run: |
-          sleep 30
-          echo run-id=$(
-            gh api \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
-              -q '.workflow_runs[] | select(.name == "ci-distro-trial-linux").id' | head -n 1
-          ) >> "$GITHUB_OUTPUT"
+          echo "Waiting 60s for trial to start..."
+          sleep 60
 
-      - name: await linux trial ${{ steps.get-id.outputs.run-id }}
-        uses: qiime2-cutlery/await-remote-run@v1.0.0
-        with:
-          token: ${{ github.token }}
-          repo: distributions
-          owner: qiime2
-          run_id: ${{ steps.get-id.outputs.run-id }}
-          run_timeout_seconds: 21600
-          poll_interval_ms: 45000
+          TIMEOUT=21600
+          ELAPSED=0
+
+          while [ $ELAPSED -lt $TIMEOUT ]; do
+            HEAD_SHA=$(gh api repos/qiime2/distributions/pulls/$PR --jq '.head.sha')
+
+            RUN=$(gh api \
+              "repos/qiime2/distributions/actions/runs?head_sha=$HEAD_SHA" \
+              --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-linux")] | first')
+
+            if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
+              echo "No run found yet for SHA $HEAD_SHA, waiting..."
+              sleep 45; ELAPSED=$((ELAPSED + 45)); continue
+            fi
+
+            STATUS=$(echo "$RUN" | jq -r '.status')
+            CONCLUSION=$(echo "$RUN" | jq -r '.conclusion')
+            RUN_ID=$(echo "$RUN" | jq -r '.id')
+            echo "Run $RUN_ID (SHA $HEAD_SHA): status=$STATUS conclusion=$CONCLUSION"
+
+            if [ "$STATUS" = "completed" ]; then
+              if [ "$CONCLUSION" = "success" ]; then
+                echo "Linux trial succeeded."; exit 0
+              else
+                sleep 30
+                NEW_SHA=$(gh api repos/qiime2/distributions/pulls/$PR --jq '.head.sha')
+                if [ "$NEW_SHA" != "$HEAD_SHA" ]; then
+                  echo "New commit detected ($NEW_SHA), continuing to poll..."
+                  sleep 30; ELAPSED=$((ELAPSED + 60)); continue
+                fi
+                echo "Trial failed with conclusion: $CONCLUSION"; exit 1
+              fi
+            fi
+
+            sleep 45; ELAPSED=$((ELAPSED + 45))
+          done
+
+          echo "Timed out waiting for linux trial."; exit 1
 
   await-osx:
-    needs: [create-pr]
-    if: ${{ needs.create-pr.outputs.has-osx == 'true' }}
+    needs: [check, create-pr]
+    if: ${{ needs.check.outputs.skip != 'true' && needs.create-pr.outputs.has-osx == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: get osx trial run id
-        id: get-id
+      - name: await osx trial
         env:
           GH_TOKEN: ${{ github.token }}
+          PR: ${{ needs.create-pr.outputs.pr }}
         run: |
-          sleep 30
-          echo run-id=$(
-            gh api \
-              -H "Accept: application/vnd.github+json" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              /repos/qiime2/distributions/actions/runs?head_sha=${{ needs.create-pr.outputs.sha }} \
-              -q '.workflow_runs[] | select(.name == "ci-distro-trial-osx").id' | head -n 1
-          ) >> "$GITHUB_OUTPUT"
+          echo "Waiting 60s for trial to start..."
+          sleep 60
 
-      - name: await osx trial ${{ steps.get-id.outputs.run-id }}
-        uses: qiime2-cutlery/await-remote-run@v1.0.0
-        with:
-          token: ${{ github.token }}
-          repo: distributions
-          owner: qiime2
-          run_id: ${{ steps.get-id.outputs.run-id }}
-          run_timeout_seconds: 21600
-          poll_interval_ms: 45000
+          TIMEOUT=21600
+          ELAPSED=0
+
+          while [ $ELAPSED -lt $TIMEOUT ]; do
+            HEAD_SHA=$(gh api repos/qiime2/distributions/pulls/$PR --jq '.head.sha')
+
+            RUN=$(gh api \
+              "repos/qiime2/distributions/actions/runs?head_sha=$HEAD_SHA" \
+              --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
+
+            if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
+              echo "No run found yet for SHA $HEAD_SHA, waiting..."
+              sleep 45; ELAPSED=$((ELAPSED + 45)); continue
+            fi
+
+            STATUS=$(echo "$RUN" | jq -r '.status')
+            CONCLUSION=$(echo "$RUN" | jq -r '.conclusion')
+            RUN_ID=$(echo "$RUN" | jq -r '.id')
+            echo "Run $RUN_ID (SHA $HEAD_SHA): status=$STATUS conclusion=$CONCLUSION"
+
+            if [ "$STATUS" = "completed" ]; then
+              if [ "$CONCLUSION" = "success" ]; then
+                echo "OSX trial succeeded."; exit 0
+              else
+                sleep 30
+                NEW_SHA=$(gh api repos/qiime2/distributions/pulls/$PR --jq '.head.sha')
+                if [ "$NEW_SHA" != "$HEAD_SHA" ]; then
+                  echo "New commit detected ($NEW_SHA), continuing to poll..."
+                  sleep 30; ELAPSED=$((ELAPSED + 60)); continue
+                fi
+                echo "Trial failed with conclusion: $CONCLUSION"; exit 1
+              fi
+            fi
+
+            sleep 45; ELAPSED=$((ELAPSED + 45))
+          done
+
+          echo "Timed out waiting for osx trial."; exit 1
 
   merge-pr:
-    needs: [create-pr, await-linux, await-osx]
+    needs: [check, create-pr, await-linux, await-osx]
     runs-on: ubuntu-latest
     if: |
       always() &&
+      needs.check.outputs.skip != 'true' &&
       needs.create-pr.result == 'success' &&
       needs.await-linux.result == 'success' &&
       (needs.await-osx.result == 'success' || needs.await-osx.result == 'skipped')

@@ -116,6 +116,17 @@ jobs:
               --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-linux")] | first')
 
             if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
+              COMMIT_MSG=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.message')
+              if echo "$COMMIT_MSG" | grep -q '\[skip ci\]'; then
+                PARENT_SHA=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.parents[0].sha')
+                PARENT_RUN=$(gh api \
+                  "repos/qiime2/distributions/actions/runs?head_sha=$PARENT_SHA" \
+                  --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-linux")] | first')
+                PARENT_CONCLUSION=$(echo "$PARENT_RUN" | jq -r '.conclusion')
+                if [ "$PARENT_CONCLUSION" = "success" ]; then
+                  echo "Automated commit ($HEAD_SHA) on top of successful trial ($PARENT_SHA). Done."; exit 0
+                fi
+              fi
               echo "No run found yet for SHA $HEAD_SHA, waiting..."
               sleep 45; ELAPSED=$((ELAPSED + 45)); continue
             fi
@@ -242,6 +253,17 @@ jobs:
               --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
 
             if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
+              COMMIT_MSG=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.message')
+              if echo "$COMMIT_MSG" | grep -q '\[skip ci\]'; then
+                PARENT_SHA=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.parents[0].sha')
+                PARENT_RUN=$(gh api \
+                  "repos/qiime2/distributions/actions/runs?head_sha=$PARENT_SHA" \
+                  --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
+                PARENT_CONCLUSION=$(echo "$PARENT_RUN" | jq -r '.conclusion')
+                if [ "$PARENT_CONCLUSION" = "success" ]; then
+                  echo "Automated commit ($HEAD_SHA) on top of successful trial ($PARENT_SHA). Done."; exit 0
+                fi
+              fi
               echo "No run found yet for SHA $HEAD_SHA, waiting..."
               sleep 45; ELAPSED=$((ELAPSED + 45)); continue
             fi
@@ -368,6 +390,17 @@ jobs:
               --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
 
             if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
+              COMMIT_MSG=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.message')
+              if echo "$COMMIT_MSG" | grep -q '\[skip ci\]'; then
+                PARENT_SHA=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.parents[0].sha')
+                PARENT_RUN=$(gh api \
+                  "repos/qiime2/distributions/actions/runs?head_sha=$PARENT_SHA" \
+                  --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
+                PARENT_CONCLUSION=$(echo "$PARENT_RUN" | jq -r '.conclusion')
+                if [ "$PARENT_CONCLUSION" = "success" ]; then
+                  echo "Automated commit ($HEAD_SHA) on top of successful trial ($PARENT_SHA). Done."; exit 0
+                fi
+              fi
               echo "No run found yet for SHA $HEAD_SHA, waiting..."
               sleep 45; ELAPSED=$((ELAPSED + 45)); continue
             fi

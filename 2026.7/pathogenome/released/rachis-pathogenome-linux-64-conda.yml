@@ -1,7 +1,7 @@
 channels:
 - conda-forge
 - bioconda
-- https://packages.qiime2.org/qiime2/2026.7/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2026.7/pathogenome/released
 dependencies:
 - _openmp_mutex=4.5
 - _python_abi3_support=1.0

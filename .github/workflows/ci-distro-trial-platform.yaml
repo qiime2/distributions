@@ -30,7 +30,7 @@ jobs:
 
   rerun-prepare-on-failure:
     needs: [prepare]
-    if: needs.prepare.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.prepare.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -60,7 +60,7 @@ jobs:
 
   rerun-rebuild0-on-failure:
     needs: [rebuild-0]
-    if: needs.rebuild-0.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-0.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -90,7 +90,7 @@ jobs:
 
   rerun-rebuild1-on-failure:
     needs: [rebuild-1]
-    if: needs.rebuild-1.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-1.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -120,7 +120,7 @@ jobs:
 
   rerun-rebuild2-on-failure:
     needs: [rebuild-2]
-    if: needs.rebuild-2.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-2.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -150,7 +150,7 @@ jobs:
 
   rerun-rebuild3-on-failure:
     needs: [rebuild-3]
-    if: needs.rebuild-3.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-3.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -180,7 +180,7 @@ jobs:
 
   rerun-rebuild4-on-failure:
     needs: [rebuild-4]
-    if: needs.rebuild-4.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-4.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -210,7 +210,7 @@ jobs:
 
   rerun-rebuild5-on-failure:
     needs: [rebuild-5]
-    if: needs.rebuild-5.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-5.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -240,7 +240,7 @@ jobs:
 
   rerun-rebuild6-on-failure:
     needs: [rebuild-6]
-    if: needs.rebuild-6.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-6.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -270,7 +270,7 @@ jobs:
 
   rerun-rebuild7-on-failure:
     needs: [rebuild-7]
-    if: needs.rebuild-7.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.rebuild-7.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -294,7 +294,7 @@ jobs:
 
   rerun-build-metapackage-on-failure:
     needs: [build-metapackage]
-    if: needs.build-metapackage.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.build-metapackage.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -317,7 +317,7 @@ jobs:
 
   rerun-test-metapackage-on-failure:
     needs: [test-metapackage]
-    if: needs.test-metapackage.result == 'failure' && fromJSON(github.run_attempt) < 3
+    if: always() && needs.test-metapackage.result == 'failure' && fromJSON(github.run_attempt) < 3
     runs-on: ubuntu-latest
     steps:
       - env:

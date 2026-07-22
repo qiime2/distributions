@@ -67,12 +67,12 @@ jobs:
                   content = f.read()
               content = re.sub(
                   r'(?m)^(- https://packages\.qiime2\.org/qiime2/)[^\s]+',
-                  rf'\1{released_epoch}/{distro}/released',
+                  rf'\g<1>{released_epoch}/{distro}/released',
                   content, count=1
               )
               content = re.sub(
                   r"(qiime2_epoch:\s*')[^']+'",
-                  rf"\1{active_epoch}'",
+                  rf"\g<1>{active_epoch}'",
                   content
               )
               with open(f'{dst_dir}/seed-environment-conda-linux.yml', 'w') as f:
@@ -204,12 +204,12 @@ jobs:
                   content = f.read()
               content = re.sub(
                   r'(?m)^(- https://packages\.qiime2\.org/qiime2/)[^\s]+',
-                  rf'\1{released_epoch}/{distro}/released',
+                  rf'\g<1>{released_epoch}/{distro}/released',
                   content, count=1
               )
               content = re.sub(
                   r"(qiime2_epoch:\s*')[^']+'",
-                  rf"\1{active_epoch}'",
+                  rf"\g<1>{active_epoch}'",
                   content
               )
               with open(f'{dst_dir}/seed-environment-conda-osx.yml', 'w') as f:
@@ -341,12 +341,12 @@ jobs:
                   content = f.read()
               content = re.sub(
                   r'(?m)^(- https://packages\.qiime2\.org/qiime2/)[^\s]+',
-                  rf'\1{released_epoch}/{distro}/released',
+                  rf'\g<1>{released_epoch}/{distro}/released',
                   content, count=1
               )
               content = re.sub(
                   r"(qiime2_epoch:\s*')[^']+'",
-                  rf"\1{active_epoch}'",
+                  rf"\g<1>{active_epoch}'",
                   content
               )
               with open(f'{dst_dir}/seed-environment-conda-osx.yml', 'w') as f:

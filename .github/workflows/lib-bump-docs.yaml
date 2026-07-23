@@ -1,0 +1,97 @@
+on:
+  workflow_call:
+    inputs:
+      repo:
+        description: 'GitHub repository (org/repo) to update'
+        type: string
+        required: true
+      rtd-slug:
+        description: 'ReadTheDocs project slug'
+        type: string
+        required: true
+      active-epoch:
+        description: 'Active epoch (from data.yaml)'
+        type: string
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout ${{ inputs.repo }}"
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ inputs.repo }}
+          token: ${{ secrets.RTD_PAT }}
+
+      - name: "create dev-bump/${{ inputs.active-epoch }} branch"
+        run: git checkout -b dev-bump/${{ inputs.active-epoch }}
+
+      - name: "update readthedocs environment file"
+        run: |
+          EPOCH="${{ inputs.active-epoch }}"
+          sed -i -E \
+            "s|(packages\.qiime2\.org/qiime2/)[^/]+/([^/]+)/[^[:space:]]+|\1${EPOCH}/\2/passed|g" \
+            environment-files/readthedocs.yml
+
+      - name: "commit and push branch"
+        run: |
+          git config user.email "q2d2.noreply@gmail.com"
+          git config user.name "q2d2"
+          git add environment-files/readthedocs.yml
+          git commit -m "DEV: ${{ inputs.active-epoch }} dev bump"
+          git push origin dev-bump/${{ inputs.active-epoch }}
+
+      - name: "open PR against main"
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+        run: |
+          PR_URL=$(gh pr create \
+            --repo ${{ inputs.repo }} \
+            --head dev-bump/${{ inputs.active-epoch }} \
+            --base main \
+            --title "DEV: ${{ inputs.active-epoch }} dev bump" \
+            --body "Updates the readthedocs build environment to the ${{ inputs.active-epoch }} development (passed) channel.")
+          echo "pr-url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: "wait for ReadTheDocs dev-bump build"
+        env:
+          RTD_API_TOKEN: ${{ secrets.RTD_API_TOKEN }}
+        run: |
+          RTD_VERSION="dev-bump-$(echo '${{ inputs.active-epoch }}' | tr '.' '-')"
+          echo "Waiting 90s for RTD to queue the build..."
+          sleep 90
+
+          BUILD_ID=$(curl -sf \
+            -H "Authorization: Token $RTD_API_TOKEN" \
+            "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/?version_slug=${RTD_VERSION}&limit=1" \
+            | python3 -c "import sys, json; print(json.load(sys.stdin)['results'][0]['id'])")
+          echo "Polling build ID: $BUILD_ID"
+
+          while true; do
+            RESULT=$(curl -sf \
+              -H "Authorization: Token $RTD_API_TOKEN" \
+              "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/$BUILD_ID/")
+            STATE=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['state']['code'])")
+            echo "State: $STATE"
+            if [ "$STATE" = "finished" ]; then
+              SUCCESS=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['success'])")
+              if [ "$SUCCESS" = "True" ]; then
+                echo "RTD dev-bump build succeeded."
+                exit 0
+              else
+                echo "RTD dev-bump build failed."
+                exit 1
+              fi
+            fi
+            sleep 30
+          done
+
+      - name: "merge PR"
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+        run: |
+          gh pr merge ${{ steps.pr.outputs.pr-url }} \
+            --repo ${{ inputs.repo }} \
+            --merge

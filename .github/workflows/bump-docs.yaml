@@ -11,56 +11,56 @@ jobs:
       - uses: actions/checkout@v3
       - id: epoch
         run: |
-          epoch=$(python3 -c "
+          python3 -c "
           import yaml
-          print(yaml.safe_load(open('data.yaml'))['active_epoch'])
-          ")
-          echo "active-epoch=$epoch" >> "$GITHUB_OUTPUT"
+          print('active-epoch=' + yaml.safe_load(open('data.yaml'))['active_epoch'])
+          " >> "$GITHUB_OUTPUT"
 
-  open-prs:
+  # myst xref levels:
+  # https://develop.qiime2.org/en/stable/docs/xref-reference.html
+
+  # Generation 1: framework references
+  gen-1:
     needs: [setup]
-    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           - repo: rachis-org/using-qiime2
+            rtd-slug: using-qiime2
           - repo: rachis-org/developing-with-qiime2
+            rtd-slug: developing-with-qiime-2
+    uses: qiime2/distributions/.github/workflows/lib-bump-docs.yaml@dev
+    with:
+      repo: ${{ matrix.repo }}
+      rtd-slug: ${{ matrix.rtd-slug }}
+      active-epoch: ${{ needs.setup.outputs.active-epoch }}
+    secrets: inherit
+
+  # Generation 2: dataset focused tutorials
+  gen-2:
+    needs: [setup, gen-1]
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
           - repo: qiime2/moving-pictures-tutorial
+            rtd-slug: moving-pictures-tutorial
           - repo: qiime2/gut-to-soil-tutorial
-          - repo: qiime2/amplicon-docs
-    steps:
-      - name: "checkout ${{ matrix.repo }}"
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ matrix.repo }}
-          token: ${{ secrets.RTD_PAT }}
+            rtd-slug: gut-to-soil-tutorial
+    uses: qiime2/distributions/.github/workflows/lib-bump-docs.yaml@dev
+    with:
+      repo: ${{ matrix.repo }}
+      rtd-slug: ${{ matrix.rtd-slug }}
+      active-epoch: ${{ needs.setup.outputs.active-epoch }}
+    secrets: inherit
 
-      - name: "create dev-bump/${{ needs.setup.outputs.active-epoch }} branch"
-        run: git checkout -b dev-bump/${{ needs.setup.outputs.active-epoch }}
-
-      - name: "update readthedocs environment file"
-        run: |
-          EPOCH="${{ needs.setup.outputs.active-epoch }}"
-          sed -i -E \
-            "s|(packages\.qiime2\.org/qiime2/)[^/]+/([^/]+)/[^[:space:]]+|\1${EPOCH}/\2/passed|g" \
-            environment-files/readthedocs.yml
-
-      - name: "commit and push branch"
-        run: |
-          git config user.email "q2d2.noreply@gmail.com"
-          git config user.name "q2d2"
-          git add environment-files/readthedocs.yml
-          git commit -m "DEV: ${{ needs.setup.outputs.active-epoch }} dev bump"
-          git push origin dev-bump/${{ needs.setup.outputs.active-epoch }}
-
-      - name: "open PR against main"
-        env:
-          GH_TOKEN: ${{ secrets.RTD_PAT }}
-        run: |
-          gh pr create \
-            --repo ${{ matrix.repo }} \
-            --head dev-bump/${{ needs.setup.outputs.active-epoch }} \
-            --base main \
-            --title "DEV: ${{ needs.setup.outputs.active-epoch }} dev bump" \
-            --body "Updates the readthedocs build environment to the ${{ needs.setup.outputs.active-epoch }} development (passed) channel."
+  # Generation 3: distro & plugin documentation
+  gen-3:
+    needs: [setup, gen-2]
+    uses: qiime2/distributions/.github/workflows/lib-bump-docs.yaml@dev
+    with:
+      repo: qiime2/amplicon-docs
+      rtd-slug: amplicon-docs
+      active-epoch: ${{ needs.setup.outputs.active-epoch }}
+    secrets: inherit

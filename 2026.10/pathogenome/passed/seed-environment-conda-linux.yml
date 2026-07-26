@@ -19,13 +19,13 @@ dependencies:
 - prodigal=2.6.3
 - pyarrow=16.1.0
 - python=3.12
-- q2-amrfinderplus=2026.10.0.dev0
+- q2-amrfinderplus=2026.10.0.dev0+2.g9f87751
 - q2-demux=2026.10.0.dev0
 - q2-feature-table=2026.10.0.dev0
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-types=2026.10.0.dev0
-- q2-viromics=2026.10.0.dev0
+- q2-viromics=2026.10.0.dev0+2.g983be5e
 - q2-vizard=2026.10.0.dev0
 - q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0

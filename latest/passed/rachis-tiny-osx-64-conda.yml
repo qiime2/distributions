@@ -63,7 +63,7 @@ dependencies:
 - gmp=6.3.0
 - graphite2=1.3.15
 - gsl=2.7
-- h2=4.4.0
+- h2=4.4.1
 - h5py=3.15.1
 - hdf5=1.14.6
 - hpack=4.2.0
@@ -109,7 +109,7 @@ dependencies:
 - libgfortran-devel_osx-64=14.4.0
 - libgfortran5=16.1.0
 - libglib=2.88.3
-- libharfbuzz=14.2.1
+- libharfbuzz=14.3.0
 - libiconv=1.18
 - libintl=0.25.1
 - libjpeg-turbo=3.2.0
@@ -150,7 +150,7 @@ dependencies:
 - networkx=3.6.1
 - numpy=2.4.2
 - openssl=3.6.3
-- packaging=26.2
+- packaging=26.3
 - pandas=2.3.3
 - pandera=0.32.1
 - pandera-base=0.32.1
@@ -158,8 +158,8 @@ dependencies:
 - parsl=2026.2.23
 - patsy=1.0.2
 - pcre2=10.47
-- petl=1.7.22
-- pip=26.2
+- petl=1.7.23
+- pip=26.2.1
 - pixman=0.46.4
 - platformdirs=4.11.0
 - pluggy=1.6.0
@@ -199,7 +199,7 @@ dependencies:
 - r-rlang=1.3.0
 - r-rprojroot=2.1.1
 - r-withr=3.0.3
-- rachis=2026.10.0.dev0+1.g37d4930
+- rachis=2026.10.0.dev0+2.g4e70785
 - readline=8.3
 - referencing=0.37.0
 - requests=2.34.2
@@ -231,7 +231,7 @@ dependencies:
 - tomli=2.4.1
 - tomlkit=0.15.1
 - typeguard=4.6.0
-- typer=0.27.0
+- typer=0.27.1
 - typing-extensions=4.16.0
 - typing-inspection=0.4.2
 - typing_extensions=4.16.0

@@ -25,7 +25,7 @@ dependencies:
 - cached_property=1.5.2
 - cairo=1.18.4
 - certifi=2026.7.22
-- chardet=7.4.3
+- chardet=7.5.1
 - charset-normalizer=3.4.9
 - click=8.1.8
 - colorama=0.4.6
@@ -102,7 +102,7 @@ dependencies:
 - liblzma=5.8.3
 - libnghttp2=1.68.1
 - libnsl=2.0.1
-- libopenblas=0.3.33
+- libopenblas=0.3.34
 - libpng=1.6.58
 - libpsl=0.23.0
 - libsanitizer=16.1.0
@@ -139,14 +139,14 @@ dependencies:
 - pandas=2.3.3
 - pandera=0.32.1
 - pandera-base=0.32.1
-- pango=1.58.0
+- pango=1.58.2
 - parsl=2026.2.23
 - patsy=1.0.2
 - pcre2=10.47
 - petl=1.7.23
 - pip=26.2.1
 - pixman=0.46.4
-- platformdirs=4.11.0
+- platformdirs=4.11.1
 - pluggy=1.6.0
 - psutil=7.2.2
 - pthread-stubs=0.4

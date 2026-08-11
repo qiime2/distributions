@@ -59,6 +59,7 @@ jobs:
       pair-ref: ${{ steps.detect-paired.outputs.pair-ref }}
       paired-repos: ${{ steps.find-paired.outputs.paired-repos }}
       effective-distro: ${{ steps.effective-distro.outputs.effective-distro }}
+      python-version: ${{ steps.python-version.outputs.python-version }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -69,6 +70,23 @@ jobs:
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
+
+      - name: "derive python version from active epoch"
+        id: python-version
+        shell: bash
+        env:
+          EPOCH: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+        run: |
+          mapfile -t versions < <(
+            grep -hE '^- python=' "${EPOCH}"/*/staged/*.yml \
+              | sed 's/^- python=//' | cut -d. -f1,2 | sort -u
+          )
+          if [ "${#versions[@]}" -ne 1 ]; then
+            echo "::error::expected exactly one Python version across ${EPOCH} staged envs, got: ${versions[*]:-none}"
+            exit 1
+          fi
+          echo "Python ${versions[0]} (from ${EPOCH} staged seed envs)"
+          echo "python-version=${versions[0]}" >> "$GITHUB_OUTPUT"
 
       - name: "detect Paired- branch"
         id: detect-paired
@@ -129,15 +147,16 @@ jobs:
           distro: ${{ steps.effective-distro.outputs.effective-distro }}
 
   lint:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - name: checkout source
       uses: actions/checkout@v3
 
-    - name: set up python 3.10
+    - name: set up python ${{ needs.setup.outputs.python-version }}
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: ${{ needs.setup.outputs.python-version }}
 
     # only run this on PRs created on or after 3 June 2026 (9am CEST / midnight PDT)
     - name: validate PR template

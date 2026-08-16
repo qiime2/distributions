@@ -39,7 +39,7 @@ dependencies:
 - q2-cutadapt=2026.10.0.dev0
 - q2-demux=2026.10.0.dev0
 - q2-fastp=2026.10.0.dev0+3.g5af2543
-- q2-feature-table=2026.10.0.dev0+1.ga09c11b
+- q2-feature-table=2026.10.0.dev0+3.gc91bff6
 - q2-fondue=2026.10.0.dev0+2.g2691f25
 - q2-mag=2026.10.0.dev0+1.ga33c3ec
 - q2-metadata=2026.10.0.dev0
@@ -56,7 +56,7 @@ dependencies:
 - r-base=4.4.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
-- rachis=2026.10.0.dev0+2.g4e70785
+- rachis=2026.10.0.dev0+4.g1d3ac79
 - rescript=2026.10.0.dev0
 - rnanorm=2.1.0
 - samtools=1.22.1

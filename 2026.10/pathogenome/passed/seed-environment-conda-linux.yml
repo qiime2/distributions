@@ -21,7 +21,7 @@ dependencies:
 - python=3.12
 - q2-amrfinderplus=2026.10.0.dev0+2.g9f87751
 - q2-demux=2026.10.0.dev0
-- q2-feature-table=2026.10.0.dev0+3.gc91bff6
+- q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-types=2026.10.0.dev0
@@ -45,4 +45,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.10'
-# modified: 2026-08-23

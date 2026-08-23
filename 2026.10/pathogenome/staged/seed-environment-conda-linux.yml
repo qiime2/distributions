@@ -35,7 +35,7 @@ dependencies:
 - q2-assembly=2026.4.0.dev0
 - q2-demux=2026.10.0.dev0
 - q2-feature-classifier=2026.4.0.dev0
-- q2-feature-table=2026.10.0.dev0+3.gc91bff6
+- q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-fondue=2026.4.0.dev0
 - q2-longitudinal=2026.4.0.dev0
 - q2-metadata=2026.10.0.dev0

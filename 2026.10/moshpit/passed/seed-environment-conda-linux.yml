@@ -36,12 +36,12 @@ dependencies:
 - python=3.12
 - q2-annotate=2026.10.0.dev0+1.gd4faae6
 - q2-assembly=2026.10.0.dev0+1.g4bb0896
-- q2-cutadapt=2026.10.0.dev0
+- q2-cutadapt=2026.10.0.dev0+1.g4911775
 - q2-demux=2026.10.0.dev0
 - q2-fastp=2026.10.0.dev0+3.g5af2543
-- q2-feature-table=2026.10.0.dev0+3.gc91bff6
+- q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-fondue=2026.10.0.dev0+2.g2691f25
-- q2-mag=2026.10.0.dev0+1.ga33c3ec
+- q2-mag=2026.10.0.dev0+2.g8c89216
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-quality-control=2026.10.0.dev0
@@ -76,4 +76,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.10'
-# modified: 2026-08-23

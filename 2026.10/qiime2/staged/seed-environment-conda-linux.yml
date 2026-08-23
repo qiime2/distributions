@@ -32,7 +32,7 @@ dependencies:
 - q2-alignment=2026.10.0.dev0
 - q2-boots=2026.10.0.dev0
 - q2-composition=2026.10.0.dev0+1.ga4f28e0
-- q2-cutadapt=2026.10.0.dev0
+- q2-cutadapt=2026.10.0.dev0+1.g4911775
 - q2-dada2=2026.10.0.dev0
 - q2-deblur=2026.10.0.dev0
 - q2-demux=2026.10.0.dev0
@@ -40,7 +40,7 @@ dependencies:
 - q2-diversity=2026.10.0.dev0
 - q2-emperor=2026.10.0.dev0
 - q2-feature-classifier=2026.10.0.dev0+1.g69d9193
-- q2-feature-table=2026.10.0.dev0+3.gc91bff6
+- q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-fondue=2026.10.0.dev0+2.g2691f25
 - q2-fragment-insertion=2026.10.0.dev0
 - q2-kmerizer=2026.10.0.dev0+1.gf938f86

@@ -32,4 +32,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.10'
-# modified: 2026-08-30

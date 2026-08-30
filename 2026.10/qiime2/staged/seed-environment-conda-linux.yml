@@ -31,7 +31,7 @@ dependencies:
 - python=3.12
 - q2-alignment=2026.10.0.dev0
 - q2-boots=2026.10.0.dev0
-- q2-composition=2026.10.0.dev0+1.ga4f28e0
+- q2-composition=2026.10.0.dev0+2.gf4707d0
 - q2-cutadapt=2026.10.0.dev0+1.g4911775
 - q2-dada2=2026.10.0.dev0
 - q2-deblur=2026.10.0.dev0

@@ -1,0 +1,31 @@
+name: 'Rebuild RTD stable tag'
+description: >
+  Wait for RTD to re-point its `stable` version at the given epoch,
+  trigger a build of it, and fail unless that build succeeds at the given
+  commit.
+inputs:
+  rtd-slug:
+    required: true
+  epoch:
+    required: true
+  commit:
+    required: true
+outputs:
+  build-id:
+    description: 'RTD build ID that was triggered and verified'
+    value: ${{ steps.rtd-rebuild-stable.outputs.build-id }}
+
+runs:
+  using: composite
+  steps:
+    - id: 'setup-path'
+      shell: bash
+      run: echo "${{ github.action_path }}/bin/" >> $GITHUB_PATH
+    - id: 'rtd-rebuild-stable'
+      shell: bash
+      env:
+        PYTHONPATH: "${{ github.action_path }}/../src/"
+      run: |
+        cat <<EOF | rtd-rebuild-stable.py
+        ${{ toJSON(inputs) }}
+        EOF

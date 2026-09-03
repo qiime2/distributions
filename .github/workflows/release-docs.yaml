@@ -37,7 +37,6 @@ jobs:
     with:
       repo: ${{ matrix.repo }}
       rtd-slug: ${{ matrix.rtd-slug }}
-      prior-epoch: ${{ needs.setup.outputs.released-epoch }}
       active-epoch: ${{ needs.setup.outputs.active-epoch }}
     secrets: inherit
 
@@ -56,7 +55,6 @@ jobs:
     with:
       repo: ${{ matrix.repo }}
       rtd-slug: ${{ matrix.rtd-slug }}
-      prior-epoch: ${{ needs.setup.outputs.released-epoch }}
       active-epoch: ${{ needs.setup.outputs.active-epoch }}
     secrets: inherit
 
@@ -67,6 +65,5 @@ jobs:
     with:
       repo: qiime2/amplicon-docs
       rtd-slug: amplicon-docs
-      prior-epoch: ${{ needs.setup.outputs.released-epoch }}
       active-epoch: ${{ needs.setup.outputs.active-epoch }}
     secrets: inherit

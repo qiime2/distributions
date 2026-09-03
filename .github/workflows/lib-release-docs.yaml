@@ -6,11 +6,7 @@ on:
         type: string
         required: true
       rtd-slug:
-        description: 'ReadTheDocs project slug'
-        type: string
-        required: true
-      prior-epoch:
-        description: 'Prior release epoch (branch to remove stable tag from)'
+        description: 'RTD project slug'
         type: string
         required: true
       active-epoch:
@@ -21,6 +17,8 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      RTD_API_TOKEN: ${{ secrets.RTD_API_TOKEN }}
     steps:
       - name: "checkout ${{ inputs.repo }}"
         uses: actions/checkout@v3
@@ -30,18 +28,12 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: "remove stable tag from ${{ inputs.prior-epoch }}"
-        run: |
-          git checkout ${{ inputs.prior-epoch }}
-          git tag -d stable
-          git push origin :refs/tags/stable
-
       - name: "create ${{ inputs.active-epoch }} branch from main"
         run: |
           git checkout main
           git checkout -b ${{ inputs.active-epoch }}
 
-      - name: "update readthedocs environment file"
+      - name: "update RTD environment file"
         run: |
           sed -i 's|/passed|/released|g' environment-files/readthedocs.yml
 
@@ -68,39 +60,26 @@ jobs:
           git commit -m "REL: ${{ inputs.active-epoch }}"
           git push origin ${{ inputs.active-epoch }}
 
-      - name: "tag stable on ${{ inputs.active-epoch }}"
+      # The stable tag needs to be moved rather than deleted and recreated.
+      # Deleting it first leaves a window where RTD stable version falls
+      # back to the previous epoch (the highest version-like ref that
+      # exists at that moment), and any build RTD queues in that window
+      # publishes the prior epoch's docs as stable.
+      # This came up in the 2026.7 release; MP and amplicon both ended up
+      # one epoch behind while GTS did not, just based on webhook ordering.
+      # A single force-push swaps the tag without any gap.
+      - name: "move stable tag to ${{ inputs.active-epoch }}"
+        id: stable-tag
         run: |
-          git tag -a stable -m "REL: bump stable tag to ${{ inputs.active-epoch }}"
-          git push origin ${{ inputs.active-epoch }} --tags stable
+          git tag -f -a stable -m "REL: bump stable tag to ${{ inputs.active-epoch }}"
+          git push origin --force refs/tags/stable
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: "wait for ReadTheDocs stable build"
-        env:
-          RTD_API_TOKEN: ${{ secrets.RTD_API_TOKEN }}
-        run: |
-          echo "Waiting 90s for RTD to queue the build..."
-          sleep 90
-
-          BUILD_ID=$(curl -sf \
-            -H "Authorization: Token $RTD_API_TOKEN" \
-            "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/?version_slug=stable&limit=1" \
-            | python3 -c "import sys, json; print(json.load(sys.stdin)['results'][0]['id'])")
-          echo "Polling build ID: $BUILD_ID"
-
-          while true; do
-            RESULT=$(curl -sf \
-              -H "Authorization: Token $RTD_API_TOKEN" \
-              "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/$BUILD_ID/")
-            STATE=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['state']['code'])")
-            echo "State: $STATE"
-            if [ "$STATE" = "finished" ]; then
-              SUCCESS=$(echo "$RESULT" | python3 -c "import sys, json; print(json.load(sys.stdin)['success'])")
-              if [ "$SUCCESS" = "True" ]; then
-                echo "RTD stable build succeeded."
-                exit 0
-              else
-                echo "RTD stable build failed."
-                exit 1
-              fi
-            fi
-            sleep 30
-          done
+      # Wait for RTD's version record to track the new epoch, then trigger the
+      # build explicitly and assert it built the commit that was just pushed.
+      - name: "rebuild and verify RTD stable"
+        uses: qiime2/distributions/.github/actions/rtd-rebuild-stable@dev
+        with:
+          rtd-slug: ${{ inputs.rtd-slug }}
+          epoch: ${{ inputs.active-epoch }}
+          commit: ${{ steps.stable-tag.outputs.sha }}

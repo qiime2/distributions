@@ -146,6 +146,11 @@ packages:
   distros: [qiime2]
   primary_distro: qiime2
 
+- name: q2-rgi
+  repo: bokulich-lab/q2-rgi
+  distros: [pathogenome]
+  primary_distro: pathogenome
+
 - name: q2-sample-classifier
   repo: qiime2/q2-sample-classifier
   distros: [qiime2]

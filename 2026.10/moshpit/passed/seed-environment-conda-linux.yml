@@ -23,6 +23,7 @@ dependencies:
 - matplotlib=3.9.1
 - megahit=1.2.9
 - metabat2=2.18
+- mmseqs2=18.8cc5c
 - moshpit=2026.10.0.dev0
 - multiqc=1.33
 - ncbi-datasets-pyclient=18.18.0
@@ -73,6 +74,7 @@ dependencies:
 - unifrac=1.5.1
 - vamb=5.0.4
 - vsearch=2.30.4
+- usearch=12.0_beta
 extras:
   variant_override:
     qiime2_epoch: '2026.10'

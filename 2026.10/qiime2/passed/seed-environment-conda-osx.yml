@@ -37,6 +37,7 @@ dependencies:
 - q2-diversity-lib=2026.10.0.dev0
 - q2-diversity=2026.10.0.dev0
 - q2-emperor=2026.10.0.dev0
+- q2-fastp=2026.10.0.dev0
 - q2-feature-classifier=2026.10.0.dev0+1.g69d9193
 - q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-fondue=2026.10.0.dev0+2.g2691f25
@@ -60,6 +61,7 @@ dependencies:
 - r-base=4.5.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
+- r-svglite=2.2.2
 - r-vegan=2.7_3
 - rachis=2026.10.0.dev0+4.g1d3ac79
 - rescript=2026.10.0.dev0

@@ -83,8 +83,8 @@ packages:
 
 - name: q2-fastp
   repo: bokulich-lab/q2-fastp
-  distros: [moshpit]
-  primary_distro: moshpit
+  distros: [qiime2, moshpit]
+  primary_distro: qiime2
 
 - name: q2-feature-classifier
   repo: qiime2/q2-feature-classifier

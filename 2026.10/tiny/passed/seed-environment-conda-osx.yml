@@ -13,9 +13,9 @@ dependencies:
 - pandas=2.3.3
 - parsl=2026.2.23
 - python=3.12
+- q2=2026.10.0.dev0
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
-- q2-proxy=2026.10.0.dev0
 - q2-types=2026.10.0.dev0
 - q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0

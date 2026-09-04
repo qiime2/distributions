@@ -9,7 +9,7 @@ dependencies:
 - altair=6.2.2
 - annotated-doc=0.0.5
 - annotated-types=0.8.0
-- anyio=4.14.2
+- anyio=4.15.0
 - array-api-compat=1.15.0
 - asttokens=3.0.2
 - atpublic=7.0.0
@@ -75,8 +75,11 @@ dependencies:
 - clangxx_impl_osx-64=23.1.0
 - clangxx_osx-64=23.1.0
 - click=8.1.8
+- cloudpickle=3.1.2
 - clustalw=2.1
 - colorama=0.4.6
+- coloredlogs=15.0.1
+- colormath=3.0.0
 - comm=0.2.3
 - compiler-rt=23.1.0
 - compiler-rt23=23.1.0
@@ -85,7 +88,7 @@ dependencies:
 - conda-pack=0.9.1
 - contourpy=1.3.3
 - cpython=3.12.14
-- curl=8.21.0
+- curl=8.22.0
 - cutadapt=5.2
 - cycler=0.12.1
 - deblur=1.1.1
@@ -104,7 +107,7 @@ dependencies:
 - fasttree=2.2.0
 - feedparser=6.0.14
 - feedparser-sgmllib=2.1.0
-- filelock=3.32.4
+- filelock=3.32.5
 - flufl.lock=9.1.0
 - font-ttf-dejavu-sans-mono=2.37
 - font-ttf-inconsolata=3.000
@@ -138,6 +141,7 @@ dependencies:
 - htslib=1.23.1
 - httpcore=1.0.9
 - httpx=0.28.1
+- humanfriendly=10.0
 - humanize=4.16.0
 - hyperframe=6.1.0
 - icu=78.3
@@ -149,7 +153,7 @@ dependencies:
 - iniconfig=2.3.0
 - interface_meta=1.3.0
 - iow=1.0.8
-- ipython=9.17.0
+- ipython=9.17.1
 - ipython_pygments_lexers=1.1.1
 - ipywidgets=8.1.9
 - iqtree=3.1.3
@@ -158,10 +162,11 @@ dependencies:
 - isodate=0.7.2
 - jedi=0.20.0
 - jinja2=3.1.6
-- joblib=1.5.3
+- joblib=1.6.0
 - jsonschema=4.26.0
 - jsonschema-specifications=2025.9.1
 - jupyterlab_widgets=3.0.17
+- kaleido-core=0.2.1
 - kiwisolver=1.5.1
 - krb5=1.22.2
 - lcms2=2.19.1
@@ -178,7 +183,7 @@ dependencies:
 - libclang-cpp23.1=23.1.0
 - libclang13=23.1.0
 - libcompiler-rt=23.1.0
-- libcurl=8.21.0
+- libcurl=8.22.0
 - libcxx=23.1.0
 - libcxx-devel=23.1.0
 - libcxx-headers=23.1.0
@@ -210,6 +215,7 @@ dependencies:
 - libopenblas=0.3.34
 - libpng=1.6.58
 - libpsl=0.23.1
+- libpython=3.12.14
 - libsigtool=0.1.3
 - libsodium=1.0.22
 - libsqlite=3.53.4
@@ -221,7 +227,7 @@ dependencies:
 - libxcb=1.17.0
 - libxml2=2.15.3
 - libxml2-16=2.15.3
-- libxslt=1.1.43
+- libxslt=1.1.45
 - libzlib=1.3.2
 - llvm-openmp=23.1.0
 - llvm-tools=23.1.0
@@ -232,9 +238,11 @@ dependencies:
 - lz4-c=1.10.0
 - mafft=7.526
 - make=4.4.1
+- markdown=3.10.3
 - markdown-it-py=4.2.0
 - marko=2.2.4
 - markupsafe=3.0.3
+- mathjax=2.7.7
 - matplotlib=3.10.8
 - matplotlib-base=3.10.8
 - matplotlib-inline=0.2.2
@@ -242,6 +250,7 @@ dependencies:
 - mpc=1.4.0
 - mpfr=4.2.2
 - mpi=1.0
+- multiqc=1.35
 - multivolumefile=0.2.3
 - munkres=1.1.4
 - muscle=3.8.1551
@@ -263,7 +272,7 @@ dependencies:
 - pandas=2.3.3
 - pandera=0.32.1
 - pandera-base=0.32.1
-- pandoc=3.10.2
+- pandoc=3.11
 - pango=1.58.2
 - parsl=2026.2.23
 - parso=0.8.7
@@ -299,8 +308,12 @@ dependencies:
 - pillow=12.1.1
 - pip=26.2.1
 - pixman=0.46.4
-- platformdirs=4.11.5
+- platformdirs=4.11.6
+- plotly=6.9.0
 - pluggy=1.6.0
+- polars=1.44.1
+- polars-runtime-32=1.44.1
+- polars-runtime-compat=1.44.1
 - pplacer=1.1.alpha17
 - prank=251117
 - prompt-toolkit=3.0.53
@@ -309,6 +322,7 @@ dependencies:
 - ptyprocess=0.7.0
 - pure_eval=0.2.3
 - py7zr=1.0.0
+- pyaml-env=1.2.2
 - pybcj=1.0.8
 - pycparser=3.0
 - pycryptodomex=3.23.0
@@ -327,6 +341,7 @@ dependencies:
 - python-dotenv=1.2.3
 - python-gil=3.12.14
 - python-isal=1.8.0
+- python-kaleido=0.2.1
 - python-slugify=8.0.4
 - python-tzdata=2026.3
 - python-zlib-ng=1.0.0
@@ -346,6 +361,7 @@ dependencies:
 - q2-diversity=2026.10.0.dev0
 - q2-diversity-lib=2026.10.0.dev0
 - q2-emperor=2026.10.0.dev0
+- q2-fastp=2026.10.0.dev0+3.g5af2543
 - q2-feature-classifier=2026.10.0.dev0+1.g69d9193
 - q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-fondue=2026.10.0.dev0+2.g2691f25
@@ -361,7 +377,7 @@ dependencies:
 - q2-stats=2026.10.0.dev0
 - q2-taxa=2026.10.0.dev0+2.g4d075c9
 - q2-types=2026.10.0.dev0
-- q2-vizard=2026.10.0.dev0
+- q2-vizard=2026.10.0.dev0+3.g09e1ad9
 - q2-vsearch=2026.10.0.dev0
 - q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
@@ -379,7 +395,7 @@ dependencies:
 - r-bh=1.90.0_1
 - r-bibtex=0.5.2
 - r-bit=4.6.0
-- r-bit64=4.8.4
+- r-bit64=4.8.6
 - r-bitops=1.0_9
 - r-blob=1.3.0
 - r-boot=1.3_32
@@ -400,7 +416,7 @@ dependencies:
 - r-cpp11=0.5.5
 - r-crayon=1.5.3
 - r-curl=8.0.0
-- r-data.table=1.18.4
+- r-data.table=1.18.6.1
 - r-dbi=1.3.0
 - r-dbplyr=2.6.0
 - r-deldir=2.0_4
@@ -425,7 +441,7 @@ dependencies:
 - r-foreach=1.5.2
 - r-foreign=0.8_91
 - r-formatr=1.14
-- r-formula=1.2_5
+- r-formula=1.2_6
 - r-frictionless=1.3.0
 - r-fs=2.1.0
 - r-futile.logger=1.4.9
@@ -451,7 +467,7 @@ dependencies:
 - r-htmltable=2.5.0
 - r-htmltools=0.5.9
 - r-htmlwidgets=1.6.4
-- r-httr=1.4.8
+- r-httr=1.4.9
 - r-hwriter=1.3.2.1
 - r-ids=1.0.1
 - r-igraph=2.3.3
@@ -524,7 +540,7 @@ dependencies:
 - r-reshape2=1.4.5
 - r-reticulate=1.45.0
 - r-rlang=1.3.0
-- r-rmarkdown=2.31
+- r-rmarkdown=2.32
 - r-rngtools=1.5.2
 - r-robustbase=0.99_7
 - r-rootsolve=1.8.2.4
@@ -542,7 +558,8 @@ dependencies:
 - r-sp=2.2_3
 - r-stringi=1.8.9
 - r-stringr=1.6.0
-- r-survival=3.8_9
+- r-survival=3.8_11
+- r-svglite=2.2.2
 - r-sys=3.4.3
 - r-systemfonts=1.3.2
 - r-tensora=0.36.2.1
@@ -571,10 +588,12 @@ dependencies:
 - raxml=8.2.13
 - readline=8.3
 - referencing=0.37.0
+- regex=2026.9.3
 - requests=2.34.2
 - rescript=2026.10.0.dev0
 - rfc3986=2.0.0
 - rich=15.0.0
+- rich-click=1.9.8
 - rnanorm=2.1.0
 - rpds-py=2026.6.3
 - rpy2=3.6.4
@@ -595,6 +614,7 @@ dependencies:
 - sniffio=1.3.1
 - sortedcontainers=2.4.0
 - sortmerna=2.0
+- spectra=0.0.11
 - stack_data=0.6.3
 - statsmodels=0.14.6
 - stringcase=1.2.0
@@ -606,6 +626,7 @@ dependencies:
 - text-unidecode=1.3
 - texttable=1.7.0
 - threadpoolctl=3.6.0
+- tiktoken=0.14.0
 - tk=8.6.13
 - tktable=2.10
 - tomli=2.4.1
@@ -628,12 +649,12 @@ dependencies:
 - urllib3=2.7.0
 - validators=0.35.0
 - vsearch=2.30.4
-- wcwidth=0.8.2
+- wcwidth=0.8.3
 - wget=1.25.0
 - wheel=0.48.0
 - whenever=0.10.5
 - widgetsnbextension=4.0.16
-- wrapt=2.3.0
+- wrapt=2.4.0
 - xmltodict=1.0.4
 - xopen=2.1.0
 - xorg-libxau=1.0.12

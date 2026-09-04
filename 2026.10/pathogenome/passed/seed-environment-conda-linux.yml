@@ -24,14 +24,16 @@ dependencies:
 - q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
+- q2-rgi=2026.4.0+3.ge6f78f5
 - q2-types=2026.10.0.dev0
 - q2-viromics=2026.10.0.dev0+2.g983be5e
-- q2-vizard=2026.10.0.dev0
+- q2-vizard=2026.10.0.dev0+3.g09e1ad9
 - q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
 - qiime2=2026.10.0.dev0
 - r-reticulate=1.45.0
 - rachis=2026.10.0.dev0+4.g1d3ac79
+- rgi=6.0.8
 - rnanorm=2.1.0
 - scikit-bio=0.7.2
 - scipy=1.17.1

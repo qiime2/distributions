@@ -212,7 +212,7 @@ packages:
 # Paired ci-dev discovery treats a missing primary_distro on a sibling as:
 # skip the sibling.primary_distro containment check
 # else: fall back to self.primary_distro in sibling.distros
-- name: q2-proxy
+- name: q2
   repo: qiime2/q2
   distros: [tiny, qiime2, moshpit, pathogenome, test]
 

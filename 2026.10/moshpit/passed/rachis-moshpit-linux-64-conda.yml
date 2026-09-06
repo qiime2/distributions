@@ -10,7 +10,7 @@ dependencies:
 - alsa-lib=1.2.16.1
 - annotated-doc=0.0.5
 - annotated-types=0.8.0
-- anyio=4.15.0
+- anyio=4.15.1
 - archspec=0.2.5
 - argcomplete=3.7.2
 - aria2=1.37.0
@@ -510,7 +510,7 @@ dependencies:
 - pydantic-core=2.46.5
 - pygments=2.21.0
 - pyhmmer=0.12.3
-- pymongo=4.17.0
+- pymongo=4.18.0
 - pyparsing=3.3.2
 - pyppmd=1.1.0
 - pyrodigal=3.7.1
@@ -542,7 +542,7 @@ dependencies:
 - q2-fastp=2026.10.0.dev0+3.g5af2543
 - q2-feature-table=2026.10.0.dev0+4.g56388b3
 - q2-fondue=2026.10.0.dev0+2.g2691f25
-- q2-mag=2026.10.0.dev0+2.g8c89216
+- q2-mag=2026.10.0.dev0+3.g438963a
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-quality-control=2026.10.0.dev0
@@ -713,7 +713,7 @@ dependencies:
 - rescript=2026.10.0.dev0
 - rfc3986=2.0.0
 - rich=15.0.0
-- rich-click=1.9.8
+- rich-click=1.9.9
 - rmblast=2.14.1
 - rnanorm=2.1.0
 - roman-numerals=4.1.0

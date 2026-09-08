@@ -230,7 +230,7 @@ packages:
 # adding this as a 'duplicate' while the name change is still in progress
 # no conflicting builds will happen bc this wont be added to any env files
 # just adding here now for Paired- testing purposes
-- name: rachiscli
+- name: rachis-cli
   repo: rachis-org/rachis-cli
   distros: [tiny, qiime2, moshpit, pathogenome, test]
   primary_distro: tiny

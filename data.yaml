@@ -196,10 +196,13 @@ packages:
   distros: [qiime2]
   primary_distro: qiime2
 
+# removing from tiny for a proof of concept package replacement
+# will handle the other env files after tiny builds successfully using
+# the new rachis-cli package name
 - name: q2cli
   repo: qiime2/q2cli
-  distros: [tiny, qiime2, moshpit, pathogenome, test]
-  primary_distro: tiny
+  distros: [qiime2, moshpit, pathogenome, test]
+  primary_distro: qiime2
 
 - name: q2templates
   repo: qiime2/q2templates
@@ -230,7 +233,7 @@ packages:
 - name: rachis-cli
   repo: rachis-org/rachis-cli
   distros: [tiny, qiime2, moshpit, pathogenome, test]
-  primary_distro: [tiny]
+  primary_distro: tiny
 
 - name: rescript
   repo: bokulich-lab/RESCRIPt

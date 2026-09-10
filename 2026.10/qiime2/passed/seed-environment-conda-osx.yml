@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
+- bibtexparser=1.4.3
 - bioconductor-dada2=1.38.0
 - biom-format=2.1.17
 - blast=2.17.0

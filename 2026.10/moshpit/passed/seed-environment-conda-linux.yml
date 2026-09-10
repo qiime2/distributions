@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
+- bibtexparser=1.4.3
 - bigscape=2.0.2
 - biom-format=2.1.17
 - biopython=1.86

@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
+- bibtexparser=1.4.3
 - biom-format=2.1.17
 - click=8.1.8
 - frictionless=5.5.0

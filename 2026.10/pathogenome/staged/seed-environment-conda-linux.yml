@@ -32,7 +32,7 @@ dependencies:
 - pysam=0.22.1
 - python=3.12
 - q2-alignment=2026.4.0.dev0
-- q2-amrfinderplus=2026.10.0.dev0+2.g9f87751
+- q2-amrfinderplus=2026.10.0.dev0+3.ga1c61ea
 - q2-assembly=2026.4.0.dev0
 - q2-demux=2026.10.0.dev0
 - q2-feature-classifier=2026.4.0.dev0
@@ -50,10 +50,11 @@ dependencies:
 - q2-vizard=2026.10.0.dev0+3.g09e1ad9
 - q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
-- qiime2=2026.10.0.dev0
+- qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
+- rachis-cli=2026.10.0.dev0+1.ge730ca2
 - rachis=2026.10.0.dev0+5.ge6622c3
 - rescript=2026.4.0.dev0
 - rgi=6.0.8

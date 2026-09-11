@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
+- bibtexparser=1.4.3
 - bioconductor-dada2=1.38.0
 - biom-format=2.1.17
 - blast=2.17.0
@@ -41,7 +42,7 @@ dependencies:
 - q2-emperor=2026.10.0.dev0
 - q2-fastp=2026.10.0.dev0+3.g5af2543
 - q2-feature-classifier=2026.10.0.dev0+1.g69d9193
-- q2-feature-table=2026.10.0.dev0+4.g56388b3
+- q2-feature-table=2026.10.0.dev0+13.g292163d
 - q2-fondue=2026.10.0.dev0+2.g2691f25
 - q2-fragment-insertion=2026.10.0.dev0
 - q2-kmerizer=2026.10.0.dev0+1.gf938f86
@@ -65,7 +66,7 @@ dependencies:
 - r-reticulate=1.45.0
 - r-svglite=2.2.2
 - r-vegan=2.7_3
-- rachis=2026.10.0.dev0+4.g1d3ac79
+- rachis=2026.10.0.dev0+5.ge6622c3
 - rescript=2026.10.0.dev0
 - rnanorm=2.1.0
 - rpy2=3.6.4

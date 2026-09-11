@@ -25,7 +25,7 @@ dependencies:
 - megahit=1.2.9
 - metabat2=2.18
 - mmseqs2=18.8cc5c
-- moshpit=2026.10.0.dev0
+- moshpit=2026.10.0.dev0+1.gc5e63af
 - multiqc=1.33
 - ncbi-datasets-pyclient=18.18.0
 - networkx=3.6.1
@@ -52,12 +52,12 @@ dependencies:
 - q2-taxa=2026.10.0.dev0+2.g4d075c9
 - q2-types=2026.10.0.dev0
 - q2-vizard=2026.10.0.dev0+3.g09e1ad9
-- q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
-- qiime2=2026.10.0.dev0
+- qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.4.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
+- rachis-cli=2026.10.0.dev0+1.ge730ca2
 - rachis=2026.10.0.dev0+5.ge6622c3
 - rescript=2026.10.0.dev0
 - rnanorm=2.1.0

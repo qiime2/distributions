@@ -157,7 +157,7 @@ dependencies:
 - fontconfig=2.18.3
 - fonts-conda-ecosystem=1
 - fonts-conda-forge=1
-- fonttools=4.63.0
+- fonttools=4.65.0
 - formulaic=1.2.2
 - freetype=2.14.3
 - fribidi=1.0.16
@@ -363,7 +363,7 @@ dependencies:
 - miniprot=0.18
 - mkl=2024.2.2
 - mmseqs2=18.8cc5c
-- moshpit=2026.10.0.dev0
+- moshpit=2026.10.0.dev0+1.gc5e63af
 - mpc=1.4.0
 - mpfr=4.2.2
 - mpi=1.0
@@ -510,7 +510,7 @@ dependencies:
 - pydantic-core=2.46.5
 - pygments=2.21.0
 - pyhmmer=0.12.3
-- pymongo=4.18.0
+- pymongo=4.18.1
 - pyparsing=3.3.2
 - pyppmd=1.1.0
 - pyrodigal=3.7.1
@@ -551,10 +551,9 @@ dependencies:
 - q2-taxa=2026.10.0.dev0+2.g4d075c9
 - q2-types=2026.10.0.dev0
 - q2-vizard=2026.10.0.dev0+3.g09e1ad9
-- q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
 - qhull=2020.2
-- qiime2=2026.10.0.dev0
+- qiime2=2026.10.0.dev0+1.g789cc98
 - qt6-main=6.9.0
 - quast=5.3.0
 - r-abind=1.4_8
@@ -702,6 +701,7 @@ dependencies:
 - r-xml2=1.4.0
 - r-yaml=2.3.12
 - rachis=2026.10.0.dev0+5.ge6622c3
+- rachis-cli=2026.10.0.dev0+1.ge730ca2
 - raxml=8.2.13
 - re2=2025.06.26
 - readline=8.3

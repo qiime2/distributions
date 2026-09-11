@@ -52,13 +52,13 @@ dependencies:
 - q2-taxa=2026.10.0.dev0+2.g4d075c9
 - q2-types=2026.10.0.dev0
 - q2-vizard=2026.10.0.dev0+3.g09e1ad9
-- q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
 - qiime2=2026.10.0.dev0
 - r-base=4.4.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
 - rachis=2026.10.0.dev0+5.ge6622c3
+- rachis-cli=2026.10.0.dev0
 - rescript=2026.10.0.dev0
 - rnanorm=2.1.0
 - samtools=1.22.1

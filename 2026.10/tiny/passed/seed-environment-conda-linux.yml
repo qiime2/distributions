@@ -17,11 +17,11 @@ dependencies:
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-types=2026.10.0.dev0
-- q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
-- qiime2=2026.10.0.dev0
+- qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.5.2
 - r-reticulate=1.45.0
+- rachis-cli=2026.10.0.dev0+1.ge730ca2
 - rachis=2026.10.0.dev0+5.ge6622c3
 - rnanorm=2.1.0
 - scikit-bio=0.7.2

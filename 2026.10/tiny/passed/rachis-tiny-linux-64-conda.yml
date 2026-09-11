@@ -174,9 +174,8 @@ dependencies:
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-types=2026.10.0.dev0
-- q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
-- qiime2=2026.10.0.dev0
+- qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.5.3
 - r-here=1.0.2
 - r-jsonlite=2.0.0
@@ -191,6 +190,7 @@ dependencies:
 - r-rprojroot=2.1.1
 - r-withr=3.0.3
 - rachis=2026.10.0.dev0+5.ge6622c3
+- rachis-cli=2026.10.0.dev0+1.ge730ca2
 - readline=8.3
 - referencing=0.37.0
 - requests=2.34.2

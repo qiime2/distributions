@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - bioconda
 dependencies:
+- bibtexparser=1.4.3
 - biom-format=2.1.17
 - click=8.1.8
 - fastcluster=1.3.0
@@ -21,7 +22,7 @@ dependencies:
 - python=3.12
 - q2-amrfinderplus=2026.10.0.dev0+2.g9f87751
 - q2-demux=2026.10.0.dev0
-- q2-feature-table=2026.10.0.dev0+4.g56388b3
+- q2-feature-table=2026.10.0.dev0+13.g292163d
 - q2-metadata=2026.10.0.dev0
 - q2-mystery-stew=2026.10.0.dev0
 - q2-rgi=2026.4.0+3.ge6f78f5
@@ -32,7 +33,7 @@ dependencies:
 - q2templates=2026.10.0.dev0
 - qiime2=2026.10.0.dev0
 - r-reticulate=1.45.0
-- rachis=2026.10.0.dev0+4.g1d3ac79
+- rachis=2026.10.0.dev0+5.ge6622c3
 - rgi=6.0.8
 - rnanorm=2.1.0
 - scikit-bio=0.7.2

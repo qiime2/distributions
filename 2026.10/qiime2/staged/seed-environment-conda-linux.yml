@@ -60,12 +60,13 @@ dependencies:
 - q2-vsearch=2026.10.0.dev0
 - q2cli=2026.10.0.dev0
 - q2templates=2026.10.0.dev0
-- qiime2=2026.10.0.dev0
+- qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.5.2
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
 - r-svglite=2.2.2
 - r-vegan=2.7_3
+- rachis-cli=2026.10.0.dev0+1.ge730ca2
 - rachis=2026.10.0.dev0+5.ge6622c3
 - rescript=2026.10.0.dev0
 - rnanorm=2.1.0

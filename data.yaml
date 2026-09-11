@@ -199,10 +199,10 @@ packages:
 # removing from tiny for a proof of concept package replacement
 # will handle the other env files after tiny builds successfully using
 # the new rachis-cli package name
-- name: q2cli
-  repo: qiime2/q2cli
-  distros: [qiime2, moshpit, pathogenome, test]
-  primary_distro: qiime2
+# - name: q2cli
+#   repo: qiime2/q2cli
+#   distros: [qiime2, moshpit, pathogenome, test]
+#   primary_distro: qiime2
 
 - name: q2templates
   repo: qiime2/q2templates

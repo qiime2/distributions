@@ -495,7 +495,7 @@ dependencies:
 - pthread-stubs=0.4
 - ptyprocess=0.7.0
 - pullseq=1.0.2
-- pure_eval=0.2.3
+- pure_eval=0.2.4
 - py7zr=1.0.0
 - pyaml-env=1.2.2
 - pyarrow=16.1.0

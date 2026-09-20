@@ -56,7 +56,7 @@ dependencies:
 - q2-types=2026.10.0.dev0
 - q2-vizard=2026.10.0.dev0+3.g09e1ad9
 - q2-vsearch=2026.10.0.dev0
-- q2templates=2026.10.0.dev0
+- q2templates=2026.10.0.dev0+1.g154de00
 - qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.5.2
 - r-optparse=1.7.5
@@ -64,8 +64,8 @@ dependencies:
 - r-svglite=2.2.2
 - r-vegan=2.7_3
 - rachis-cli=2026.10.0.dev0+1.ge730ca2
-- rachis=2026.10.0.dev0+5.ge6622c3
-- rescript=2026.10.0.dev0
+- rachis=2026.10.0.dev0+7.g8923e91
+- rescript=2026.10.0.dev0+1.gc60e0c4
 - rnanorm=2.1.0
 - rpy2=3.6.4
 - samtools=1.22.1

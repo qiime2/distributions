@@ -45,7 +45,7 @@ dependencies:
 - q2-annotate=2026.10.0.dev0+2.gc9767e1
 - q2-assembly=2026.10.0.dev0+4.g09721e9
 - q2-composition=2026.4.0.dev0
-- q2-cutadapt=2026.10.0.dev0+1.g4911775
+- q2-cutadapt=2026.10.0.dev0+2.g7f6360e
 - q2-demux=2026.10.0.dev0
 - q2-diversity-lib=2026.4.0.dev0
 - q2-diversity=2026.4.0.dev0
@@ -56,7 +56,7 @@ dependencies:
 - q2-fondue=2026.10.0.dev0+2.g2691f25
 - q2-longitudinal=2026.4.0.dev0
 - q2-mag=2026.10.0.dev0+3.g438963a
-- q2-metadata=2026.10.0.dev0
+- q2-metadata=2026.10.0.dev0+1.g8a56980
 - q2-mystery-stew=2026.10.0.dev0
 - q2-quality-control=2026.10.0.dev0
 - q2-quality-filter=2026.4.0.dev0
@@ -64,8 +64,8 @@ dependencies:
 - q2-sapienns=2026.10.0.dev0
 - q2-sourmash=2026.10.0.dev0
 - q2-taxa=2026.10.0.dev0+2.g4d075c9
-- q2-types=2026.10.0.dev0
-- q2-vizard=2026.10.0.dev0+3.g09e1ad9
+- q2-types=2026.10.0.dev0+1.g0449881
+- q2-vizard=2026.10.0.dev0+4.g5eca3e4
 - q2-vsearch=2026.4.0.dev0
 - q2templates=2026.10.0.dev0+1.g154de00
 - qiime2=2026.10.0.dev0+1.g789cc98
@@ -75,7 +75,7 @@ dependencies:
 - r-vegan=2.6_8
 - rachis-cli=2026.10.0.dev0+1.ge730ca2
 - rachis=2026.10.0.dev0+7.g8923e91
-- rescript=2026.10.0.dev0+1.gc60e0c4
+- rescript=2026.10.0.dev0+7.gaf29a4f
 - rnanorm=2.1.0
 - rpy2=3.5.11
 - samtools=1.22.1

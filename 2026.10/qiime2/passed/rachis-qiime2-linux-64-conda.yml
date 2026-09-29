@@ -7,7 +7,7 @@ dependencies:
 - _python_abi3_support=1.0
 - _r-mutex=1.0.1
 - alsa-lib=1.2.16.1
-- altair=6.2.2
+- altair=6.3.0
 - annotated-doc=0.0.5
 - annotated-types=0.8.0
 - anyio=4.15.1
@@ -283,8 +283,8 @@ dependencies:
 - openssl=3.6.4
 - packaging=26.3
 - pandas=2.3.3
-- pandera=0.32.1
-- pandera-base=0.32.1
+- pandera=0.33.1
+- pandera-base=0.33.1
 - pandoc=3.11
 - pango=1.58.2
 - parsl=2026.2.23
@@ -315,13 +315,13 @@ dependencies:
 - perl-scalar-list-utils=1.70
 - perl-storable=3.15
 - perl-types-serialiser=1.01
-- petl=1.7.27
+- petl=1.7.28
 - pexpect=4.9.0
 - pigz=2.8
 - pillow=12.1.1
 - pip=26.2.1
 - pixman=0.46.4
-- platformdirs=4.12.0
+- platformdirs=4.12.1
 - plotly=6.9.0
 - pluggy=1.6.0
 - polars=1.44.2
@@ -391,7 +391,7 @@ dependencies:
 - q2-stats=2026.10.0.dev0
 - q2-taxa=2026.10.0.dev0+2.g4d075c9
 - q2-types=2026.10.0.dev0+1.g0449881
-- q2-vizard=2026.10.0.dev0+4.g5eca3e4
+- q2-vizard=2026.10.0.dev0+5.g8ce8be1
 - q2-vsearch=2026.10.0.dev0
 - q2templates=2026.10.0.dev0+1.g154de00
 - qhull=2020.2
@@ -603,7 +603,7 @@ dependencies:
 - raxml=8.2.13
 - readline=8.3
 - referencing=0.37.0
-- regex=2026.9.10
+- regex=2026.9.29
 - requests=2.34.2
 - rescript=2026.10.0.dev0+7.gaf29a4f
 - rfc3986=2.0.0
@@ -669,7 +669,7 @@ dependencies:
 - wheel=0.48.0
 - whenever=0.10.5
 - widgetsnbextension=4.0.16
-- wrapt=2.4.1
+- wrapt=2.5.0
 - xcb-util=0.4.1
 - xcb-util-cursor=0.1.6
 - xcb-util-image=0.4.0

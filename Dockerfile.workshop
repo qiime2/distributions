@@ -6,8 +6,8 @@ FROM quay.io/qiime2/${DISTRO}:${EPOCH}
 ARG EPOCH
 ARG DISTRO
 
-ENV HOME /home/qiime2
-ENV XDG_CONFIG_HOME /home/qiime2
+ENV HOME=/home/qiime2
+ENV XDG_CONFIG_HOME=/home/qiime2
 
 RUN mkdir /home/qiime2
 WORKDIR /home/qiime2
@@ -26,7 +26,7 @@ RUN echo "export PS1=\"\nCurrent working directory: \\w\n\\$ \"" >> $HOME/.bashr
 VOLUME "/home/qiime2"
 
 # make default jupyter shell be bash
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 
 # install various useful tools
 RUN apt-get update
@@ -37,7 +37,6 @@ RUN pip install jupyterlab
 # pretty sure this is no longer necessary, commenting out for the time being
 # RUN jupyter serverextension enable --py qiime2 --sys-prefix
 
-# TODO: add to environment for 2026.7 release?
 RUN pip install https://github.com/rachis-org/jupyterlab-rachis/archive/refs/heads/main.zip
 
 # launch jupyter lab on startup

@@ -14,10 +14,9 @@ ENV UNIFRAC_USE_GPU=N
 # Fails if the base image moves its conda prefix away from CONDA_DIR
 RUN test "$(conda info --base)" = "${CONDA_DIR}"
 
-# conda update failed without accepting tos (from local build)
-RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
-RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
-
+# Accept ToS for miniconda end user license
+# https://hub.docker.com/r/anaconda/miniconda#building-a-custom-image
+ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=true
 RUN conda update -q -y conda
 RUN conda install -q -y wget
 RUN apt-get update \

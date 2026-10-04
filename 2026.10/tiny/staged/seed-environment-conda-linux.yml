@@ -18,7 +18,7 @@ dependencies:
 - python=3.12
 - q2-metadata=2026.10.0.dev0+1.g8a56980
 - q2-mystery-stew=2026.10.0.dev0
-- q2-types=2026.10.0.dev0+1.g0449881
+- q2-types=2026.10.0.dev0+2.g861f127
 - q2templates=2026.10.0.dev0+1.g154de00
 - qiime2=2026.10.0.dev0+1.g789cc98
 - r-base=4.5.2

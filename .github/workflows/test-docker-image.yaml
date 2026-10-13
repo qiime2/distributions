@@ -70,7 +70,7 @@ jobs:
 
       - name: create conda activation script
         run: |
-          echo "source /opt/conda/etc/profile.d/conda.sh && conda activate base" > activate.sh
+          echo "source /opt/miniconda3/etc/profile.d/conda.sh && conda activate base" > activate.sh
           chmod +x activate.sh
 
       - name: download ${{ matrix.package }}

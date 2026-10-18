@@ -55,9 +55,9 @@ dependencies:
 - q2-quality-filter=2026.10.0.dev0
 - q2-sample-classifier=2026.10.0.dev0
 - q2-stats=2026.10.0.dev0
-- q2-taxa=2026.10.0.dev0+2.g4d075c9
-- q2-types=2026.10.0.dev0+3.gb51081a
-- q2-vizard=2026.10.0.dev0+5.g8ce8be1
+- q2-taxa=2026.10.0.dev0+3.g0113eaf
+- q2-types=2026.10.0.dev0+4.g0ebb43c
+- q2-vizard=2026.10.0.dev0+21.g2f77223
 - q2-vsearch=2026.10.0.dev0
 - q2templates=2026.10.0.dev0+1.g154de00
 - qiime2=2026.10.0.dev0+1.g789cc98

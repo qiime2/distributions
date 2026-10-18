@@ -44,7 +44,7 @@ dependencies:
 - pyzotero=1.14.0
 - q2-alignment=2026.4.0.dev0
 - q2-annotate=2026.10.0.dev0+3.g635d2f9
-- q2-assembly=2026.10.0.dev0+4.g09721e9
+- q2-assembly=2026.10.0.dev0+7.g605284f
 - q2-composition=2026.4.0.dev0
 - q2-cutadapt=2026.10.0.dev0+3.gac415ae
 - q2-demux=2026.10.0.dev0
@@ -56,7 +56,7 @@ dependencies:
 - q2-feature-table=2026.10.0.dev0+15.gdb39e84
 - q2-fondue=2026.10.0.dev0+3.g44e2b25
 - q2-longitudinal=2026.4.0.dev0
-- q2-mag=2026.10.0.dev0+5.gee16594
+- q2-mag=2026.10.0.dev0+8.g33fff7d
 - q2-metadata=2026.10.0.dev0+1.g8a56980
 - q2-mystery-stew=2026.10.0.dev0
 - q2-quality-control=2026.10.0.dev0
@@ -64,9 +64,9 @@ dependencies:
 - q2-sample-classifier=2026.4.0.dev0
 - q2-sapienns=2026.10.0.dev0+1.g7fd5c82
 - q2-sourmash=2026.10.0.dev0
-- q2-taxa=2026.10.0.dev0+2.g4d075c9
-- q2-types=2026.10.0.dev0+2.g861f127
-- q2-vizard=2026.10.0.dev0+5.g8ce8be1
+- q2-taxa=2026.10.0.dev0+3.g0113eaf
+- q2-types=2026.10.0.dev0+4.g0ebb43c
+- q2-vizard=2026.10.0.dev0+21.g2f77223
 - q2-vsearch=2026.4.0.dev0
 - q2templates=2026.10.0.dev0+1.g154de00
 - qiime2=2026.10.0.dev0+1.g789cc98

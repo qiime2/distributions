@@ -37,7 +37,7 @@ dependencies:
 - pysam=0.23.3
 - python=3.12
 - pyzotero=1.14.0
-- q2-annotate=2026.10.0.dev0+3.g635d2f9
+- q2-annotate=2026.10.0.dev0+4.g3bb2a3c
 - q2-assembly=2026.10.0.dev0+7.g605284f
 - q2-cutadapt=2026.10.0.dev0+3.gac415ae
 - q2-demux=2026.10.0.dev0
@@ -80,4 +80,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2026.10'
-# modified: 2026-10-19

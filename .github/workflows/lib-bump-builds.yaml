@@ -118,13 +118,15 @@ jobs:
             if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
               COMMIT_MSG=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.message')
               if echo "$COMMIT_MSG" | grep -q '\[skip ci\]'; then
-                PARENT_SHA=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.parents[0].sha')
-                PARENT_RUN=$(gh api \
-                  "repos/qiime2/distributions/actions/runs?head_sha=$PARENT_SHA" \
+                TRIGGER_SHA=$(gh api \
+                  "repos/qiime2/distributions/commits?sha=$HEAD_SHA&per_page=20" \
+                  --jq '[.[] | select(.commit.message | contains("[skip ci]") | not)] | first | .sha')
+                TRIGGER_RUN=$(gh api \
+                  "repos/qiime2/distributions/actions/runs?head_sha=$TRIGGER_SHA" \
                   --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-linux")] | first')
-                PARENT_CONCLUSION=$(echo "$PARENT_RUN" | jq -r '.conclusion')
-                if [ "$PARENT_CONCLUSION" = "success" ]; then
-                  echo "Automated commit ($HEAD_SHA) on top of successful trial ($PARENT_SHA). Done."; exit 0
+                TRIGGER_CONCLUSION=$(echo "$TRIGGER_RUN" | jq -r '.conclusion')
+                if [ "$TRIGGER_CONCLUSION" = "success" ]; then
+                  echo "Automated commits on top of successful trial ($TRIGGER_SHA). Done."; exit 0
                 fi
               fi
               echo "No run found yet for SHA $HEAD_SHA, waiting..."
@@ -255,13 +257,15 @@ jobs:
             if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
               COMMIT_MSG=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.message')
               if echo "$COMMIT_MSG" | grep -q '\[skip ci\]'; then
-                PARENT_SHA=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.parents[0].sha')
-                PARENT_RUN=$(gh api \
-                  "repos/qiime2/distributions/actions/runs?head_sha=$PARENT_SHA" \
+                TRIGGER_SHA=$(gh api \
+                  "repos/qiime2/distributions/commits?sha=$HEAD_SHA&per_page=20" \
+                  --jq '[.[] | select(.commit.message | contains("[skip ci]") | not)] | first | .sha')
+                TRIGGER_RUN=$(gh api \
+                  "repos/qiime2/distributions/actions/runs?head_sha=$TRIGGER_SHA" \
                   --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
-                PARENT_CONCLUSION=$(echo "$PARENT_RUN" | jq -r '.conclusion')
-                if [ "$PARENT_CONCLUSION" = "success" ]; then
-                  echo "Automated commit ($HEAD_SHA) on top of successful trial ($PARENT_SHA). Done."; exit 0
+                TRIGGER_CONCLUSION=$(echo "$TRIGGER_RUN" | jq -r '.conclusion')
+                if [ "$TRIGGER_CONCLUSION" = "success" ]; then
+                  echo "Automated commits on top of successful trial ($TRIGGER_SHA). Done."; exit 0
                 fi
               fi
               echo "No run found yet for SHA $HEAD_SHA, waiting..."
@@ -392,13 +396,15 @@ jobs:
             if [ "$RUN" = "null" ] || [ -z "$RUN" ]; then
               COMMIT_MSG=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.message')
               if echo "$COMMIT_MSG" | grep -q '\[skip ci\]'; then
-                PARENT_SHA=$(gh api repos/qiime2/distributions/git/commits/$HEAD_SHA --jq '.parents[0].sha')
-                PARENT_RUN=$(gh api \
-                  "repos/qiime2/distributions/actions/runs?head_sha=$PARENT_SHA" \
+                TRIGGER_SHA=$(gh api \
+                  "repos/qiime2/distributions/commits?sha=$HEAD_SHA&per_page=20" \
+                  --jq '[.[] | select(.commit.message | contains("[skip ci]") | not)] | first | .sha')
+                TRIGGER_RUN=$(gh api \
+                  "repos/qiime2/distributions/actions/runs?head_sha=$TRIGGER_SHA" \
                   --jq '[.workflow_runs[] | select(.name == "ci-distro-trial-osx")] | first')
-                PARENT_CONCLUSION=$(echo "$PARENT_RUN" | jq -r '.conclusion')
-                if [ "$PARENT_CONCLUSION" = "success" ]; then
-                  echo "Automated commit ($HEAD_SHA) on top of successful trial ($PARENT_SHA). Done."; exit 0
+                TRIGGER_CONCLUSION=$(echo "$TRIGGER_RUN" | jq -r '.conclusion')
+                if [ "$TRIGGER_CONCLUSION" = "success" ]; then
+                  echo "Automated commits on top of successful trial ($TRIGGER_SHA). Done."; exit 0
                 fi
               fi
               echo "No run found yet for SHA $HEAD_SHA, waiting..."

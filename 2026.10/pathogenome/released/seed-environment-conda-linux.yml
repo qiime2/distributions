@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.10/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2026.10/pathogenome/released
 - conda-forge
 - bioconda
 dependencies:
@@ -20,20 +20,20 @@ dependencies:
 - prodigal=2.6.3
 - pyarrow=16.1.0
 - python=3.12
-- q2-amrfinderplus=2026.10.0.dev0+4.g72650b2
-- q2-demux=2026.10.0.dev0
-- q2-feature-table=2026.10.0.dev0+15.gdb39e84
-- q2-metadata=2026.10.0.dev0+1.g8a56980
-- q2-mystery-stew=2026.10.0.dev0
-- q2-rgi=2026.4.0+3.ge6f78f5
-- q2-types=2026.10.0.dev0+4.g0ebb43c
-- q2-viromics=2026.10.0.dev0+4.g40f36e2
-- q2-vizard=2026.10.0.dev0+21.g2f77223
-- q2templates=2026.10.0.dev0+1.g154de00
-- qiime2=2026.10.0.dev0+1.g789cc98
+- q2-amrfinderplus=2026.10.0
+- q2-demux=2026.10.0
+- q2-feature-table=2026.10.0
+- q2-metadata=2026.10.0
+- q2-mystery-stew=2026.10.0
+- q2-rgi=2026.10.0
+- q2-types=2026.10.0
+- q2-viromics=2026.10.0
+- q2-vizard=2026.10.0
+- q2templates=2026.10.0
+- qiime2=2026.10.0
 - r-reticulate=1.45.0
-- rachis-cli=2026.10.0.dev0+1.ge730ca2
-- rachis=2026.10.0.dev0+8.ged1c2d0
+- rachis-cli=2026.10.0
+- rachis=2026.10.0
 - rgi=6.0.8
 - rnanorm=2.1.0
 - scikit-bio=0.7.2

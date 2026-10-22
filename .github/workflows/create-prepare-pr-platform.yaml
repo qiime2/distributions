@@ -129,7 +129,7 @@ jobs:
 
   rerun-await-workflow-on-failure:
     needs: [await-workflow]
-    if: failure() && fromJSON(github.run_attempt) < 3
+    if: always() && needs.await-workflow.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
     runs-on: ubuntu-latest
     steps:
       - env:

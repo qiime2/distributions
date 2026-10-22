@@ -20,6 +20,20 @@ on:
         default: false
 
 jobs:
+  compute-retry-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      should-retry: ${{ steps.gate.outputs.should-retry }}
+    steps:
+      - name: compute retry gate
+        id: gate
+        run: |
+          if (( ${{ github.run_attempt }} % 4 < 3 )); then
+            echo "should-retry=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should-retry=false" >> "$GITHUB_OUTPUT"
+          fi
+
   create-pr:
     runs-on: ubuntu-latest
     outputs:
@@ -128,8 +142,8 @@ jobs:
           echo "merged=$MERGED" >> "$GITHUB_OUTPUT"
 
   rerun-await-workflow-on-failure:
-    needs: [await-workflow]
-    if: always() && needs.await-workflow.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, await-workflow]
+    if: always() && needs.await-workflow.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:

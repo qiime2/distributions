@@ -22,6 +22,20 @@ on:
         default: ''
 
 jobs:
+  compute-retry-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      should-retry: ${{ steps.gate.outputs.should-retry }}
+    steps:
+      - name: compute retry gate
+        id: gate
+        run: |
+          if (( ${{ github.run_attempt }} % 4 < 3 )); then
+            echo "should-retry=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should-retry=false" >> "$GITHUB_OUTPUT"
+          fi
+
   prepare:
     uses: ./.github/workflows/ci-distro-trial_0-prepare-platform.yaml
     with:
@@ -29,8 +43,8 @@ jobs:
       target_subdirs: ${{ inputs.target_subdirs }}
 
   rerun-prepare-on-failure:
-    needs: [prepare]
-    if: always() && needs.prepare.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, prepare]
+    if: always() && needs.prepare.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -59,8 +73,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild0-on-failure:
-    needs: [rebuild-0]
-    if: always() && needs.rebuild-0.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-0]
+    if: always() && needs.rebuild-0.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -89,8 +103,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild1-on-failure:
-    needs: [rebuild-1]
-    if: always() && needs.rebuild-1.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-1]
+    if: always() && needs.rebuild-1.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -119,8 +133,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild2-on-failure:
-    needs: [rebuild-2]
-    if: always() && needs.rebuild-2.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-2]
+    if: always() && needs.rebuild-2.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -149,8 +163,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild3-on-failure:
-    needs: [rebuild-3]
-    if: always() && needs.rebuild-3.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-3]
+    if: always() && needs.rebuild-3.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -179,8 +193,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild4-on-failure:
-    needs: [rebuild-4]
-    if: always() && needs.rebuild-4.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-4]
+    if: always() && needs.rebuild-4.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -209,8 +223,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild5-on-failure:
-    needs: [rebuild-5]
-    if: always() && needs.rebuild-5.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-5]
+    if: always() && needs.rebuild-5.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -239,8 +253,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild6-on-failure:
-    needs: [rebuild-6]
-    if: always() && needs.rebuild-6.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-6]
+    if: always() && needs.rebuild-6.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -269,8 +283,8 @@ jobs:
       conda_subdir_env: ${{ inputs.conda_subdir_env }}
 
   rerun-rebuild7-on-failure:
-    needs: [rebuild-7]
-    if: always() && needs.rebuild-7.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, rebuild-7]
+    if: always() && needs.rebuild-7.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -293,8 +307,8 @@ jobs:
       seed_environment_file: ${{ inputs.seed_environment_file }}
 
   rerun-build-metapackage-on-failure:
-    needs: [build-metapackage]
-    if: always() && needs.build-metapackage.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, build-metapackage]
+    if: always() && needs.build-metapackage.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -316,8 +330,8 @@ jobs:
       platform_label: ${{ inputs.platform_label }}
 
   rerun-test-metapackage-on-failure:
-    needs: [test-metapackage]
-    if: always() && needs.test-metapackage.result == 'failure' && fromJSON(github.run_attempt) % 4 < 3
+    needs: [compute-retry-gate, test-metapackage]
+    if: always() && needs.test-metapackage.result == 'failure' && needs.compute-retry-gate.outputs.should-retry == 'true'
     runs-on: ubuntu-latest
     steps:
       - env:

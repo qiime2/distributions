@@ -71,6 +71,4 @@ jobs:
   changelog:
     needs: [setup, join-release]
     uses: ./.github/workflows/ci-collate-changelog.yaml
-    with:
-      release_tag: ${{ needs.setup.outputs.release-epoch }}.0
     secrets: inherit

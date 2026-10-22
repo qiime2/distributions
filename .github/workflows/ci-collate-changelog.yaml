@@ -1,40 +1,17 @@
 name: ci-collate-changelog
+# The release range always comes from data.yaml: <released_epoch>.0 ->
+# <active_epoch>.0, i.e. the release currently being cut. Run it (standalone
+# or via ci-join-release) before data.yaml is bumped to the next epoch.
 on:
-  workflow_call:
-    inputs:
-      release_tag:
-        description: >-
-          Release tag to generate the changelog for (e.g. 2026.10.0). Defaults
-          to <active_epoch>.0 from data.yaml.
-        required: false
-        type: string
-      previous_tag:
-        description: >-
-          Start of the release range shown at the top of the changelog (e.g.
-          2026.7.0). Defaults to <released_epoch>.0 from data.yaml.
-        required: false
-        type: string
-  workflow_dispatch:
-    inputs:
-      release_tag:
-        description: >-
-          Release tag to generate the changelog for (e.g. 2026.10.0). Leave
-          blank to derive from data.yaml active_epoch.
-        required: false
-        type: string
-      previous_tag:
-        description: >-
-          Start of the release range shown at the top of the changelog (e.g.
-          2026.7.0). Leave blank to derive from data.yaml released_epoch.
-        required: false
-        type: string
+  workflow_call: {}
+  workflow_dispatch: {}
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      release-tag: ${{ steps.resolve.outputs.release_tag }}
-      previous-tag: ${{ steps.resolve.outputs.previous_tag }}
+      release-tag: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}.0
+      previous-tag: ${{ fromJSON(steps.yaml.outputs.data).released_epoch }}.0
       plugin-matrix: ${{ steps.yaml.outputs.data }}
     steps:
       - uses: actions/checkout@v4
@@ -48,21 +25,6 @@ jobs:
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
-
-      - name: "resolve release range"
-        id: resolve
-        shell: bash
-        env:
-          RELEASE_TAG: ${{ inputs.release_tag }}
-          PREVIOUS_TAG: ${{ inputs.previous_tag }}
-          ACTIVE_EPOCH: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
-          RELEASED_EPOCH: ${{ fromJSON(steps.yaml.outputs.data).released_epoch }}
-        run: |
-          RELEASE_TAG="${RELEASE_TAG:-${ACTIVE_EPOCH}.0}"
-          PREVIOUS_TAG="${PREVIOUS_TAG:-${RELEASED_EPOCH}.0}"
-          echo "Resolved release range: $PREVIOUS_TAG -> $RELEASE_TAG"
-          echo "release_tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
-          echo "previous_tag=$PREVIOUS_TAG" >> "$GITHUB_OUTPUT"
 
   per-repo:
     needs: [setup]

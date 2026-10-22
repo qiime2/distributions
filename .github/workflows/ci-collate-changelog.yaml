@@ -1,0 +1,106 @@
+name: ci-collate-changelog
+# The release range always comes from data.yaml: <released_epoch>.0 ->
+# <active_epoch>.0, i.e. the release currently being cut. Run it (standalone
+# or via ci-join-release) before data.yaml is bumped to the next epoch.
+on:
+  workflow_call: {}
+  workflow_dispatch: {}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      release-tag: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}.0
+      previous-tag: ${{ fromJSON(steps.yaml.outputs.data).released_epoch }}.0
+      plugin-matrix: ${{ steps.yaml.outputs.data }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: qiime2/distributions
+          sparse-checkout: |
+            data.yaml
+
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+  per-repo:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        packages: ${{ fromJSON(needs.setup.outputs.plugin-matrix).packages }}
+    steps:
+      # checkout distributions (this repo) so the local action is available
+      - uses: actions/checkout@v4
+
+      - name: "ensure fragments directory"
+        shell: bash
+        run: mkdir -p fragments
+
+      - name: "generate changelog fragment"
+        id: fragment
+        uses: ./.github/actions/ci-collate-changelog
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+        with:
+          repo: ${{ matrix.packages.repo }}
+          name: ${{ matrix.packages.name }}
+          release-tag: ${{ needs.setup.outputs.release-tag }}
+          previous-tag: ${{ needs.setup.outputs.previous-tag }}
+          output: fragments/${{ matrix.packages.name }}.md
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: changelog-fragment-${{ matrix.packages.name }}
+          path: fragments/${{ matrix.packages.name }}.md
+          retention-days: 7
+
+  collate:
+    needs: [setup, per-repo]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "download fragments"
+        uses: actions/download-artifact@v4
+        with:
+          pattern: changelog-fragment-*
+          path: fragments
+          merge-multiple: true
+
+      - name: "collate fragments (alphabetical)"
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ needs.setup.outputs.release-tag }}
+          PREVIOUS_TAG: ${{ needs.setup.outputs.previous-tag }}
+        run: |
+          RELEASE_NAME="${RELEASE_TAG%.0}"
+          OUT="changelog-${RELEASE_NAME}.md"
+
+          {
+            echo "# 📋 ${RELEASE_NAME} Collated Changelog"
+            echo ""
+            # the shared release range, stated once; a plugin whose own range
+            # differs (e.g. newly added, no prior release) states it itself
+            echo "_Changes in ${PREVIOUS_TAG} → ${RELEASE_TAG}_"
+            echo ""
+            for f in $(ls fragments/*.md | sort); do
+              # skip empty fragments: plugins with no changes this cycle
+              [ -s "$f" ] || continue
+              cat "$f"
+              echo ""
+            done
+          } > "$OUT"
+
+          # surface in the run (both standalone and when called from join-release)
+          cat "$OUT" >> "$GITHUB_STEP_SUMMARY"
+          echo "OUT=$OUT" >> "$GITHUB_ENV"
+
+      - name: "upload collated changelog"
+        uses: actions/upload-artifact@v4
+        with:
+          name: collated-changelog
+          path: ${{ env.OUT }}
+          retention-days: 30

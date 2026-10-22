@@ -1,0 +1,144 @@
+name: ci-collate-changelog
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        description: >-
+          Release tag to generate the changelog for (e.g. 2026.10.0). Defaults
+          to <active_epoch>.0 from data.yaml.
+        required: false
+        type: string
+      previous_tag:
+        description: >-
+          Start of the release range shown at the top of the changelog (e.g.
+          2026.7.0). Defaults to <released_epoch>.0 from data.yaml.
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: >-
+          Release tag to generate the changelog for (e.g. 2026.10.0). Leave
+          blank to derive from data.yaml active_epoch.
+        required: false
+        type: string
+      previous_tag:
+        description: >-
+          Start of the release range shown at the top of the changelog (e.g.
+          2026.7.0). Leave blank to derive from data.yaml released_epoch.
+        required: false
+        type: string
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      release-tag: ${{ steps.resolve.outputs.release_tag }}
+      previous-tag: ${{ steps.resolve.outputs.previous_tag }}
+      plugin-matrix: ${{ steps.yaml.outputs.data }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: qiime2/distributions
+          sparse-checkout: |
+            data.yaml
+
+      - name: "get distro info"
+        id: yaml
+        uses: qiime2/distributions/.github/actions/read-yaml@dev
+        with:
+          file: data.yaml
+
+      - name: "resolve release range"
+        id: resolve
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          PREVIOUS_TAG: ${{ inputs.previous_tag }}
+          ACTIVE_EPOCH: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+          RELEASED_EPOCH: ${{ fromJSON(steps.yaml.outputs.data).released_epoch }}
+        run: |
+          RELEASE_TAG="${RELEASE_TAG:-${ACTIVE_EPOCH}.0}"
+          PREVIOUS_TAG="${PREVIOUS_TAG:-${RELEASED_EPOCH}.0}"
+          echo "Resolved release range: $PREVIOUS_TAG -> $RELEASE_TAG"
+          echo "release_tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+          echo "previous_tag=$PREVIOUS_TAG" >> "$GITHUB_OUTPUT"
+
+  per-repo:
+    needs: [setup]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        packages: ${{ fromJSON(needs.setup.outputs.plugin-matrix).packages }}
+    steps:
+      # checkout distributions (this repo) so the local action is available
+      - uses: actions/checkout@v4
+
+      - name: "ensure fragments directory"
+        shell: bash
+        run: mkdir -p fragments
+
+      - name: "generate changelog fragment"
+        id: fragment
+        uses: ./.github/actions/ci-collate-changelog
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+        with:
+          repo: ${{ matrix.packages.repo }}
+          name: ${{ matrix.packages.name }}
+          release-tag: ${{ needs.setup.outputs.release-tag }}
+          previous-tag: ${{ needs.setup.outputs.previous-tag }}
+          output: fragments/${{ matrix.packages.name }}.md
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: changelog-fragment-${{ matrix.packages.name }}
+          path: fragments/${{ matrix.packages.name }}.md
+          retention-days: 7
+
+  collate:
+    needs: [setup, per-repo]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "download fragments"
+        uses: actions/download-artifact@v4
+        with:
+          pattern: changelog-fragment-*
+          path: fragments
+          merge-multiple: true
+
+      - name: "collate fragments (alphabetical)"
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ needs.setup.outputs.release-tag }}
+          PREVIOUS_TAG: ${{ needs.setup.outputs.previous-tag }}
+        run: |
+          RELEASE_NAME="${RELEASE_TAG%.0}"
+          OUT="changelog-${RELEASE_NAME}.md"
+
+          {
+            echo "# 📋 ${RELEASE_NAME} Collated Changelog"
+            echo ""
+            # the shared release range, stated once; a plugin whose own range
+            # differs (e.g. newly added, no prior release) states it itself
+            echo "_Changes in ${PREVIOUS_TAG} → ${RELEASE_TAG}_"
+            echo ""
+            for f in $(ls fragments/*.md | sort); do
+              # skip empty fragments: plugins with no changes this cycle
+              [ -s "$f" ] || continue
+              cat "$f"
+              echo ""
+            done
+          } > "$OUT"
+
+          # surface in the run (both standalone and when called from join-release)
+          cat "$OUT" >> "$GITHUB_STEP_SUMMARY"
+          echo "OUT=$OUT" >> "$GITHUB_ENV"
+
+      - name: "upload collated changelog"
+        uses: actions/upload-artifact@v4
+        with:
+          name: collated-changelog
+          path: ${{ env.OUT }}
+          retention-days: 30

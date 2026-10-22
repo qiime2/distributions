@@ -67,3 +67,10 @@ jobs:
           git tag -a "${{ env.DEV_TAG }}" -m "${{ matrix.packages.name }} ${{ env.DEV_TAG }}"
           git push origin --tags "${{ env.DEV_TAG }}"
           git push origin
+
+  changelog:
+    needs: [setup, join-release]
+    uses: ./.github/workflows/ci-collate-changelog.yaml
+    with:
+      release_tag: ${{ needs.setup.outputs.release-epoch }}.0
+    secrets: inherit

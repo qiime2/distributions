@@ -4,13 +4,30 @@ released_epoch: "2026.7"
 active_epoch: "2026.10"
 # this is the next dev cycle epoch (i.e. 20XX.REL+2)
 next_epoch: "2027.1"
-# qiime2 distro (formerly amplicon) renamed for rachis release 2026.4
+
 distros: [tiny, qiime2, moshpit, pathogenome, test]
-# primary_distro refers to the distribution used to run ci-dev for each plugin
 packages:
+
+# example package structure
+# - name: package
+#   display_name: my-special-package
+#   repo: github-org/repo-name
+#   distros: [distro1, distro2]
+#   primary_distro: distro2
+
+# `display_name` is what's used in the changlog under per-plugin updates
+# Will default to `name` value if not included
+
+# `repo` is the location of the package's github repository (org/repo)
+
+# `distros` contains the list of distros this plugin is included in
+# Plugin must also be added to the relevant seed env in order to be included
+
+# `primary_distro` is the distro used for paired PR testing under lib-ci-dev
 
 # moshpit proxy package
 - name: moshpit
+  display_name: moshpit-proxy-package
   repo: bokulich-lab/MOSHPIT
   distros: [moshpit]
   primary_distro: moshpit
@@ -196,46 +213,34 @@ packages:
   distros: [qiime2]
   primary_distro: qiime2
 
-# removing from tiny for a proof of concept package replacement
-# will handle the other env files after tiny builds successfully using
-# the new rachis-cli package name
-# - name: q2cli
-#   repo: qiime2/q2cli
-#   distros: [qiime2, moshpit, pathogenome, test]
-#   primary_distro: qiime2
-
 - name: q2templates
   repo: qiime2/q2templates
   distros: [tiny, qiime2, moshpit, pathogenome, test]
   primary_distro: tiny
 
 # qiime2 proxy package
-# note: this repo does not use lib-ci-dev.yaml (custom nox/uv-based CI with no
-# `distro:` concept), so primary_distro is intentionally omitted.
-# Paired ci-dev discovery treats a missing primary_distro on a sibling as:
-# skip the sibling.primary_distro containment check
-# else: fall back to self.primary_distro in sibling.distros
+# note: this repo doesn't use lib-ci-dev (custom nox/uv-based CI with no
+# `distro:` concept) so primary_distro is intentionally omitted
 - name: qiime2
+  display_name: q2-proxy-package
   repo: qiime2/q2
   distros: [tiny, qiime2, moshpit, pathogenome, test]
 
 # formerly qiime2
-# note: this repo does not use lib-ci-dev.yaml (custom nox/uv-based CI with no
-# `distro:` concept), so primary_distro is intentionally omitted.
-# See note on the `qiime2` proxy package above.
+# note: this repo does not use lib-ci-dev (custom nox/uv-based CI with no
+# `distro:` concept), so primary_distro is intentionally omitted
 - name: rachis
   repo: rachis-org/rachis
   distros: [tiny, qiime2, moshpit, pathogenome, test]
 
-# adding this as a 'duplicate' while the name change is still in progress
-# no conflicting builds will happen bc this wont be added to any env files
-# just adding here now for Paired- testing purposes
+# formerly q2cli
 - name: rachis-cli
   repo: rachis-org/rachis-cli
   distros: [tiny, qiime2, moshpit, pathogenome, test]
   primary_distro: tiny
 
 - name: rescript
+  display_name: RESCRIPt
   repo: bokulich-lab/RESCRIPt
   distros: [qiime2, moshpit]
   primary_distro: qiime2

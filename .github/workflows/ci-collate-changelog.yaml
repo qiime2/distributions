@@ -37,9 +37,9 @@ jobs:
       # checkout distributions (this repo) so the local action is available
       - uses: actions/checkout@v4
 
-      - name: "ensure fragments directory"
+      - name: "ensure fragments directories"
         shell: bash
-        run: mkdir -p fragments
+        run: mkdir -p fragments/plugins fragments/breaking
 
       - name: "generate changelog fragment"
         id: fragment
@@ -49,20 +49,26 @@ jobs:
         with:
           repo: ${{ matrix.packages.repo }}
           name: ${{ matrix.packages.name }}
+          display-name: ${{ matrix.packages.display_name || matrix.packages.name }}
           release-tag: ${{ needs.setup.outputs.release-tag }}
           previous-tag: ${{ needs.setup.outputs.previous-tag }}
-          output: fragments/${{ matrix.packages.name }}.md
+          output: fragments/plugins/${{ matrix.packages.name }}.md
+          breaking-output: fragments/breaking/${{ matrix.packages.name }}.md
 
+      # uploads plugins/<name>.md and breaking/<name>.md (artifact root is
+      # fragments/, so they merge back into that layout on download)
       - uses: actions/upload-artifact@v4
         with:
           name: changelog-fragment-${{ matrix.packages.name }}
-          path: fragments/${{ matrix.packages.name }}.md
+          path: fragments/
           retention-days: 7
 
   collate:
     needs: [setup, per-repo]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: "download fragments"
         uses: actions/download-artifact@v4
         with:
@@ -70,29 +76,14 @@ jobs:
           path: fragments
           merge-multiple: true
 
-      - name: "collate fragments (alphabetical)"
+      - name: "assemble changelog"
         shell: bash
         env:
           RELEASE_TAG: ${{ needs.setup.outputs.release-tag }}
-          PREVIOUS_TAG: ${{ needs.setup.outputs.previous-tag }}
         run: |
-          RELEASE_NAME="${RELEASE_TAG%.0}"
-          OUT="changelog-${RELEASE_NAME}.md"
-
-          {
-            echo "# 📋 ${RELEASE_NAME} Collated Changelog"
-            echo ""
-            # the shared release range, stated once; a plugin whose own range
-            # differs (e.g. newly added, no prior release) states it itself
-            echo "_Changes in ${PREVIOUS_TAG} → ${RELEASE_TAG}_"
-            echo ""
-            for f in $(ls fragments/*.md | sort); do
-              # skip empty fragments: plugins with no changes this cycle
-              [ -s "$f" ] || continue
-              cat "$f"
-              echo ""
-            done
-          } > "$OUT"
+          OUT="changelog-${RELEASE_TAG%.0}.md"
+          python .github/actions/ci-collate-changelog/bin/assemble-changelog.py \
+            --data data.yaml --fragments fragments --output "$OUT"
 
           # surface in the run (both standalone and when called from join-release)
           cat "$OUT" >> "$GITHUB_STEP_SUMMARY"

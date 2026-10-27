@@ -1,9 +1,15 @@
-name: 'Generate a plugin changelog fragment'
+name: 'Generate plugin changelog fragments'
 inputs:
   repo:
     required: true
   name:
     required: true
+  display-name:
+    description: >-
+      Name shown in the changelog headings (data.yaml `display_name`).
+      Defaults to `name`.
+    required: false
+    default: ''
   release-tag:
     required: true
   previous-tag:
@@ -14,10 +20,16 @@ inputs:
     required: false
     default: ''
   output:
+    description: Path for the plugin's "Plugin Updates" fragment.
+    required: true
+  breaking-output:
+    description: Path for the plugin's "Breaking Changes" fragment.
     required: true
 outputs:
   has-changes:
     value: ${{ steps.collate-changelog.outputs.has-changes }}
+  has-breaking-changes:
+    value: ${{ steps.collate-changelog.outputs.has-breaking-changes }}
 runs:
   using: composite
   steps:

@@ -1,21 +1,27 @@
 #!/usr/bin/env python
 
-"""Generate a per-repo changelog fragment for the collated release changelog.
+"""Generate per-repo changelog fragments for the collated release changelog.
 
-For a single repository, this pulls the commits between the previous stable
-release tag and the current release tag via the GitHub compare API, keeps only
-the first-parent chain (one entry per squash-merged or merged PR, so a PR's
-individual branch commits are never listed), categorizes them by
-commit-message prefix, and writes a Markdown fragment to the ``output``
-path. The ``ci-collate-changelog`` workflow runs this action once per plugin
-(matrix) and then stitches the fragments into one alphabetically-sorted
-changelog, skipping empty fragments (plugins with no changes this cycle).
+For a single repo, this pulls the commits between the previous and current
+release tags, keeps only one entry per squash-merged or merged PR),
+categorizes them by commit-message prefix, and writes two Markdown fragments:
 
-Category / subsection -> prefix mapping (see CATEGORY_STRUCTURE below):
+- ``output``: the plugin's section for "Plugin Updates"
+- ``breaking-output``: the plugin's API:/DEPR: entries for the top-level
+  "Breaking Changes" section (breaking entries are listed only there)
 
-    Breaking Changes 💥
-        API Changes             : API
-        Deprecations            : DEPR
+The ``ci-collate-changelog`` workflow runs this action once per plugin
+(matrix) and then assembles the fragments into the full changelog (see
+``assemble-changelog.py``), skipping empty fragments.
+
+Breaking Changes -> prefix mapping (see BREAKING_STRUCTURE below):
+
+    API Changes             : API
+    Deprecations            : DEPR
+
+Plugin Updates category / subsection -> prefix mapping (see
+CATEGORY_STRUCTURE below):
+
     New and Improved! 🚀
         New Features            : NEW
         Improvements            : IMP
@@ -28,14 +34,16 @@ Category / subsection -> prefix mapping (see CATEGORY_STRUCTURE below):
         Continuous Integration  : CI
         Miscellaneous           : MAINT
 
-Recognized prefixes are stripped from the rendered line item (only the commit
-message, sha link, and author remain). Any commit whose subject does not start
-with a recognized prefix (matched as ``PREFIX:`` exactly, including the colon)
-lands in an "Uncategorized" section for manual review, with its subject left
-intact. Release-machinery commits (REL:/DEV:) created by the join-release
-action, internal commits (LANG:/PREP:), and commits explicitly marked SKIP:
-are skipped entirely. A repository with no remaining
-changes yields an empty fragment.
+A subsection heading is only rendered when more than one subsection of its
+category has entries. Recognized prefixes are stripped from the rendered line
+item (only the commit message, sha link, and author remain); the message's
+first letter is capitalized and trailing periods are dropped. Any commit whose
+subject does not start with a recognized prefix (matched as ``PREFIX:``
+exactly, including the colon) lands in an "Uncategorized" section for manual
+review, with its subject otherwise intact. Release-machinery commits
+(REL:/DEV:) created by the join-release action, internal commits
+(LANG:/PREP:), and commits explicitly marked SKIP: are skipped entirely. A
+repository with no remaining changes yields empty fragments.
 
 A GitHub token is read from the GH_TOKEN (or GITHUB_TOKEN) environment variable;
 it is intentionally NOT an action input, since inputs are echoed to the log.
@@ -50,16 +58,20 @@ from alp.common import ActionAdapter
 
 API = "https://api.github.com"
 
-# Ordered category structure. Each category has a display name, an emoji, and an
-# ordered list of (subsection_name, prefix) pairs. A subsection_name of None
-# means the commits are listed directly under the category with no subheader.
-# Categories, subsections, and the Uncategorized bucket are only rendered when
-# they contain matching commits.
+# Breaking entries go to the top-level "Breaking Changes" section only, as an
+# ordered list of (subsection_name, prefix) pairs.
+BREAKING_STRUCTURE = [
+    ("API Changes", "API"),
+    ("Deprecations", "DEPR"),
+]
+
+# Ordered category structure for "Plugin Updates". Each category has a display
+# name, an emoji, and an ordered list of (subsection_name, prefix) pairs. A
+# subsection_name of None means the commits are listed directly under the
+# category with no subheader. Categories, subsections, and the Uncategorized
+# bucket are only rendered when they contain matching commits, and subsection
+# headers only when more than one subsection of the category has commits.
 CATEGORY_STRUCTURE = [
-    ("Breaking Changes", "💥", [
-        ("API Changes", "API"),
-        ("Deprecations", "DEPR"),
-    ]),
     ("New and Improved!", "🚀", [
         ("New Features", "NEW"),
         ("Improvements", "IMP"),
@@ -80,7 +92,7 @@ CATEGORY_STRUCTURE = [
 # all prefixes that map to a category/subsection above
 KNOWN_PREFIXES = {
     prefix for _, _, subs in CATEGORY_STRUCTURE for _, prefix in subs
-}
+} | {prefix for _, prefix in BREAKING_STRUCTURE}
 
 # commits excluded from the changelog entirely:
 #   REL/DEV   - release-machinery commits created by the join-release action
@@ -91,6 +103,8 @@ SKIP_PREFIXES = {"REL", "DEV", "LANG", "PREP", "SKIP"}
 
 # match "PREFIX:" exactly (uppercase letters followed by a colon)
 PREFIX_RE = re.compile(r"^([A-Z]+):")
+# a trailing PR reference, e.g. "Fix a thing (#123)"
+PR_SUFFIX_RE = re.compile(r"^(.*?)(\s*\(#\d+\))?\s*$", re.DOTALL)
 # stable release tag, e.g. 2026.7.0 (dev tags look like 2026.7.0.dev0)
 VERSION_RE = re.compile(r"^(\d{4})\.(\d+)\.(\d+)$")
 
@@ -272,9 +286,16 @@ def capitalize_first(text):
     return text
 
 
+def strip_trailing_periods(text):
+    """Drop trailing periods, including ones before a trailing ``(#123)``."""
+    body, pr_ref = PR_SUFFIX_RE.match(text).groups()
+    return body.rstrip().rstrip(".").rstrip() + (pr_ref or "")
+
+
 def format_item(entry, strip):
     sha, subject, url, login, author_url = entry
-    message = capitalize_first(strip_prefix(subject) if strip else subject)
+    message = strip_prefix(subject) if strip else subject
+    message = capitalize_first(strip_trailing_periods(message))
     item = f"- {message} ([`{sha}`]({url})"
     if login and author_url:
         item += f" by [{login}]({author_url})"
@@ -282,57 +303,84 @@ def format_item(entry, strip):
     return item
 
 
-def render(name, base, head, expected_base, by_prefix, uncategorized):
-    """Render one plugin's fragment.
+def render_subsections(subs, by_prefix, header):
+    """Render (subsection_name, prefix) pairs that have entries.
 
-    The release range is printed once at the top of the collated changelog,
+    Subsection headers (``header`` + name) are only emitted when more than one
+    subsection has entries; otherwise the entries are listed directly.
+    """
+    present = [(name, by_prefix[prefix]) for name, prefix in subs
+               if by_prefix.get(prefix)]
+    lines = []
+    for name, entries in present:
+        if name and len(present) > 1:
+            lines += [f"{header} {name}", ""]
+        lines.extend(format_item(e, strip=True) for e in entries)
+        lines.append("")
+    return lines
+
+
+def heading(level, display_name, repo):
+    return f"{'#' * level} [{display_name}](https://github.com/{repo})"
+
+
+def range_note(base, head, expected_base):
+    """The release range is printed once at the top of the changelog section,
     so a fragment only carries its own range when it differs from that shared
     one: e.g. a newly added plugin with no prior release (full history), or a
-    plugin whose last release was older than ``expected_base``.
-    """
-    lines = [f"## {name}", ""]
-    if base != expected_base:
-        lines += [f"_Changes in {base or '<initial>'} → {head}_", ""]
-    any_content = False
+    plugin whose last release was older than ``expected_base``."""
+    if base == expected_base:
+        return []
+    return [f"_Changes in {base or '<initial>'} → {head}_", ""]
 
+
+def render(display_name, repo, base, head, expected_base, by_prefix,
+           uncategorized):
+    """Render the plugin's "Plugin Updates" section (non-breaking entries)."""
+    body = []
     for category, emoji, subs in CATEGORY_STRUCTURE:
-        # build subsection blocks that actually have commits
-        sub_blocks = []
-        for sub_name, prefix in subs:
-            entries = by_prefix.get(prefix)
-            if not entries:
-                continue
-            block = []
-            if sub_name:
-                block.append(f"##### {sub_name}")
-                block.append("")
-            block.extend(format_item(e, strip=True) for e in entries)
-            block.append("")
-            sub_blocks.append(block)
-        if not sub_blocks:
-            continue
-        any_content = True
-        lines.append(f"#### {category} {emoji}")
-        lines.append("")
-        for block in sub_blocks:
-            lines.extend(block)
+        block = render_subsections(subs, by_prefix, "#####")
+        if block:
+            body += [f"#### {category} {emoji}", ""] + block
 
     if uncategorized:
-        any_content = True
-        lines.append("#### Uncategorized")
-        lines.append("")
-        lines.extend(format_item(e, strip=False) for e in uncategorized)
-        lines.append("")
+        body += ["#### Uncategorized", ""]
+        body.extend(format_item(e, strip=False) for e in uncategorized)
+        body.append("")
 
-    if not any_content:
-        # plugin had no changes this cycle -> emit nothing so it can be omitted
-        # from the collated changelog entirely
+    if not body:
+        # plugin had no (non-breaking) changes this cycle -> emit nothing so it
+        # can be omitted from the collated changelog entirely
         return ""
+    lines = [heading(2, display_name, repo), ""]
+    lines += range_note(base, head, expected_base) + body
     return "\n".join(lines)
 
 
-def main(repo, name, release_tag, output, previous_tag=""):
+def render_breaking(display_name, repo, base, head, expected_base, by_prefix):
+    """Render the plugin's entry for the top-level "Breaking Changes" section."""
+    body = render_subsections(BREAKING_STRUCTURE, by_prefix, "####")
+    if not body:
+        return ""
+    lines = [heading(3, display_name, repo), ""]
+    lines += range_note(base, head, expected_base) + body
+    return "\n".join(lines)
+
+
+def write_fragment(path, fragment):
+    with open(path, "w") as fh:
+        # an empty fragment leaves a 0-byte file, which assembly skips
+        if fragment:
+            fh.write(fragment)
+            if not fragment.endswith("\n"):
+                fh.write("\n")
+
+
+def main(repo, name, release_tag, output, breaking_output,
+         previous_tag="", display_name=""):
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    display_name = display_name or name
+    expected_base = previous_tag or None
 
     head_version = parse_version(release_tag)
     if head_version is None:
@@ -348,21 +396,21 @@ def main(repo, name, release_tag, output, previous_tag=""):
 
     commits = get_commits(repo, base, release_tag, token)
     by_prefix, uncategorized = categorize(commits)
-    fragment = render(
-        name, base, release_tag, previous_tag or None, by_prefix, uncategorized
+    fragment = render(display_name, repo, base, release_tag, expected_base,
+                      by_prefix, uncategorized)
+    breaking = render_breaking(display_name, repo, base, release_tag,
+                               expected_base, by_prefix)
+
+    write_fragment(output, fragment)
+    write_fragment(breaking_output, breaking)
+
+    print(breaking or f"{name}: no breaking changes this cycle")
+    print(fragment or f"{name}: no other changes this cycle")
+
+    return dict(
+        has_changes="true" if fragment else "false",
+        has_breaking_changes="true" if breaking else "false",
     )
-
-    with open(output, "w") as fh:
-        # an empty fragment (no changes this cycle) leaves a 0-byte file, which
-        # the collate step skips
-        if fragment:
-            fh.write(fragment)
-            if not fragment.endswith("\n"):
-                fh.write("\n")
-
-    print(fragment or f"{name}: no changes this cycle")
-
-    return dict(has_changes="true" if fragment else "false")
 
 
 if __name__ == "__main__":

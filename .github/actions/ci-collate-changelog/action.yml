@@ -24,7 +24,14 @@ inputs:
     required: true
   breaking-output:
     description: Path for the plugin's "Breaking Changes" fragment.
-    required: true
+    required: false
+    default: ''
+  mode:
+    description: >-
+      'patch' for a patch release changelog (release-tag is then the original
+      <epoch>.0 release); otherwise a full release changelog.
+    required: false
+    default: ''
 outputs:
   has-changes:
     value: ${{ steps.collate-changelog.outputs.has-changes }}

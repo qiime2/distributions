@@ -10,6 +10,11 @@ categorizes them by commit-message prefix, and writes two Markdown fragments:
 - ``breaking-output``: the plugin's API:/DEPR: entries for the top-level
   "Breaking Changes" section (breaking entries are listed only there)
 
+With ``mode: patch``, ``release-tag`` is the original release (<epoch>.0) and
+the range is <epoch>.0 -> the plugin's latest <epoch>.N tag (cumulative
+across patches). The fragment is a flat list of entries, written to
+``output`` only; plugins without a patch tag yield an empty fragment.
+
 The ``ci-collate-changelog`` workflow runs this action once per plugin
 (matrix) and then assembles the fragments into the full changelog (see
 ``assemble-changelog.py``), skipping empty fragments.
@@ -150,6 +155,16 @@ def get_stable_tags(repo, token):
             break
         page += 1
     return tags
+
+
+def find_patch_tag(stable_tags, release_version):
+    """Return the latest patch tag (X.Y.N, N > 0) of release X.Y.0, if any."""
+    year, minor, _ = release_version
+    patches = [t for t in stable_tags
+               if t[0][:2] == (year, minor) and t[0][2] > 0]
+    if not patches:
+        return None
+    return max(patches, key=lambda t: t[0])[1]
 
 
 def find_previous_tag(stable_tags, head_version):
@@ -367,6 +382,18 @@ def render_breaking(display_name, repo, base, head, expected_base, by_prefix):
     return "\n".join(lines)
 
 
+def render_patch(display_name, repo, commits):
+    """Render the plugin's section of a patch changelog: a flat list."""
+    entries = [e for e in commits
+               if (m := PREFIX_RE.match(e[1])) is None
+               or m.group(1) not in SKIP_PREFIXES]
+    if not entries:
+        return ""
+    lines = [heading(2, display_name, repo), ""]
+    lines.extend(format_item(e, strip=True) for e in entries)
+    return "\n".join(lines)
+
+
 def write_fragment(path, fragment):
     with open(path, "w") as fh:
         # an empty fragment leaves a 0-byte file, which assembly skips
@@ -376,10 +403,34 @@ def write_fragment(path, fragment):
                 fh.write("\n")
 
 
-def main(repo, name, release_tag, output, breaking_output,
-         previous_tag="", display_name=""):
+def main_patch(repo, name, release_tag, output, display_name, token):
+    release_version = parse_version(release_tag)
+    if release_version is None:
+        raise ValueError(f"release tag '{release_tag}' is not X.Y.Z")
+
+    stable_tags = get_stable_tags(repo, token)
+    head = find_patch_tag(stable_tags, release_version)
+    if head is None or release_tag not in {t[1] for t in stable_tags}:
+        print(f"{name}: no patch of {release_tag}")
+        write_fragment(output, "")
+        return dict(has_changes="false", has_breaking_changes="false")
+
+    print(f"{name}: comparing {release_tag}...{head}")
+    commits = get_commits(repo, release_tag, head, token)
+    fragment = render_patch(display_name, repo, commits)
+    write_fragment(output, fragment)
+    print(fragment or f"{name}: no changes in {head}")
+    return dict(has_changes="true" if fragment else "false",
+                has_breaking_changes="false")
+
+
+def main(repo, name, release_tag, output, breaking_output="",
+         previous_tag="", display_name="", mode=""):
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
     display_name = display_name or name
+    if mode == "patch":
+        return main_patch(repo, name, release_tag, output, display_name, token)
+
     expected_base = previous_tag or None
 
     head_version = parse_version(release_tag)
@@ -402,7 +453,8 @@ def main(repo, name, release_tag, output, breaking_output,
                                expected_base, by_prefix)
 
     write_fragment(output, fragment)
-    write_fragment(breaking_output, breaking)
+    if breaking_output:
+        write_fragment(breaking_output, breaking)
 
     print(breaking or f"{name}: no breaking changes this cycle")
     print(fragment or f"{name}: no other changes this cycle")

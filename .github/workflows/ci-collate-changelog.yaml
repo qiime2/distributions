@@ -2,29 +2,61 @@ name: ci-collate-changelog
 # The release range always comes from data.yaml: <released_epoch>.0 ->
 # <active_epoch>.0, i.e. the release currently being cut. Run it (standalone
 # or via ci-join-release) before data.yaml is bumped to the next epoch.
+# ci-collate-patch-changelog calls this with `mode: patch`.
 on:
-  workflow_call: {}
+  workflow_call:
+    inputs:
+      mode:
+        type: string
+        required: false
+        default: release
   workflow_dispatch: {}
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      release-tag: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}.0
-      previous-tag: ${{ fromJSON(steps.yaml.outputs.data).released_epoch }}.0
+      mode: ${{ steps.range.outputs.mode }}
+      release-tag: ${{ steps.range.outputs.release-tag }}
+      previous-tag: ${{ steps.range.outputs.previous-tag }}
       plugin-matrix: ${{ steps.yaml.outputs.data }}
     steps:
+      # full checkout: patch mode checks which epochs have been released
       - uses: actions/checkout@v4
         with:
           repository: qiime2/distributions
-          sparse-checkout: |
-            data.yaml
 
       - name: "get distro info"
         id: yaml
         uses: qiime2/distributions/.github/actions/read-yaml@dev
         with:
           file: data.yaml
+
+      - name: "resolve release range"
+        id: range
+        shell: bash
+        env:
+          MODE: ${{ inputs.mode }}
+          RELEASED: ${{ fromJSON(steps.yaml.outputs.data).released_epoch }}
+          ACTIVE: ${{ fromJSON(steps.yaml.outputs.data).active_epoch }}
+        run: |
+          if [ "$MODE" = "patch" ]; then
+            # patch the most recent release: the active epoch once it has been
+            # released (before the post-release data.yaml bump), otherwise the
+            # released epoch
+            if compgen -G "$ACTIVE/*/released" > /dev/null; then
+              EPOCH="$ACTIVE"
+            else
+              EPOCH="$RELEASED"
+            fi
+            echo "mode=patch" >> "$GITHUB_OUTPUT"
+            echo "release-tag=$EPOCH.0" >> "$GITHUB_OUTPUT"
+            echo "previous-tag=" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=release" >> "$GITHUB_OUTPUT"
+            echo "release-tag=$ACTIVE.0" >> "$GITHUB_OUTPUT"
+            echo "previous-tag=$RELEASED.0" >> "$GITHUB_OUTPUT"
+          fi
 
   per-repo:
     needs: [setup]
@@ -54,6 +86,7 @@ jobs:
           previous-tag: ${{ needs.setup.outputs.previous-tag }}
           output: fragments/plugins/${{ matrix.packages.name }}.md
           breaking-output: fragments/breaking/${{ matrix.packages.name }}.md
+          mode: ${{ needs.setup.outputs.mode }}
 
       # uploads plugins/<name>.md and breaking/<name>.md (artifact root is
       # fragments/, so they merge back into that layout on download)
@@ -79,11 +112,17 @@ jobs:
       - name: "assemble changelog"
         shell: bash
         env:
+          MODE: ${{ needs.setup.outputs.mode }}
           RELEASE_TAG: ${{ needs.setup.outputs.release-tag }}
         run: |
-          OUT="changelog-${RELEASE_TAG%.0}.md"
+          if [ "$MODE" = "patch" ]; then
+            OUT="patch-changelog-${RELEASE_TAG%.0}.md"
+          else
+            OUT="changelog-${RELEASE_TAG%.0}.md"
+          fi
           python .github/actions/ci-collate-changelog/bin/assemble-changelog.py \
-            --data data.yaml --fragments fragments --output "$OUT"
+            --data data.yaml --fragments fragments --output "$OUT" \
+            --mode "$MODE" --release-tag "$RELEASE_TAG"
 
           # surface in the run (both standalone and when called from join-release)
           cat "$OUT" >> "$GITHUB_STEP_SUMMARY"
@@ -92,6 +131,6 @@ jobs:
       - name: "upload collated changelog"
         uses: actions/upload-artifact@v4
         with:
-          name: collated-changelog
+          name: ${{ needs.setup.outputs.mode == 'patch' && 'collated-patch-changelog' || 'collated-changelog' }}
           path: ${{ env.OUT }}
           retention-days: 30

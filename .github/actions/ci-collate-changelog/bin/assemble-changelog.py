@@ -28,6 +28,10 @@ removed distribution.
 
 Sections with nothing generated for them get a ``<!-- TODO -->`` placeholder
 for the hand-written parts of the announcement.
+
+With ``--mode patch`` it instead assembles a patch release announcement for
+``--release-tag`` (the original <epoch>.0 release): the fixed intro and
+closing text around the plugin fragments.
 """
 import argparse
 import os
@@ -36,6 +40,19 @@ import re
 import yaml
 
 TODO = "<!-- TODO -->"
+
+PATCH_INTRO = """\
+Hello QIIME 2 community! 👋🏼
+We have just released a patch for the {epoch} release to address a few \
+bugs/last minute improvements. If you've already installed any distribution \
+for {epoch} prior to this patch, please re-install 🙏🏻
+
+All of the changes included in this patch are listed below."""
+
+PATCH_OUTRO = (
+    "Thanks to everyone for getting these fixes out so quickly; please don't "
+    "hesitate to reach out with any questions!"
+)
 SEPARATOR = "---"
 
 # "  - q2-types=2026.10.0.dev0+4.g0ebb43c" -> ("q2-types", "2026.10.0.dev0+...")
@@ -176,6 +193,16 @@ def assemble(root, data, fragments_dir):
     return f"\n\n{SEPARATOR}\n\n".join(sections) + "\n"
 
 
+def assemble_patch(release_tag, fragments_dir):
+    epoch = release_tag.rsplit(".", 1)[0]
+    plugins = read_fragments(os.path.join(fragments_dir, "plugins"))
+    return "\n\n".join([
+        PATCH_INTRO.format(epoch=epoch),
+        "\n\n".join(plugins) if plugins else TODO,
+        PATCH_OUTRO,
+    ]) + "\n"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--root", default=".",
@@ -183,11 +210,20 @@ def main():
     parser.add_argument("--data", default="data.yaml")
     parser.add_argument("--fragments", default="fragments")
     parser.add_argument("--output", required=True)
+    parser.add_argument("--mode", default="release",
+                        choices=["release", "patch"])
+    parser.add_argument("--release-tag",
+                        help="the original <epoch>.0 release (patch mode)")
     args = parser.parse_args()
 
-    with open(args.data) as fh:
-        data = yaml.safe_load(fh)
-    changelog = assemble(args.root, data, args.fragments)
+    if args.mode == "patch":
+        if not args.release_tag:
+            parser.error("--release-tag is required with --mode patch")
+        changelog = assemble_patch(args.release_tag, args.fragments)
+    else:
+        with open(args.data) as fh:
+            data = yaml.safe_load(fh)
+        changelog = assemble(args.root, data, args.fragments)
     with open(args.output, "w") as fh:
         fh.write(changelog)
     print(changelog)

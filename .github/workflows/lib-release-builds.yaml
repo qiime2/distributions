@@ -246,3 +246,16 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
+
+  release-docker:
+    needs: [check, create-pr, merge-pr]
+    if: always() && needs.check.outputs.skip != 'true' && needs.merge-pr.result == 'success'
+    # this step shouldn't block subsequent distros from running;
+    # docker build failures can be addressed with release-docker workflow
+    # that can be run manually for a specific distro as needed
+    continue-on-error: true
+    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
+    with:
+      epoch: ${{ needs.create-pr.outputs.epoch }}
+      distro: ${{ inputs.distro }}
+    secrets: inherit

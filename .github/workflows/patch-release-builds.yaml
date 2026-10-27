@@ -1,0 +1,31 @@
+name: patch-release-builds
+on:
+  workflow_dispatch:
+    inputs:
+      distro:
+        description: 'Distribution to patch'
+        required: true
+        type: string
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: validate distro
+        run: |
+          VALID=$(python3 -c "import yaml; print('\n'.join(yaml.safe_load(open('data.yaml'))['distros']))")
+          if ! echo "$VALID" | grep -qx '${{ inputs.distro }}'; then
+            echo "Invalid distro '${{ inputs.distro }}'. Valid options are:"
+            echo "$VALID"
+            exit 1
+          fi
+
+  patch:
+    needs: [validate]
+    uses: qiime2/distributions/.github/workflows/lib-release-builds.yaml@dev
+    with:
+      distro: ${{ inputs.distro }}
+      is-patch: true
+    secrets: inherit

@@ -4,6 +4,10 @@ on:
       distro:
         required: true
         type: string
+      is-patch:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   check:
@@ -16,12 +20,16 @@ jobs:
       - name: check if already released
         id: check
         run: |
-          epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
-          if [ -f "$epoch/${{ inputs.distro }}/released/seed-environment-conda-linux.yml" ]; then
-            echo "Released directory already exists for ${{ inputs.distro }}, skipping."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
+          if [ '${{ inputs.is-patch }}' = 'true' ]; then
             echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+            if [ -f "$epoch/${{ inputs.distro }}/released/seed-environment-conda-linux.yml" ]; then
+              echo "Released directory already exists for ${{ inputs.distro }}, skipping."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
   create-pr:
@@ -41,7 +49,11 @@ jobs:
       - name: set epoch and check osx
         id: vars
         run: |
-          epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+          if [ '${{ inputs.is-patch }}' = 'true' ]; then
+            epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['released_epoch'])")
+          else
+            epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+          fi
           echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
           if [ -f "$epoch/${{ inputs.distro }}/passed/seed-environment-conda-osx.yml" ]; then
             echo "has-osx=true" >> "$GITHUB_OUTPUT"
@@ -60,6 +72,16 @@ jobs:
             cp "$epoch/$distro/passed/seed-environment-conda-osx.yml" \
                "$epoch/$distro/released/"
           fi
+
+      - name: delete existing release branch (patch)
+        if: ${{ inputs.is-patch == 'true' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+        run: |
+          gh api --method DELETE \
+            /repos/qiime2/distributions/git/refs/heads/Release-${{ steps.vars.outputs.epoch }}/${{ inputs.distro }} \
+            || true
 
       - name: create pull request
         id: pr

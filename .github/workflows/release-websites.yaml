@@ -1,0 +1,51 @@
+name: release-websites
+on:
+  workflow_dispatch:
+
+jobs:
+  get-epoch:
+    runs-on: ubuntu-latest
+    outputs:
+      epoch: ${{ steps.epoch.outputs.epoch }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: read epoch
+        id: epoch
+        run: |
+          epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+          echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
+
+  trigger-qiime2-homepage:
+    needs: [get-epoch]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: qiime2/homepage
+          ref: main
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: push empty commit
+        run: |
+          git config user.name "q2d2"
+          git config user.email "q2d2.noreply@gmail.com"
+          git commit --allow-empty -m "REL: ${{ needs.get-epoch.outputs.epoch }}"
+          git push origin main
+
+  trigger-rachis-homepage:
+    needs: [get-epoch]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: rachis-org/rachis.org
+          ref: main
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: push empty commit
+        run: |
+          git config user.name "q2d2"
+          git config user.email "q2d2.noreply@gmail.com"
+          git commit --allow-empty -m "REL: ${{ needs.get-epoch.outputs.epoch }}"
+          git push origin main

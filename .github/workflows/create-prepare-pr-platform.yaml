@@ -132,20 +132,14 @@ jobs:
     if: always() && needs.await-workflow.result == 'failure'
     runs-on: ubuntu-latest
     steps:
-      - name: compute retry gate
-        id: gate
-        run: |
-          if (( ${{ github.run_attempt }} % 4 < 3 )); then
-            echo "should-retry=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "should-retry=false" >> "$GITHUB_OUTPUT"
-          fi
-      - name: rerun
-        if: steps.gate.outputs.should-retry == 'true'
+      - name: request rerun
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run rerun.yml -F run_id=${{ github.run_id }}
+        run: >-
+          gh workflow run rerun.yml
+          -F run_id=${{ github.run_id }}
+          -F run_attempt=${{ github.run_attempt }}
 
   update-latest-envs:
     needs: [create-pr, await-workflow]

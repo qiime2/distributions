@@ -175,6 +175,10 @@ jobs:
         shell: bash
         run: pip install pyyaml packaging
 
+      # Ubuntu 26.04 runner images no longer ship conda
+      - name: set up conda
+        uses: qiime2/distributions/.github/actions/setup-conda@dev
+
       - name: install conda-build
         run: conda install -c conda-forge -q conda-build
 

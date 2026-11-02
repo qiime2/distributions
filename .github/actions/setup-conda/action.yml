@@ -1,0 +1,39 @@
+name: 'Set up conda'
+description: >-
+  Make conda available on the runner: use the image's preinstalled conda if
+  there is one, otherwise install Miniforge. Ubuntu 26.04 runner images
+  (ubuntu-latest from Oct/Nov 2026) no longer ship conda.
+inputs:
+  miniforge-version:
+    description: Miniforge version to install when no conda is present.
+    required: false
+    default: '24.3.0-0'
+outputs:
+  installed:
+    description: "'true' if this action installed Miniforge."
+    value: ${{ steps.check.outputs.has-conda != 'true' }}
+runs:
+  using: composite
+  steps:
+    - id: check
+      name: 'check for existing conda'
+      shell: bash
+      run: |
+        if { [ -n "${CONDA:-}" ] && [ -x "${CONDA}/bin/conda" ]; } \
+            || command -v conda >/dev/null 2>&1; then
+          echo "has-conda=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "has-conda=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    # same guard and settings as ALP's create-env, which avoids a duplicate
+    # install (and path collisions) on images that already ship conda
+    - name: 'setup miniforge'
+      if: ${{ steps.check.outputs.has-conda != 'true' }}
+      # Replaces conda-incubator/setup-miniconda@v3
+      uses: qiime2-cutlery/setup-miniconda@v3
+      with:
+        activate-environment: ''
+        architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+        auto-activate-base: true
+        miniforge-version: ${{ inputs.miniforge-version }}

@@ -1,4 +1,10 @@
 # pulled from https://blog.logto.io/automatic-github-workflow-rerun
+#
+# Reruns the failed jobs of run_id once it finishes, within a retry budget:
+# at most MAX_AUTO_RETRIES automatic reruns in a row after the last attempt
+# started by a person (or by the run's original trigger), so every trigger,
+# manual or automatic, gets MAX_AUTO_RETRIES + 1 tries. Several requests for
+# the same attempt (e.g. one per platform) result in a single rerun.
 name: rerun workflow
 
 on:
@@ -6,6 +12,16 @@ on:
     inputs:
       run_id:
         required: true
+      run_attempt:
+        description: The attempt of run_id that requested this rerun.
+        required: false
+        default: ''
+
+# one rerun job per target run at a time; queued duplicates exit at the
+# attempt check once the first has rerun the run
+concurrency:
+  group: rerun-${{ inputs.run_id }}
+  cancel-in-progress: false
 
 jobs:
   rerun:
@@ -15,6 +31,52 @@ jobs:
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.run_id }}
+          REQUESTED_ATTEMPT: ${{ inputs.run_attempt }}
+          MAX_AUTO_RETRIES: 2
+          # automatic reruns below are made with GITHUB_TOKEN, so their
+          # attempts are triggered by this actor
+          BOT: github-actions[bot]
         run: |
-          gh run watch ${{ inputs.run_id }} > /dev/null 2>&1
-          gh run rerun ${{ inputs.run_id }} --failed
+          run_field() {
+            gh api "repos/$GH_REPO/actions/runs/$RUN_ID" --jq ".$1"
+          }
+
+          # a request for an attempt the run has already moved past was
+          # handled already (by an earlier request, or by a person)
+          check_attempt() {
+            if [ -n "$REQUESTED_ATTEMPT" ] \
+                && [ "$(run_field run_attempt)" != "$REQUESTED_ATTEMPT" ]; then
+              echo "Run $RUN_ID is past attempt $REQUESTED_ATTEMPT; nothing to do."
+              exit 0
+            fi
+          }
+
+          check_attempt
+          gh run watch "$RUN_ID" > /dev/null 2>&1 || true
+          check_attempt
+
+          attempt=$(run_field run_attempt)
+          conclusion=$(run_field conclusion)
+          if [ "$conclusion" != "failure" ]; then
+            echo "Run $RUN_ID attempt $attempt concluded '$conclusion'; not rerunning."
+            exit 0
+          fi
+
+          # automatic reruns in a row, back to the last attempt started by a
+          # person or by the original trigger (attempt 1)
+          auto=0
+          for (( n = attempt; n > 1; n-- )); do
+            actor=$(gh api "repos/$GH_REPO/actions/runs/$RUN_ID/attempts/$n" \
+              --jq .triggering_actor.login)
+            [ "$actor" = "$BOT" ] || break
+            auto=$(( auto + 1 ))
+          done
+
+          if (( auto >= MAX_AUTO_RETRIES )); then
+            echo "Run $RUN_ID attempt $attempt failed after $auto automatic reruns; not rerunning. Re-run it manually to try again."
+            exit 0
+          fi
+
+          echo "Rerunning failed jobs of run $RUN_ID (attempt $attempt; automatic rerun $(( auto + 1 )) of $MAX_AUTO_RETRIES)."
+          gh run rerun "$RUN_ID" --failed

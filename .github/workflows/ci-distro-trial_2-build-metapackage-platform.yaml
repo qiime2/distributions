@@ -166,10 +166,10 @@ jobs:
           path: ${{ env.rebuilt_channel_path }}
           merge-multiple: true
 
-      - name: set up python 3.8
+      - name: set up python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.10
 
       - name: install pyyaml & packaging
         shell: bash

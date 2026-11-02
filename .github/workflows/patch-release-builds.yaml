@@ -24,9 +24,18 @@ jobs:
 
   patch:
     needs: [validate]
-    runs-on: ubuntu-latest
     uses: qiime2/distributions/.github/workflows/lib-release-builds.yaml@dev
     with:
       distro: ${{ inputs.distro }}
       is-patch: true
+    secrets: inherit
+
+  # re-run a failed image build with the release-docker workflow
+  docker:
+    needs: [patch]
+    if: ${{ needs.patch.outputs.released == 'true' }}
+    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
+    with:
+      epoch: ${{ needs.patch.outputs.epoch }}
+      distro: ${{ inputs.distro }}
     secrets: inherit

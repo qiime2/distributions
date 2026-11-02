@@ -29,3 +29,42 @@ jobs:
     with:
       distro: pathogenome
     secrets: inherit
+
+  # docker images are separate jobs that no distro depends on, so a failed
+  # image build doesn't block the remaining distros; re-run it for a specific
+  # distro with the release-docker workflow
+  tiny-docker:
+    needs: [tiny]
+    if: ${{ needs.tiny.outputs.released == 'true' }}
+    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
+    with:
+      epoch: ${{ needs.tiny.outputs.epoch }}
+      distro: tiny
+    secrets: inherit
+
+  qiime2-docker:
+    needs: [qiime2]
+    if: ${{ needs.qiime2.outputs.released == 'true' }}
+    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
+    with:
+      epoch: ${{ needs.qiime2.outputs.epoch }}
+      distro: qiime2
+    secrets: inherit
+
+  moshpit-docker:
+    needs: [moshpit]
+    if: ${{ needs.moshpit.outputs.released == 'true' }}
+    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
+    with:
+      epoch: ${{ needs.moshpit.outputs.epoch }}
+      distro: moshpit
+    secrets: inherit
+
+  pathogenome-docker:
+    needs: [pathogenome]
+    if: ${{ needs.pathogenome.outputs.released == 'true' }}
+    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
+    with:
+      epoch: ${{ needs.pathogenome.outputs.epoch }}
+      distro: pathogenome
+    secrets: inherit

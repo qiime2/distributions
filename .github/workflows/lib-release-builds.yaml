@@ -8,6 +8,13 @@ on:
         required: false
         type: boolean
         default: false
+    outputs:
+      epoch:
+        description: 'The epoch that was built'
+        value: ${{ jobs.create-pr.outputs.epoch }}
+      released:
+        description: 'Outputs true once the release PR has been merged'
+        value: ${{ jobs.merge-pr.outputs.merged }}
 
 jobs:
   check:
@@ -50,7 +57,12 @@ jobs:
         id: vars
         run: |
           if [ '${{ inputs.is-patch }}' = 'true' ]; then
-            epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['released_epoch'])")
+            active=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
+            if [ -d "$active/${{ inputs.distro }}/released" ]; then
+              epoch="$active"
+            else
+              epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['released_epoch'])")
+            fi
           else
             epoch=$(python3 -c "import yaml; print(yaml.safe_load(open('data.yaml'))['active_epoch'])")
           fi
@@ -74,7 +86,7 @@ jobs:
           fi
 
       - name: delete existing release branch (patch)
-        if: ${{ inputs.is-patch == 'true' }}
+        if: ${{ inputs.is-patch }}
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.BOT_PAT }}
@@ -236,8 +248,11 @@ jobs:
       needs.create-pr.result == 'success' &&
       needs.await-linux.result == 'success' &&
       (needs.await-osx.result == 'success' || needs.await-osx.result == 'skipped')
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
     steps:
       - name: merge release pr
+        id: merge
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -246,16 +261,4 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
-
-  release-docker:
-    needs: [check, create-pr, merge-pr]
-    if: always() && needs.check.outputs.skip != 'true' && needs.merge-pr.result == 'success'
-    # this step shouldn't block subsequent distros from running;
-    # docker build failures can be addressed with release-docker workflow
-    # that can be run manually for a specific distro as needed
-    continue-on-error: true
-    uses: qiime2/distributions/.github/workflows/lib-release-docker.yaml@dev
-    with:
-      epoch: ${{ needs.create-pr.outputs.epoch }}
-      distro: ${{ inputs.distro }}
-    secrets: inherit
+          echo "merged=true" >> "$GITHUB_OUTPUT"

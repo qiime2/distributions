@@ -129,7 +129,7 @@ jobs:
 
   rerun-await-workflow-on-failure:
     needs: [await-workflow]
-    if: always() && needs.await-workflow.result == 'failure'
+    if: ${{ !cancelled() && needs.await-workflow.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - name: request rerun

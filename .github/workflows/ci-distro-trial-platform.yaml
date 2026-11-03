@@ -190,7 +190,7 @@ jobs:
 
   build-metapackage:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]
-    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_2-build-metapackage-platform.yaml
     with:
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
@@ -204,7 +204,6 @@ jobs:
 
   test-metapackage:
     needs: [prepare, build-metapackage]
-    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_3-test-metapackage-platform.yaml
     with:
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
@@ -220,7 +219,7 @@ jobs:
   # budget. upload-builds is intentionally not retried automatically.
   rerun-on-failure:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7, build-metapackage, test-metapackage]
-    if: ${{ always() && contains(needs.*.result, 'failure') }}
+    if: ${{ !cancelled() && contains(needs.*.result, 'failure') }}
     runs-on: ubuntu-latest
     steps:
       - name: request rerun
@@ -234,7 +233,6 @@ jobs:
 
   upload-builds:
     needs: [prepare, test-metapackage]
-    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     uses: ./.github/workflows/ci-distro-trial_4-upload-builds-platform.yaml
     secrets: inherit
     with:

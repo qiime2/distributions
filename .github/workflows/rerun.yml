@@ -14,8 +14,7 @@ on:
         required: true
       run_attempt:
         description: The attempt of run_id that requested this rerun.
-        required: false
-        default: ''
+        required: true
 
 # one rerun job per target run at a time; queued duplicates exit at the
 # attempt check once the first has rerun the run
@@ -45,8 +44,7 @@ jobs:
           # a request for an attempt the run has already moved past was
           # handled already (by an earlier request, or by a person)
           check_attempt() {
-            if [ -n "$REQUESTED_ATTEMPT" ] \
-                && [ "$(run_field run_attempt)" != "$REQUESTED_ATTEMPT" ]; then
+            if [ "$(run_field run_attempt)" != "$REQUESTED_ATTEMPT" ]; then
               echo "Run $RUN_ID is past attempt $REQUESTED_ATTEMPT; nothing to do."
               exit 0
             fi

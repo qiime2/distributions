@@ -156,8 +156,17 @@ jobs:
   finalize:
     name: 'Finalize metapackage'
     needs: [install-metapackage]
+    # runs (unless the run is cancelled) so a failed build, or one that never
+    # got a runner, fails this workflow instead of leaving it 'skipped'
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
+      - name: 'Check metapackage build/install'
+        if: ${{ needs.install-metapackage.result != 'success' }}
+        shell: bash
+        run: |
+          echo "::error::Not every metapackage job succeeded (install-metapackage: ${{ needs.install-metapackage.result }})."
+          exit 1
 
       - uses: actions/download-artifact@v4
         name: 'Collate rebuilt channel'

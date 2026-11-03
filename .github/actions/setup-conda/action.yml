@@ -3,15 +3,6 @@ description: >-
   Make conda available on the runner: use the image's preinstalled conda if
   there is one, otherwise install Miniforge. Ubuntu 26.04 runner images
   (ubuntu-latest from Oct/Nov 2026) no longer ship conda.
-inputs:
-  miniforge-version:
-    description: Miniforge version to install when no conda is present.
-    required: false
-    default: '24.3.0-0'
-outputs:
-  installed:
-    description: "'true' if this action installed Miniforge."
-    value: ${{ steps.check.outputs.has-conda != 'true' }}
 runs:
   using: composite
   steps:
@@ -36,4 +27,4 @@ runs:
         activate-environment: ''
         architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
         auto-activate-base: true
-        miniforge-version: ${{ inputs.miniforge-version }}
+        miniforge-version: '24.3.0-0'

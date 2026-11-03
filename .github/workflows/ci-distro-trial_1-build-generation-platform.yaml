@@ -210,8 +210,18 @@ jobs:
   finalize:
     name: 'Finalize generation'
     needs: [run_matrix]
+    # runs (unless the run is cancelled) so a failed build, or one that never
+    # got a runner, fails this workflow instead of leaving it 'skipped'
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
+      - name: 'Check builds in this generation'
+        if: ${{ needs.run_matrix.result != 'success' }}
+        shell: bash
+        run: |
+          echo "::error::Not every build job succeeded (run_matrix: ${{ needs.run_matrix.result }})."
+          exit 1
+
       - uses: actions/download-artifact@v4
         name: 'Collate rebuilt channel'
         with:

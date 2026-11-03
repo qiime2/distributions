@@ -33,7 +33,7 @@ dependencies:
 - qiime2=2026.10.0
 - r-reticulate=1.45.0
 - rachis-cli=2026.10.0
-- rachis=2026.10.0
+- rachis=2026.10.1
 - rgi=6.0.8
 - rnanorm=2.1.0
 - scikit-bio=0.7.2

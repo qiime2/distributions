@@ -204,6 +204,7 @@ jobs:
 
   test-metapackage:
     needs: [prepare, build-metapackage]
+    if: ${{ !cancelled() && needs.build-metapackage.result == 'success' }}
     uses: ./.github/workflows/ci-distro-trial_3-test-metapackage-platform.yaml
     with:
       solved-environment-key: ${{ needs.prepare.outputs.solved-environment-key }}
@@ -214,9 +215,7 @@ jobs:
       runner_label: ${{ inputs.runner_label }}
       platform_label: ${{ inputs.platform_label }}
 
-  # one rerun request per attempt if any build/test stage failed; rerun.yml
-  # dedupes requests (osx calls this workflow twice) and enforces the retry
-  # budget. upload-builds is intentionally not retried automatically.
+  # one rerun request per attempt if any build/test stage failed
   rerun-on-failure:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7, build-metapackage, test-metapackage]
     if: ${{ !cancelled() && contains(needs.*.result, 'failure') }}
@@ -233,6 +232,7 @@ jobs:
 
   upload-builds:
     needs: [prepare, test-metapackage]
+    if: ${{ !cancelled() && needs.test-metapackage.result == 'success' }}
     uses: ./.github/workflows/ci-distro-trial_4-upload-builds-platform.yaml
     secrets: inherit
     with:

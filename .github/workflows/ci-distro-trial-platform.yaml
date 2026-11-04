@@ -190,7 +190,9 @@ jobs:
 
   build-metapackage:
     needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7]
-    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    # each generation only runs if the one before it succeeded, so the last
+    # generation reporting 'complete' means every build succeeded
+    if: ${{ !cancelled() && (contains(needs.*.outputs.complete, 'true') || needs.prepare.outputs.generation-matrix == '[]') }}
     uses: ./.github/workflows/ci-distro-trial_2-build-metapackage-platform.yaml
     with:
       seed-environment-key: ${{ needs.prepare.outputs.seed-environment-key }}
@@ -215,10 +217,10 @@ jobs:
       runner_label: ${{ inputs.runner_label }}
       platform_label: ${{ inputs.platform_label }}
 
-  # one rerun request per attempt if any build/test stage failed
+  # one rerun request per attempt if any build/test stage didn't succeed
   rerun-on-failure:
-    needs: [prepare, rebuild-0, rebuild-1, rebuild-2, rebuild-3, rebuild-4, rebuild-5, rebuild-6, rebuild-7, build-metapackage, test-metapackage]
-    if: ${{ !cancelled() && contains(needs.*.result, 'failure') }}
+    needs: [test-metapackage]
+    if: ${{ !cancelled() && needs.test-metapackage.result != 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: request rerun

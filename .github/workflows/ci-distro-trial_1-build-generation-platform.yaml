@@ -44,6 +44,9 @@ on:
         required: false
         type: string
         default: ''
+    outputs:
+      complete:
+        value: ${{ jobs.finalize.outputs.complete }}
 
 env:
   matrix_path: './matrix'
@@ -209,11 +212,13 @@ jobs:
 
   finalize:
     name: 'Finalize generation'
-    needs: [run_matrix]
+    needs: [configure_matrix, run_matrix]
     # runs (unless the run is cancelled) so a failed build, or one that never
     # got a runner, fails this workflow instead of leaving it 'skipped'
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
+    outputs:
+      complete: ${{ steps.complete.outputs.complete }}
     steps:
       - name: 'Check builds in this generation'
         if: ${{ needs.run_matrix.result != 'success' }}
@@ -363,3 +368,14 @@ jobs:
           name: ${{ inputs.patched-channel-key }}
           path: ${{ env.patched_channel_path }}
           overwrite: true
+
+      # only set on the last generation, once every step above has succeeded
+      - name: 'Flag last generation as complete'
+        id: complete
+        env:
+          MATRIX: ${{ needs.configure_matrix.outputs.matrix }}
+        run: |
+          count=$(python -c 'import json, os; print(len(json.loads(os.environ["MATRIX"])))')
+          if [ "$count" -eq $(( ${{ inputs.matrix-index }} + 1 )) ]; then
+            echo "complete=true" >> "$GITHUB_OUTPUT"
+          fi

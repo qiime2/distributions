@@ -1,7 +1,4 @@
 name: ci-collate-patch-changelog
-# Changelog for a patch release of the most recent release: per plugin,
-# everything from <epoch>.0 to its latest <epoch>.N tag (cumulative across
-# patches), as a flat list between the patch announcement's intro and closing.
 on:
   workflow_dispatch: {}
 

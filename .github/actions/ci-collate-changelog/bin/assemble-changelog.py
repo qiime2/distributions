@@ -29,9 +29,10 @@ removed distribution.
 Sections with nothing generated for them get a ``<!-- TODO -->`` placeholder
 for the hand-written parts of the announcement.
 
-With ``--mode patch`` it instead assembles a patch release announcement for
-``--release-tag`` (the original <epoch>.0 release): the fixed intro and
-closing text around the plugin fragments.
+With ``--mode patch`` it instead assembles the patch release announcement for
+``--release-tag`` (the original <epoch>.0 release) in two parts: the plugin
+fragments under a short notice (for the release post), then the standalone
+announcement (for the reply).
 """
 import argparse
 import os
@@ -41,14 +42,14 @@ import yaml
 
 TODO = "<!-- TODO -->"
 
-PATCH_INTRO = """\
-Hello QIIME 2 community! 👋🏼
-We have just released a patch for the {epoch} release to address a few \
-bugs/last minute improvements. If you've already installed any distribution \
-for {epoch} prior to this patch, please re-install 🙏🏻
-
-All of the changes included in this patch are listed below."""
-
+PATCH_HEADING = "### Patch release for {epoch} 🩹"
+PATCH_NOTICE = (
+    "We have just released a patch for the {epoch} release to address a few "
+    "bugs/last minute improvements. If you've already installed any "
+    "distribution for {epoch} prior to this patch, please re-install 🙏🏻"
+)
+PATCH_LIST_INTRO = "All of the changes included in this patch are listed below."
+PATCH_GREETING = "Hello QIIME 2 community! 👋🏼"
 PATCH_OUTRO = (
     "Thanks to everyone for getting these fixes out so quickly; please don't "
     "hesitate to reach out with any questions!"
@@ -196,11 +197,13 @@ def assemble(root, data, fragments_dir):
 def assemble_patch(release_tag, fragments_dir):
     epoch = release_tag.rsplit(".", 1)[0]
     plugins = read_fragments(os.path.join(fragments_dir, "plugins"))
-    return "\n\n".join([
-        PATCH_INTRO.format(epoch=epoch),
+    notice = PATCH_NOTICE.format(epoch=epoch)
+    changes = "\n\n".join([
+        PATCH_HEADING.format(epoch=epoch), notice, PATCH_LIST_INTRO,
         "\n\n".join(plugins) if plugins else TODO,
-        PATCH_OUTRO,
-    ]) + "\n"
+    ])
+    announcement = "\n\n".join([PATCH_GREETING, notice, PATCH_OUTRO])
+    return f"\n\n{SEPARATOR}\n\n".join([changes, announcement]) + "\n"
 
 
 def main():

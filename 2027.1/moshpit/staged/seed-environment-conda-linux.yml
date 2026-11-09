@@ -43,7 +43,7 @@ dependencies:
 - python=3.12
 - pyzotero=1.14.0
 - q2-alignment=2026.4.0.dev0
-- q2-annotate=2027.1.0.dev0+2.gfab0770
+- q2-annotate=2027.1.0.dev0+3.g7b652b3
 - q2-assembly=2027.1.0.dev0+1.gff04864
 - q2-composition=2026.4.0.dev0
 - q2-cutadapt=2027.1.0.dev0

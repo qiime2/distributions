@@ -76,7 +76,7 @@ dependencies:
 - cytoolz=1.2.0
 - dask=2026.8.0
 - dask-core=2026.8.0
-- dbus=1.16.2
+- dbus=1.13.6
 - decorator=5.3.1
 - diamond=2.2.8
 - dill=0.4.1
@@ -85,6 +85,7 @@ dependencies:
 - entrez-direct=22.4
 - exceptiongroup=1.3.1
 - executing=2.3.0
+- expat=2.9.0
 - fastcluster=1.3.0
 - filelock=3.32.6
 - filetype=1.2.0
@@ -119,7 +120,7 @@ dependencies:
 - gxx_impl_linux-64=16.2.0
 - h2=4.4.1
 - h5py=3.15.1
-- harfbuzz=12.2.0
+- harfbuzz=11.0.0
 - hdf5=1.14.6
 - hmmer=3.4
 - hpack=4.2.0
@@ -166,7 +167,7 @@ dependencies:
 - libbrotlidec=1.1.1
 - libbrotlienc=1.1.1
 - libcblas=3.11.0
-- libclang-cpp21.1=21.1.0
+- libclang-cpp20.1=20.1.8
 - libclang13=21.1.0
 - libcrc32c=1.1.2
 - libcups=2.3.3
@@ -178,7 +179,7 @@ dependencies:
 - libev=4.33
 - libevent=2.1.12
 - libexpat=2.9.0
-- libffi=3.5.2
+- libffi=3.7.0
 - libfreetype=2.14.3
 - libfreetype6=2.14.3
 - libgcc=16.2.0
@@ -189,7 +190,7 @@ dependencies:
 - libgfortran-ng=16.2.0
 - libgfortran5=16.2.0
 - libgl=1.7.0
-- libglib=2.86.2
+- libglib=2.84.0
 - libglvnd=1.7.0
 - libglx=1.7.0
 - libgomp=16.2.0
@@ -201,6 +202,7 @@ dependencies:
 - libjpeg-turbo=3.2.1
 - liblapack=3.11.0
 - liblapacke=3.11.0
+- libllvm20=20.1.8
 - libllvm21=21.1.0
 - liblzma=5.8.3
 - libml_dtypes-headers=0.5.4
@@ -214,6 +216,7 @@ dependencies:
 - libpng=1.6.59
 - libpq=17.7
 - libprotobuf=5.28.3
+- libpython=3.12.15
 - libre2-11=2024.07.02
 - libsanitizer=16.2.0
 - libsodium=1.0.20
@@ -244,7 +247,7 @@ dependencies:
 - lz4=4.4.5
 - lz4-c=1.10.0
 - make=4.4.1
-- markdown=3.11.2
+- markdown=3.11.3
 - markdown-it-py=4.2.0
 - marko=2.2.5
 - markupsafe=3.0.4
@@ -259,6 +262,8 @@ dependencies:
 - msgpack-python=1.2.4
 - munkres=1.1.4
 - mypy_extensions=1.1.0
+- mysql-common=9.0.1
+- mysql-libs=9.0.1
 - namex=0.1.0
 - narwhals=2.28.0
 - natsort=8.4.0
@@ -280,12 +285,12 @@ dependencies:
 - pandas=2.3.3
 - pandera=0.34.1
 - pandera-base=0.34.1
-- pango=1.56.4
+- pango=1.56.3
 - parsl=2026.2.23
 - parso=0.8.7
 - partd=1.4.2
 - patsy=1.0.3
-- pcre2=10.46
+- pcre2=10.44
 - perl=5.32.1
 - perl-archive-tar=3.14
 - perl-carp=1.50
@@ -326,8 +331,8 @@ dependencies:
 - pyarrow=16.1.0
 - pyarrow-core=16.1.0
 - pycparser=3.12
-- pydantic=2.14.2
-- pydantic-core=2.50.2
+- pydantic=2.14.3
+- pydantic-core=2.50.4
 - pyfaidx=0.9.2.2
 - pygments=2.21.0
 - pyhmmer=0.12.3
@@ -335,10 +340,10 @@ dependencies:
 - pyrodigal=3.7.1
 - pyrodigal-gv=0.3.2
 - pysam=0.23.3
-- pyside6=6.9.2
+- pyside6=6.9.0
 - pysocks=1.7.1
 - pytest=9.2.0
-- python=3.12.13
+- python=3.12.14
 - python-abi3=3.12
 - python-crfsuite=0.9.12
 - python-dateutil=4.0.0
@@ -363,8 +368,8 @@ dependencies:
 - q2templates=2027.1.0.dev0
 - qhull=2020.2
 - qiime2=2027.1.0.dev0
-- qt6-main=6.9.2
-- r-base=4.5.2
+- qt6-main=6.9.0
+- r-base=4.4.3
 - r-here=1.0.2
 - r-jsonlite=2.0.0
 - r-lattice=0.23_1
@@ -428,11 +433,11 @@ dependencies:
 - tomli=2.5.0
 - tomlkit=0.15.2
 - toolz=1.2.0
-- tornado=6.5.10
+- tornado=6.6
 - tqdm=4.67.3
 - traitlets=5.16.1
 - typeguard=4.6.0
-- typer=0.27.3
+- typer=0.28.0
 - typing-extensions=4.16.0
 - typing-inspection=0.4.5
 - typing_extensions=4.16.0

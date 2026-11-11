@@ -15,7 +15,29 @@ on:
         required: true
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - name: check if already bumped
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+        run: |
+          CONTENT=$(gh api \
+            "repos/${{ inputs.repo }}/contents/environment-files/readthedocs.yml" \
+            --jq '.content' 2>/dev/null | base64 -d 2>/dev/null || echo "")
+          if echo "$CONTENT" | grep -q "packages.qiime2.org/qiime2/${{ inputs.active-epoch }}/"; then
+            echo "Already bumped to ${{ inputs.active-epoch }} in ${{ inputs.repo }}, skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
   update:
+    needs: [check]
+    if: ${{ needs.check.outputs.skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: "checkout ${{ inputs.repo }}"
@@ -69,7 +91,10 @@ jobs:
             | python3 -c "import sys, json; print(json.load(sys.stdin)['results'][0]['id'])")
           echo "Polling build ID: $BUILD_ID"
 
-          while true; do
+          TIMEOUT=7200
+          ELAPSED=0
+
+          while [ $ELAPSED -lt $TIMEOUT ]; do
             RESULT=$(curl -sf \
               -H "Authorization: Token $RTD_API_TOKEN" \
               "https://readthedocs.org/api/v3/projects/${{ inputs.rtd-slug }}/builds/$BUILD_ID/")
@@ -86,7 +111,10 @@ jobs:
               fi
             fi
             sleep 30
+            ELAPSED=$((ELAPSED + 30))
           done
+
+          echo "Timed out waiting for RTD build (${{ inputs.rtd-slug }})."; exit 1
 
       - name: "merge PR"
         env:

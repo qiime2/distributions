@@ -2,13 +2,15 @@ name: Update q2view in rachis-cli
 
 on:
   workflow_call:
+    secrets:
+      BOT_PAT:
+        required: true
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   update-pin:
-    if: github.repository == 'VinzentRisch/q2view' && github.ref == 'refs/heads/rachis_cli_update_workflow'
+    if: github.repository == 'qiime2/q2view' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Check out rachis-cli
@@ -16,6 +18,7 @@ jobs:
         with:
           repository: rachis-org/rachis-cli
           ref: dev
+          token: ${{ secrets.BOT_PAT }}
           persist-credentials: false
 
       - name: Update the q2view submodule pin
@@ -37,5 +40,19 @@ jobs:
           git add -- q2view
           echo "sha=$target_sha" >> "$GITHUB_OUTPUT"
 
-      - name: Show the proposed submodule change
-        run: git diff --cached --submodule=short -- q2view
+      - name: Open or update the pull request
+        if: steps.pin.outputs.sha != ''
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          base: dev
+          branch: automation/update-q2view
+          add-paths: q2view
+          author: q2d2 <q2d2.noreply@gmail.com>
+          committer: q2d2 <q2d2.noreply@gmail.com>
+          commit-message: Update vendored q2view to ${{ steps.pin.outputs.sha }}
+          title: Update vendored q2view
+          body: |
+            Update the q2view submodule pin to `${{ steps.pin.outputs.sha }}`.
+
+            This PR was created in part with Codex 5.5

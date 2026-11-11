@@ -50,8 +50,8 @@ jobs:
           add-paths: q2view
           author: q2d2 <q2d2.noreply@gmail.com>
           committer: q2d2 <q2d2.noreply@gmail.com>
-          commit-message: "MAINT: update vendored q2view to ${{ steps.pin.outputs.sha }}"
-          title: "MAINT: update vendored q2view"
+          commit-message: "SKIP: update vendored q2view to ${{ steps.pin.outputs.sha }}"
+          title: "SKIP: update vendored q2view"
           body: |
             # Description
 

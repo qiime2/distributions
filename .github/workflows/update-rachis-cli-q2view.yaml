@@ -53,6 +53,11 @@ jobs:
           commit-message: Update vendored q2view to ${{ steps.pin.outputs.sha }}
           title: Update vendored q2view
           body: |
+            # Description
+
             Update the q2view submodule pin to `${{ steps.pin.outputs.sha }}`.
 
-            This PR was created in part with Codex 5.5
+            # AI Disclosure
+
+            - [x] NO AI USED.
+            - [ ] AI USED.

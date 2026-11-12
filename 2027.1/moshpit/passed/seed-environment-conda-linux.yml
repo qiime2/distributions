@@ -1,3 +1,4 @@
+# distro trial test for missing MD PR
 channels:
 - https://packages.qiime2.org/qiime2/2027.1/moshpit/passed
 - conda-forge

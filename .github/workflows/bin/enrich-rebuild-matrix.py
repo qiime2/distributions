@@ -2,14 +2,23 @@
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import urllib.error
 import urllib.request
 
 
 REMOTE_CHANNEL_BASE = 'https://packages.qiime2.org/qiime2'
+
+# Language trial branches in this repo are named
+# `Language-{platform_label}-{name}/{distro}`; the matching branch in a
+# package repo may be platform-specific or shared across platforms.
+LANGUAGE_PLATFORM_PREFIX = re.compile(
+    r'^Language-(?:linux-64|osx-64|osx-arm64)-'
+)
 
 
 def load_matrix(matrix_path):
@@ -33,13 +42,26 @@ def branch_exists(repo, branch):
     return bool(result.stdout.strip())
 
 
+def language_ref_candidates(sibling_ref):
+    """Branch names to look for in a package repo, in order of preference:
+    the platform-specific name first, then the platform-less
+    `Language-{name}` shared by every platform's trial.
+    """
+    candidates = [sibling_ref]
+    shared_ref = LANGUAGE_PLATFORM_PREFIX.sub('Language-', sibling_ref)
+    if shared_ref != sibling_ref:
+        candidates.append(shared_ref)
+    return candidates
+
+
 def resolve_ref(repo, sibling_ref, is_language):
     if not sibling_ref:
         return ''
 
     if is_language:
-        if branch_exists(repo, sibling_ref):
-            return sibling_ref
+        for candidate in language_ref_candidates(sibling_ref):
+            if branch_exists(repo, candidate):
+                return candidate
         return ''
 
     return sibling_ref
@@ -114,6 +136,9 @@ def main(matrix_path, epoch, distro, sibling_ref, is_language, target_subdirs):
                     continue
 
                 ref = resolve_ref(repo, sibling_ref, is_language)
+                print(f"{repo}: building from "
+                      f"{repr(ref) if ref else 'the default branch'}",
+                      flush=True)
                 repo_dir = os.path.join(tmpdir, repo.replace('/', '__'))
                 clone_repo(repo, ref, repo_dir)
 
@@ -127,12 +152,23 @@ def main(matrix_path, epoch, distro, sibling_ref, is_language, target_subdirs):
 
                 resolved[repo] = {
                     'repo': repo,
+                    'ref': ref,
                     'package_name': package_name,
                     'package_version': package_version,
                     'build_number': build_number,
                 }
 
                 shutil.rmtree(repo_dir)
+
+    if is_language and not any(pkg['ref'] for pkg in resolved.values()):
+        candidates = ' or '.join(
+            f"'{c}'" for c in language_ref_candidates(sibling_ref)
+        )
+        print(f"::error::Language trial found no package repo with a "
+              f"{candidates} branch, so it would only rebuild default "
+              f"branches and test nothing new. Check the branch name in "
+              f"the package repo(s) under test.")
+        sys.exit(1)
 
     enriched = [
         [resolved[repo] for repo in generation]

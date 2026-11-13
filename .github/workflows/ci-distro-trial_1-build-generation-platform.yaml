@@ -25,13 +25,7 @@ on:
       target_subdirs:
         required: true
         type: string
-      sibling-ref:
-        required: true
-        type: string
       is-rebuild:
-        required: true
-        type: string
-      is-language:
         required: true
         type: string
       runner_label:
@@ -106,43 +100,14 @@ jobs:
           name: ${{ inputs.seed-environment-key }}
           path: ${{ env.seed_environment_path }}
 
-      - name: Try to retrieve branch name
-        if: ${{ inputs.is-language == 'true' }}
-        # Replaces octokit/request-action@v2.x
-        uses: qiime2-cutlery/request-action@v2.x
-        id: get-branch
-        with:
-          route: GET /repos/${{ matrix.package.repo }}/branches/${{ inputs.sibling-ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
-
-      - name: Determine which branch to checkout
-        if: ${{ inputs.is-language == 'true' }}
-        id: sibling-ref
-        run: |
-          if [[ '${{ steps.get-branch.outputs.status }}' = '200' ]]; then
-            sibling_ref="${{ inputs.sibling-ref }}"
-          else
-            sibling_ref=""
-          fi
-          echo "sibling-ref=$sibling_ref" >> $GITHUB_OUTPUT
-
+      # The ref is resolved once per package during prepare (see
+      # enrich-rebuild-matrix.py) and stored in rebuild_matrix.json; an empty
+      # ref checks out the package repo's default branch.
       - uses: actions/checkout@v3
-        if: ${{ inputs.is-language == 'true' }}
         name: 'Checkout ${{ matrix.package.repo }} repository'
         with:
           repository: ${{ matrix.package.repo }}
-          ref: ${{ steps.sibling-ref.outputs.sibling-ref }}
-          path: ${{ env.plugin_path }}
-          fetch-depth: 0
-
-      - uses: actions/checkout@v3
-        if: ${{ inputs.is-language != 'true' }}
-        name: 'Checkout ${{ matrix.package.repo }} repository'
-        with:
-          repository: ${{ matrix.package.repo }}
-          ref: ${{ inputs.sibling-ref }}
+          ref: ${{ matrix.package.ref }}
           path: ${{ env.plugin_path }}
           fetch-depth: 0
 

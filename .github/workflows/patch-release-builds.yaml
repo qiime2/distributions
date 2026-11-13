@@ -30,7 +30,6 @@ jobs:
       is-patch: true
     secrets: inherit
 
-  # re-run a failed image build with the release-docker workflow
   docker:
     needs: [patch]
     if: ${{ needs.patch.outputs.released == 'true' }}
@@ -38,4 +37,5 @@ jobs:
     with:
       epoch: ${{ needs.patch.outputs.epoch }}
       distro: ${{ inputs.distro }}
+      ref: ${{ needs.patch.outputs.sha }}
     secrets: inherit

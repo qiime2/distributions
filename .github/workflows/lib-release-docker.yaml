@@ -7,6 +7,10 @@ on:
       distro:
         required: true
         type: string
+      ref:
+        required: false
+        type: string
+        default: ''
 
 jobs:
   build:
@@ -17,6 +21,8 @@ jobs:
         name: "Clean disk on linux"
 
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Build Image
         id: build-image

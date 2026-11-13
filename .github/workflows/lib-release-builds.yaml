@@ -15,6 +15,9 @@ on:
       released:
         description: 'Outputs true once the release PR has been merged'
         value: ${{ jobs.merge-pr.outputs.merged }}
+      sha:
+        description: 'The merge commit SHA of the release PR'
+        value: ${{ jobs.merge-pr.outputs.sha }}
 
 jobs:
   check:
@@ -250,15 +253,20 @@ jobs:
       (needs.await-osx.result == 'success' || needs.await-osx.result == 'skipped')
     outputs:
       merged: ${{ steps.merge.outputs.merged }}
+      sha: ${{ steps.merge.outputs.sha }}
     steps:
       - name: merge release pr
         id: merge
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api \
+          # capture the merge commit so downstream jobs (i.e. docker) can
+          # build from the merged release, not the commit this run started on
+          sha=$(gh api \
             --method PUT \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge
+            /repos/qiime2/distributions/pulls/${{ needs.create-pr.outputs.pr }}/merge \
+            --jq '.sha')
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "merged=true" >> "$GITHUB_OUTPUT"

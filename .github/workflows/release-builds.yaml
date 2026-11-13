@@ -40,6 +40,7 @@ jobs:
     with:
       epoch: ${{ needs.tiny.outputs.epoch }}
       distro: tiny
+      ref: ${{ needs.tiny.outputs.sha }}
     secrets: inherit
 
   qiime2-docker:
@@ -49,6 +50,7 @@ jobs:
     with:
       epoch: ${{ needs.qiime2.outputs.epoch }}
       distro: qiime2
+      ref: ${{ needs.qiime2.outputs.sha }}
     secrets: inherit
 
   moshpit-docker:
@@ -58,6 +60,7 @@ jobs:
     with:
       epoch: ${{ needs.moshpit.outputs.epoch }}
       distro: moshpit
+      ref: ${{ needs.moshpit.outputs.sha }}
     secrets: inherit
 
   pathogenome-docker:
@@ -67,4 +70,5 @@ jobs:
     with:
       epoch: ${{ needs.pathogenome.outputs.epoch }}
       distro: pathogenome
+      ref: ${{ needs.pathogenome.outputs.sha }}
     secrets: inherit

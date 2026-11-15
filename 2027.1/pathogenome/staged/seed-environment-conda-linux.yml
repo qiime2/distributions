@@ -53,8 +53,8 @@ dependencies:
 - r-base=4.3.3
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
-- rachis-cli=2027.1.0.dev0+2.g490e38c
-- rachis=2027.1.0.dev0+5.g960a4d6
+- rachis-cli=2027.1.0.dev0+3.g546881c
+- rachis=2027.1.0.dev0+25.gce2a00a
 - rescript=2026.4.0.dev0
 - rgi=6.0.8
 - rnanorm=2.1.0

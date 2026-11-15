@@ -32,8 +32,8 @@ dependencies:
 - q2templates=2027.1.0.dev0
 - qiime2=2027.1.0.dev0
 - r-reticulate=1.45.0
-- rachis-cli=2027.1.0.dev0+2.g490e38c
-- rachis=2027.1.0.dev0+5.g960a4d6
+- rachis-cli=2027.1.0.dev0+3.g546881c
+- rachis=2027.1.0.dev0+25.gce2a00a
 - rgi=6.0.8
 - rnanorm=2.1.0
 - scikit-bio=0.7.2
@@ -48,4 +48,3 @@ dependencies:
 extras:
   variant_override:
     qiime2_epoch: '2027.1'
-# modified: 2026-11-15

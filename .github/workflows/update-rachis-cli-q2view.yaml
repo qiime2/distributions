@@ -1,0 +1,63 @@
+name: Update q2view in rachis-cli
+
+on:
+  workflow_call:
+    secrets:
+      BOT_PAT:
+        required: true
+
+permissions: {}
+
+jobs:
+  update-pin:
+    if: github.repository == 'qiime2/q2view' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out rachis-cli
+        uses: actions/checkout@v4
+        with:
+          repository: rachis-org/rachis-cli
+          ref: dev
+          token: ${{ secrets.BOT_PAT }}
+          persist-credentials: false
+
+      - name: Update the q2view submodule pin
+        id: pin
+        shell: bash
+        run: |
+          git submodule update --init -- q2view
+          # Read main at run time so queued runs pick up the latest commit.
+          git -C q2view fetch origin refs/heads/main
+          target_sha=$(git -C q2view rev-parse FETCH_HEAD)
+          pinned_sha=$(git rev-parse HEAD:q2view)
+
+          if [[ "$target_sha" == "$pinned_sha" ]]; then
+            echo "rachis-cli already pins q2view at $target_sha"
+            exit 0
+          fi
+
+          git -C q2view checkout --detach "$target_sha"
+          git add -- q2view
+          echo "sha=$target_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the pull request
+        if: steps.pin.outputs.sha != ''
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          base: dev
+          branch: automation/update-q2view
+          add-paths: q2view
+          author: q2d2 <q2d2.noreply@gmail.com>
+          committer: q2d2 <q2d2.noreply@gmail.com>
+          commit-message: "SKIP: update vendored q2view to ${{ steps.pin.outputs.sha }}"
+          title: "SKIP: update vendored q2view"
+          body: |
+            # Description
+
+            Update the q2view submodule pin to `${{ steps.pin.outputs.sha }}`.
+
+            # AI Disclosure
+
+            - [x] NO AI USED.
+            - [ ] AI USED.

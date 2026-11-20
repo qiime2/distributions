@@ -9,7 +9,7 @@ dependencies:
 - biopython=1.86
 - blast=2.16.0
 - bowtie2=2.5.5
-- busco=6.0.0
+- busco=6.1.0
 - click=8.1.8
 - cutadapt=5.2
 - das_tool=1.1.7
@@ -33,7 +33,7 @@ dependencies:
 - ncbi-datasets-pyclient=18.18.0
 - networkx=3.6.1
 - notebook=6.5.5
-- numpy=2.4.2
+- numpy=2.3
 - pandas=2.3.3
 - parsl=2026.2.23
 - patsy=0.5.6
@@ -85,7 +85,7 @@ dependencies:
 - scipy=1.17.1
 - seaborn=0.13.2
 - semibin=2.2.0
-- sepp=4.5.6
+- sepp=4.5.5
 - spades=4.2.0
 - statsmodels=0.14.5
 - tqdm=4.67.3

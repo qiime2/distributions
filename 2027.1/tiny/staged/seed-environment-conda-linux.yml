@@ -24,13 +24,13 @@ dependencies:
 - r-base=4.5.2
 - r-reticulate=1.45.0
 - rachis-cli=2027.1.0.dev0+3.g546881c
-- rachis=2027.1.0.dev0+25.gce2a00a
+- rachis=2027.1.0.dev0+26.gb2d8bc7
 - rnanorm=2.1.0
 - scikit-bio=0.7.2
 - scikit-learn=1.7.1
 - scipy=1.17.1
 - tzlocal=5.3.1
-- unifrac-binaries=1.5.1
+- unifrac-binaries=1.7
 - unifrac=1.5.1
 extras:
   variant_override:

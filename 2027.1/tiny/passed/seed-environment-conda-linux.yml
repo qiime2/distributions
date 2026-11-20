@@ -28,7 +28,7 @@ dependencies:
 - scikit-learn=1.7.1
 - scipy=1.17.1
 - tzlocal=5.3.1
-- unifrac-binaries=1.5.1
+- unifrac-binaries=1.7
 - unifrac=1.5.1
 extras:
   variant_override:

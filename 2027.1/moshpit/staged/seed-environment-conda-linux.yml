@@ -53,10 +53,10 @@ dependencies:
 - q2-emperor=2026.4.0.dev0
 - q2-fastp=2027.1.0.dev0
 - q2-feature-classifier=2026.4.0.dev0
-- q2-feature-table=2027.1.0.dev0
+- q2-feature-table=2027.1.0.dev0+1.g1ca1951
 - q2-fondue=2027.1.0.dev0+2.g2d38e49
 - q2-longitudinal=2026.4.0.dev0
-- q2-mag=2027.1.0.dev0+3.g329d80b
+- q2-mag=2027.1.0.dev0+4.g05c49dc
 - q2-metadata=2027.1.0.dev0
 - q2-mystery-stew=2027.1.0.dev0
 - q2-quality-control=2027.1.0.dev0
@@ -75,8 +75,8 @@ dependencies:
 - r-reticulate=1.45.0
 - r-vegan=2.6_8
 - rachis-cli=2027.1.0.dev0+3.g546881c
-- rachis=2027.1.0.dev0+25.gce2a00a
-- rescript=2027.1.0.dev0+1.g9f8af84
+- rachis=2027.1.0.dev0+26.gb2d8bc7
+- rescript=2027.1.0.dev0+2.g84a6369
 - rnanorm=2.1.0
 - rpy2=3.5.11
 - samtools=1.22.1
@@ -91,7 +91,7 @@ dependencies:
 - tqdm=4.67.3
 - tzlocal=5.3.1
 - umap-learn=0.5.4
-- unifrac-binaries=1.5.1
+- unifrac-binaries=1.7
 - unifrac=1.5.1
 - usearch=12.0_beta
 - vamb=5.0.4

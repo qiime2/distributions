@@ -1,0 +1,186 @@
+name: lib-build-docs
+
+# Builds a doc project's book on a GH runner and uploads it to Read the Docs
+# (direct upload: https://docs.readthedocs.com/platform/stable/guides/build/direct-upload.html).
+# Called from each doc repo; the caller sets the triggers:
+#   PR                     -> PR preview (/en/<PR number>/)
+#   push to main           -> latest
+#   push to release branch -> that version (e.g. 2026.10), plus stable if it is
+#                             the newest release branch
+#   manual run             -> build only, no upload
+
+on:
+  workflow_call:
+    inputs:
+      rtd-slug:
+        description: 'RTD project slug'
+        type: string
+        required: true
+      book-dir:
+        description: 'Directory holding the book (its HTML goes to <book-dir>/_build/html)'
+        type: string
+        required: true
+      pre-build:
+        description: 'Commands to run in the docs env before the build (e.g. q2doc refresh-cache)'
+        type: string
+        required: false
+        default: ''
+      build-command:
+        description: 'Command that builds the HTML, run in the docs env'
+        type: string
+        required: false
+        default: 'make html'
+      environment-file:
+        description: 'Conda environment file for the docs env'
+        type: string
+        required: false
+        default: 'environment-files/readthedocs.yml'
+      canonical-url:
+        description: 'URL the docs will be served from, for manual runs (optional)'
+        type: string
+        required: false
+        default: ''
+    secrets:
+      rtd-token:
+        required: false
+
+jobs:
+  versions:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.resolve.outputs.matrix }}
+    steps:
+      - id: resolve
+        env:
+          RTD_SLUG: ${{ inputs.rtd-slug }}
+          EVENT: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          CANONICAL_URL: ${{ inputs.canonical-url }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          # the project's domain, which may be a custom one (e.g. docs.qiime2.org):
+          # https://<domain>/<lang>/<default version>/ -> https://<domain>/<lang>
+          docs_url=$(curl -sSf "https://app.readthedocs.org/api/v3/projects/${RTD_SLUG}/" \
+            | jq -r '.urls.documentation')
+          site=$(echo "$docs_url" | sed -E 's#/[^/]+/?$##')
+          echo "serving from: ${site}"
+
+          # label, version-name, url, upload, [version-type], [commit]
+          # ('' for version-name/type/commit = inferred by the upload action)
+          entry() {
+            jq -nc --arg l "$1" --arg v "$2" --arg u "$3" --argjson up "$4" \
+              --arg t "${5:-}" --arg c "${6:-}" \
+              '{label: $l, version: $v, url: $u, upload: $up, type: $t, commit: $c}'
+          }
+
+          entries=()
+          case "$EVENT" in
+            pull_request)
+              upload=false
+              [ "$HEAD_REPO" = "$GITHUB_REPOSITORY" ] && upload=true
+              entries+=("$(entry "pr-${PR_NUMBER}" "" \
+                "https://${RTD_SLUG}--${PR_NUMBER}.org.readthedocs.build/en/${PR_NUMBER}/" "$upload")")
+              ;;
+            push)
+              if [ "$REF_NAME" = main ]; then
+                entries+=("$(entry latest latest "${site}/latest/" true)")
+              elif [[ "$REF_NAME" =~ ^[0-9]{4}\.[0-9]+$ ]]; then
+                entries+=("$(entry "$REF_NAME" "$REF_NAME" "${site}/${REF_NAME}/" true)")
+                # only the newest release branch updates stable, so a fix pushed
+                # to an older release doesn't overwrite it
+                newest=$(git ls-remote --heads "https://github.com/${GITHUB_REPOSITORY}" \
+                  | sed -nE 's#.*refs/heads/([0-9]{4}\.[0-9]+)$#\1#p' | sort -V | tail -n 1)
+                echo "newest release branch: ${newest}"
+                if [ "$REF_NAME" = "$newest" ]; then
+                  # RTD matches uploads on name + type; stable is a tag-type
+                  entries+=("$(entry stable stable "${site}/stable/" true tag "$SHA")")
+                fi
+              else
+                echo "::error::push to unrecognized branch ${REF_NAME}"
+                exit 1
+              fi
+              ;;
+            workflow_dispatch)
+              entries+=("$(entry manual "" "$CANONICAL_URL" false)")
+              ;;
+            *)
+              echo "::error::unsupported event ${EVENT}"
+              exit 1
+              ;;
+          esac
+
+          matrix=$(printf '%s\n' "${entries[@]}" | jq -sc .)
+          echo "$matrix" | jq .
+          echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: versions
+    name: build (${{ matrix.label }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.versions.outputs.matrix) }}
+    defaults:
+      run:
+        shell: bash -el {0}
+    env:
+      CANONICAL_URL: ${{ matrix.url }}
+      ENV_FILE: ${{ inputs.environment-file }}
+      PRE_BUILD: ${{ inputs.pre-build }}
+      BUILD_COMMAND: ${{ inputs.build-command }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up miniforge
+        uses: qiime2-cutlery/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          auto-activate-base: true
+          activate-environment: ''
+
+      - name: runner resources
+        run: |
+          nproc
+          free -h
+          df -h .
+
+      - name: create environment
+        run: mamba env create -p "$PWD/.env" --file "$ENV_FILE"
+
+      - name: set RTD-style URL variables
+        if: env.CANONICAL_URL != ''
+        run: |
+          base_url=$(echo "$CANONICAL_URL" | sed -E -e 's#^https?://[^/]+##' -e 's#/$##')
+          echo "READTHEDOCS_CANONICAL_URL=$CANONICAL_URL" >> "$GITHUB_ENV"
+          echo "BASE_URL=$base_url" >> "$GITHUB_ENV"
+
+      - name: pre-build
+        if: env.PRE_BUILD != ''
+        run: PATH="$PWD/.env/bin:$PATH" bash -e -c "$PRE_BUILD"
+
+      - name: build html
+        run: PATH="$PWD/.env/bin:$PATH" bash -e -c "$BUILD_COMMAND"
+
+      - name: upload html
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-${{ matrix.label }}
+          path: ${{ inputs.book-dir }}/_build/html/
+          if-no-files-found: error
+
+      - name: upload to Read the Docs
+        if: matrix.upload
+        uses: qiime2-cutlery/upload-action@main
+        with:
+          token: ${{ secrets.rtd-token }}
+          project-slug: ${{ inputs.rtd-slug }}
+          html: ${{ inputs.book-dir }}/_build/html
+          version-name: ${{ matrix.version }}
+          version-type: ${{ matrix.type }}
+          commit: ${{ matrix.commit }}

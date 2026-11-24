@@ -38,12 +38,12 @@ dependencies:
 - q2-dada2=2027.1.0.dev0+1.g4339def
 - q2-deblur=2027.1.0.dev0
 - q2-demux=2027.1.0.dev0
-- q2-diversity-lib=2027.1.0.dev0
+- q2-diversity-lib=2027.1.0.dev0+1.g07f405c
 - q2-diversity=2027.1.0.dev0+2.gdf755eb
 - q2-emperor=2027.1.0.dev0
 - q2-fastp=2027.1.0.dev0
 - q2-feature-classifier=2027.1.0.dev0
-- q2-feature-table=2027.1.0.dev0
+- q2-feature-table=2027.1.0.dev0+1.g1ca1951
 - q2-fondue=2027.1.0.dev0+2.g2d38e49
 - q2-fragment-insertion=2027.1.0.dev0
 - q2-kmerizer=2027.1.0.dev0
@@ -67,8 +67,8 @@ dependencies:
 - r-svglite=2.2.2
 - r-vegan=2.7_3
 - rachis-cli=2027.1.0.dev0+3.g546881c
-- rachis=2027.1.0.dev0+25.gce2a00a
-- rescript=2027.1.0.dev0+1.g9f8af84
+- rachis=2027.1.0.dev0+26.gb2d8bc7
+- rescript=2027.1.0.dev0+2.g84a6369
 - rnanorm=2.1.0
 - rpy2=3.6.4
 - samtools=1.22.1
@@ -81,7 +81,7 @@ dependencies:
 - tqdm=4.67.3
 - tzlocal=5.3.1
 - umap-learn=0.5.11
-- unifrac-binaries=1.5.1
+- unifrac-binaries=1.7
 - unifrac=1.5.1
 - vsearch=2.30.4
 extras:

@@ -36,7 +36,7 @@ dependencies:
 - q2-assembly=2026.4.0.dev0
 - q2-demux=2027.1.0.dev0
 - q2-feature-classifier=2026.4.0.dev0
-- q2-feature-table=2027.1.0.dev0
+- q2-feature-table=2027.1.0.dev0+1.g1ca1951
 - q2-fondue=2026.4.0.dev0
 - q2-longitudinal=2026.4.0.dev0
 - q2-metadata=2027.1.0.dev0
@@ -54,7 +54,7 @@ dependencies:
 - r-optparse=1.7.5
 - r-reticulate=1.45.0
 - rachis-cli=2027.1.0.dev0+3.g546881c
-- rachis=2027.1.0.dev0+25.gce2a00a
+- rachis=2027.1.0.dev0+26.gb2d8bc7
 - rescript=2026.4.0.dev0
 - rgi=6.0.8
 - rnanorm=2.1.0
@@ -68,7 +68,7 @@ dependencies:
 - statsmodels=0.14.5
 - tqdm=4.67.3
 - tzlocal=5.3.1
-- unifrac-binaries=1.5.1
+- unifrac-binaries=1.7
 - unifrac=1.5.1
 - vsearch=2.22.1
 extras:

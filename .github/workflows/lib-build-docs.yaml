@@ -30,6 +30,16 @@ on:
         type: string
         required: false
         default: 'make html'
+      pdf-command:
+        description: 'Command that builds a PDF, run in the docs env after the HTML build (optional; installs LaTeX)'
+        type: string
+        required: false
+        default: ''
+      pdf-path:
+        description: 'Path of the PDF that pdf-command writes (required with pdf-command)'
+        type: string
+        required: false
+        default: ''
       environment-file:
         description: 'Conda environment file for the docs env'
         type: string
@@ -134,6 +144,8 @@ jobs:
       ENV_FILE: ${{ inputs.environment-file }}
       PRE_BUILD: ${{ inputs.pre-build }}
       BUILD_COMMAND: ${{ inputs.build-command }}
+      PDF_COMMAND: ${{ inputs.pdf-command }}
+      PDF_PATH: ${{ inputs.pdf-path }}
     steps:
       - uses: actions/checkout@v4
 
@@ -152,6 +164,19 @@ jobs:
 
       - name: create environment
         run: mamba env create -p "$PWD/.env" --file "$ENV_FILE"
+
+      # the LaTeX packages RTD installs for Sphinx PDF builds
+      - name: install LaTeX
+        if: env.PDF_COMMAND != ''
+        run: |
+          if [ -z "$PDF_PATH" ]; then
+            echo "::error::pdf-path is required with pdf-command"
+            exit 1
+          fi
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends \
+            latexmk texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended tex-gyre
 
       - name: set RTD-style URL variables
         if: env.CANONICAL_URL != ''
@@ -174,6 +199,20 @@ jobs:
           path: ${{ inputs.book-dir }}/_build/html/
           if-no-files-found: error
 
+      - name: build pdf
+        if: env.PDF_COMMAND != ''
+        run: |
+          PATH="$PWD/.env/bin:$PATH" bash -e -c "$PDF_COMMAND"
+          test -f "$PDF_PATH" || { echo "::error::no PDF at ${PDF_PATH}"; exit 1; }
+
+      - name: upload pdf
+        if: env.PDF_COMMAND != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-${{ matrix.label }}
+          path: ${{ inputs.pdf-path }}
+          if-no-files-found: error
+
       - name: upload to Read the Docs
         if: matrix.upload
         uses: qiime2-cutlery/upload-action@main
@@ -181,6 +220,7 @@ jobs:
           token: ${{ secrets.rtd-token }}
           project-slug: ${{ inputs.rtd-slug }}
           html: ${{ inputs.book-dir }}/_build/html
+          pdf: ${{ inputs.pdf-path }}
           version-name: ${{ matrix.version }}
           version-type: ${{ matrix.type }}
           commit: ${{ matrix.commit }}

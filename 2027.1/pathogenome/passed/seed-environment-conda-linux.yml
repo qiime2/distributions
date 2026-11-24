@@ -22,7 +22,7 @@ dependencies:
 - python=3.12
 - q2-amrfinderplus=2027.1.0.dev0
 - q2-demux=2027.1.0.dev0
-- q2-feature-table=2027.1.0.dev0
+- q2-feature-table=2027.1.0.dev0+1.g1ca1951
 - q2-metadata=2027.1.0.dev0
 - q2-mystery-stew=2027.1.0.dev0
 - q2-rgi=2027.1.0.dev0
@@ -33,7 +33,7 @@ dependencies:
 - qiime2=2027.1.0.dev0
 - r-reticulate=1.45.0
 - rachis-cli=2027.1.0.dev0+3.g546881c
-- rachis=2027.1.0.dev0+25.gce2a00a
+- rachis=2027.1.0.dev0+26.gb2d8bc7
 - rgi=6.0.8
 - rnanorm=2.1.0
 - scikit-bio=0.7.2

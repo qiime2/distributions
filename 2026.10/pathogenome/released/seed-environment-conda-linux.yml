@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.10/pathogenome/passed
+- https://packages.qiime2.org/qiime2/2026.10/pathogenome/released
 - conda-forge
 - bioconda
 dependencies:
@@ -22,7 +22,7 @@ dependencies:
 - python=3.12
 - q2-amrfinderplus=2026.10.0
 - q2-demux=2026.10.0
-- q2-feature-table=2026.10.0
+- q2-feature-table=2026.10.1
 - q2-metadata=2026.10.0
 - q2-mystery-stew=2026.10.0
 - q2-rgi=2026.10.0

@@ -12,7 +12,7 @@ dependencies:
 - annotated-types=0.8.0
 - anyio=4.16.0
 - archspec=0.2.6
-- argcomplete=3.7.2
+- argcomplete=3.8.0
 - aria2=1.37.0
 - arpack=3.9.1
 - array-api-compat=1.16.0
@@ -97,16 +97,16 @@ dependencies:
 - bwidget=1.10.1
 - bzip2=1.0.8
 - c-ares=1.34.9
-- ca-certificates=2026.10.23
+- ca-certificates=2026.11.20
 - cached-property=2.0.1
 - cached_property=2.0.1
 - cachetools=5.5.2
 - cairo=1.18.4
 - cdbtools=0.99
-- certifi=2026.10.23
+- certifi=2026.11.20
 - cffi=2.1.1
 - chardet=7.7.0
-- charset-normalizer=3.5.2
+- charset-normalizer=3.5.3
 - circos=0.69.9
 - click=8.1.8
 - cloudpickle=3.1.3
@@ -123,11 +123,11 @@ dependencies:
 - cutadapt=5.2
 - cycler=0.12.1
 - cyrus-sasl=2.1.28
-- cython=3.3.1
+- cython=3.3.2
 - dadaptation=3.2
 - das_tool=1.1.7
 - dbus=1.13.6
-- decorator=5.3.1
+- decorator=5.3.2
 - dendropy=5.1.3
 - deprecation=2.1.0
 - diamond=2.2.8
@@ -140,7 +140,7 @@ dependencies:
 - eggnog-mapper=2.1.12
 - entrez-direct=22.4
 - entrezpy=2.1.3
-- exceptiongroup=1.3.1
+- exceptiongroup=1.3.2
 - executing=2.3.0
 - expat=2.9.0
 - fastcluster=1.3.0
@@ -164,7 +164,7 @@ dependencies:
 - frictionless=5.5.0
 - fsspec=2026.9.0
 - future=1.0.0
-- gawk=5.4.1
+- gawk=5.4.2
 - gcc_impl_linux-64=16.2.0
 - gfatools=0.5.5
 - gflags=2.2.2
@@ -206,7 +206,7 @@ dependencies:
 - insilicoseq=2.0.1
 - interface_meta=1.3.0
 - iow=1.0.8
-- ipython=9.18.1
+- ipython=9.19.1
 - ipython_pygments_lexers=1.1.1
 - ipywidgets=8.1.9
 - isa-l=2.32.1
@@ -237,7 +237,7 @@ dependencies:
 - libarrow-acero=16.1.0
 - libarrow-dataset=16.1.0
 - libarrow-substrait=16.1.0
-- libasprintf=0.25.1
+- libasprintf=1.0
 - libblas=3.9.0
 - libboost=1.85.0
 - libboost-devel=1.85.0
@@ -271,7 +271,7 @@ dependencies:
 - libgcc-devel_linux-64=16.2.0
 - libgcc-ng=16.2.0
 - libgd=2.3.3
-- libgettextpo=0.25.1
+- libgettextpo=1.0
 - libgfortran=16.2.0
 - libgfortran-ng=16.2.0
 - libgfortran5=16.2.0
@@ -393,7 +393,7 @@ dependencies:
 - optree=0.20.0
 - orc=2.1.1
 - ossuuid=1.6.2
-- packaging=26.3
+- packaging=26.4
 - pandas=2.3.3
 - pandera=0.34.1
 - pandera-base=0.34.1
@@ -489,14 +489,14 @@ dependencies:
 - perl-xml-sax=1.02
 - perl-xml-sax-base=1.09
 - perl-yaml=1.30
-- petl=1.7.33
+- petl=1.8.0
 - pexpect=4.9.0
 - pigz=2.8
 - pillow=11.3.0
 - pip=26.2.2
 - pixman=0.46.4
-- platformdirs=4.14.7
-- plotly=7.1.0
+- platformdirs=4.14.8
+- plotly=7.2.0
 - pluggy=1.7.0
 - pockets=0.9.1
 - polars=2.1.0
@@ -557,7 +557,7 @@ dependencies:
 - q2-cutadapt=2026.10.0
 - q2-demux=2026.10.0
 - q2-fastp=2026.10.0
-- q2-feature-table=2026.10.0
+- q2-feature-table=2026.10.1
 - q2-fondue=2026.10.1
 - q2-mag=2026.10.1
 - q2-metadata=2026.10.0
@@ -688,7 +688,7 @@ dependencies:
 - r-rstudioapi=0.19.0
 - r-rvest=1.0.5
 - r-s7=1.0.0
-- r-sass=0.4.10
+- r-sass=0.5.0
 - r-scales=1.4.0
 - r-selectr=0.6_0
 - r-snow=0.4_4
@@ -696,7 +696,7 @@ dependencies:
 - r-stringi=1.8.7
 - r-stringr=1.6.0
 - r-sys=3.4.3
-- r-systemfonts=1.3.3
+- r-systemfonts=1.3.4
 - r-testthat=3.3.2
 - r-textshaping=0.4.0
 - r-tibble=3.3.1
@@ -724,7 +724,7 @@ dependencies:
 - readline=8.3
 - recommonmark=0.7.1
 - referencing=0.37.0
-- regex=2026.11.19
+- regex=2026.11.23
 - repeatmasker=4.2.3
 - requests=2.34.2
 - rescript=2026.10.1
@@ -762,7 +762,7 @@ dependencies:
 - sniffio=1.3.1
 - snowballstemmer=3.1.1
 - sortedcontainers=2.4.0
-- soupsieve=4.1.2
+- soupsieve=4.1.3
 - sourmash-minimal=4.9.4
 - sourmash_plugin_branchwater=0.9.15
 - spades=4.2.0
@@ -801,7 +801,7 @@ dependencies:
 - tqdm=4.67.3
 - traitlets=5.16.1
 - trf=4.10.0rc2
-- typeguard=4.6.0
+- typeguard=4.6.1
 - typer=0.29.2
 - typing-extensions=4.16.0
 - typing-inspection=0.4.5
@@ -822,7 +822,7 @@ dependencies:
 - vambcore=0.1.2
 - vsearch=2.30.4
 - wayland=1.26.0
-- wcwidth=0.9.4
+- wcwidth=0.9.5
 - wget=1.21.4
 - wheel=0.48.0
 - whenever=0.11.0
@@ -858,7 +858,7 @@ dependencies:
 - xz=5.8.3
 - xz-gpl-tools=5.8.3
 - xz-tools=5.8.3
-- yaml=0.2.5
+- yaml=0.2.7
 - yq=4.4.5
 - zeromq=4.3.5
 - zipfile-deflate64=0.2.0

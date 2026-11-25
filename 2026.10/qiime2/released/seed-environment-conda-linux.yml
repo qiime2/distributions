@@ -1,5 +1,5 @@
 channels:
-- https://packages.qiime2.org/qiime2/2026.10/qiime2/passed
+- https://packages.qiime2.org/qiime2/2026.10/qiime2/released
 - conda-forge
 - bioconda
 dependencies:
@@ -41,7 +41,7 @@ dependencies:
 - q2-emperor=2026.10.0
 - q2-fastp=2026.10.0
 - q2-feature-classifier=2026.10.0
-- q2-feature-table=2026.10.0
+- q2-feature-table=2026.10.1
 - q2-fondue=2026.10.1
 - q2-fragment-insertion=2026.10.0
 - q2-kmerizer=2026.10.0

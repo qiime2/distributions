@@ -1,0 +1,13 @@
+{
+  "name": "rachis-distributions",
+  "displayName": "rachis distributions",
+  "description": "Run rachis paired trials in qiime2/distributions: add, update or remove an external dependency, or test plugin PRs distro-wide",
+  "version": "1.0.0",
+  "author": {
+    "name": "Liz Gehret"
+  },
+  "homepage": "https://github.com/qiime2/distributions/tree/dev/plugins/rachis-distributions",
+  "repository": "https://github.com/qiime2/distributions",
+  "license": "BSD-3-Clause",
+  "keywords": ["rachis", "qiime2", "conda", "distributions", "ci"]
+}

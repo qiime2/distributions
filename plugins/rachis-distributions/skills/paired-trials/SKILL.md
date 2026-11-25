@@ -1,5 +1,5 @@
 ---
-name: rachis-paired-trials
+name: paired-trials
 description: Run rachis paired trials in qiime2/distributions, either to add, update or remove an external dependency (paired Language- trials or seed-only Prepare- trials, local solve, fixes, Prepare- PRs, cleanup), or to test one or more plugin PRs distro-wide with test-only Language- trials and no dependency changes.
 ---
 

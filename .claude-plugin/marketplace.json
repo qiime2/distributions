@@ -1,0 +1,14 @@
+{
+  "name": "rachis",
+  "description": "Claude plugins for rachis distribution maintenance",
+  "owner": {
+    "name": "rachis development team"
+  },
+  "plugins": [
+    {
+      "name": "rachis-distributions",
+      "source": "./plugins/rachis-distributions",
+      "description": "Paired Language-/Prepare- trials in qiime2/distributions: external dependency updates and distro-wide PR test trials"
+    }
+  ]
+}

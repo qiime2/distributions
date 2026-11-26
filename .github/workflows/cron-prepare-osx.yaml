@@ -17,3 +17,4 @@ jobs:
     secrets: inherit
     with:
       distro: qiime2
+      platforms: '["osx-64"]'

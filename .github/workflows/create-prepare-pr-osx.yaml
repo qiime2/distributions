@@ -9,6 +9,11 @@ on:
         required: false
         type: boolean
         default: false
+      platforms:
+        description: 'JSON list of macOS platform labels to prepare (osx-64, osx-arm64)'
+        required: false
+        type: string
+        default: '["osx-64", "osx-arm64"]'
   workflow_dispatch:
     inputs:
       distro:
@@ -18,9 +23,15 @@ on:
         required: false
         type: boolean
         default: false
+      platforms:
+        description: 'JSON list of macOS platform labels to prepare (osx-64, osx-arm64)'
+        required: false
+        type: string
+        default: '["osx-64", "osx-arm64"]'
 
 jobs:
   osx-intel:
+    if: ${{ contains(fromJSON(inputs.platforms), 'osx-64') }}
     uses: ./.github/workflows/create-prepare-pr-platform.yaml
     secrets: inherit
     with:
@@ -31,6 +42,7 @@ jobs:
       draft: ${{ inputs.draft }}
 
   osx-arm:
+    if: ${{ contains(fromJSON(inputs.platforms), 'osx-arm64') }}
     uses: ./.github/workflows/create-prepare-pr-platform.yaml
     secrets: inherit
     with:

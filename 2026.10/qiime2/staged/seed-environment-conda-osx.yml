@@ -43,7 +43,7 @@ dependencies:
 - q2-emperor=2026.10.0
 - q2-fastp=2026.10.0
 - q2-feature-classifier=2026.10.0
-- q2-feature-table=2026.10.0
+- q2-feature-table=2026.10.1
 - q2-fondue=2026.10.1
 - q2-fragment-insertion=2026.10.0
 - q2-kmerizer=2026.10.0
@@ -81,7 +81,7 @@ dependencies:
 - tqdm=4.67.3
 - tzlocal=5.3.1
 - umap-learn=0.5.11
-- unifrac-binaries=1.5.1
+- unifrac-binaries=1.7
 - unifrac=1.5.1
 - vsearch=2.30.4
 extras:

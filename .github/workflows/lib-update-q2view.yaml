@@ -1,0 +1,41 @@
+name: Update q2view in rachis-cli
+
+on:
+  workflow_call: {}
+
+jobs:
+  update-pin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out rachis-cli
+        uses: actions/checkout@v4
+        with:
+          repository: rachis-org/rachis-cli
+          token: ${{ secrets.BOT_PAT }}
+
+      - name: Update the q2view submodule pin
+        id: pin
+        shell: bash
+        run: |
+          git submodule update --init --remote q2view
+          echo "sha=$(git -C q2view rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the pull request
+        uses: qiime2-cutlery/create-pull-request@v5
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          branch: automation/update-q2view
+          add-paths: q2view
+          author: q2d2 <q2d2.noreply@gmail.com>
+          committer: q2d2 <q2d2.noreply@gmail.com>
+          commit-message: "SKIP: update vendored q2view to ${{ steps.pin.outputs.sha }}"
+          title: "SKIP: update vendored q2view"
+          body: |
+            # Description
+
+            Update the q2view submodule pin to `${{ steps.pin.outputs.sha }}`.
+
+            # AI Disclosure
+
+            - [x] NO AI USED.
+            - [ ] AI USED.
